@@ -1,6 +1,6 @@
 # AK_Exusiai 协作开发指南
 
-本文件适用于本仓库全部任务。两位开发者使用 Codex 时，都应在修改前完整读取本文件，并以本机当前游戏程序集、当前 RitsuLib 包和仓库中的设计表为准。
+本文件适用于本仓库全部任务。两位开发者使用 Codex 时，都应在修改前完整读取本文件，并以各自安装的当前游戏程序集、项目锁定的 RitsuLib 版本和仓库中的设计表为准。除本仓库内容外，不假定另一位开发者拥有任何相同目录或额外参考文件。
 
 ## 项目身份
 
@@ -15,11 +15,10 @@
 ## 当前工具链基线
 
 - 游戏：Slay the Spire 2 public beta `v0.111.0`。
-- 游戏程序集：`D:\Apps\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll`。
+- 游戏程序集：从各自的 Slay the Spire 2 安装目录定位 `sts2.dll`，路径不得写死进共享代码或文档。
 - Godot：4.5.1 Mono。
 - .NET SDK：9.x，目标框架 `net9.0`。
 - 新项目 RitsuLib：`STS2.RitsuLib` 0.5.14；该包明确包含游戏 API `0.111.0` 目标。
-- 旧项目 `DpxVanillaExpansion` 的 RitsuLib 0.5.11 仅作已验证经验参考，不应成为本项目默认版本。
 
 游戏、NuGet 编译包和游戏 `mods/STS2-RitsuLib` 运行时必须匹配。只通过编译不能替代进游戏测试。版本核查见 `docs/FRAMEWORK_AUDIT.md`。
 
@@ -33,18 +32,22 @@
 - `AK_Exusiai/localization/zhs/` 与 `eng/`：简中和英文文本。
 - `AK_Exusiai/images/cards/`：无卡框、费用、标题和规则文字的卡图。
 - `AK_Exusiai/images/powers/`：透明背景、32–64 px 仍清晰的能力图标。
+- `AK_Exusiai/audio/`：游戏运行时实际加载的最终音效资源。
+- `references/official/art/`：制作所需的官方美术源素材。
+- `references/official/audio/`：制作所需的官方音频源素材。
+- `references/official/SOURCES.md`：素材来源、用途和改动记录。
 - `docs/`：设计决策、框架审计和协作进度。
 
-本地安装路径写入未跟踪的 `local.props`，不得提交绝对路径、日志、游戏 DLL、PCK、密钥或个人凭据。
+本地安装路径写入未跟踪的 `local.props`，不得提交绝对路径、日志、游戏 DLL、完整游戏 PCK、密钥或个人凭据。
 
-## 从 DpxVanillaExpansion 继承的有效经验
+## 已验证的开发经验
 
-1. 具体 API 永远以当前本机 `sts2.dll` 的反编译结果为准；早期教程只用于定位思路。
+1. 具体 API 永远以各自当前游戏版本的 `sts2.dll` 反编译结果为准；早期教程只用于定位思路。
 2. 注册与资源能力优先使用 RitsuLib；普通机制优先组合原版命令、Hook 和模型。
 3. 只有没有合适 Hook 时才使用 Harmony。异步逻辑采用窄范围 patch，并明确校验调用点数量，避免更新后静默误补丁。
 4. 入口初始化必须同时完成 Godot 脚本注册和 Mod 程序集类型发现；具体 API 名称以 0.5.14 文档为准。
 5. 卡牌可升级数值使用 `DynamicVar`、`DamageVar`、`PowerVar<T>` 等动态变量，并在本地化中引用占位符，不把升级数值硬编码进描述。
-6. 资源只从本 Mod 的 `res://AK_Exusiai/...` 根路径加载，不从工作区参考目录直接加载。
+6. 运行时资源只从本 Mod 的 `res://AK_Exusiai/...` 根路径加载；源素材先纳入本仓库，再加工或复制到正式资源目录。
 7. 游戏运行时可能锁定 DLL；完整构建与部署前先退出游戏。只做 C# 验证时关闭 PCK 导出和部署。
 8. 加载失败时先查缺失依赖、Mod ID、本地化键、资源路径和 patch 报告，不先猜机制代码。
 
@@ -88,9 +91,9 @@
 
 1. 对照设计表确认费用、类型、稀有度、颜色、基础与升级差异。
 2. 在当前 `sts2.dll` 中寻找最接近的原版卡、命令、能力和 Hook。
-3. 实现 C# 类与必要的能力/命令，不复制其他 Mod 的大段代码或美术。
+3. 实现 C# 类与必要的能力/命令，不复制其他 Mod 的大段代码或其自制美术。项目所需的官方素材按下方素材规则管理。
 4. 添加简中、英文文本；英文设计名缺失时不得擅自定稿。
-5. 添加最终资源或明确的临时占位资源；占位资源不能进入发布包。
+5. 把复现制作过程所需的源素材和最终资源一并提交；临时占位资源必须清楚标注且不能进入发布包。
 6. 完成只编译检查、PCK 内容检查和游戏内基础/升级/边界测试。
 7. 在 PR 中记录测试命令、结果和已知限制，更新 `docs/PROGRESS.md`。
 
@@ -103,7 +106,18 @@
 - 共享文件由当期“集成负责人”修改；另一边在独立文件中完成实现并在 PR 描述中列出需要集成的注册项。
 - 提交信息推荐 Conventional Commits，例如 `feat(ammo): add ammo resource model`、`docs: update collaborator progress`。
 - 合并优先使用 PR；至少由另一边或其 Codex 做一次代码审阅。
-- 不提交 `bin/`、`obj/`、`.godot/`、部署产物、游戏程序集、日志、缓存和本地绝对路径。
+- 不提交 `bin/`、`obj/`、`.godot/`、部署产物、游戏程序集、完整游戏 PCK、日志、缓存和本地绝对路径。
+
+## 美术与音效同步规则
+
+- 项目维护者已确认：本项目在相关权利方允许的非盈利二次创作范围内使用官方美术与音效；仓库和发布内容必须保持非盈利，并遵守素材来源方的现行规则。
+- 凡是实现、调整、构建或继续制作所必需的选定美术和音效，都必须纳入 Git，不能只保存在某一位开发者电脑上，也不能依赖仓库外相对路径。
+- 原始或裁切前的官方美术放入 `references/official/art/`；原始或转换前的官方音频放入 `references/official/audio/`。
+- 游戏实际加载的最终图片和音效分别放入 `AK_Exusiai/images/` 与 `AK_Exusiai/audio/`。代码和 Godot 资源只能引用这些正式目录。
+- 每批素材在 `references/official/SOURCES.md` 记录来源作品/页面、原文件名、仓库路径、用途和已做修改，便于双方追溯。
+- 可以提交项目实际需要的官方素材，但不要提交整套游戏目录、完整资源包、可执行文件、DLL/PCK、无关批量提取结果或其他 Mod 的素材。
+- 普通 PNG、JPG、WebP、OGG、WAV 等直接由 Git 跟踪。若单个素材过大，应先由双方在独立 PR 中启用并验证 Git LFS，再添加该文件，避免一边无法拉取。
+- 提交前用 `git status` 确认新增素材已被跟踪；提交后由另一边执行一次拉取或独立克隆检查，确认源素材和最终资源都能恢复。
 
 ## 测试要求
 
@@ -123,15 +137,14 @@
 ## 参考资料优先顺序
 
 1. 本仓库已经构建并在当前游戏版本中测试成功的代码。
-2. 本机当前 `sts2.dll` 与游戏附带 XML 文档。
-3. 本机 RitsuLib 0.5.14 的 README、XML 文档和 DLL。
+2. 各自当前游戏安装中的 `sts2.dll` 与游戏附带 XML 文档。
+3. NuGet 还原得到的 RitsuLib 0.5.14 README、XML 文档和 DLL。
 4. RitsuLib 官方文档与仓库：
    - https://sts2-ritsulib.ritsukage.com/guide/getting-started
    - https://sts2-ritsulib.ritsukage.com/guide/content-authoring-toolkit
    - https://sts2-ritsulib.ritsukage.com/guide/patching-guide
    - https://github.com/BAKAOLC/STS2-RitsuLib
 5. 持续更新的社区教程：https://github.com/GlitchedReme/SlayTheSpire2ModdingTutorials
-6. 工作区旧项目 `../DpxVanillaExpansion/`，仅用于学习已验证模式，不复制其项目身份或无关机制。
 
 ## 进度同步
 

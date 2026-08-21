@@ -2,29 +2,23 @@
 
 ## 结论
 
-AK_Exusiai 应直接以游戏 public beta `v0.111.0` 和 `STS2.RitsuLib` `0.5.14` 建立新项目。
+AK_Exusiai 应直接以游戏 public beta `v0.111.0` 和 `STS2.RitsuLib` `0.5.14` 建立新项目。两位开发者分别配置自己的游戏和 Godot 安装路径，不在仓库中共享绝对路径。
 
-不要把旧项目的 RitsuLib `0.5.11` 复制为本项目基线。0.5.11 对当前 `sts2.dll` 仍能完成编译，但它不是 0.111.0 对应的最新框架包，而且本机游戏当前没有安装 `mods/STS2-RitsuLib` 运行时，无法据此证明运行期兼容。
-
-## 本机证据
+## 基线核查记录
 
 - 游戏 `release_info.json`：
   - version/branch：`v0.111.0`；
   - commit：`41cef1ea`；
   - 构建时间：2026-08-14。
 - `sts2.dll` SHA-256：`0861BFA1DF347538D932F22D580E75420F08082792EB914E53B4882764ACDBE9`。
-- 使用旧 `DpxVanillaExpansion` 与 RitsuLib 0.5.11 对当前 DLL 做只编译验证：0 警告、0 错误。
-- 本机 NuGet 包源在 2026-08-21 返回 `STS2.RitsuLib` 最新版本 `0.5.14`。
+- NuGet 包源在 2026-08-21 返回 `STS2.RitsuLib` 最新版本 `0.5.14`。
 - 0.5.14 NuGet 包：
   - repository commit：`8fca891d65de050b1848b9dc4e1fcc449dacf253`；
   - 包内生成清单目标：`0.111.0`；
   - GodotSharp/Godot.SourceGenerators：4.5.1；
   - 目标框架：`net9.0`。
-- 本机游戏 `mods/` 目录未发现 `STS2-RitsuLib` 运行时安装。
 
-## 对旧经验的影响
-
-仍然有效：
+## 开发要求
 
 - 当前 DLL 反编译优先于教程；
 - 动态变量、本地化、资源路径和注册分层的做法；
@@ -32,13 +26,11 @@ AK_Exusiai 应直接以游戏 public beta `v0.111.0` 和 `STS2.RitsuLib` `0.5.14
 - C# 只编译与完整 PCK/部署测试分离；
 - 对异步 patch 校验目标数量和执行顺序。
 
-需要更新：
-
-- 新项目 PackageReference 从 0.5.11 改为 0.5.14；
-- Mod 清单 `min_game_version` 从旧基线更新为 `0.111.0`；
+- 新项目 PackageReference 固定为 0.5.14；
+- Mod 清单 `min_game_version` 使用 `0.111.0`；
 - 安装与编译包匹配的 RitsuLib 0.5.14 运行时后再做进游戏验证；
 - RitsuLib 当前 README 推荐 `CreateContentPack`、生命周期事件和诊断能力，应优先核对 0.5.14 文档，而不是机械复制旧项目的自动注册模式；
-- 官方游戏从 0.107.1 起发布 `STS2.dll` XML 文档，并修复 Steam Mod 下 `ReflectionHelper.ModTypes` 的问题；开发时应把随游戏文档列为本机参考；
+- 官方游戏从 0.107.1 起发布 `STS2.dll` XML 文档，并修复 Steam Mod 下 `ReflectionHelper.ModTypes` 的问题；开发时应把各自游戏安装附带的文档列为直接参考；
 - 社区教程仓库当前明确支持 `public-beta`，但仍声明 API 频繁变化，因此只能作为次级参考。
 
 ## 下一次升级检查

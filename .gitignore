@@ -32,7 +32,9 @@ tmp/
 Thumbs.db
 desktop.ini
 
-# Never vendor the game or extracted proprietary assets
+# Do not vendor whole game installations or unrelated bulk dumps.
+# Selected project-required art/audio belongs under references/official/ and is tracked.
 game/
 game_files/
-extracted_assets/
+full_game_dump/
+bulk_extracts/
