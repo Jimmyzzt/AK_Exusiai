@@ -6,6 +6,6 @@
   "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.description": "本回合弹药额外增加 {Amount} 点伤害。",
   "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.smartDescription": "本回合弹药额外增加 {Amount} 点伤害。",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "延时爆炸",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "下回合开始时，不消耗弹药并对所有敌人造成 {Damage} 点伤害。",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "下回合开始时，不消耗弹药并对所有敌人造成 {Damage} 点伤害。"
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。"
 }

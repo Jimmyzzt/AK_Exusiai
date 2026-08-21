@@ -50,9 +50,10 @@ public sealed class DelayedBlastPower : ModPowerTemplate
         try
         {
             // A fresh attack-card source survives combat save/load without persisting a raw card reference.
-            // A null CardPlay marks this as delayed damage: it never spends Ammo, but current Ammo still
-            // contributes its damage bonus through Exusiai.ModifyDamageAdditive.
+            // The saved amount already contains the attacker's play-time modifiers. Unpowered prevents Ammo,
+            // temporary modification, Strength, Weak, and other next-turn modifiers from changing it again.
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .Unpowered()
                 .FromCard(sourceCard, null)
                 .TargetingAllOpponents(combatState)
                 .WithHitFx("vfx/vfx_attack_slash")

@@ -2,5 +2,5 @@
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "快递",
   "AK_EXUSIAI_KEYWORD_DELIVERY.description": "拥有快递的牌获得保留与消耗。你的回合结束时，其快递层数减少 1；快递归零时，该牌立即免费对随机合法目标打出。",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "天使",
-  "AK_EXUSIAI_KEYWORD_ANGEL.description": "这张牌的能量耗能不会增加。"
+  "AK_EXUSIAI_KEYWORD_ANGEL.description": "这张牌的能量耗能不会增加。在本场战斗中降低后，其耗能上限随之永久降低。"
 }

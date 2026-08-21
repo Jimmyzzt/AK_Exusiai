@@ -3,6 +3,7 @@ using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -23,6 +24,19 @@ public sealed class DelayedBlast : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        decimal delayedDamage = Hook.ModifyDamage(
+            Owner.RunState,
+            CombatState,
+            null,
+            Owner.Creature,
+            DynamicVars.Damage.BaseValue,
+            ValueProp.Move,
+            this,
+            cardPlay,
+            ModifyDamageHookType.All,
+            CardPreviewMode.None,
+            out _);
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(CombatState!)
@@ -31,8 +45,7 @@ public sealed class DelayedBlast : ExusiaiCardTemplate
 
         DelayedBlastPower? power = await PowerCmd.Apply<DelayedBlastPower>(
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
-        ArgumentNullException.ThrowIfNull(power);
-        power.SetDamage(DynamicVars.Damage.BaseValue);
+        power?.SetDamage(delayedDamage);
     }
 
     protected override void OnUpgrade()
