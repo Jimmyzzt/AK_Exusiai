@@ -25,8 +25,8 @@
 | 任务 | 状态 | 所有文件/范围 | 最近结果 | 下一步 |
 |---|---|---|---|---|
 | 仓库和规范初始化 | 已完成 | 根文档、`docs/`、`.github/` | 已写入经验、审计、Issue/PR 模板、素材同步和协作约定 | 开始空 Mod 项目 |
-| 角色、弹药、初始牌和初始遗物 | 待审阅 | `AK_ExusiaiCode/`、`AK_Exusiai/`、项目与清单文件 | 分支 `mechanic/character-ammo-starters`；已实现 77 HP/99 金币、10 张牌、证章与弹药 UI/伤害结算 | 按 `docs/TESTING.md` 完成可视游戏内测试并修正布局 |
-| 弹药机制设计审阅 | 已完成 | `AK_ExusiaiCode/Mechanics/AmmoResource.cs`、`AK_ExusiaiCode/Characters/Exusiai.cs` | 无上限、战斗清空；每个 CardPlay 扣 1，所有 Powered Attack 段 +2 | 重点回归 Replay、自动打出、多条攻击命令 |
+| 角色、弹药、初始牌和初始遗物 | 待审阅 | `AK_ExusiaiCode/`、`AK_Exusiai/`、项目与清单文件 | 分支 `mechanic/character-ammo-starters`；头像已替换，打击/防御暂用战士卡图 | 按 `docs/TESTING.md` 完成可视游戏内测试并修正布局 |
+| 弹药机制设计审阅 | 已修复待回归 | `AK_ExusiaiCode/Entry.cs`、`AK_ExusiaiCode/Characters/Exusiai.cs` | 已补充角色模型的显式战斗 Hook 订阅；修复此前攻击牌不扣弹药且不加伤害 | 重点回归实际扣除、伤害、Replay、自动打出、多条攻击命令 |
 
 ## 协作者侧
 

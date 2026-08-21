@@ -2,8 +2,10 @@ using System.Reflection;
 using AK_Exusiai.Characters;
 using AK_Exusiai.Mechanics;
 using Godot;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
+using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
 using Logger = MegaCrit.Sts2.Core.Logging.Logger;
@@ -25,8 +27,19 @@ public partial class Entry
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 
         ValidatePackagedAssets();
+        ModHelper.SubscribeForCombatStateHooks(
+            $"{ModId}.CharacterCombatHooks",
+            GetCharacterCombatHookModels);
         AmmoResource.Register();
         Logger.Info("AK_Exusiai initialized for Exusiai.");
+    }
+
+    private static IEnumerable<AbstractModel> GetCharacterCombatHookModels(CombatState combatState)
+    {
+        return combatState.Players
+            .Select(player => player.Character)
+            .OfType<Exusiai>()
+            .Distinct();
     }
 
     private static void ValidatePackagedAssets()
