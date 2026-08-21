@@ -1,11 +1,14 @@
 {
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.title": "Strike",
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.description": "Deal {Damage:diff()} damage.",
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.smartDescription": "Deal {Damage:diff()} damage.",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.title": "Defend",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.description": "Gain {Block:diff()} Block.",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.smartDescription": "Gain {Block:diff()} Block.",
   "AK_EXUSIAI_CARD_CHARGING_MODE.title": "Charging Mode",
-  "AK_EXUSIAI_CARD_CHARGING_MODE.description": "Deal !D! damage 3 times.",
-  "AK_EXUSIAI-CHARGING_MODE.title": "Charging Mode",
-  "AK_EXUSIAI-CHARGING_MODE.description": "Deal !D! damage 3 times.",
-
+  "AK_EXUSIAI_CARD_CHARGING_MODE.description": "Deal {Damage:diff()} damage {HitCount} times.",
+  "AK_EXUSIAI_CARD_CHARGING_MODE.smartDescription": "Deal {Damage:diff()} damage {HitCount} times.",
   "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.title": "Locked and Loaded",
-  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.description": "Gain !A! Ammo.",
-  "AK_EXUSIAI-LOCKED_AND_LOADED.title": "Locked and Loaded",
-  "AK_EXUSIAI-LOCKED_AND_LOADED.description": "Gain !A! Ammo."
+  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.description": "Gain {Ammo:diff()} [gold]Ammo[/gold].",
+  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.smartDescription": "Gain {Ammo:diff()} [gold]Ammo[/gold]."
 }

@@ -1,41 +1,72 @@
 <Project Sdk="Godot.NET.Sdk/4.5.1">
-  <Import Project="local.props" Condition="Exists('local.props')" />
-  <Import Project="Sts2PathDiscovery.props" />
+  <Import Project=".\local.props" Condition="Exists('.\local.props')" />
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>true</ImplicitUsings>
+    <LangVersion>13.0</LangVersion>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>true</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>AK_Exusiai</RootNamespace>
+    <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <PathMap>$(AppOutputBase)=.\</PathMap>
+    <NoWarn>$(NoWarn);MSB3270;CS0436</NoWarn>
+
+    <GodotExportPreset>Windows Desktop</GodotExportPreset>
+    <Sts2Dir Condition="'$(Sts2Dir)' == ''">$(MSBuildProgramFiles32)\Steam\steamapps\common\Slay the Spire 2</Sts2Dir>
+    <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
+    <ModOutputDir>$(Sts2Dir)\mods\$(MSBuildProjectName)\</ModOutputDir>
+    <ModPckPath>$(ModOutputDir)$(MSBuildProjectName).pck</ModPckPath>
+    <CopyModOnBuild Condition="'$(CopyModOnBuild)' == ''">true</CopyModOnBuild>
+    <RunPckExport Condition="'$(RunPckExport)' == '' and '$(DesignTimeBuild)' != 'true'">true</RunPckExport>
+    <RunPckExport Condition="'$(RunPckExport)' == ''">false</RunPckExport>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="STS2.RitsuLib" Version="0.5.14" />
-  </ItemGroup>
-
-  <ItemGroup Condition="Exists('$(Sts2DataDir)')">
-    <Reference Include="sts2">
-      <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
+    <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+    <PackageReference Include="STS2.RitsuLib" Version="0.5.14" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="AK_Exusiai/**" />
-    <EmbeddedResource Remove="AK_Exusiai/**" />
-    <None Include="AK_Exusiai.json" />
-    <None Include="project.godot" />
-    <None Include="export_presets.cfg" Condition="Exists('export_presets.cfg')" />
-    <None Include="AK_Exusiai/**" />
+    <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false" />
+    <Reference Include="0Harmony" HintPath="$(Sts2DataDir)\0Harmony.dll" Private="True" />
+    <Reference Include="sts2" HintPath="$(Sts2DataDir)\sts2.dll" Private="True" />
+    <Reference Include="Steamworks.NET" HintPath="$(Sts2DataDir)\Steamworks.NET.dll" Private="True" />
   </ItemGroup>
 
-  <Target Name="CheckSts2ReferencePath" BeforeTargets="ResolveReferences">
-    <Error
-      Text="Slay the Spire 2 data directory was not found. Create local.props from local.props.template or pass /p:Sts2Path=..."
-      Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)/sts2.dll')" />
+  <ItemGroup>
+    <Compile Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
+    <EmbeddedResource Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
+    <None Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
+
+    <AdditionalFiles Include="AK_Exusiai/localization/**/*.json" />
+    <Compile Remove="AK_Exusiai/**" />
+    <EmbeddedResource Remove="AK_Exusiai/**" />
+    <None Include="AK_Exusiai/**" />
+    <None Include="AK_Exusiai.json" />
+    <None Include="project.godot" />
+    <None Include="export_presets.cfg" />
+    <None Include="local.props.template" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="local.props" Condition="Exists('local.props')" />
+  </ItemGroup>
+
+  <Target Name="ValidateSts2GameInstall" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(Sts2DataDir)\sts2.dll')" Text="Could not find sts2.dll under '$(Sts2DataDir)'. Copy local.props.template to local.props and configure local paths." />
+  </Target>
+
+  <Target Name="CopyMod" AfterTargets="Build" Condition="'$(CopyModOnBuild)' != 'false'">
+    <MakeDir Directories="$(ModOutputDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModOutputDir)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(MSBuildProjectName).json" DestinationFolder="$(ModOutputDir)" />
+  </Target>
+
+  <Target Name="ExportPCK" AfterTargets="Build" Condition="'$(RunPckExport)' == 'true' and '$(STS2_SKIP_PCK_EXPORT)' != '1'">
+    <Error Condition="'$(GodotExe)' == '' or !Exists('$(GodotExe)')" Text="GodotExe is required for PCK export. Configure it in local.props or build with /p:RunPckExport=false." />
+    <MakeDir Directories="$(ModOutputDir)" />
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)" Command="&quot;$(GodotExe)&quot; --headless --path &quot;$(MSBuildProjectDirectory)&quot; --export-pack &quot;$(GodotExportPreset)&quot; &quot;$(ModPckPath)&quot;" EnvironmentVariables="STS2_SKIP_PCK_EXPORT=1" />
   </Target>
 </Project>

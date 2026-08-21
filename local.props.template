@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!-- Copy this file to local.props and set your local game install path if auto-detection fails. -->
-    <Sts2Path>D:/steam/steamapps/common/Slay the Spire 2</Sts2Path>
+    <Sts2Dir>PATH_TO_STEAM\steamapps\common\Slay the Spire 2</Sts2Dir>
+    <Sts2DataDir>$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
+    <GodotExe>PATH_TO_GODOT\Godot_v4.5.1-stable_mono_win64_console.exe</GodotExe>
   </PropertyGroup>
 </Project>

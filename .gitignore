@@ -5,6 +5,8 @@ obj/
 .mono/
 .vs/
 .idea/
+*.uid
+*.import
 
 # Local machine configuration
 local.props

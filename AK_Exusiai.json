@@ -1,14 +1,18 @@
 {
   "id": "AK_Exusiai",
-  "name": "AK_Exusiai",
-  "author": "bbr",
-  "description": "a test of Slay the Spire 2 character mod",
-  "version": "v0.0.1",
-  "min_game_version": "0.111.0",
+  "name": "能天使",
+  "pck_name": "AK_Exusiai",
+  "author": "Jimmyzzt",
+  "description": "《明日方舟》能天使角色 Mod。非官方、非盈利同人二次创作。",
+  "version": "0.1.0",
   "has_pck": true,
   "has_dll": true,
+  "affects_gameplay": true,
+  "min_game_version": "0.111.0",
   "dependencies": [
-    { "id": "STS2-RitsuLib" }
-  ],
-  "affects_gameplay": true
+    {
+      "id": "STS2-RitsuLib",
+      "version": "0.5.14"
+    }
+  ]
 }
