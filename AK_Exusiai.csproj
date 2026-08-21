@@ -36,9 +36,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
-    <EmbeddedResource Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
-    <None Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**" />
+    <Compile Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
+    <EmbeddedResource Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
+    <None Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
 
     <AdditionalFiles Include="AK_Exusiai/localization/**/*.json" />
     <Compile Remove="AK_Exusiai/**" />

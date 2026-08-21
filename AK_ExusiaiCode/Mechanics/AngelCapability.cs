@@ -10,6 +10,10 @@ namespace AK_Exusiai.Mechanics;
 
 [RegisterModelCapability]
 [RegisterDefaultModelCapability(typeof(HolyCityPurge))]
+[RegisterDefaultModelCapability(typeof(HolyCityGuidance))]
+[RegisterDefaultModelCapability(typeof(HolyCityShelter))]
+[RegisterDefaultModelCapability(typeof(HolyCityEternity))]
+[RegisterDefaultModelCapability(typeof(HolyCityIceCream))]
 public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
 {
     private const int NoCombatMinimum = int.MaxValue;

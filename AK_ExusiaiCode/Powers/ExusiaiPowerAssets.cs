@@ -11,6 +11,11 @@ internal static class ExusiaiPowerAssets
         IconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower.svg",
         BigIconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower.svg");
     public static PowerAssetProfile Modification => From<StrengthPower>();
+    public static PowerAssetProfile Confusion => From<ConfusedPower>();
+    public static PowerAssetProfile Weak => From<WeakPower>();
+    public static PowerAssetProfile Energy => From<EnergyNextTurnPower>();
+    public static PowerAssetProfile Echo => From<EchoFormPower>();
+    public static PowerAssetProfile Retain => From<BarricadePower>();
 
     private static PowerAssetProfile From<TPower>() where TPower : PowerModel
     {

@@ -1,6 +1,7 @@
 using System.Reflection;
 using AK_Exusiai.Characters;
 using AK_Exusiai.Mechanics;
+using AK_Exusiai.Patches;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Logging;
@@ -8,6 +9,7 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib;
 using STS2RitsuLib.Interop;
+using STS2RitsuLib.Patching.Core;
 using Logger = MegaCrit.Sts2.Core.Logging.Logger;
 
 namespace AK_Exusiai;
@@ -19,6 +21,7 @@ public partial class Entry
     public const string ResPath = $"res://{ModId}";
 
     public static Logger Logger { get; } = new(ModId, LogType.Generic);
+    private static ModPatcher? _patcher;
 
     public static void Initialize()
     {
@@ -26,6 +29,11 @@ public partial class Entry
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ExusiaiKeywords.Register();
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
+
+        _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
+        _patcher.RegisterPatch<EnemyPassiveSuppressionPatch>();
+        if (!_patcher.PatchAll())
+            throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");
 
         ValidatePackagedAssets();
         ModHelper.SubscribeForCombatStateHooks(
