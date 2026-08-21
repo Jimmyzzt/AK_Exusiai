@@ -10,7 +10,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class TemporaryModification : ExusiaiCardTemplate
+public sealed class FieldModification : ExusiaiCardTemplate
 {
     private const string BonusKey = "Bonus";
     protected override bool ShowAmmoHoverTip => true;
@@ -22,7 +22,7 @@ public sealed class TemporaryModification : ExusiaiCardTemplate
         new DynamicVar(BonusKey, 2m),
     ];
 
-    public TemporaryModification() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public FieldModification() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
     }
 

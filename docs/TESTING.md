@@ -18,24 +18,24 @@ AK_EXUSIAI_CARD_TRAVEL_LIGHT
 AK_EXUSIAI_CARD_PIERCING_STRIKE
 AK_EXUSIAI_CARD_ARMOR_PIERCING_ROUND
 AK_EXUSIAI_CARD_PRECISION_STRIKE
-AK_EXUSIAI_CARD_FIRE_ESCORT
+AK_EXUSIAI_CARD_ARMED_ESCORT
 AK_EXUSIAI_CARD_DELAYED_BLAST
-AK_EXUSIAI_CARD_SHOOTING_TECHNIQUE
+AK_EXUSIAI_CARD_MARKSMANSHIP
 AK_EXUSIAI_CARD_WELCOME_TO_LATERANO
-AK_EXUSIAI_CARD_DEVOUT_CROSS
+AK_EXUSIAI_CARD_CROSS_OF_DEVOTION
 AK_EXUSIAI_CARD_VIOLENT_DELIVERY
 AK_EXUSIAI_CARD_FREE_DELIVERY
 AK_EXUSIAI_CARD_RUN
 AK_EXUSIAI_CARD_THE_LORDS_PROTECTION
 AK_EXUSIAI_CARD_JUNGLE_STYLE
 AK_EXUSIAI_CARD_TEXAS_CALL
-AK_EXUSIAI_CARD_QUICK_MAGAZINE
+AK_EXUSIAI_CARD_QUICK_MAG
 AK_EXUSIAI_CARD_LOOKING_BACK
-AK_EXUSIAI_CARD_TEMPORARY_MODIFICATION
+AK_EXUSIAI_CARD_FIELD_MODIFICATION
 AK_EXUSIAI_CARD_READY_FOR_ACTION
 AK_EXUSIAI_CARD_APPLE_PIE
 AK_EXUSIAI_CARD_TEXAS
-AK_EXUSIAI_CARD_HOLY_CITY_PURIFICATION
+AK_EXUSIAI_CARD_HOLY_CITY_PURGE
 AK_EXUSIAI_RELIC_EXUSIAI_BADGE
 AK_EXUSIAI_SECONDARY_RESOURCE_AMMO
 ```
@@ -53,10 +53,10 @@ card AK_EXUSIAI_CARD_LOCKED_AND_LOADED
 card AK_EXUSIAI_CARD_CHARGING_MODE
 card AK_EXUSIAI_CARD_EXUSIAI_STRIKE
 card AK_EXUSIAI_CARD_TRAVEL_LIGHT
-card AK_EXUSIAI_CARD_FIRE_ESCORT
+card AK_EXUSIAI_CARD_ARMED_ESCORT
 card AK_EXUSIAI_CARD_DELAYED_BLAST
-card AK_EXUSIAI_CARD_TEMPORARY_MODIFICATION
-card AK_EXUSIAI_CARD_DEVOUT_CROSS
+card AK_EXUSIAI_CARD_FIELD_MODIFICATION
+card AK_EXUSIAI_CARD_CROSS_OF_DEVOTION
 card AK_EXUSIAI_CARD_TEXAS_CALL
 upgrade 0
 ```
@@ -73,9 +73,11 @@ upgrade 0
 - Replay、自动打出或复制形成的每个实际出牌实例分别消耗弹药；一张牌内部的多条攻击命令仍只消耗 1 发。
 - 战斗结束并进入下一场战斗前，上一场剩余弹药不会保留；新战斗只获得证章提供的 4 发。
 - 轻装上阵先获得 1 发弹药再造成伤害；0 弹药起手也享受本次 +2 增伤，且不扣弹。
-- 德克萨斯与圣城净化显示无色牌框且不进入能天使普通牌奖励池；德克萨斯不扣弹，有弹药时每段伤害享受增伤，0 弹药时不享受。
+- 德克萨斯与圣城净化像原版灵魂、君王之剑一样注册在 `TokenCardPool`：显示无色牌框，但不进入能天使奖励、普通无色奖励或商店；德克萨斯不扣弹，有弹药时每段伤害享受增伤，0 弹药时不享受。
 - 穿透打击只有实际扣弹时才改为命中所有敌人；原目标不会被重复命中。
 - 穿甲弹、精准打击与德克萨斯的描述不显示原始 `{VulnerablePower...}`、`{WeakPower...}` 或其他未解析占位符；穿甲弹与精准打击先造成伤害，再分别施加易伤与虚弱，0 弹药时不施加。
+- 所有格挡描述中的“格挡”均标黄；穿透打击、穿甲弹和精准打击条件句中的“弹药”均标黄。
+- 只有描述提到弹药的牌显示弹药悬浮说明：轻装上阵、穿透打击、穿甲弹、精准打击、射击技巧和德克萨斯应显示；延时爆炸、拉特兰欢迎你、虔心十字、暴力运输等不应显示。
 - 拉特兰欢迎你的卡面伤害随弹药及临时改装实时变化，多段次数仍正确显示为 3（升级后 4）。
 - 延时爆炸在打出时冻结攻击方修正后的单段伤害：无弹药时两次均为 8（升级后 11）；有弹药和基础临时改装时两次均为 12。下回合的弹药、临时改装或其他攻击方修正不再改变第二次伤害。
 - 延时爆炸挂起图标显示冻结后的实际伤害数值，文本不再额外说明“不消耗弹药”。
@@ -95,4 +97,4 @@ upgrade 0
 
 ## 本轮优先重测卡牌
 
-`德克萨斯`、`圣城净化`、`精准打击`、`穿甲弹`、`延时爆炸`、`临时改装`、`拉特兰欢迎你`、`射击技巧`、`并联弹匣`、`准备万全！`、`苹果派！`。
+`德克萨斯`、`圣城净化`、`穿透打击`、`精准打击`、`穿甲弹`、`延时爆炸`、`临时改装`、`拉特兰欢迎你`、`射击技巧`、`虔心十字`、`暴力运输`、`并联弹匣`、`准备万全！`、`苹果派！`。

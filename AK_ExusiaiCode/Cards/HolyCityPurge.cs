@@ -1,4 +1,3 @@
-using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
@@ -12,8 +11,8 @@ using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
-[RegisterCard(typeof(ColorlessCardPool))]
-public sealed class HolyCityPurification : ExusiaiCardTemplate
+[RegisterCard(typeof(TokenCardPool))]
+public sealed class HolyCityPurge : ExusiaiCardTemplate
 {
     private const string AmmoKey = "Ammo";
     protected override bool ShowAmmoHoverTip => true;
@@ -26,7 +25,7 @@ public sealed class HolyCityPurification : ExusiaiCardTemplate
         new DynamicVar(AmmoKey, 3m),
     ];
 
-    public HolyCityPurification() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public HolyCityPurge() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)
     {
     }
 

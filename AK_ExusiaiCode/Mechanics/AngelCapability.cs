@@ -9,7 +9,7 @@ using AK_Exusiai.Cards;
 namespace AK_Exusiai.Mechanics;
 
 [RegisterModelCapability]
-[RegisterDefaultModelCapability(typeof(HolyCityPurification))]
+[RegisterDefaultModelCapability(typeof(HolyCityPurge))]
 public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
 {
     private const int NoCombatMinimum = int.MaxValue;

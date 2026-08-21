@@ -14,6 +14,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class PrecisionStrike : ExusiaiCardTemplate
 {
+    protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

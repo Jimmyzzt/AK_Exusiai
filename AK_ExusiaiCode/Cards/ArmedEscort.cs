@@ -12,7 +12,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class FireEscort : ExusiaiCardTemplate
+public sealed class ArmedEscort : ExusiaiCardTemplate
 {
     private const string DeliveryKey = "Delivery";
     protected override bool ShowDeliveryHoverTip => true;
@@ -23,7 +23,7 @@ public sealed class FireEscort : ExusiaiCardTemplate
         new DynamicVar(DeliveryKey, 3m),
     ];
 
-    public FireEscort() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public ArmedEscort() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
     }
 

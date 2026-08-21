@@ -21,7 +21,7 @@ public sealed class ReadyForAction : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(11m, ValueProp.Move),
-        new DynamicVar(EnergyKey, 1m),
+        new EnergyVar(1),
         new CardsVar(1),
     ];
 

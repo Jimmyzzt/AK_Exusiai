@@ -14,7 +14,7 @@ public abstract class ExusiaiCardTemplate(
     bool showInCardLibrary = true)
     : ModCardTemplate(baseCost, type, rarity, target, showInCardLibrary)
 {
-    protected virtual bool ShowAmmoHoverTip => Type == CardType.Attack;
+    protected virtual bool ShowAmmoHoverTip => false;
     protected virtual bool ShowDeliveryHoverTip => false;
     protected virtual bool ShowAngelHoverTip => false;
     protected virtual IEnumerable<IHoverTip> CardHoverTips => [];

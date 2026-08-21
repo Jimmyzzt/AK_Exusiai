@@ -1,4 +1,3 @@
-using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -13,10 +12,11 @@ using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
-[RegisterCard(typeof(ColorlessCardPool))]
+[RegisterCard(typeof(TokenCardPool))]
 public sealed class Texas : ExusiaiCardTemplate, IAmmoFreeAttack
 {
     private const string HitCountKey = "HitCount";
+    protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
