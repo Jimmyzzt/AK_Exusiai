@@ -24,6 +24,7 @@ public partial class Entry
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
+        ExusiaiKeywords.Register();
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 
         ValidatePackagedAssets();
