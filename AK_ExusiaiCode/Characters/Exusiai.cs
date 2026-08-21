@@ -1,0 +1,136 @@
+using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
+using System.Runtime.CompilerServices;
+using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Characters;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Combat.SecondaryResources;
+using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Scaffolding.Characters;
+using STS2RitsuLib.Scaffolding.Visuals.Definition;
+
+namespace AK_Exusiai.Characters;
+
+[RegisterCharacter]
+public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelicPool, ExusiaiPotionPool>
+{
+    private static readonly ConditionalWeakTable<Exusiai, AmmoData> AmmoDataByCharacter = new();
+
+    private sealed class AmmoData
+    {
+        public HashSet<CardPlay> PaidAttackPlays { get; } = [];
+    }
+
+    public override CharacterGender Gender => CharacterGender.Feminine;
+    public override Color NameColor => new("F04B61");
+    public override int StartingHp => 77;
+    public override int StartingGold => 99;
+    public override float AttackAnimDelay => 0.15f;
+    public override float CastAnimDelay => 0.2f;
+    public override bool ShouldReceiveCombatHooks => true;
+    public override bool RequiresEpochAndTimeline => false;
+    public override string? PlaceholderCharacterId => "IRONCLAD";
+
+    public override Color EnergyLabelOutlineColor => new("6E1722FF");
+    public override Color DialogueColor => new("55222A");
+    public override VfxColor SpeechBubbleColor => VfxColor.Red;
+    public override Color MapDrawingColor => new("E95369");
+    public override Color RemoteTargetingLineColor => new("FF788A");
+    public override Color RemoteTargetingLineOutline => new("6E1722FF");
+
+    public override CharacterAssetProfile AssetProfile => new(
+        Scenes: new CharacterSceneAssetSet(
+            VisualsPath: $"{Entry.ResPath}/scenes/character/exusiai_visuals.tscn"),
+        Ui: new CharacterUiAssetSet(
+            IconTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
+            IconOutlineTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
+            IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
+            CharacterSelectBgPath: $"{Entry.ResPath}/images/character/exusiai_select_bg.png",
+            CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_stand.png",
+            MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
+        VisualCues: VisualCueSetBuilder.Create()
+            .Single("idle", $"{Entry.ResPath}/images/character/exusiai_stand.png")
+            .Single("relaxed", $"{Entry.ResPath}/images/character/exusiai_stand.png")
+            .Single("attack", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
+            .Single("cast", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
+            .Single("hit", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
+            .Single("dead", $"{Entry.ResPath}/images/character/exusiai_stand.png")
+            .Build());
+
+    public override Task BeforeCombatStart()
+    {
+        GetAmmoData().PaidAttackPlays.Clear();
+        return Task.CompletedTask;
+    }
+
+    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        if (cardPlay.Player.Character is not Exusiai || cardPlay.Card.Type != CardType.Attack)
+            return;
+
+        if (await SecondaryResourceCmd.Spend(
+                cardPlay.Player,
+                AmmoResource.Id,
+                1,
+                cardPlay.Card,
+                this))
+        {
+            GetAmmoData().PaidAttackPlays.Add(cardPlay);
+        }
+    }
+
+    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        GetAmmoData().PaidAttackPlays.Remove(cardPlay);
+        return Task.CompletedTask;
+    }
+
+    public override decimal ModifyDamageAdditive(
+        Creature? target,
+        decimal amount,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource,
+        CardPlay? cardPlay)
+    {
+        if (dealer?.Player?.Character is not Exusiai ||
+            cardSource?.Type != CardType.Attack ||
+            !props.IsPoweredAttack())
+        {
+            return 0m;
+        }
+
+        if (cardPlay != null)
+        {
+            return GetAmmoData().PaidAttackPlays.Contains(cardPlay)
+                ? AmmoResource.DamageBonus
+                : 0m;
+        }
+
+        return SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0
+            ? AmmoResource.DamageBonus
+            : 0m;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        GetAmmoData().PaidAttackPlays.Clear();
+        return Task.CompletedTask;
+    }
+
+    private AmmoData GetAmmoData()
+    {
+        return AmmoDataByCharacter.GetOrCreateValue(this);
+    }
+
+    public override List<string> GetArchitectAttackVfx()
+    {
+        return ["vfx/vfx_attack_slash"];
+    }
+}

@@ -1,0 +1,14 @@
+config_version=5
+
+[application]
+
+config/name="AK_Exusiai"
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
+
+[dotnet]
+
+project/assembly_name="AK_Exusiai"
+
+[rendering]
+
+renderer/rendering_method="mobile"

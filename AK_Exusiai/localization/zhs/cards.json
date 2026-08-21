@@ -1,0 +1,14 @@
+{
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.title": "打击",
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.description": "造成 {Damage:diff()} 点伤害。",
+  "AK_EXUSIAI_CARD_EXUSIAI_STRIKE.smartDescription": "造成 {Damage:diff()} 点伤害。",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.title": "防御",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.description": "获得 {Block:diff()} 点格挡。",
+  "AK_EXUSIAI_CARD_EXUSIAI_DEFEND.smartDescription": "获得 {Block:diff()} 点格挡。",
+  "AK_EXUSIAI_CARD_CHARGING_MODE.title": "冲锋模式",
+  "AK_EXUSIAI_CARD_CHARGING_MODE.description": "造成 {Damage:diff()} 点伤害 {HitCount} 次。",
+  "AK_EXUSIAI_CARD_CHARGING_MODE.smartDescription": "造成 {Damage:diff()} 点伤害 {HitCount} 次。",
+  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.title": "子弹上膛",
+  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.description": "获得 {Ammo:diff()} 发[gold]弹药[/gold]。",
+  "AK_EXUSIAI_CARD_LOCKED_AND_LOADED.smartDescription": "获得 {Ammo:diff()} 发[gold]弹药[/gold]。"
+}
