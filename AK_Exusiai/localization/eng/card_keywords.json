@@ -1,0 +1,6 @@
+{
+  "AK_EXUSIAI_KEYWORD_DELIVERY.title": "Delivery",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A card with Delivery gains Retain and Exhaust. At the end of your turn, its Delivery decreases by 1. When Delivery reaches 0, the card is immediately played for free against a random valid target.",
+  "AK_EXUSIAI_KEYWORD_ANGEL.title": "Angel",
+  "AK_EXUSIAI_KEYWORD_ANGEL.description": "This card's Energy cost cannot be increased. When reduced, its maximum cost is lowered for the rest of combat."
+}

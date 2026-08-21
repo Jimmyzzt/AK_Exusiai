@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
+using AK_Exusiai.Powers;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
@@ -24,7 +25,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
     private sealed class AmmoData
     {
-        public HashSet<CardPlay> PaidAttackPlays { get; } = [];
+        public Dictionary<CardPlay, AmmoAttackMode> AttackModes { get; } = [];
     }
 
     public override CharacterGender Gender => CharacterGender.Feminine;
@@ -65,7 +66,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
     public override Task BeforeCombatStart()
     {
-        GetAmmoData().PaidAttackPlays.Clear();
+        GetAmmoData().AttackModes.Clear();
         return Task.CompletedTask;
     }
 
@@ -74,6 +75,12 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         if (cardPlay.Player.Character is not Exusiai || cardPlay.Card.Type != CardType.Attack)
             return;
 
+        if (cardPlay.Card is IAmmoFreeAttack)
+        {
+            GetAmmoData().AttackModes[cardPlay] = AmmoAttackMode.Free;
+            return;
+        }
+
         if (await SecondaryResourceCmd.Spend(
                 cardPlay.Player,
                 AmmoResource.Id,
@@ -81,13 +88,13 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
                 cardPlay.Card,
                 this))
         {
-            GetAmmoData().PaidAttackPlays.Add(cardPlay);
+            GetAmmoData().AttackModes[cardPlay] = AmmoAttackMode.Paid;
         }
     }
 
     public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        GetAmmoData().PaidAttackPlays.Remove(cardPlay);
+        GetAmmoData().AttackModes.Remove(cardPlay);
         return Task.CompletedTask;
     }
 
@@ -108,20 +115,40 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
         if (cardPlay != null)
         {
-            return GetAmmoData().PaidAttackPlays.Contains(cardPlay)
-                ? AmmoResource.DamageBonus
-                : 0m;
+            if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackMode mode))
+                return 0m;
+
+            if (mode == AmmoAttackMode.Free &&
+                SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) <= 0)
+            {
+                return 0m;
+            }
+
+            return GetAmmoDamageBonus(dealer);
         }
 
         return SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0
-            ? AmmoResource.DamageBonus
+            ? GetAmmoDamageBonus(dealer)
             : 0m;
     }
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
-        GetAmmoData().PaidAttackPlays.Clear();
+        GetAmmoData().AttackModes.Clear();
         return Task.CompletedTask;
+    }
+
+    public static bool DidSpendAmmo(CardPlay cardPlay)
+    {
+        return cardPlay.Player.Character is Exusiai exusiai &&
+               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackMode mode) &&
+               mode == AmmoAttackMode.Paid;
+    }
+
+    private static int GetAmmoDamageBonus(Creature dealer)
+    {
+        return AmmoResource.DamageBonus +
+               dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount);
     }
 
     private AmmoData GetAmmoData()

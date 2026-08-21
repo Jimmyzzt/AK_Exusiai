@@ -1,0 +1,11 @@
+{
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.title": "Ammo Next Turn",
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.description": "At the start of your next turn, gain {Amount} Ammo.",
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, gain {Amount} Ammo.",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.title": "Field Modification",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.description": "Ammo grants {Amount} additional damage this turn.",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.smartDescription": "Ammo grants {Amount} additional damage this turn.",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "Delayed Blast",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "At the start of your next turn, deal {Damage:diff()} damage to ALL enemies.",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "At the start of your next turn, deal {Damage:diff()} damage to ALL enemies."
+}

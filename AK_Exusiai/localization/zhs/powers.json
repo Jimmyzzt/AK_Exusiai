@@ -1,0 +1,11 @@
+{
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.title": "下回合弹药",
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.description": "下回合开始时，获得 {Amount} 发弹药。",
+  "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.smartDescription": "下回合开始时，获得 {Amount} 发弹药。",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.title": "临时改装",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.description": "本回合弹药额外增加 {Amount} 点伤害。",
+  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.smartDescription": "本回合弹药额外增加 {Amount} 点伤害。",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "延时爆炸",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。",
+  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。"
+}
