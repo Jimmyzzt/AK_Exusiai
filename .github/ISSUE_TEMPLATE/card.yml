@@ -1,0 +1,40 @@
+name: 卡牌实现
+description: 认领并实现一张卡牌
+title: "[Card] "
+labels:
+  - card
+body:
+  - type: input
+    id: card_id
+    attributes:
+      label: 设计表序号与名称
+      placeholder: "例如：1 轻装上阵"
+    validations:
+      required: true
+  - type: textarea
+    id: base_upgrade
+    attributes:
+      label: 基础版与升级版
+      description: 从设计表复核，不要只写括号值。
+    validations:
+      required: true
+  - type: textarea
+    id: ambiguity
+    attributes:
+      label: 规则歧义与触发时序
+      description: 目标、结算顺序、无合法目标、Replay/复制、多人等。
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: 负责人和计划分支
+      placeholder: "GitHub 用户名；card/class-name"
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: 验收测试
+    validations:
+      required: true

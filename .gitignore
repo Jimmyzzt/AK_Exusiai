@@ -1,0 +1,38 @@
+# Build and Godot caches
+bin/
+obj/
+.godot/
+.mono/
+.vs/
+.idea/
+
+# Local machine configuration
+local.props
+*.user
+*.suo
+
+# Build/export/deployment artifacts
+export/
+dist/
+release/
+*.pck
+*.dll
+*.deps.json
+*.runtimeconfig.json
+
+# Logs, temporary files and office locks
+logs/
+tmp/
+*.log
+~$*.xlsx
+~$*.docx
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Never vendor the game or extracted proprietary assets
+game/
+game_files/
+extracted_assets/
