@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Copy this file to local.props and set your local game install path if auto-detection fails. -->
+    <Sts2Path>D:/steam/steamapps/common/Slay the Spire 2</Sts2Path>
+  </PropertyGroup>
+</Project>
