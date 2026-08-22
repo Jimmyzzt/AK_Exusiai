@@ -18,8 +18,8 @@
   "AK_EXUSIAI_POWER_CHILDHOOD_POWER.description": "耗能不小于 3 的卡牌耗能减少 {Amount}。在混乱之后结算。",
   "AK_EXUSIAI_POWER_CHILDHOOD_POWER.smartDescription": "耗能不小于 3 的卡牌耗能减少 {Amount}。在混乱之后结算。",
   "AK_EXUSIAI_POWER_INTERFERENCE_POWER.title": "干扰",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "本回合被动能力失效，但仍执行当前意图；攻击伤害减少 10%。",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "本回合被动能力失效，但仍执行当前意图；攻击伤害减少 10%。",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "[blue]{Amount}[/blue] 回合内，被动能力失效，攻击伤害减少 10%。",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "[blue]{Amount}[/blue] 回合内，被动能力失效，攻击伤害减少 10%。",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.title": "天使之心",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.description": "接下来的 {Amount} 个回合，[gold]天使[/gold]牌均可免费打出。",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.smartDescription": "接下来的 {Amount} 个回合，[gold]天使[/gold]牌均可免费打出。",
@@ -63,9 +63,9 @@
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "加急"
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "快递层数变为 1 时立即自动打出。"
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "快递层数变为 1 时立即自动打出。"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "闪光弹"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "接下来的 {Amount} 个回合，虚弱的效果翻倍。"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "接下来的 {Amount} 个回合，虚弱的效果翻倍。"
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "闪光"
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "[blue]{Amount}[/blue] 回合内，[gold]虚弱[/gold]的效果变为两倍。"
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "[blue]{Amount}[/blue] 回合内，[gold]虚弱[/gold]的效果变为两倍。"
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.title": "“主”的仁慈"
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.description": "每当抽到或消耗一张诅咒或天使牌时，额外抽 {Amount} 张牌。"
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.smartDescription": "每当抽到或消耗一张诅咒或天使牌时，额外抽 {Amount} 张牌。"
@@ -89,6 +89,6 @@
   ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "本回合结束后，额外获得 {Amount} 个回合。"
   ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "本回合结束后，额外获得 {Amount} 个回合。"
   ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.title": "缓慢"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "本回合受到的攻击伤害增加 {Amount}%。"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "本回合受到的攻击伤害增加 {Amount}%。"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "你在本回合内每打出一张牌，该敌人本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "你在本回合内每打出一张牌，该敌人本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。"
 }

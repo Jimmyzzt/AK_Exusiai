@@ -9,5 +9,5 @@ public sealed class SecureDeliveryPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Delivery;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(SecureDeliveryPower));
 }

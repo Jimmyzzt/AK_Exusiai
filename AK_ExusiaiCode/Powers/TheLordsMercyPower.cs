@@ -14,7 +14,7 @@ public sealed class TheLordsMercyPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Mercy;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(TheLordsMercyPower));
 
     public override async Task AfterCardDrawn(
         PlayerChoiceContext choiceContext,

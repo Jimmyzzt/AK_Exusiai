@@ -15,7 +15,7 @@ namespace AK_Exusiai.Powers;
 public sealed class InterferencePower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Debuff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(InterferencePower));
 
     public override decimal ModifyDamageMultiplicative(
@@ -34,7 +34,7 @@ public sealed class InterferencePower : ModPowerTemplate
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        if (side == CombatSide.Enemy)
-            await PowerCmd.Remove(this);
+        if (side == CombatSide.Enemy && participants.Contains(Owner))
+            await PowerCmd.TickDownDuration(this);
     }
 }

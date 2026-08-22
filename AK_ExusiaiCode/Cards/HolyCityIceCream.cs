@@ -13,7 +13,8 @@ public sealed class HolyCityIceCream : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [EnergyHoverTip];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     public HolyCityIceCream() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)

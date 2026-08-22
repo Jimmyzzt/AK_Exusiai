@@ -16,7 +16,7 @@ public sealed class RockNGospelPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Confusion;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(RockNGospelPower));
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

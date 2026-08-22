@@ -12,7 +12,7 @@ public sealed class CurseReleasePower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Energy;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(CurseReleasePower));
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     private static bool IsAffected(CardModel card) =>

@@ -18,8 +18,8 @@
   "AK_EXUSIAI_POWER_CHILDHOOD_POWER.description": "Cards that cost at least 3 cost {Amount} less. Applied after Confusion.",
   "AK_EXUSIAI_POWER_CHILDHOOD_POWER.smartDescription": "Cards that cost at least 3 cost {Amount} less. Applied after Confusion.",
   "AK_EXUSIAI_POWER_INTERFERENCE_POWER.title": "Interference",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "Passive abilities are disabled this turn, but the current intent still resolves. Attack damage is reduced by 10%.",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "Passive abilities are disabled this turn, but the current intent still resolves. Attack damage is reduced by 10%.",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "For [blue]{Amount}[/blue] turn(s), passive abilities are disabled and Attack damage is reduced by 10%.",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "For [blue]{Amount}[/blue] turn(s), passive abilities are disabled and Attack damage is reduced by 10%.",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.title": "Angel's Heart",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.description": "For the next {Amount} turn(s), [gold]Angel[/gold] cards cost 0.",
   "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.smartDescription": "For the next {Amount} turn(s), [gold]Angel[/gold] cards cost 0.",
@@ -63,9 +63,9 @@
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "Expedite"
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "When a card's Delivery becomes 1, play it automatically."
   ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "When a card's Delivery becomes 1, play it automatically."
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "Flashbang"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "For {Amount} turn(s), Weak is twice as effective."
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "For {Amount} turn(s), Weak is twice as effective."
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "Flash"
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "For [blue]{Amount}[/blue] turn(s), [gold]Weak[/gold] is twice as effective."
+  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "For [blue]{Amount}[/blue] turn(s), [gold]Weak[/gold] is twice as effective."
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.title": "The Lord's Mercy"
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.description": "Whenever you draw or Exhaust a Curse or Angel card, draw {Amount} additional card(s)."
   ,"AK_EXUSIAI_POWER_THE_LORDS_MERCY_POWER.smartDescription": "Whenever you draw or Exhaust a Curse or Angel card, draw {Amount} additional card(s)."
@@ -89,6 +89,6 @@
   ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "After this turn, take {Amount} extra turn(s)."
   ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "After this turn, take {Amount} extra turn(s)."
   ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.title": "Slow"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "Take {Amount}% more Attack damage this turn."
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "Take {Amount}% more Attack damage this turn."
+  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "Whenever you play a card, this enemy receives [blue]10%[/blue] more damage from Attacks this turn."
+  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "Whenever you play a card, this enemy receives [blue]10%[/blue] more damage from Attacks this turn."
 }

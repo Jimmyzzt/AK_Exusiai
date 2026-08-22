@@ -42,25 +42,7 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
         if (!IsInCombatPile(card))
             return Math.Min(currentCost, card.EnergyCost.Canonical);
 
-        return RecordAndClamp(currentCost);
-    }
-
-    public override bool TryModifyEnergyCostInCombatLate(
-        CardModel card,
-        decimal originalCost,
-        out decimal modifiedCost)
-    {
-        if (!ReferenceEquals(card, Owner))
-        {
-            modifiedCost = originalCost;
-            return false;
-        }
-
-        int currentCost = Math.Max(0, (int)originalCost);
-        modifiedCost = IsInCombatPile(card)
-            ? RecordAndClamp(currentCost)
-            : Math.Min(originalCost, card.EnergyCost.Canonical);
-        return modifiedCost != originalCost;
+        return RecordAndClamp(card, currentCost);
     }
 
     protected override JsonNode SaveAdditionalState()
@@ -94,8 +76,9 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
             owner.RemoveModKeyword(ExusiaiKeywords.AngelKeyword);
     }
 
-    private int RecordAndClamp(int currentCost)
+    private int RecordAndClamp(CardModel card, int currentCost)
     {
+        currentCost = Math.Min(currentCost, Math.Max(0, card.EnergyCost.Canonical));
         int previousMinimum = _lowestCombatCost;
         _lowestCombatCost = Math.Min(_lowestCombatCost, Math.Max(0, currentCost));
         if (_lowestCombatCost != previousMinimum)

@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -17,7 +18,8 @@ public sealed class FlashbangPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Debilitate;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(FlashbangPower));
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
     public override decimal ModifyDamageMultiplicative(
         Creature? target,
@@ -38,7 +40,7 @@ public sealed class FlashbangPower : ModPowerTemplate
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        if (participants.Contains(Owner))
-            await PowerCmd.Decrement(this);
+        if (side == CombatSide.Enemy && participants.Contains(Owner))
+            await PowerCmd.TickDownDuration(this);
     }
 }

@@ -14,7 +14,7 @@ public sealed class HolyCityCallingPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Energy;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(HolyCityCallingPower));
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

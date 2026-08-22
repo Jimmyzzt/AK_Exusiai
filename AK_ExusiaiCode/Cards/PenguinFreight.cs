@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 public sealed class PenguinFreight : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delivery", 3m)];
     public PenguinFreight() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 

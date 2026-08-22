@@ -14,7 +14,7 @@ public sealed class AscensionPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Angel;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(AscensionPower));
 
     public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     {

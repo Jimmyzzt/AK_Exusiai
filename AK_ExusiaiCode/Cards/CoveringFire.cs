@@ -1,6 +1,7 @@
 using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
+using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -32,11 +33,17 @@ public sealed class CoveringFire : ExusiaiCardTemplate, IMultiAmmoAttack
             .WithHitCount(DynamicVars["HitCount"].IntValue)
             .FromCard(this, cardPlay).TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        int loss = DynamicVars["StrengthLoss"].IntValue * AK_Exusiai.Characters.Exusiai.GetAmmoMultiplier(cardPlay);
-        if (loss <= 0)
+        int ammoSpent = AK_Exusiai.Characters.Exusiai.GetAmmoMultiplier(cardPlay);
+        if (ammoSpent <= 0)
             return;
         foreach (var enemy in CombatState!.HittableEnemies)
-            await PowerCmd.Apply<PiercingWailPower>(choiceContext, enemy, loss, Owner.Creature, this);
+        {
+            for (int i = 0; i < ammoSpent; i++)
+            {
+                await PowerCmd.Apply<CoveringFirePower>(choiceContext, enemy,
+                    DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
+            }
+        }
     }
 
     protected override void OnUpgrade() => DynamicVars["StrengthLoss"].UpgradeValueBy(1m);

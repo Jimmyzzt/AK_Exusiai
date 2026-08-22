@@ -43,7 +43,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     public override Color EnergyLabelOutlineColor => new("6E1722FF");
     public override Color DialogueColor => new("55222A");
     public override VfxColor SpeechBubbleColor => VfxColor.Red;
-    public override Color MapDrawingColor => new("E95369");
+    public override Color MapDrawingColor => new("CF080B");
     public override Color RemoteTargetingLineColor => new("FF788A");
     public override Color RemoteTargetingLineOutline => new("6E1722FF");
 
@@ -137,6 +137,9 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info))
                 return 0m;
 
+            if (info.Multiplier <= 0)
+                return 0m;
+
             int extraTriggers = dealer.Powers.OfType<TemporaryExtraAmmoTriggerPower>()
                 .Sum(power => power.Amount);
             return GetAmmoDamageBonus(dealer) * (info.Multiplier + extraTriggers);
@@ -145,8 +148,13 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         int previewMultiplier = cardSource is IMultiAmmoAttack multi
             ? Math.Min(SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id), multi.MaxAmmoSpend)
             : SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0 ? 1 : 0;
-        if (previewMultiplier > 0 && cardSource is IExtraAmmoTriggerPreview preview)
-            previewMultiplier += preview.ExtraAmmoTriggers;
+        if (previewMultiplier > 0)
+        {
+            previewMultiplier += dealer.Powers.OfType<TemporaryExtraAmmoTriggerPower>()
+                .Sum(power => power.Amount);
+            if (cardSource is IExtraAmmoTriggerPreview preview)
+                previewMultiplier += preview.ExtraAmmoTriggers;
+        }
         return GetAmmoDamageBonus(dealer) * previewMultiplier;
     }
 
