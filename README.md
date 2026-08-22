@@ -1,67 +1,36 @@
 # AK_Exusiai
 
-《Slay the Spire 2》能天使角色 Mod 的协作开发仓库。角色原型来自《明日方舟》的能天使。
+《Slay the Spire 2》能天使角色 Mod。角色原型来自《明日方舟》的能天使；本项目为非官方、非盈利同人二次创作。
 
-当前已经完成首个可加载原型：能天使角色、弹药机制、10 张初始牌组与初始遗物。其余卡牌仍按机制依赖逐批实现。
+## 交接入口
 
-## 当前内容
+新对话或新协作者按以下顺序阅读：
 
-- `docs/AK_Exusiai-Card.csv`：由双方在线文档确认后导出的只读实现来源；`docs/.gdignore` 阻止 Godot 将 CSV 误作翻译资源导入。
-  - 2 张初始卡；
-  - 80 张常规牌（20 普通、35 罕见、25 稀有）；
-  - 13 张衍生牌；
-  - 2 张先古牌。
-- 2 件遗物设计：初始遗物与先古遗物。
-- `AGENTS.md`：两边 Codex 都必须先读的开发规则与经验。
-- `docs/PROGRESS.md`：双方任务、所有权和进度账本。
-- `docs/FRAMEWORK_AUDIT.md`：当前游戏测试版与框架兼容性核查。
-- `references/official/`：双方开发需要的官方美术、音效源素材及来源记录。
-- `AK_ExusiaiCode/`：角色、卡牌、遗物与机制代码。
-- `AK_Exusiai/`：PCK 中实际加载的本地化、图片和场景。
+1. `AGENTS.md`：开发约束、已验证机制经验与构建方式。
+2. `docs/PROGRESS.md`：当前完成状态和待测项。
+3. `docs/CARD_ART_HANDOFF.md`：卡图工作的素材、命名和接入流程。
+4. `docs/AK_Exusiai-Card.csv`：双方确认后的只读设计来源。
 
-## 当前可玩原型
+## 当前状态
 
-- 能天使：77 最大生命、99 初始金币。
-- 初始牌组：4 张打击、4 张防御、冲锋模式、子弹上膛。
-- 能天使的证章：每场战斗开始获得 4 发弹药。
-- 弹药：拥有弹药时打出攻击牌消耗 1 发；该次出牌产生的每段攻击伤害均额外 +2。弹药无常规上限，战斗结束后清空。
-- 当前角色与遗物使用已提交的官方素材；打击和防御暂用战士原版卡图，冲锋模式和子弹上膛暂用 RitsuLib 的内置占位卡图。
+- 角色、弹药、初始牌组和初始遗物已可用。
+- 20 张普通牌已完成游戏内回归。
+- 35 张罕见牌、25 张稀有牌和相关衍生牌已完成代码首版，等待集中回归。
+- 角色选择小图、4K 背景及现有能力图标已进入 PCK。
+- 卡图尚未正式制作：打击和防御暂用铁甲战士卡图，其余牌主要使用框架占位图。
 
-## 当前技术基线
+## 本地构建
 
-- 游戏分支：public beta `v0.111.0`。
-- Godot：`4.5.1` Mono。
-- .NET：`9.0`。
-- RitsuLib：`0.5.14`，用于游戏 API `0.111.0`。
-
-每次游戏或 RitsuLib 更新后，先按 `docs/FRAMEWORK_AUDIT.md` 重新验证，再修改版本基线。
-
-## 构建
-
-复制 `local.props.template` 为不提交的 `local.props`，填写本机游戏与 Godot 路径，然后执行：
+复制 `local.props.template` 为不提交的 `local.props`，填写游戏与 Godot 路径。模板中的 `RitsuLibDeployDir` 会让完整构建自动补齐匹配版本的 RitsuLib 运行时。
 
 ```powershell
 dotnet build .\AK_Exusiai.csproj
 ```
 
-只验证 C#、不导出 PCK 或部署：
+只编译 C#：
 
 ```powershell
 dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 ```
 
-游戏中的 RitsuLib 运行时必须同样为 0.5.14。游戏内回归命令与结果记录在对应 PR 和 `docs/PROGRESS.md` 中。
-
-## 协作方式
-
-1. 克隆仓库后先阅读 `AGENTS.md` 和 `docs/PROGRESS.md`。
-2. 在 `docs/PROGRESS.md` 中认领任务；同一张卡、同一个共享注册文件不要由两边同时修改。
-3. 从 `main` 创建短分支，推荐命名：`card/<class-name>`、`mechanic/<name>`、`art/<asset>`、`docs/<topic>`。
-4. 一个 PR 只处理一个机制或一组高度相关的文件，并写清基础版、升级版和边界测试结果。
-5. 合并后立即更新进度账本。
-
-## 素材与非盈利约定
-
-这是非官方、非盈利的同人二次创作项目，与 Mega Crit、Hypergryph 或 Yostar 无隶属或背书关系。项目维护者已确认会在相关权利方允许的非盈利二次创作范围内使用官方美术与音效。
-
-为保证两位开发者可以仅凭本仓库继续工作，项目实际需要的选定官方源素材和最终资源都应提交到 Git，并在 `references/official/SOURCES.md` 记录来源、用途和修改。不要提交整套游戏、可执行文件、DLL/PCK、无关批量提取内容或其他 Mod 的素材。代码许可尚未确定，因此仓库暂不附加开源许可证。
+正式代码在 `AK_ExusiaiCode/`，运行时资源在 `AK_Exusiai/`，源素材及来源记录在 `references/`。
