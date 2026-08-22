@@ -1,73 +1,171 @@
-# AK_Exusiai 开发指南
+# AK_Exusiai 协作开发指南
 
-本文件适用于整个仓库。新对话不得依赖历史聊天或仓库外文件；开始工作前同时阅读 `docs/PROGRESS.md`，卡图任务再读 `docs/CARD_ART_HANDOFF.md`。
+本文件适用于本仓库全部任务。新对话不得依赖历史聊天或仓库外文件；开始任务时先阅读“项目身份”“当前工具链基线”和“协作与 Git 规则”，再按任务类型阅读对应章节。卡牌机制与本地化任务重点阅读“已验证的开发经验”“设计表事实”“一张卡的完成标准”和“测试要求”；框架升级任务阅读工具链与参考资料；卡图任务另读 `docs/CARD_ART_HANDOFF.md`。不要因为当前任务只涉及某一部分，就删除其他任务依赖的信息。
 
-## 当前基线与事实来源
+两位开发者使用 Codex 时，应以各自安装的当前游戏程序集、项目锁定的 RitsuLib 版本和仓库中的设计表为准。除本仓库内容外，不假定另一位开发者拥有任何相同目录或额外参考文件。
 
-- Mod ID、程序集名、PCK 名：`AK_Exusiai`。
+## 项目身份
+
+- Mod ID、程序集名与 PCK 名：`AK_Exusiai`。
+- 角色原型：《明日方舟》能天使（Exusiai）。
+- 角色展示名：简中 `能天使`，英文 `Exusiai`。Mod 清单当前使用仓库维护者 `Jimmyzzt` 作为作者字段；正式发布前可再次确认署名。
+- 设计表：`docs/AK_Exusiai-Card.csv`。双方在线确认设计后导出 CSV；实现时只读对照，不由代码任务覆盖或机械改写。`docs/.gdignore` 用于阻止 Godot 把设计 CSV 误当作翻译资源。
+- 当前阶段：角色、弹药、初始牌和初始遗物已可用；20 张普通牌已完成回归；35 张罕见牌、25 张稀有牌及相关衍生牌已完成代码首版，进入集中测试和卡图制作阶段。
+
+任何会改变公开 ID、类名、资源文件名、Mod ID 或存档兼容性的重命名，必须先由双方确认。
+
+## 当前工具链基线
+
 - 游戏：Slay the Spire 2 public beta `v0.111.0`。
-- Godot：4.5.1 Mono；.NET：9.x；RitsuLib：0.5.14。
-- 设计唯一来源：`docs/AK_Exusiai-Card.csv`。实现任务不得机械改写设计表。
-- 代码现状：20 张普通牌已回归；35 张罕见牌、25 张稀有牌及相关衍生牌已完成首版，仍需集中测试。
-- 任何公开 ID、类名、资源文件名或 Mod ID 的重命名都必须先确认，因为会影响控制台 ID 与存档兼容性。
+- 游戏程序集：从各自的 Slay the Spire 2 安装目录定位 `sts2.dll`，路径不得写死进共享代码或文档。
+- Godot：4.5.1 Mono。
+- .NET SDK：9.x，目标框架 `net9.0`。
+- RitsuLib：`STS2.RitsuLib` 0.5.14；该包明确包含游戏 API `0.111.0` 目标。
 
-API 判断优先级：当前游戏 `sts2.dll` > 当前仓库已验证代码 > RitsuLib 0.5.14 文档/XML > 社区教程。
+游戏、NuGet 编译包和游戏 `mods/STS2-RitsuLib` 运行时必须匹配。`local.props.template` 已提供 `RitsuLibDeployDir`，完整构建会从锁定的 NuGet 包自动部署匹配运行时；若依赖缺失，应先直接补齐并继续验证。只通过编译不能替代进游戏测试。版本核查见 `docs/FRAMEWORK_AUDIT.md`。
 
-## 目录
+## 预期目录
 
-- `AK_ExusiaiCode/Cards/`：卡牌；一张牌一个主类。
+- `AK_ExusiaiCode/`：C# 玩法代码。
+- `AK_Exusiai/`：PCK 资源、本地化、图片和场景。
+- `AK_ExusiaiCode/Cards/`：卡牌类，一张卡一个主文件。
 - `AK_ExusiaiCode/Powers/`：能力与持续状态。
-- `AK_ExusiaiCode/Mechanics/`：弹药、天使、快递等共享机制。
-- `AK_ExusiaiCode/Patches/`：没有合适 Hook 时才使用的窄范围补丁。
-- `AK_Exusiai/`：PCK 实际加载的场景、图片和本地化。
-- `references/official/`、`references/free/`：源素材与来源记录。
-- `docs/PROGRESS.md`：只记录当前结果、待测项和下一步，不保留流水账。
+- `AK_ExusiaiCode/Patches/`：确有必要时才放 Harmony/RitsuLib patch。
+- `AK_Exusiai/localization/zhs/` 与 `eng/`：简中和英文文本。
+- `AK_Exusiai/images/cards/`：无卡框、费用、标题和规则文字的卡图。
+- `AK_Exusiai/images/powers/`：透明背景、32–64 px 仍清晰的能力图标。
+- `AK_Exusiai/audio/`：游戏运行时实际加载的最终音效资源。
+- `references/official/art/`：制作所需的官方美术源素材。
+- `references/official/audio/`：制作所需的官方音频源素材。
+- `references/official/SOURCES.md`：素材来源、用途和改动记录。
+- `docs/`：设计决策、框架审计和协作进度。
 
-## 构建与依赖
+本地安装路径写入未跟踪的 `local.props`，不得提交绝对路径、日志、游戏 DLL、完整游戏 PCK、密钥或个人凭据。
 
-本机路径只写入未跟踪的 `local.props`。从 `local.props.template` 创建后执行：
+## 已验证的开发经验
 
-```powershell
-dotnet build .\AK_Exusiai.csproj
-```
+1. 具体 API 永远以各自当前游戏版本的 `sts2.dll` 反编译结果为准；早期教程只用于定位思路。
+2. 注册与资源能力优先使用 RitsuLib；普通机制优先组合原版命令、Hook 和模型。
+3. 只有没有合适 Hook 时才使用 Harmony。异步逻辑采用窄范围 patch，并明确校验调用点数量，避免更新后静默误补丁。
+4. 入口初始化必须同时完成 Godot 脚本注册和 Mod 程序集类型发现；具体 API 名称以 0.5.14 文档为准。
+5. 卡牌可升级数值使用 `DynamicVar`、`DamageVar`、`PowerVar<T>` 等动态变量，并在本地化中引用占位符，不把升级数值硬编码进描述。
+6. 运行时资源只从本 Mod 的 `res://AK_Exusiai/...` 根路径加载；源素材先纳入本仓库，再加工或复制到正式资源目录。
+7. 游戏运行时可能锁定 DLL；完整构建与部署前先退出游戏。只做 C# 验证时关闭 PCK 导出和部署。
+8. 加载失败时先查缺失依赖、Mod ID、本地化键、资源路径和 patch 报告，不先猜机制代码。
+9. `PowerVar<T>` 默认本地化变量名是完整类型名，例如 `WeakPower`、`VulnerablePower`，不是代码中的便捷属性名 `Weak`、`Vulnerable`。任一变量名不存在时，SmartFormat 可能让整条描述中的其他占位符也原样显示。
+10. 会受到战斗内修正的伤害数值必须使用 `{Damage:diff()}`；直接写 `{Damage}` 只显示基础值，不会反映弹药等 Hook 对卡面预览的修改。能力与其他动态变量按同一原则核对真实变量键。
+11. 能量数量使用原版 `{Energy:energyIcons()}`：1–3 点显示对应数量的能量图标，4 点及以上自动显示“数字+图标”。不要写“{Energy} 点能量”或用普通 `diff()` 代替能量格式器。
+12. 延时伤害若设计为复制打出时的伤害，应在原 `CardPlay` 仍有效时计算并保存攻击方修正后的数值；触发时不得再次套用弹药、临时增伤或下回合的新攻击方修正，能力描述使用已保存的动态数值。
+13. `{Energy:energyIcons()}` 对应变量必须是 `EnergyVar`（或格式器明确支持的数值类型）；普通 `DynamicVar` 会抛出本地化格式异常，并可能让整条描述的占位符全部原样显示。
+14. 衍生牌若要像原版“灵魂”“君王之剑”一样呈现无色外观但不进入普通无色奖励与商店，应使用 `CardRarity.Token` 并注册到 `TokenCardPool`，不要注册到 `ColorlessCardPool`。
+15. 卡牌额外悬浮说明应按描述显式启用，不能仅因牌是攻击牌就默认附加弹药说明；描述中的规则关键词（如格挡、弹药）使用 `[gold]...[/gold]`，并同步检查简中与英文。
+16. 自定义能量视觉分为三套资源：描述内小图标（原版为 24×24）、卡牌左上耗能图标（原版显示区域为 74×74），以及战斗界面的能量计数器场景（原版根节点 128×128，铁甲战士由 5 张 256×256 透明图层、前后粒子和数字组成）。旋转与获得能量时的动画来自计数器场景和 `NEnergyCounter`，不是动态图文件。
+17. `ModelDb` 创建卡牌构造函数时得到的是规范模型（canonical model）。构造函数以及默认能力附加阶段不得调用 `AddKeyword`、`RemoveKeyword` 等要求可变模型的 API；固定关键词放入 `CanonicalKeywords`，运行时动态授予关键词前先确认 `card.IsMutable`。否则会在注册全部成功后、`ModelDb.Init` 阶段以 `CanonicalModelException` 阻止游戏启动。
+18. 英文卡名一经设计者修改，必须同步重命名 C# 类、文件和本地化键，使公开卡牌 ID 与英文名保持一致；重命名前确认设计者已接受存档兼容性变化，并全仓检索旧 ID 残留。
+19. RitsuLib 的默认模型能力以内部方式附着，不能依赖 `OnAttach` 才建立卡牌身份。天使等身份判断应检查能力组件本身；需要固定显示的描述和悬浮说明由能力贡献者统一提供，以覆盖默认衍生牌和战斗中动态授予两种路径。
+20. 能力图标的 `PowerAssetProfile` 当前加载静态 `Texture2D`，GIF 不能直接保留逐帧动画。需要动画能力图标时应制作 Godot 场景和专用 UI 接入；只有静态图标需求时使用 PNG 或 SVG。
+21. 当衍生卡类与角色类同名（例如二者都叫 `Exusiai`）时，卡牌命名空间内的短类型名会优先解析为衍生卡。`RegisterCharacterStarterCard` 等要求角色类型的特性必须写完整限定名，否则编译可通过，但自动注册会在启动时拒绝该类型。
+22. 快递层数变化会触发即时异步效果，运行时增加与减少必须统一经过可等待的 `DeliveryCmd`；规范模型构造时的初始层数使用无触发的 `Set`。触发数值按层数变化量计算，并在“加急”自动打出前完成格挡等变化响应。
+23. 同一张卡的能力组件不要同时作为本地费用贡献者和全局后置费用 Hook 重复修正同一费用；“天使”的战斗内最低费用应从包含随机费用在内的本地费用记录，并以规范费用作为初始上限，避免与“童年”等全局减费重复结算。
+24. 攻击伤害的卡面预览必须读取当前已经存在的临时能力层数；若一张牌会在自身伤害前创建额外增伤能力，则再通过该牌专用的预览接口补上自身即将获得的层数，实际伤害与预览分别核对。
+25. 复用原版临时力量逻辑但需要自定义来源标题时，应继承 `TemporaryStrengthPower` 并把 `OriginModel` 指向自制卡；需要替换图标时实现 `IModPowerAssetOverrides`。需要逐次消耗人工制品的多层效果必须逐次调用 `PowerCmd.Apply`，不能先合并总数。
+26. Godot 的 `*.import` 是可再生的本地导入元数据，本仓库通过 `.gitignore` 隐藏它们；协作时应提交源 PNG/JPG/SVG，并以完整构建日志中的 `reimport` 与 `savepack` 条目确认资源已重新导入和进入 PCK，不要因 Git 中看不到 `.import` 就判断导入失败。
 
-模板已配置 `RitsuLibDeployDir=$(Sts2Dir)\mods\STS2-RitsuLib\`，完整构建会从 NuGet 包自动部署匹配的 0.5.14 运行时。若启动报告缺少依赖，先检查并补齐该目录，再继续测试；不要把游戏 DLL 或部署产物提交到仓库。
+## 设计表事实与已确认弹药规则
 
-只做 C# 检查：
+当前设计以 `docs/AK_Exusiai-Card.csv` 为准；历史 Excel 与 `design/` 目录已停止使用。核心机制至少包括：
 
-```powershell
-dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
-```
+- 弹药：攻击牌消耗弹药并获得伤害加成；
+- 快递：获得保留与消耗，倒计时归零时自动打出；
+- 天使：耗能不会增加，并与生成、消耗、重复打出联动；
+- 物流卡：特定衍生牌池和权重；
+- 混乱、诅咒联动、敌人特殊能力失效、额外回合等复杂机制。
 
-完整构建前退出游戏，避免 DLL 被锁定。完成时至少确认 0 错误、PCK 包含新增资源、部署 DLL 哈希一致，并通过 Steam 启动检查 Mod 注册和主菜单加载。
+表中括号通常表示升级后变化，但也有“升级移除关键词”“耗能降低”“X 费”“只对一个敌人生效”等特殊写法。开始实现前必须逐张确认基础版、升级版、目标类型、触发时序和边界条件。有两种合理解释时停止编码并在 Issue/PR 中提出问题。
 
-## 已验证的实现经验
+当前已经确认并实现：能天使为 77 最大生命、99 初始金币；弹药无常规上限且在战斗结束后清空；拥有弹药时，每次攻击牌实际出牌消耗 1 发，并使该次出牌的每一段 Powered Attack 伤害 +2；0 弹药不阻止攻击牌。Replay 的每个实际 `CardPlay` 分别结算一次弹药。
 
-- 初始化必须保留 Godot 脚本注册、程序集类型发现、玩法补丁和战斗 Hook 注册。
-- 普通机制优先复用原版命令/Hook；Harmony 仅用于没有替代的调用点，异步补丁必须校验目标数量和时序。
-- 可升级数值使用 `DynamicVar`、`DamageVar`、`EnergyVar`、`PowerVar<T>`；伤害预览使用 `{Damage:diff()}`，能量使用 `{Energy:energyIcons()}`。
-- `PowerVar<T>` 的文本键通常是完整类型名，如 `WeakPower`。任一变量名错误都可能让整条描述保留原始占位符。
-- 固定关键词放入 `CanonicalKeywords`；规范模型构造阶段不要调用要求可变实例的 `AddKeyword`/`RemoveKeyword`。
-- Token 衍生牌使用 `CardRarity.Token` 和 `TokenCardPool`，不要进入普通无色奖励或商店。
-- 弹药：有弹药时，每次实际打出攻击牌消耗 1 发，并让该次出牌的每段 Powered Attack 伤害 +2；Replay 分别结算。延时伤害应保存打出时的最终值，触发时不重新计算增伤。
-- 天使：本场战斗内费用不会高于其曾达到的最低值；身份判断检查能力组件，避免默认能力与全局费用 Hook 重复计算。
-- 快递：运行时层数变化统一经过可等待的 `DeliveryCmd`；规范模型初始层数无触发，层数变化效果按变化量结算。
-- 卡面伤害预览必须包含已存在的临时能力，以及本牌会在伤害前创建的额外增益；预览和实际伤害分别测试。
-- 逐次消耗人工制品的多层减益必须逐次调用 `PowerCmd.Apply`，不能先合并总数。
-- 能力图标接口加载静态纹理；GIF 不会自动成为逐帧图标。动画图标需要单独的 Godot 场景/UI 实现。
-- `*.import` 是被 Git 忽略的可再生元数据。提交 PNG/JPG/SVG 源文件，并用完整构建日志中的 `reimport` 与 `savepack` 确认导入和打包。
+## 命名与公开 ID
 
-## 卡牌与资源约定
+- C# 类使用正确的 PascalCase 英文名；英文名未定时先在 Issue 中确认，不用拼音或临时直译直接形成公开 ID。
+- 建议卡牌键：`AK_EXUSIAI_CARD_<UPPER_SNAKE_CLASS>.title/description/smartDescription`。
+- 建议能力键：`AK_EXUSIAI_POWER_<UPPER_SNAKE_CLASS>.title/description/smartDescription`。
+- 遗物、药水、关键词和附魔使用同一前缀规则。
+- 展示文本使用自然语言；类名、文件名和本地化键保持一一对应。
 
-- C# 类名、文件名、英文名和本地化公开键保持一一对应。
-- 运行时资源只引用 `res://AK_Exusiai/...`，不得引用 `references/`。
-- 正式卡图放在 `AK_Exusiai/images/cards/<ClassName>.png`；图片不含卡框、费用、标题、规则文字或水印。
-- 能力图标放在 `AK_Exusiai/images/powers/`，透明背景且在 32–64 px 下可辨认。
-- 源素材保留在 `references/`；使用过的源素材和最终资源都提交，并更新对应 `SOURCES.md`。
-- 不提交整套游戏资源、其他 Mod 素材、DLL/PCK、缓存、日志、绝对路径或凭据。
+## 实现顺序
 
-## 测试与协作
+不要直接按表格顺序并行实现 97 张卡。建议按依赖关系推进：
 
-卡牌测试至少覆盖基础/升级、0 与多发弹药、单段/多段/AOE、Replay、自动打出、消耗、抽弃耗各区域，以及同名能力叠加。高风险回归清单以 `docs/PROGRESS.md` 为准。
+1. 建立可加载的空角色、卡池、基础牌与初始遗物。
+2. 实现并测试“弹药”资源及其 UI、伤害修正和消耗时序。
+3. 实现“快递”卡牌状态、回合结束倒计时、自动打出与目标选择策略。
+4. 实现“天使”标签/关键词及耗能保护。
+5. 实现物流衍生牌池、权重和选择界面。
+6. 再处理混乱、诅咒、敌人能力失效、额外回合、批量自动打牌等高风险机制。
+7. 机制稳定后批量接入普通卡，最后实现先古牌和高耦合稀有牌。
 
-在功能分支开发，避免双方同时修改 `Entry.cs`、项目文件、角色注册和本地化 JSON。完成实质工作后更新 `docs/PROGRESS.md`，记录当前结果、验证命令和仍需人工确认的内容。提交应保持可构建，并保留用户已有的无关改动。
+每个机制先做一张最小原型卡，再扩展到使用该机制的整组卡。
+
+## 一张卡的完成标准
+
+1. 对照设计表确认费用、类型、稀有度、颜色、基础与升级差异。
+2. 在当前 `sts2.dll` 中寻找最接近的原版卡、命令、能力和 Hook。
+3. 实现 C# 类与必要的能力/命令，不复制其他 Mod 的大段代码或其自制美术。项目所需的官方素材按下方素材规则管理。
+4. 添加简中、英文文本；英文设计名缺失时不得擅自定稿。
+5. 把复现制作过程所需的源素材和最终资源一并提交；临时占位资源必须清楚标注且不能进入发布包。
+6. 完成只编译检查、PCK 内容检查和游戏内基础/升级/边界测试。
+7. 在 PR 中记录测试命令、结果和已知限制，更新 `docs/PROGRESS.md`。
+
+## 协作与 Git 规则
+
+- `main` 保持可构建、可加载；不直接在 `main` 上开发新机制。
+- 分支名使用 `card/<name>`、`mechanic/<name>`、`art/<name>`、`docs/<name>` 或 `fix/<name>`。
+- 开工前在 `docs/PROGRESS.md` 认领任务。状态使用：`待办`、`进行中`、`待审阅`、`已完成`、`阻塞`。
+- 按卡牌拆分文件；避免两边同时编辑 `Entry.cs`、项目文件、清单、`cards.json`、`powers.json` 和角色注册文件。
+- 共享文件由当期“集成负责人”修改；另一边在独立文件中完成实现并在 PR 描述中列出需要集成的注册项。
+- 提交信息推荐 Conventional Commits，例如 `feat(ammo): add ammo resource model`、`docs: update collaborator progress`。
+- 合并优先使用 PR；至少由另一边或其 Codex 做一次代码审阅。
+- 不提交 `bin/`、`obj/`、`.godot/`、部署产物、游戏程序集、完整游戏 PCK、日志、缓存和本地绝对路径。
+
+## 美术与音效同步规则
+
+- 项目维护者已确认：本项目在相关权利方允许的非盈利二次创作范围内使用官方美术与音效；仓库和发布内容必须保持非盈利，并遵守素材来源方的现行规则。
+- 凡是实现、调整、构建或继续制作所必需的选定美术和音效，都必须纳入 Git，不能只保存在某一位开发者电脑上，也不能依赖仓库外相对路径。
+- 原始或裁切前的官方美术放入 `references/official/art/`；原始或转换前的官方音频放入 `references/official/audio/`。
+- 游戏实际加载的最终图片和音效分别放入 `AK_Exusiai/images/` 与 `AK_Exusiai/audio/`。代码和 Godot 资源只能引用这些正式目录。
+- 每批素材在 `references/official/SOURCES.md` 记录来源作品/页面、原文件名、仓库路径、用途和已做修改，便于双方追溯。
+- 可以提交项目实际需要的官方素材，但不要提交整套游戏目录、完整资源包、可执行文件、DLL/PCK、无关批量提取结果或其他 Mod 的素材。
+- 普通 PNG、JPG、WebP、OGG、WAV 等直接由 Git 跟踪。若单个素材过大，应先由双方在独立 PR 中启用并验证 Git LFS，再添加该文件，避免一边无法拉取。
+- 提交前用 `git status` 确认新增素材已被跟踪；提交后由另一边执行一次拉取或独立克隆检查，确认源素材和最终资源都能恢复。
+
+## 测试要求
+
+基础测试至少覆盖：
+
+- 基础版与升级版；
+- 0、1、上限附近和超过上限的弹药；
+- 单段、多段、AOE、随机目标、击杀中断；
+- 快递层数增加、减少、归零、保留、消耗、手牌满和无合法目标；
+- 天使牌的耗能增加免疫、消耗和重复打出；
+- 多个同名能力叠加、多个玩家和回放/复制效果；
+- 弃牌堆、抽牌堆、消耗堆、战斗结束与存档加载；
+- 游戏更新后 patch 目标数量与签名是否变化。
+
+完整发布验证至少确认：0 个编译错误；PCK 包含新增图片与本地化；部署 DLL/PCK/JSON 版本一致；游戏中实际加载的 RitsuLib 运行时与编译包兼容。
+
+## 参考资料优先顺序
+
+1. 本仓库已经构建并在当前游戏版本中测试成功的代码。
+2. 各自当前游戏安装中的 `sts2.dll` 与游戏附带 XML 文档。
+3. NuGet 还原得到的 RitsuLib 0.5.14 README、XML 文档和 DLL。
+4. RitsuLib 官方文档与仓库：
+   - https://sts2-ritsulib.ritsukage.com/guide/getting-started
+   - https://sts2-ritsulib.ritsukage.com/guide/content-authoring-toolkit
+   - https://sts2-ritsulib.ritsukage.com/guide/patching-guide
+   - https://github.com/BAKAOLC/STS2-RitsuLib
+5. 持续更新的社区教程：https://github.com/GlitchedReme/SlayTheSpire2ModdingTutorials
+
+## 进度同步
+
+每次 Codex 完成实质工作后必须更新 `docs/PROGRESS.md`：记录负责人、分支/PR、涉及文件、验证结果、下一步和阻塞项。只更新自己认领的任务行；合并冲突时保留双方记录，由集成负责人统一整理“当前里程碑”。
