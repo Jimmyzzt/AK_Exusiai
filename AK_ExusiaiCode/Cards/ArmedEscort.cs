@@ -43,7 +43,7 @@ public sealed class ArmedEscort : ExusiaiCardTemplate
             null,
             this)).FirstOrDefault();
         if (selected != null)
-            DeliveryCmd.Add(selected, DynamicVars[DeliveryKey].IntValue);
+            await DeliveryCmd.Add(choiceContext, selected, DynamicVars[DeliveryKey].IntValue);
     }
 
     protected override void OnUpgrade()

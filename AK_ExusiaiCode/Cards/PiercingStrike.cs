@@ -26,7 +26,7 @@ public sealed class PiercingStrike : ExusiaiCardTemplate
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         var attack = DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay);
-        if (Exusiai.DidSpendAmmo(cardPlay))
+        if (AK_Exusiai.Characters.Exusiai.DidSpendAmmo(cardPlay))
             attack.TargetingAllOpponents(CombatState!);
         else
             attack.Targeting(cardPlay.Target);

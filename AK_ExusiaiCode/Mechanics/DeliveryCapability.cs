@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using AK_Exusiai.Cards;
+using AK_Exusiai.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models.Capabilities;
@@ -57,13 +59,16 @@ public sealed class DeliveryCapability : CardCapability, ICardDescriptionContrib
         await ReduceAndMaybeAutoPlay(choiceContext, 1);
     }
 
-    public void Add(int amount)
+    public async Task Add(PlayerChoiceContext choiceContext, int amount)
     {
         if (amount <= 0)
             return;
 
+        int oldAmount = Amount;
         SetAmount(Amount + amount);
         EnsureKeywords();
+        await DeliveryChangeCmd.AfterChanged(choiceContext, Owner!, Amount - oldAmount);
+        await MaybeAutoPlay(choiceContext);
     }
 
     public void Set(int amount)
@@ -78,12 +83,23 @@ public sealed class DeliveryCapability : CardCapability, ICardDescriptionContrib
         if (amount <= 0 || Amount <= 0 || Owner == null)
             return;
 
+        int oldAmount = Amount;
         SetAmount(Math.Max(0, Amount - amount));
         if (Amount > 0)
-        {
             EnsureKeywords();
+
+        await DeliveryChangeCmd.AfterChanged(choiceContext, Owner, Amount - oldAmount);
+        await MaybeAutoPlay(choiceContext);
+    }
+
+    private async Task MaybeAutoPlay(PlayerChoiceContext choiceContext)
+    {
+        if (Owner == null || Amount < 0)
             return;
-        }
+
+        bool expedited = Owner.Owner.Creature.HasPower<ExpeditePower>() && Amount == 1;
+        if (Amount > 0 && !expedited)
+            return;
 
         CardModel card = Owner;
         try
@@ -172,13 +188,13 @@ public static class DeliveryCmd
         return card.Capabilities().Get<DeliveryCapability>()?.Amount > 0;
     }
 
-    public static void Add(CardModel card, int amount)
+    public static async Task Add(PlayerChoiceContext choiceContext, CardModel card, int amount)
     {
         if (amount <= 0)
             return;
 
         DeliveryCapability capability = card.Capabilities().GetOrCreate<DeliveryCapability>();
-        capability.Add(amount);
+        await capability.Add(choiceContext, amount);
     }
 
     public static void Set(CardModel card, int amount)
@@ -192,5 +208,38 @@ public static class DeliveryCmd
         DeliveryCapability? capability = card.Capabilities().Get<DeliveryCapability>();
         if (capability != null)
             await capability.ReduceAndMaybeAutoPlay(choiceContext, amount);
+    }
+}
+
+internal static class DeliveryChangeCmd
+{
+    public static async Task AfterChanged(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        int delta)
+    {
+        int changedLayers = Math.Abs(delta);
+        if (changedLayers == 0 || card.Owner.Creature.IsDead)
+            return;
+
+        int block = 0;
+        if (card is Package)
+            block += card.DynamicVars.Block.IntValue * changedLayers;
+
+        SecureDeliveryPower? secureDelivery = card.Owner.Creature.GetPower<SecureDeliveryPower>();
+        if (secureDelivery != null)
+        {
+            secureDelivery.Flash();
+            block += secureDelivery.Amount * changedLayers;
+        }
+
+        if (block > 0)
+        {
+            await CreatureCmd.GainBlock(
+                card.Owner.Creature,
+                block,
+                MegaCrit.Sts2.Core.ValueProps.ValueProp.Unpowered,
+                null);
+        }
     }
 }

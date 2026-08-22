@@ -137,12 +137,16 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info))
                 return 0m;
 
-            return GetAmmoDamageBonus(dealer) * info.Multiplier;
+            int extraTriggers = dealer.Powers.OfType<TemporaryExtraAmmoTriggerPower>()
+                .Sum(power => power.Amount);
+            return GetAmmoDamageBonus(dealer) * (info.Multiplier + extraTriggers);
         }
 
         int previewMultiplier = cardSource is IMultiAmmoAttack multi
             ? Math.Min(SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id), multi.MaxAmmoSpend)
             : SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0 ? 1 : 0;
+        if (previewMultiplier > 0 && cardSource is IExtraAmmoTriggerPreview preview)
+            previewMultiplier += preview.ExtraAmmoTriggers;
         return GetAmmoDamageBonus(dealer) * previewMultiplier;
     }
 
@@ -169,6 +173,17 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         }
 
         return GetAmmoDamageBonus(cardPlay.Player.Creature) * info.Multiplier;
+    }
+
+    public static int GetAmmoMultiplier(CardPlay? cardPlay)
+    {
+        if (cardPlay?.Player.Character is not Exusiai exusiai ||
+            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info))
+        {
+            return 0;
+        }
+
+        return info.Multiplier;
     }
 
     public static bool HasAmmoBackedBonus(CardPlay? cardPlay)

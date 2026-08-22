@@ -64,6 +64,6 @@ public sealed class EmpathyFormPower : ModPowerTemplate
     private void AttachIfOwned(CardModel card)
     {
         if (card.Owner.Creature == Owner)
-            card.Capabilities().GetOrCreate<AngelCapability>();
+            AngelCmd.Add(card);
     }
 }

@@ -9,6 +9,11 @@ public interface IMultiAmmoAttack
     int MaxAmmoSpend { get; }
 }
 
+public interface IExtraAmmoTriggerPreview
+{
+    int ExtraAmmoTriggers { get; }
+}
+
 internal enum AmmoAttackMode
 {
     Paid,

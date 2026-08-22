@@ -17,8 +17,10 @@ public static class AngelCardCatalog
 
     public static CardModel Create(Player owner, CardModel canonical)
     {
-        return (owner.Creature.CombatState ?? throw new InvalidOperationException("Cannot create an Angel card outside combat."))
+        CardModel card = (owner.Creature.CombatState ?? throw new InvalidOperationException("Cannot create an Angel card outside combat."))
             .CreateCard(canonical, owner);
+        AscensionCmd.UpgradeIfNeeded(card);
+        return card;
     }
 
     public static CardModel CreateRandom(Player owner)

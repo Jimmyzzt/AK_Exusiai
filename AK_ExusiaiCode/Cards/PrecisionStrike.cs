@@ -36,7 +36,7 @@ public sealed class PrecisionStrike : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        if (Exusiai.DidSpendAmmo(cardPlay))
+        if (AK_Exusiai.Characters.Exusiai.DidSpendAmmo(cardPlay))
             await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target,
                 DynamicVars.Weak.BaseValue, Owner.Creature, this);
     }

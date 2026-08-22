@@ -33,7 +33,7 @@ public sealed class LogisticsOutsourcingPower : ModPowerTemplate
                 null,
                 this)).FirstOrDefault();
             if (selected != null)
-                DeliveryCmd.Add(selected, 3);
+                await DeliveryCmd.Add(choiceContext, selected, 3);
         }
     }
 }

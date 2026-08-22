@@ -39,7 +39,7 @@ public sealed class Shootoholic : ExusiaiCardTemplate
             selected.Add(card);
         }
 
-        using IDisposable scope = Exusiai.BeginPrepaidAmmo(Owner, ammo);
+        using IDisposable scope = AK_Exusiai.Characters.Exusiai.BeginPrepaidAmmo(Owner, ammo);
         foreach (CardModel attack in selected)
             await CardCmd.AutoPlay(choiceContext, attack, null, AutoPlayType.Default);
     }

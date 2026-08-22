@@ -13,7 +13,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-[RegisterCharacterStarterCard(typeof(Exusiai), 4, Order = 10)]
+[RegisterCharacterStarterCard(typeof(AK_Exusiai.Characters.Exusiai), 4, Order = 10)]
 public sealed class ExusiaiStrike : ModCardTemplate
 {
     public override CardAssetProfile AssetProfile => new(

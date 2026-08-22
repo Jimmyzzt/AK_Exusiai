@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-[RegisterCharacterStarterCard(typeof(Exusiai), Order = 30)]
+[RegisterCharacterStarterCard(typeof(AK_Exusiai.Characters.Exusiai), Order = 30)]
 public sealed class ChargingMode : ModCardTemplate
 {
     private const string HitCountKey = "HitCount";

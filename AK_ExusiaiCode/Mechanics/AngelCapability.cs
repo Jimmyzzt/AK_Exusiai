@@ -114,4 +114,10 @@ public static class AngelCmd
 {
     public static bool IsAngel(CardModel card) =>
         card.Capabilities().Get<AngelCapability>() != null;
+
+    public static void Add(CardModel card)
+    {
+        card.Capabilities().GetOrCreate<AngelCapability>();
+        AscensionCmd.UpgradeIfNeeded(card);
+    }
 }
