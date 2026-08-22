@@ -57,6 +57,7 @@ public partial class Entry
         [
             $"{ResPath}/images/character/exusiai_stand.png",
             $"{ResPath}/images/character/exusiai_select_bg.png",
+            $"{ResPath}/images/character/exusiai_select_icon.jpg",
             $"{ResPath}/images/character/exusiai_icon.png",
             $"{ResPath}/images/relics/ExusiaiBadge.png",
             $"{ResPath}/images/ui/ammo.svg",

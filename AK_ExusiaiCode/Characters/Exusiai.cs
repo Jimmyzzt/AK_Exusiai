@@ -55,7 +55,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             IconOutlineTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             CharacterSelectBgPath: $"{Entry.ResPath}/images/character/exusiai_select_bg.png",
-            CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_stand.png",
+            CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_select_icon.jpg",
             MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
         VisualCues: VisualCueSetBuilder.Create()
             .Single("idle", $"{Entry.ResPath}/images/character/exusiai_stand.png")
