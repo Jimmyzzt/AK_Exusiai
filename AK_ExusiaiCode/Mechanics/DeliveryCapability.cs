@@ -66,6 +66,13 @@ public sealed class DeliveryCapability : CardCapability, ICardDescriptionContrib
         EnsureKeywords();
     }
 
+    public void Set(int amount)
+    {
+        SetAmount(Math.Max(0, amount));
+        if (Amount > 0)
+            EnsureKeywords();
+    }
+
     public async Task ReduceAndMaybeAutoPlay(PlayerChoiceContext choiceContext, int amount)
     {
         if (amount <= 0 || Amount <= 0 || Owner == null)
@@ -123,7 +130,10 @@ public sealed class DeliveryCapability : CardCapability, ICardDescriptionContrib
     private void EnsureKeywords()
     {
         CardModel? card = Owner;
-        if (card == null || Amount <= 0)
+        // A card constructor runs while ModelDb is creating the canonical model.
+        // Fixed-Delivery cards already declare Retain/Exhaust canonically, so only
+        // dynamically granted Delivery needs to mutate a live card's keywords.
+        if (card == null || Amount <= 0 || card.IsCanonical)
             return;
 
         IReadOnlySet<CardKeyword> local = card.GetKeywordsWithSources(KeywordSources.Local);
@@ -169,6 +179,12 @@ public static class DeliveryCmd
 
         DeliveryCapability capability = card.Capabilities().GetOrCreate<DeliveryCapability>();
         capability.Add(amount);
+    }
+
+    public static void Set(CardModel card, int amount)
+    {
+        DeliveryCapability capability = card.Capabilities().GetOrCreate<DeliveryCapability>();
+        capability.Set(amount);
     }
 
     public static async Task Reduce(PlayerChoiceContext choiceContext, CardModel card, int amount)

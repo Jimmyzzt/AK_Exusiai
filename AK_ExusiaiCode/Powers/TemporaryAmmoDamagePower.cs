@@ -13,7 +13,7 @@ public sealed class TemporaryAmmoDamagePower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Modification;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(TemporaryAmmoDamagePower));
 
     public override async Task AfterSideTurnEnd(
         PlayerChoiceContext choiceContext,

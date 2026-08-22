@@ -12,5 +12,13 @@
 | `references/official/art/职业分支图标_速射手.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `职业分支图标_速射手.png` | 预留职业分支标记；曾用于首版临时角色头像 | 源文件未修改 | 主维护者/2026-08-21 |
 | `references/official/art/模组_证章.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_证章.png` | 初始遗物“能天使的证章”图标 | 源文件未修改 | 主维护者/2026-08-21 |
 | `references/official/art/模组_能天使的杰作.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_能天使的杰作.png` | 预留给设计表中的先古遗物 | 尚未接入运行时 | 主维护者/2026-08-21 |
+| `references/official/art/显圣吊坠.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `显圣吊坠.png` | “显圣吊坠”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/NecklaceOfThePresencePower.png` | 主维护者/2026-08-22 |
+| `references/official/art/企鹅物流logo.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `企鹅物流logo.png` | “物流外包”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/LogisticsOutsourcingPower.png` | 主维护者/2026-08-22 |
+| `references/official/art/Logo_拉特兰.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `Logo_拉特兰.png` | “共感形态”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/EmpathyFormPower.png` | 主维护者/2026-08-22 |
+| `references/official/asset/03e9a2097fc80e8a8cee4fc0a04607cc59597d60.jpg` | JPG 源素材 | 项目维护者提供 | `03e9a2097fc80e8a8cee4fc0a04607cc59597d60.jpg` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
+| `references/official/asset/4dbed73c549864a582df1318f25b2b41.webp` | WebP 源素材 | 项目维护者提供 | `4dbed73c549864a582df1318f25b2b41.webp` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
+| `references/official/asset/5c5a29dae10fb026ddf002bca59d8374161775300.jpg` | JPG 源素材 | 项目维护者提供 | `5c5a29dae10fb026ddf002bca59d8374161775300.jpg` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
+| `references/official/asset/6e950a0af9dd59a15788c11a0903a6eb161775300.png` | PNG 源素材 | 项目维护者提供 | `6e950a0af9dd59a15788c11a0903a6eb161775300.png` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
+| `references/official/asset/9954d6431fc4876b1f2b6801431e2c94da8b0a39.jpg` | JPG 源素材 | 项目维护者提供 | `9954d6431fc4876b1f2b6801431e2c94da8b0a39.jpg` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
 
 不要在这里存放整套游戏资源、可执行文件、DLL/PCK、无关批量提取结果或其他 Mod 的素材。

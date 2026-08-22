@@ -5,6 +5,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
@@ -25,7 +26,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
     private sealed class AmmoData
     {
-        public Dictionary<CardPlay, AmmoAttackMode> AttackModes { get; } = [];
+        public Dictionary<CardPlay, AmmoAttackInfo> AttackModes { get; } = [];
+        public Stack<int> PrepaidMultipliers { get; } = [];
     }
 
     public override CharacterGender Gender => CharacterGender.Feminine;
@@ -67,6 +69,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     public override Task BeforeCombatStart()
     {
         GetAmmoData().AttackModes.Clear();
+        GetAmmoData().PrepaidMultipliers.Clear();
         return Task.CompletedTask;
     }
 
@@ -75,20 +78,36 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         if (cardPlay.Player.Character is not Exusiai || cardPlay.Card.Type != CardType.Attack)
             return;
 
-        if (cardPlay.Card is IAmmoFreeAttack)
+        AmmoData data = GetAmmoData();
+        if (data.PrepaidMultipliers.TryPeek(out int prepaidMultiplier))
         {
-            GetAmmoData().AttackModes[cardPlay] = AmmoAttackMode.Free;
+            data.AttackModes[cardPlay] = new AmmoAttackInfo(
+                AmmoAttackMode.Prepaid,
+                prepaidMultiplier);
             return;
         }
+
+        if (cardPlay.Card is IAmmoFreeAttack)
+        {
+            int multiplier = SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id) > 0 ? 1 : 0;
+            data.AttackModes[cardPlay] = new AmmoAttackInfo(AmmoAttackMode.Free, multiplier);
+            return;
+        }
+
+        int ammoToSpend = cardPlay.Card is IMultiAmmoAttack multi
+            ? Math.Min(SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id), multi.MaxAmmoSpend)
+            : 1;
+        if (ammoToSpend <= 0)
+            return;
 
         if (await SecondaryResourceCmd.Spend(
                 cardPlay.Player,
                 AmmoResource.Id,
-                1,
+                ammoToSpend,
                 cardPlay.Card,
                 this))
         {
-            GetAmmoData().AttackModes[cardPlay] = AmmoAttackMode.Paid;
+            data.AttackModes[cardPlay] = new AmmoAttackInfo(AmmoAttackMode.Paid, ammoToSpend);
         }
     }
 
@@ -115,45 +134,93 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
         if (cardPlay != null)
         {
-            if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackMode mode))
+            if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info))
                 return 0m;
 
-            if (mode == AmmoAttackMode.Free &&
-                SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) <= 0)
-            {
-                return 0m;
-            }
-
-            return GetAmmoDamageBonus(dealer);
+            return GetAmmoDamageBonus(dealer) * info.Multiplier;
         }
 
-        return SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0
-            ? GetAmmoDamageBonus(dealer)
-            : 0m;
+        int previewMultiplier = cardSource is IMultiAmmoAttack multi
+            ? Math.Min(SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id), multi.MaxAmmoSpend)
+            : SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0 ? 1 : 0;
+        return GetAmmoDamageBonus(dealer) * previewMultiplier;
     }
 
     public override Task AfterCombatEnd(CombatRoom room)
     {
         GetAmmoData().AttackModes.Clear();
+        GetAmmoData().PrepaidMultipliers.Clear();
         return Task.CompletedTask;
     }
 
     public static bool DidSpendAmmo(CardPlay cardPlay)
     {
         return cardPlay.Player.Character is Exusiai exusiai &&
-               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackMode mode) &&
-               mode == AmmoAttackMode.Paid;
+               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info) &&
+               info.Mode == AmmoAttackMode.Paid;
+    }
+
+    public static int GetAmmoBonus(CardPlay? cardPlay)
+    {
+        if (cardPlay?.Player.Character is not Exusiai exusiai ||
+            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info))
+        {
+            return 0;
+        }
+
+        return GetAmmoDamageBonus(cardPlay.Player.Creature) * info.Multiplier;
+    }
+
+    public static bool HasAmmoBackedBonus(CardPlay? cardPlay)
+    {
+        return cardPlay?.Player.Character is Exusiai exusiai &&
+               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info) &&
+               info.Mode != AmmoAttackMode.Free &&
+               info.Multiplier > 0;
+    }
+
+    public static IDisposable BeginPrepaidAmmo(Player player, int multiplier)
+    {
+        if (player.Character is not Exusiai exusiai)
+            return EmptyScope.Instance;
+
+        AmmoData data = exusiai.GetAmmoData();
+        data.PrepaidMultipliers.Push(Math.Max(0, multiplier));
+        return new PrepaidAmmoScope(data);
     }
 
     private static int GetAmmoDamageBonus(Creature dealer)
     {
         return AmmoResource.DamageBonus +
+               dealer.Powers.OfType<AmmoDamagePower>().Sum(power => power.Amount) +
                dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount);
     }
 
     private AmmoData GetAmmoData()
     {
         return AmmoDataByCharacter.GetOrCreateValue(this);
+    }
+
+    private sealed class PrepaidAmmoScope(AmmoData data) : IDisposable
+    {
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            if (_disposed)
+                return;
+            _disposed = true;
+            if (data.PrepaidMultipliers.Count > 0)
+                data.PrepaidMultipliers.Pop();
+        }
+    }
+
+    private sealed class EmptyScope : IDisposable
+    {
+        public static EmptyScope Instance { get; } = new();
+        public void Dispose()
+        {
+        }
     }
 
     public override List<string> GetArchitectAttackVfx()

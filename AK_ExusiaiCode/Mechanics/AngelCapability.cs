@@ -1,5 +1,7 @@
 using System.Text.Json.Nodes;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
@@ -10,12 +12,27 @@ namespace AK_Exusiai.Mechanics;
 
 [RegisterModelCapability]
 [RegisterDefaultModelCapability(typeof(HolyCityPurge))]
-public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
+[RegisterDefaultModelCapability(typeof(HolyCityGuidance))]
+[RegisterDefaultModelCapability(typeof(HolyCityProtection))]
+[RegisterDefaultModelCapability(typeof(HolyCityEternal))]
+[RegisterDefaultModelCapability(typeof(HolyCityIceCream))]
+public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor,
+    ICardDescriptionContributor, ICardHoverTipContributor
 {
     private const int NoCombatMinimum = int.MaxValue;
 
     private bool _addedKeyword;
     private int _lowestCombatCost = NoCombatMinimum;
+
+    public IEnumerable<CardDescriptionFragment> GetDescriptionFragments(CardDescriptionContext context) =>
+    [
+        new CardDescriptionFragment(
+            new LocString("cards", "AK_EXUSIAI_ANGEL.fragment"),
+            CardDescriptionFragmentPlacement.BeforeBase,
+            0),
+    ];
+
+    public IEnumerable<IHoverTip> GetHoverTips(CardModel card) => [ExusiaiKeywords.AngelHoverTip];
 
     public int ModifyEnergyCost(CardModel card, int currentCost, CostModifiers modifiers)
     {
@@ -91,4 +108,10 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
     {
         return card.Pile?.IsCombatPile == true;
     }
+}
+
+public static class AngelCmd
+{
+    public static bool IsAngel(CardModel card) =>
+        card.Capabilities().Get<AngelCapability>() != null;
 }
