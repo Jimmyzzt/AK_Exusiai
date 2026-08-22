@@ -36,7 +36,7 @@
   "AK_EXUSIAI_POWER_LOGISTICS_OUTSOURCE_POWER.description": "回合开始时，抽 {Amount} 张牌；每张牌抽取后，使至多 1 张手牌获得快递 3。",
   "AK_EXUSIAI_POWER_LOGISTICS_OUTSOURCE_POWER.smartDescription": "回合开始时，抽 {Amount} 张牌；每张牌抽取后，使至多 1 张手牌获得快递 3。",
   "AK_EXUSIAI_POWER_LOGISTICS_OUTSOURCE_POWER.selectionScreenPrompt": "选择至多 1 张手牌获得快递 3。",
-  "AK_EXUSIAI_POWER_ANGEL_FORM_POWER.title": "天使形态",
+  "AK_EXUSIAI_POWER_ANGEL_FORM_POWER.title": "共感形态",
   "AK_EXUSIAI_POWER_ANGEL_FORM_POWER.description": "本场战斗中所有卡牌获得天使。非能力天使牌在打出并被消耗时额外打出一次。",
   "AK_EXUSIAI_POWER_ANGEL_FORM_POWER.smartDescription": "本场战斗中所有卡牌获得天使。非能力天使牌在打出并被消耗时额外打出一次。",
   "AK_EXUSIAI_POWER_CHILLED_DESSERT_POWER.title": "冰镇甜品",

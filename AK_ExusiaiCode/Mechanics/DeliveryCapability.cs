@@ -130,7 +130,10 @@ public sealed class DeliveryCapability : CardCapability, ICardDescriptionContrib
     private void EnsureKeywords()
     {
         CardModel? card = Owner;
-        if (card == null || Amount <= 0)
+        // A card constructor runs while ModelDb is creating the canonical model.
+        // Fixed-Delivery cards already declare Retain/Exhaust canonically, so only
+        // dynamically granted Delivery needs to mutate a live card's keywords.
+        if (card == null || Amount <= 0 || card.IsCanonical)
             return;
 
         IReadOnlySet<CardKeyword> local = card.GetKeywordsWithSources(KeywordSources.Local);

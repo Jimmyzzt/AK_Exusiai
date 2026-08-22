@@ -1,46 +1,38 @@
 using AK_Exusiai.Content;
-using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class TravelLight : ExusiaiCardTemplate, IAmmoFreeAttack
+public sealed class TravelLight : ExusiaiCardTemplate
 {
-    private const string AmmoKey = "Ammo";
-    protected override bool ShowAmmoHoverTip => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move)];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new DamageVar(5m, ValueProp.Move),
-        new DynamicVar(AmmoKey, 1m),
-    ];
-
-    public TravelLight() : base(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public TravelLight() : base(0, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, DynamicVars[AmmoKey].IntValue, this);
+        var targets = CombatState!.HittableEnemies;
+        if (targets.Count == 0)
+            return;
+
+        var target = Owner.RunState.Rng.CombatTargets.NextItem(targets);
+        if (target == null)
+            return;
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
+            .Targeting(target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(2m);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

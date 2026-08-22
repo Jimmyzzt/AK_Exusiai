@@ -15,6 +15,8 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
     private const string AmmoKey = "Ammo";
     protected override bool ShowAmmoHoverTip => true;
     protected override bool ShowDeliveryHoverTip => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(AmmoKey, 2m)];
 
     public PaganiniCustom() : base(4, CardType.Power, CardRarity.Rare, TargetType.Self)

@@ -12,6 +12,8 @@ namespace AK_Exusiai.Cards;
 public sealed class ChilledDessert : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
 
     public ChilledDessert() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
