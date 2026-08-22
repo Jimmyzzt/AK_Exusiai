@@ -9,7 +9,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class FullyPrepared : ExusiaiCardTemplate
+public sealed class DivineJudgmentTraditional : ExusiaiCardTemplate
 {
     private const string HitCountKey = "HitCount";
     protected override bool IsPlayable =>
@@ -17,11 +17,11 @@ public sealed class FullyPrepared : ExusiaiCardTemplate
     protected override bool ShouldGlowGoldInternal => IsPlayable;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(8m, ValueProp.Move),
         new DynamicVar(HitCountKey, 5m),
     ];
 
-    public FullyPrepared() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public DivineJudgmentTraditional() : base(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 

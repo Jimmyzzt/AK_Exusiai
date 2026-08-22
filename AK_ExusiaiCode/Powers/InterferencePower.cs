@@ -12,11 +12,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class EnemyPassiveSuppressionPower : ModPowerTemplate
+public sealed class InterferencePower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Weak;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(InterferencePower));
 
     public override decimal ModifyDamageMultiplicative(
         Creature? target,

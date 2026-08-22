@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class HolyCityShelterPower : ModPowerTemplate
+public sealed class HolyCityProtectionPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;

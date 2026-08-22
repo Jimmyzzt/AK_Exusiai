@@ -10,7 +10,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class AimForTheWeakPoint : ExusiaiCardTemplate
+public sealed class TargetTheWeakSpot : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
         [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
@@ -21,7 +21,7 @@ public sealed class AimForTheWeakPoint : ExusiaiCardTemplate
         new PowerVar<VulnerablePower>(3m),
     ];
 
-    public AimForTheWeakPoint() : base(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
+    public TargetTheWeakSpot() : base(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
     {
     }
 

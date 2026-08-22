@@ -18,7 +18,7 @@ public sealed class OutstandingGraduate : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<EnemyPassiveSuppressionPower>(
+        await PowerCmd.Apply<InterferencePower>(
             choiceContext,
             CombatState!.HittableEnemies,
             1m,

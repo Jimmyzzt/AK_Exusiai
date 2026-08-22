@@ -10,8 +10,8 @@ public static class AngelCardCatalog
     [
         ModelDb.Card<HolyCityGuidance>(),
         ModelDb.Card<HolyCityPurge>(),
-        ModelDb.Card<HolyCityShelter>(),
-        ModelDb.Card<HolyCityEternity>(),
+        ModelDb.Card<HolyCityProtection>(),
+        ModelDb.Card<HolyCityEternal>(),
         ModelDb.Card<HolyCityIceCream>(),
     ];
 

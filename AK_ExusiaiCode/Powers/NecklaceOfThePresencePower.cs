@@ -15,7 +15,7 @@ public sealed class NecklaceOfThePresencePower : ModPowerTemplate, ISecondaryRes
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Ammo;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(NecklaceOfThePresencePower), ".png");
 
     public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {

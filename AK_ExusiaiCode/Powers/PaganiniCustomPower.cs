@@ -14,8 +14,7 @@ public sealed class PaganiniCustomPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Ammo;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(PaganiniCustomPower));
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

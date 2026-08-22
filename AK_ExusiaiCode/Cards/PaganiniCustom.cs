@@ -26,6 +26,12 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        await PowerCmd.Apply<AmmoDamagePower>(
+            choiceContext,
+            Owner.Creature,
+            2m,
+            Owner.Creature,
+            this);
         await PowerCmd.Apply<PaganiniCustomPower>(
             choiceContext,
             Owner.Creature,

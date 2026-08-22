@@ -12,11 +12,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class LogisticsOutsourcePower : ModPowerTemplate
+public sealed class LogisticsOutsourcingPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Retain;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(LogisticsOutsourcingPower), ".png");
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

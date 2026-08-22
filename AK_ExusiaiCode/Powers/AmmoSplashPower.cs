@@ -15,7 +15,7 @@ public sealed class AmmoSplashPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Bomb;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(AmmoSplashPower));
 
     public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {

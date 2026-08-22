@@ -6,11 +6,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class ChilledDessertPower : ModPowerTemplate
+public sealed class FrozenTreatPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Energy;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(FrozenTreatPower));
 
     public override bool ShouldPlayerResetEnergy(Player player)
     {

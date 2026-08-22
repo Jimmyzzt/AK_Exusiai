@@ -1,5 +1,4 @@
 using AK_Exusiai.Content;
-using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -9,22 +8,19 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class ChilledDessert : ExusiaiCardTemplate
+public sealed class LogisticsOutsourcing : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Retain, CardKeyword.Exhaust];
 
-    public ChilledDessert() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public LogisticsOutsourcing() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        DeliveryCmd.Set(this, 3);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<ChilledDessertPower>(
+        await PowerCmd.Apply<LogisticsOutsourcingPower>(
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DeliveryCmd.Set(this, 2);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

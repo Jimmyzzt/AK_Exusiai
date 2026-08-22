@@ -10,14 +10,14 @@ using AK_Exusiai.Mechanics;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class GuardianGunPower : ModPowerTemplate, ISecondaryResourceHookListener
+public sealed class PatronFirearmPower : ModPowerTemplate, ISecondaryResourceHookListener
 {
     private int _spent;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Ammo;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(PatronFirearmPower), ".png");
 
     public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {

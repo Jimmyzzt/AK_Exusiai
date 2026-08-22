@@ -15,7 +15,7 @@ public sealed class SteadfastHeart : ExusiaiCardTemplate
 {
     private const string AmmoKey = "Ammo";
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<HolyCityEternity>()];
+    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<HolyCityEternal>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(AmmoKey, 2m)];
 
     public SteadfastHeart() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
@@ -25,7 +25,7 @@ public sealed class SteadfastHeart : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, DynamicVars[AmmoKey].IntValue, this);
-        HolyCityEternity generated = CombatState!.CreateCard<HolyCityEternity>(Owner);
+        HolyCityEternal generated = CombatState!.CreateCard<HolyCityEternal>(Owner);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
             generated, PileType.Hand, Owner));
     }

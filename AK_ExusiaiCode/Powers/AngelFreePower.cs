@@ -7,8 +7,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using AK_Exusiai.Mechanics;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace AK_Exusiai.Powers;
 
@@ -17,14 +17,16 @@ public sealed class AngelFreePower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Energy;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(AngelFreePower));
 
     public override bool TryModifyEnergyCostInCombatLate(
         CardModel card,
         decimal originalCost,
         out decimal modifiedCost)
     {
-        modifiedCost = card.Owner.Creature == Owner && card.HasModKeyword(ExusiaiKeywords.AngelKeyword)
+        modifiedCost = card.Owner.Creature == Owner &&
+                       card.Pile?.Type is PileType.Hand or PileType.Play &&
+                       AngelCmd.IsAngel(card)
             ? 0m
             : originalCost;
         return modifiedCost != originalCost;

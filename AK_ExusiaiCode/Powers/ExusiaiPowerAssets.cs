@@ -17,6 +17,10 @@ internal static class ExusiaiPowerAssets
     public static PowerAssetProfile Echo => From<EchoFormPower>();
     public static PowerAssetProfile Retain => From<BarricadePower>();
 
+    public static PowerAssetProfile Custom(string baseName, string extension = ".svg") => new(
+        IconPath: $"{Entry.ResPath}/images/powers/{baseName}{extension}",
+        BigIconPath: $"{Entry.ResPath}/images/powers/{baseName}{extension}");
+
     private static PowerAssetProfile From<TPower>() where TPower : PowerModel
     {
         TPower power = ModelDb.Power<TPower>();

@@ -8,18 +8,18 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class AngelForm : ExusiaiCardTemplate
+public sealed class EmpathyForm : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
 
-    public AngelForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public EmpathyForm() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<AngelFormPower>(
+        await PowerCmd.Apply<EmpathyFormPower>(
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 

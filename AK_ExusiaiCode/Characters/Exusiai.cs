@@ -192,8 +192,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     private static int GetAmmoDamageBonus(Creature dealer)
     {
         return AmmoResource.DamageBonus +
-               dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount) +
-               dealer.Powers.OfType<PaganiniCustomPower>().Count() * 2;
+               dealer.Powers.OfType<AmmoDamagePower>().Sum(power => power.Amount) +
+               dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount);
     }
 
     private AmmoData GetAmmoData()

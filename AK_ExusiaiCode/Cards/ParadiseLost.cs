@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using STS2RitsuLib.Interop.AutoRegistration;
 
@@ -30,6 +31,14 @@ public sealed class ParadiseLost : ExusiaiCardTemplate
     {
         await PlayerCmd.GainEnergy(DynamicVars["Energy"].IntValue, Owner);
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        foreach (CardModel card in Owner.PlayerCombatState!.Hand.Cards)
+        {
+            if (!card.EnergyCost.CostsX && card.EnergyCost.GetWithModifiers(CostModifiers.All) >= 0)
+            {
+                card.EnergyCost.SetThisTurnOrUntilPlayed(
+                    Owner.RunState.Rng.CombatEnergyCosts.NextInt(4));
+            }
+        }
         await PowerCmd.Apply<TemporaryConfusionPower>(
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         Decay curse = CombatState!.CreateCard<Decay>(Owner);

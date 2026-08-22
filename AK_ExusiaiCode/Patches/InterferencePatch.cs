@@ -6,7 +6,7 @@ using STS2RitsuLib.Patching.Models;
 
 namespace AK_Exusiai.Patches;
 
-internal sealed class EnemyPassiveSuppressionPatch : IPatchMethod
+internal sealed class InterferencePatch : IPatchMethod
 {
     public static string PatchId => "suppress-enemy-passive-powers";
     public static string Description => "Temporarily omit positive enemy powers from combat hook dispatch";
@@ -26,8 +26,8 @@ internal sealed class EnemyPassiveSuppressionPatch : IPatchMethod
         foreach (AbstractModel model in models)
         {
             if (model is PowerModel power &&
-                power is not EnemyPassiveSuppressionPower &&
-                power.Owner.HasPower<EnemyPassiveSuppressionPower>() &&
+                power is not InterferencePower &&
+                power.Owner.HasPower<InterferencePower>() &&
                 power.TypeForCurrentAmount == PowerType.Buff)
             {
                 continue;

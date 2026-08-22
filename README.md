@@ -6,7 +6,7 @@
 
 ## 当前内容
 
-- `design/Exusiai_Cardlist-卡牌.csv`：由双方在线文档确认后导出的只读实现来源；该目录不会进入 Godot 资源扫描。
+- `docs/AK_Exusiai-Card.csv`：由双方在线文档确认后导出的只读实现来源；`docs/.gdignore` 阻止 Godot 将 CSV 误作翻译资源导入。
   - 2 张初始卡；
   - 80 张常规牌（20 普通、35 罕见、25 稀有）；
   - 13 张衍生牌；
@@ -50,7 +50,7 @@ dotnet build .\AK_Exusiai.csproj
 dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 ```
 
-游戏中的 RitsuLib 运行时必须同样为 0.5.14。游戏内验证步骤见 `docs/TESTING.md`。
+游戏中的 RitsuLib 运行时必须同样为 0.5.14。游戏内回归命令与结果记录在对应 PR 和 `docs/PROGRESS.md` 中。
 
 ## 协作方式
 

@@ -3,18 +3,17 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models.Capabilities;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class AngelFormPower : ModPowerTemplate
+public sealed class EmpathyFormPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Echo;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(EmpathyFormPower), ".png");
 
     public override Task AfterApplied(MegaCrit.Sts2.Core.Entities.Creatures.Creature? applier, CardModel? cardSource)
     {
@@ -34,17 +33,23 @@ public sealed class AngelFormPower : ModPowerTemplate
         return Task.CompletedTask;
     }
 
-    public override int ModifyCardPlayCount(CardModel card, MegaCrit.Sts2.Core.Entities.Creatures.Creature? target, int playCount)
+    public override async Task AfterCardExhausted(
+        MegaCrit.Sts2.Core.GameActions.Multiplayer.PlayerChoiceContext choiceContext,
+        CardModel card,
+        bool causedByEthereal)
     {
         if (card.Owner.Creature == Owner &&
             card.Type != CardType.Power &&
-            card.HasModKeyword(ExusiaiKeywords.AngelKeyword) &&
-            card.Keywords.Contains(CardKeyword.Exhaust))
+            AngelCmd.IsAngel(card))
         {
-            return playCount + 1;
+            Flash();
+            CardModel replay = card.CreateDupe(card.Owner);
+            await MegaCrit.Sts2.Core.Commands.CardCmd.AutoPlay(
+                choiceContext,
+                replay,
+                null,
+                AutoPlayType.Default);
         }
-
-        return playCount;
     }
 
     private void AttachToAllCards()
