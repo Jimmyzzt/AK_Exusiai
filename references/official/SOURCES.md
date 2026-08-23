@@ -7,11 +7,12 @@
 | 仓库路径 | 类型 | 来源作品/页面 | 原文件名 | 项目用途 | 已做修改 | 记录人/日期 |
 |---|---|---|---|---|---|---|
 | `references/official/art/Exusiai_default_default.png` | PNG 角色立绘 | 《明日方舟》官方游戏素材（项目维护者提供） | `Exusiai_default_default.png` | 战斗默认站姿、角色选择肖像 | 源文件未修改；复制并在场景中缩放 | 主维护者/2026-08-21 |
-| `references/official/art/Exusiai_icon.png` | PNG 角色头像 | 《明日方舟》官方游戏素材（项目维护者提供） | `Exusiai_icon.png` | 顶部角色头像、角色图标与地图标记 | 源文件未修改 | 主维护者/2026-08-21 |
+| `references/official/art/Exusiai_icon.png` | PNG 角色头像 | 《明日方舟》官方游戏素材（项目维护者提供） | `Exusiai_icon.png` | 顶部角色头像、角色图标与地图标记 | 2026-08-24 更新源图；脚本复制为 `AK_Exusiai/images/character/exusiai_icon.png` | 主维护者/2026-08-24 |
 | `references/official/art/Avg_61_i23.png` | PNG CG | 《明日方舟》官方游戏素材（项目维护者提供） | `Avg_61_i23.png` | 角色选择界面背景 | 源文件未修改；运行时使用铺满裁切 | 主维护者/2026-08-21 |
 | `references/official/art/职业分支图标_速射手.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `职业分支图标_速射手.png` | 预留职业分支标记；曾用于首版临时角色头像 | 源文件未修改 | 主维护者/2026-08-21 |
-| `references/official/art/模组_证章.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_证章.png` | 初始遗物“能天使的证章”图标 | 源文件未修改 | 主维护者/2026-08-21 |
-| `references/official/art/模组_能天使的杰作.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_能天使的杰作.png` | 预留给设计表中的先古遗物 | 尚未接入运行时 | 主维护者/2026-08-21 |
+| `references/official/art/模组_证章.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_证章.png` | 初始遗物“能天使的证章”图标 | 2026-08-24 更新源图；脚本生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
+| `references/official/art/模组_能天使的杰作.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_能天使的杰作.png` | 先古遗物“能天使的杰作”图标 | 脚本生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
+| `references/official/art/立绘_CONFESS-47_1.png` | PNG 角色立绘 | 《明日方舟》官方游戏素材（项目维护者提供） | `立绘_CONFESS-47_1.png` | 遗物“CONFESS-47”图标 | 脚本裁切、等比缩放并生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
 | `references/official/art/显圣吊坠.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `显圣吊坠.png` | “显圣吊坠”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/NecklaceOfThePresencePower.png` | 主维护者/2026-08-22 |
 | `references/official/art/企鹅物流logo.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `企鹅物流logo.png` | “物流外包”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/LogisticsOutsourcingPower.png` | 主维护者/2026-08-22 |
 | `references/official/art/Logo_拉特兰.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `Logo_拉特兰.png` | “共感形态”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/EmpathyFormPower.png` | 主维护者/2026-08-22 |

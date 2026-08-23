@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using AK_Exusiai.Cards;
 using AK_Exusiai.Powers;
+using AK_Exusiai.Relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models.Capabilities;
@@ -221,6 +222,13 @@ internal static class DeliveryChangeCmd
         int changedLayers = Math.Abs(delta);
         if (changedLayers == 0 || card.Owner.Creature.IsDead)
             return;
+
+        if (delta > 0)
+        {
+            BossMedal? bossMedal = card.Owner.Relics.OfType<BossMedal>().FirstOrDefault();
+            if (bossMedal != null)
+                await bossMedal.AfterDeliveryAdded(choiceContext);
+        }
 
         int block = 0;
         if (card is Package)

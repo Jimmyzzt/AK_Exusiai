@@ -23,3 +23,12 @@
 | `references/free/art/易燃易爆炸.svg` | SVG 图标 | 项目维护者提供 | “易燃易爆”能力图标 | 复制为 `AK_Exusiai/images/powers/FlammableAndExplosivePower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/福音摇滚.svg` | SVG 图标 | 项目维护者提供 | “福音摇滚”能力图标 | 复制为 `AK_Exusiai/images/powers/RockNGospelPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天使的祝福.svg` | SVG 图标 | 项目维护者提供 | “天使的祝福”能力图标 | 复制为 `AK_Exusiai/images/powers/AngelsBlessingsPower.svg` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/蚀刻子弹.png` | PNG 遗物图 | 项目维护者提供 | “蚀刻子弹”遗物图标 | 脚本裁切、等比缩放并生成 `EtchedRound.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/苹果派物流.png` | PNG 遗物图 | 项目维护者提供 | “苹果派物流”遗物图标 | 脚本裁切、等比缩放并生成 `ApplePieLogistics.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/老板奖章.png` | PNG 遗物图 | 项目维护者提供 | “老板奖章”遗物图标 | 脚本裁切、等比缩放并生成 `BossMedal.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/主-主机.png` | PNG 遗物图 | 项目维护者提供 | “主-主机”遗物图标 | 脚本裁切、等比缩放并生成 `LordServer.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/日光灯.png` | PNG 遗物图 | 项目维护者提供 | “日光灯”遗物图标 | 脚本裁切、等比缩放并生成 `FluorescentLight.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/火力电台.png` | PNG 遗物图 | 项目维护者提供 | “火力电台”遗物图标 | 脚本裁切、等比缩放并生成 `FirepowerRadio.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/药水形状的弹夹.png` | PNG 药水图 | 项目维护者提供 | “药水形状的弹匣”药水图标 | 脚本裁切、等比缩放并生成 `PotionShapedMag.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/大帝的珍藏.png` | PNG 药水图 | 项目维护者提供 | “大帝的珍藏”药水图标 | 脚本裁切、等比缩放并生成 `EmperorsStash.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/瓶装光环.png` | PNG 药水图 | 项目维护者提供 | “瓶装光环”药水图标 | 脚本裁切、等比缩放并生成 `BottledHalo.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |

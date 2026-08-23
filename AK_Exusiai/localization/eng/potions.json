@@ -1,0 +1,10 @@
+{
+  "AK_EXUSIAI_POTION_POTION_SHAPED_MAG.title": "POTION SHAPED MAG",
+  "AK_EXUSIAI_POTION_POTION_SHAPED_MAG.description": "Gain {Ammo} [gold]Ammo[/gold].",
+
+  "AK_EXUSIAI_POTION_EMPERORS_STASH.title": "Emperor's Stash",
+  "AK_EXUSIAI_POTION_EMPERORS_STASH.description": "Add {Cards} random Logistics cards to your hand.",
+
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.title": "Bottled Halo",
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "Add {Cards} random [gold]Angel[/gold] cards to your hand."
+}

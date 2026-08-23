@@ -1,0 +1,10 @@
+{
+  "AK_EXUSIAI_POTION_POTION_SHAPED_MAG.title": "药水形状的弹匣",
+  "AK_EXUSIAI_POTION_POTION_SHAPED_MAG.description": "获得 {Ammo} 发[gold]弹药[/gold]。",
+
+  "AK_EXUSIAI_POTION_EMPERORS_STASH.title": "大帝的珍藏",
+  "AK_EXUSIAI_POTION_EMPERORS_STASH.description": "将 {Cards} 张随机物流卡加入你的手牌。",
+
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.title": "瓶装光环",
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "将 {Cards} 张随机[gold]天使[/gold]牌加入你的手牌。"
+}

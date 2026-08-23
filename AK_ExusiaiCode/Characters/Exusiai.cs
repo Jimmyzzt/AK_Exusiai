@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using AK_Exusiai.Powers;
+using AK_Exusiai.Relics;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
@@ -111,7 +112,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         }
     }
 
-    public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         GetAmmoData().AttackModes.Remove(cardPlay);
         return Task.CompletedTask;
@@ -194,6 +195,18 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         return info.Multiplier;
     }
 
+    public static int GetAmmoSpent(CardPlay? cardPlay)
+    {
+        if (cardPlay?.Player.Character is not Exusiai exusiai ||
+            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo info) ||
+            info.Mode != AmmoAttackMode.Paid)
+        {
+            return 0;
+        }
+
+        return info.Multiplier;
+    }
+
     public static bool HasAmmoBackedBonus(CardPlay? cardPlay)
     {
         return cardPlay?.Player.Character is Exusiai exusiai &&
@@ -214,9 +227,11 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
     private static int GetAmmoDamageBonus(Creature dealer)
     {
-        return AmmoResource.DamageBonus +
+        int bonus = AmmoResource.DamageBonus +
                dealer.Powers.OfType<AmmoDamagePower>().Sum(power => power.Amount) +
                dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount);
+        FirepowerRadio? radio = dealer.Player?.Relics.OfType<FirepowerRadio>().FirstOrDefault();
+        return radio == null ? bonus : bonus * radio.DamageMultiplier;
     }
 
     private AmmoData GetAmmoData()

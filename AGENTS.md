@@ -8,7 +8,7 @@
 - 角色：能天使 / Exusiai；初始最大生命 77，初始金币 99。
 - 卡牌设计：`docs/AK_Exusiai-Card.csv`。
 - 遗物与药水设计：`docs/AK_Exusiai-Relic_Potion.csv`。
-- 当前状态：角色、弹药、初始牌、初始遗物、20 张普通牌、35 张罕见牌、25 张稀有牌及相关衍生牌已有实现；普通牌完成过回归，其余牌仍需集中测试。正式卡图尚未批量接入。
+- 当前状态：角色、弹药、初始牌、9 个角色遗物、3 个角色药水、20 张普通牌、35 张罕见牌、25 张稀有牌及相关衍生牌已有实现；普通牌完成过回归，其余内容仍需集中测试。正式卡图尚未批量接入。
 - 当前进度和待测项只维护在 `docs/PROGRESS.md`，不要在本页追加流水账。
 
 设计 CSV 由双方在线定稿后导出。实现任务应只做必要的名称/稀有度一致性修正，不机械重排或覆盖设计内容。英文展示名决定默认类名和公开 ID；任何改名都必须同步类、文件、本地化键、关联能力/资源名，并全仓清除旧 ID。
@@ -95,6 +95,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - 只有没有合适 Hook 时使用 Harmony。异步 patch 必须窄范围并校验目标调用点数量，避免游戏更新后静默误补丁。
 - `ModelDb` 构造阶段得到规范模型。构造函数和默认能力附加阶段不得调用要求可变模型的 `AddKeyword`、`RemoveKeyword` 等 API；固定关键词放入 `CanonicalKeywords`，动态修改前检查 `card.IsMutable`。
 - 加载失败先查依赖版本、Mod ID、本地化键、资源路径、规范模型异常和 patch 报告。
+- 战斗开始时向手牌生成卡牌应参考原版 `BigHat`，在玩家首个 `AfterSideTurnStart` 结算；`BeforeCombatStart` 更适合资源和能力初始化，不保证手牌已可安全写入。
 
 ### 数值、费用与本地化
 
@@ -116,6 +117,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `PowerAssetProfile` 当前加载静态 `Texture2D`；GIF 不会自动成为逐帧能力图标。动态效果需要 Godot 场景和专用 UI。
 - 能量视觉分为描述小图标、卡牌费用图标和战斗能量计数器场景；旋转/获得能量动画来自场景和 `NEnergyCounter`，不是 GIF。
 - 当前原版资源尺寸：遗物小图/轮廓 85×85，大图 256×256；药水小图/轮廓 80×80，原版大图 256×256。均使用透明方形画布；RitsuLib 0.5.14 的药水配置只直接覆盖小图和轮廓，大图需要另行验证或补充覆盖。
+- 本项目遗物使用一张 256×256 主图兼作小图和大图，药水使用一张 80×80 主图；两者各有同尺寸白色轮廓图。替换源图后运行 `& $GodotExe --headless --path . --script .\tools\generate_item_assets.gd`，映射与详细说明见 `tools/README.md`。
 - `*.import` 是可再生元数据且被忽略。协作时提交源 PNG/JPG/SVG，并以完整构建中的 `reimport`、`savepack` 记录确认进入 PCK。
 
 ## 6. 标准实现与测试流程

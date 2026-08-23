@@ -6,22 +6,16 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace AK_Exusiai.Relics;
 
 [RegisterRelic(typeof(ExusiaiRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Exusiai), Order = 0)]
-public sealed class ExusiaiBadge : ModRelicTemplate
+public sealed class ExusiaiBadge : ExusiaiRelicTemplate
 {
     private const string AmmoKey = "Ammo";
 
     public override RelicRarity Rarity => RelicRarity.Starter;
-
-    public override RelicAssetProfile AssetProfile => new(
-        IconPath: $"{Entry.ResPath}/images/relics/ExusiaiBadge.png",
-        IconOutlinePath: $"{Entry.ResPath}/images/relics/ExusiaiBadge.png",
-        BigIconPath: $"{Entry.ResPath}/images/relics/ExusiaiBadge.png");
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
