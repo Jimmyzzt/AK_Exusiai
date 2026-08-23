@@ -11,7 +11,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class WhereDoWeGoFromHere : ExusiaiCardTemplate
+public sealed class WhatLiesAhead : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Doubt>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -19,7 +19,7 @@ public sealed class WhereDoWeGoFromHere : ExusiaiCardTemplate
         new DamageVar(10m, ValueProp.Move),
         new DynamicVar("HitCount", 3m),
     ];
-    public WhereDoWeGoFromHere() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public WhatLiesAhead() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

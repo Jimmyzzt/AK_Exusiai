@@ -19,7 +19,7 @@
 | `references/free/art/双发.svg` | SVG 图标 | 项目维护者提供 | “双发套件”能力图标 | 复制为 `AK_Exusiai/images/powers/TemporaryExtraAmmoTriggerPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/闪光.svg` | SVG 图标 | 项目维护者提供 | “闪光弹”能力图标 | 复制为 `AK_Exusiai/images/powers/FlashbangPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/物流安保.svg` | SVG 图标 | 项目维护者提供 | “物流安保”能力图标 | 复制为 `AK_Exusiai/images/powers/SecureDeliveryPower.svg` | 原始作者或授权链接尚待维护者补充 |
-| `references/free/art/主的仁慈.svg` | SVG 图标 | 项目维护者提供 | “主的仁慈”能力图标 | 复制为 `AK_Exusiai/images/powers/TheLordsMercyPower.svg` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/主的仁慈.svg` | SVG 图标 | 项目维护者提供 | “告解”能力图标（原名“主的仁慈”） | 复制为 `AK_Exusiai/images/powers/ConfessionPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/易燃易爆炸.svg` | SVG 图标 | 项目维护者提供 | “易燃易爆”能力图标 | 复制为 `AK_Exusiai/images/powers/FlammableAndExplosivePower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/福音摇滚.svg` | SVG 图标 | 项目维护者提供 | “福音摇滚”能力图标 | 复制为 `AK_Exusiai/images/powers/RockNGospelPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天使的祝福.svg` | SVG 图标 | 项目维护者提供 | “天使的祝福”能力图标 | 复制为 `AK_Exusiai/images/powers/AngelsBlessingsPower.svg` | 原始作者或授权链接尚待维护者补充 |

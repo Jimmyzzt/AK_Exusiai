@@ -9,7 +9,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class OperationStart : ExusiaiCardTemplate
+public sealed class MoveOut : ExusiaiCardTemplate
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -19,7 +19,7 @@ public sealed class OperationStart : ExusiaiCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Innate, CardKeyword.Exhaust];
 
-    public OperationStart() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public MoveOut() : base(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

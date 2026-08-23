@@ -13,7 +13,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class SwornByTheGun : ExusiaiCardTemplate
+public sealed class SwearOnThisGun : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -22,7 +22,7 @@ public sealed class SwornByTheGun : ExusiaiCardTemplate
         new CardsVar(3),
         new DynamicVar("Delivery", 3m),
     ];
-    public SwornByTheGun() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public SwearOnThisGun() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

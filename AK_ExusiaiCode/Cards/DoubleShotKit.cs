@@ -20,7 +20,7 @@ public sealed class DoubleShotKit : ExusiaiCardTemplate, IExtraAmmoTriggerPrevie
         new DamageVar(4m, ValueProp.Move),
         new DynamicVar("HitCount", 2m),
     ];
-    public DoubleShotKit() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public DoubleShotKit() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

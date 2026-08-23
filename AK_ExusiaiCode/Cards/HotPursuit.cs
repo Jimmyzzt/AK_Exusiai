@@ -10,7 +10,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class HighSpeedPursuit : ExusiaiCardTemplate
+public sealed class HotPursuit : ExusiaiCardTemplate
 {
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -19,7 +19,7 @@ public sealed class HighSpeedPursuit : ExusiaiCardTemplate
         new EnergyVar(1),
         new CardsVar(1),
     ];
-    public HighSpeedPursuit() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public HotPursuit() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
