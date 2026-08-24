@@ -21,22 +21,22 @@ public sealed class ExusiaiSurprise : ExusiaiRelicTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(AmmoKey, 8m),
-        new PowerVar<AmmoDamagePower>(1m),
+        new PowerVar<FirepowerPower>(1m),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
-        HoverTipFactory.FromPower<AmmoDamagePower>(),
+        HoverTipFactory.FromPower<FirepowerPower>(),
     ];
 
     public override async Task BeforeCombatStart()
     {
         Flash();
-        await PowerCmd.Apply<AmmoDamagePower>(
+        await PowerCmd.Apply<FirepowerPower>(
             new ThrowingPlayerChoiceContext(),
             Owner.Creature,
-            ((PowerVar<AmmoDamagePower>)DynamicVars[nameof(AmmoDamagePower)]).BaseValue,
+            ((PowerVar<FirepowerPower>)DynamicVars[nameof(FirepowerPower)]).BaseValue,
             Owner.Creature,
             null);
         await SecondaryResourceCmd.Gain(

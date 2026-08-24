@@ -141,22 +141,15 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             if (info.Multiplier <= 0)
                 return 0m;
 
-            int extraTriggers = dealer.Powers.OfType<TemporaryExtraAmmoTriggerPower>()
-                .Sum(power => power.Amount);
-            return GetAmmoDamageBonus(dealer) * (info.Multiplier + extraTriggers);
+            return GetAmmoDamageBonus(dealer) * info.Multiplier *
+                   GetAmmoDamageMultiplier(dealer, cardSource);
         }
 
         int previewMultiplier = cardSource is IMultiAmmoAttack multi
             ? Math.Min(SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id), multi.MaxAmmoSpend)
             : SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0 ? 1 : 0;
-        if (previewMultiplier > 0)
-        {
-            previewMultiplier += dealer.Powers.OfType<TemporaryExtraAmmoTriggerPower>()
-                .Sum(power => power.Amount);
-            if (cardSource is IExtraAmmoTriggerPreview preview)
-                previewMultiplier += preview.ExtraAmmoTriggers;
-        }
-        return GetAmmoDamageBonus(dealer) * previewMultiplier;
+        return GetAmmoDamageBonus(dealer) * previewMultiplier *
+               GetAmmoDamageMultiplier(dealer, cardSource);
     }
 
     public override Task AfterCombatEnd(CombatRoom room)
@@ -181,7 +174,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             return 0;
         }
 
-        return GetAmmoDamageBonus(cardPlay.Player.Creature) * info.Multiplier;
+        return GetAmmoDamageBonus(cardPlay.Player.Creature) * info.Multiplier *
+               GetAmmoDamageMultiplier(cardPlay.Player.Creature, cardPlay.Card);
     }
 
     public static int GetAmmoMultiplier(CardPlay? cardPlay)
@@ -228,10 +222,20 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     private static int GetAmmoDamageBonus(Creature dealer)
     {
         int bonus = AmmoResource.DamageBonus +
-               dealer.Powers.OfType<AmmoDamagePower>().Sum(power => power.Amount) +
-               dealer.Powers.OfType<TemporaryAmmoDamagePower>().Sum(power => power.Amount);
+               dealer.Powers.OfType<FirepowerPower>().Sum(power => power.Amount);
         FirepowerRadio? radio = dealer.Player?.Relics.OfType<FirepowerRadio>().FirstOrDefault();
         return radio == null ? bonus : bonus * radio.DamageMultiplier;
+    }
+
+    private static int GetAmmoDamageMultiplier(Creature dealer, CardModel? cardSource)
+    {
+        int cardMultiplier = cardSource is IAmmoDamageMultiplier cardBonus
+            ? cardBonus.AmmoDamageMultiplier
+            : 1;
+        int temporaryMultiplier = 1 + dealer.Powers
+            .OfType<TemporaryAmmoDamageMultiplierPower>()
+            .Sum(power => power.Amount);
+        return cardMultiplier * temporaryMultiplier;
     }
 
     private AmmoData GetAmmoData()

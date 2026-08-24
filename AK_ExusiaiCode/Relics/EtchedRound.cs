@@ -15,18 +15,18 @@ public sealed class EtchedRound : ExusiaiRelicTemplate
     public override RelicRarity Rarity => RelicRarity.Common;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new PowerVar<AmmoDamagePower>(1m)];
+        [new PowerVar<FirepowerPower>(1m)];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [HoverTipFactory.FromPower<AmmoDamagePower>()];
+        [HoverTipFactory.FromPower<FirepowerPower>()];
 
     public override async Task BeforeCombatStart()
     {
         Flash();
-        await PowerCmd.Apply<AmmoDamagePower>(
+        await PowerCmd.Apply<FirepowerPower>(
             new ThrowingPlayerChoiceContext(),
             Owner.Creature,
-            ((PowerVar<AmmoDamagePower>)DynamicVars[nameof(AmmoDamagePower)]).BaseValue,
+            ((PowerVar<FirepowerPower>)DynamicVars[nameof(FirepowerPower)]).BaseValue,
             Owner.Creature,
             null);
     }

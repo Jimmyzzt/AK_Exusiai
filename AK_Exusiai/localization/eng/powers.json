@@ -2,12 +2,12 @@
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.title": "Ammo Next Turn",
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.description": "At the start of your next turn, gain {Amount} Ammo.",
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.smartDescription": "At the start of your next turn, gain {Amount} Ammo.",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.title": "Field Modification",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.description": "Ammo grants {Amount} additional damage this turn.",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.smartDescription": "Ammo grants {Amount} additional damage this turn.",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.title": "Ammo Damage",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.description": "Ammo grants {Amount} additional damage.",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.smartDescription": "Ammo grants {Amount} additional damage.",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.title": "Temporary Firepower",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.description": "Gain {Amount} [gold]Firepower[/gold] this turn.",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.smartDescription": "Gain {Amount} [gold]Firepower[/gold] this turn.",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.title": "Firepower",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.description": "Ammo deals additional damage.",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.smartDescription": "Ammo deals additional damage.",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "Delayed Blast",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "At the start of your next turn, deal {Damage:diff()} damage to ALL enemies.",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "At the start of your next turn, deal {Damage:diff()} damage to ALL enemies.",
@@ -51,9 +51,9 @@
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.title": "Holy City Protection",
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.description": "Until the start of your next turn, your HP cannot be reduced below 1.",
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.smartDescription": "Until the start of your next turn, your HP cannot be reduced below 1."
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.title": "Double-Shot Kit"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.description": "Ammo grants its bonus {Amount} additional time(s) this turn."
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.smartDescription": "Ammo grants its bonus {Amount} additional time(s) this turn."
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.title": "Double-Shot Kit"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.description": "[gold]Ammo[/gold] damage is increased by {Amount}00% this turn."
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "[gold]Ammo[/gold] damage is increased by {Amount}00% this turn."
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.title": "Ascension"
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.description": "Upgrade ALL Angel cards this combat."
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.smartDescription": "Upgrade ALL Angel cards this combat."

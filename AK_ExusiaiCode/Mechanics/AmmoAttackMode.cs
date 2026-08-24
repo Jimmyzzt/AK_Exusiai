@@ -9,9 +9,9 @@ public interface IMultiAmmoAttack
     int MaxAmmoSpend { get; }
 }
 
-public interface IExtraAmmoTriggerPreview
+public interface IAmmoDamageMultiplier
 {
-    int ExtraAmmoTriggers { get; }
+    int AmmoDamageMultiplier { get; }
 }
 
 internal enum AmmoAttackMode

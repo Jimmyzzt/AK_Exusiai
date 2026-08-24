@@ -19,7 +19,7 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(21m, ValueProp.Move),
+        new DamageVar(25m, ValueProp.Move),
     ];
 
     public ViolentDelivery() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -35,18 +35,25 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        CardModel? selected = (await CardSelectCmd.FromHand(
-            choiceContext,
-            Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
-            DeliveryCmd.HasDelivery,
-            this)).FirstOrDefault();
-        if (selected != null)
-            await DeliveryCmd.Reduce(choiceContext, selected, 1);
-    }
-
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(6m);
+        if (IsUpgraded)
+        {
+            foreach (CardModel card in Owner.PlayerCombatState!.Hand.Cards
+                         .Where(DeliveryCmd.HasDelivery)
+                         .ToList())
+            {
+                await DeliveryCmd.Reduce(choiceContext, card, 1);
+            }
+        }
+        else
+        {
+            CardModel? selected = (await CardSelectCmd.FromHand(
+                choiceContext,
+                Owner,
+                new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
+                DeliveryCmd.HasDelivery,
+                this)).FirstOrDefault();
+            if (selected != null)
+                await DeliveryCmd.Reduce(choiceContext, selected, 1);
+        }
     }
 }

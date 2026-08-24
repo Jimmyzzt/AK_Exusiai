@@ -11,21 +11,20 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class DoubleShotKit : ExusiaiCardTemplate, IExtraAmmoTriggerPreview
+public sealed class DoubleShotKit : ExusiaiCardTemplate
 {
-    public int ExtraAmmoTriggers => 1;
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(4m, ValueProp.Move),
         new DynamicVar("HitCount", 2m),
     ];
-    public DoubleShotKit() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
+    public DoubleShotKit() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await PowerCmd.Apply<TemporaryExtraAmmoTriggerPower>(
+        await PowerCmd.Apply<TemporaryAmmoDamageMultiplierPower>(
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars["HitCount"].IntValue)

@@ -12,14 +12,15 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class FieldModification : ExusiaiCardTemplate
 {
-    private const string BonusKey = "Bonus";
-    protected override bool ShowAmmoHoverTip => true;
     public override bool GainsBlock => true;
+
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<TemporaryFirepowerPower>()];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(8m, ValueProp.Move),
-        new DynamicVar(BonusKey, 2m),
+        new PowerVar<TemporaryFirepowerPower>(2m),
     ];
 
     public FieldModification() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
@@ -29,13 +30,13 @@ public sealed class FieldModification : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-        await PowerCmd.Apply<TemporaryAmmoDamagePower>(choiceContext, Owner.Creature,
-            DynamicVars[BonusKey].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<TemporaryFirepowerPower>(choiceContext, Owner.Creature,
+            DynamicVars[nameof(TemporaryFirepowerPower)].BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(2m);
-        DynamicVars[BonusKey].UpgradeValueBy(1m);
+        DynamicVars[nameof(TemporaryFirepowerPower)].UpgradeValueBy(1m);
     }
 }

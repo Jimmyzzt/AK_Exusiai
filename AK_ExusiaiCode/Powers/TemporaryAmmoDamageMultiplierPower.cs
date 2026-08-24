@@ -9,21 +9,20 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class TemporaryAmmoDamagePower : ModPowerTemplate
+public sealed class TemporaryAmmoDamageMultiplierPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(TemporaryAmmoDamagePower));
+
+    // Reuse the Double-Shot Kit artwork under its stable resource name.
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom("TemporaryExtraAmmoTriggerPower");
 
     public override async Task AfterSideTurnEnd(
         PlayerChoiceContext choiceContext,
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        if (side != CombatSide.Player || !participants.Contains(Owner))
-            return;
-
-        Flash();
-        await PowerCmd.Remove(this);
+        if (participants.Contains(Owner))
+            await PowerCmd.Remove(this);
     }
 }

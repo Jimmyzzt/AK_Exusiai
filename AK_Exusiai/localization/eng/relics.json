@@ -1,37 +1,37 @@
 {
   "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.title": "Exusiai's Badge",
   "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.description": "At the start of each combat, gain {Ammo} [gold]Ammo[/gold].",
-  "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.flavor": "A badge from Penguin Logistics, carried with a smile and plenty of ammunition.",
+  "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.flavor": "A Rhodes Island badge. Smiles, good luck, and plenty of ammunition.",
 
   "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.title": "Exusiai's Surprise",
-  "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.description": "At the start of each combat, gain {Ammo} [gold]Ammo[/gold]. Ammo deals {AmmoDamagePower:diff()} additional damage.",
-  "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.flavor": "The warmest blessing deserves the loudest surprise.",
+  "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.description": "At the start of each combat, gain {Ammo} [gold]Ammo[/gold] and {FirepowerPower:diff()} [gold]Firepower[/gold].",
+  "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.flavor": "The warmest blessing deserves the loudest surprise. BOOM!!!!!!!!!!!",
 
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.title": "Etched Round",
-  "AK_EXUSIAI_RELIC_ETCHED_ROUND.description": "[gold]Ammo[/gold] deals {AmmoDamagePower:diff()} additional damage.",
-  "AK_EXUSIAI_RELIC_ETCHED_ROUND.flavor": "Every mark on the casing is a carefully inscribed prayer.",
+  "AK_EXUSIAI_RELIC_ETCHED_ROUND.description": "At the start of each combat, gain {FirepowerPower:diff()} [gold]Firepower[/gold].",
+  "AK_EXUSIAI_RELIC_ETCHED_ROUND.flavor": "Faith hangs ten centimeters above your heart; words flow into your blood, and bullets slide into your magazine.",
 
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.title": "Apple Pie Logistics",
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "The first time you play an Attack each turn, regain the [gold]Ammo[/gold] it spent. This triggers even if it spent none.",
-  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "Delivered on time and best served warm. The magazines, too.",
+  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "Delivered on time and best enjoyed warm. Ammunition, too.",
 
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "Boss's Medal",
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "The first time you add [gold]Delivery[/gold] to a card each turn, gain {Block:diff()} [gold]Block[/gold].",
-  "AK_EXUSIAI_RELIC_BOSS_MEDAL.flavor": "Awarded by the boss herself. The back says: Keep it up.",
+  "AK_EXUSIAI_RELIC_BOSS_MEDAL.flavor": "Best Boss Medal. Super Boss Medal. Invincible, peerless Boss Medal.",
 
   "AK_EXUSIAI_RELIC_LORD_SERVER.title": "Lord-Server",
   "AK_EXUSIAI_RELIC_LORD_SERVER.description": "Whenever you obtain a Curse during combat, gain {Energy:energyIcons()}.",
-  "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "Connection established. May every error receive an answer.",
+  "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "Connection established. Not every prayer... necessarily receives an answer.",
 
   "AK_EXUSIAI_RELIC_CONFESS_47.title": "CONFESS-47",
   "AK_EXUSIAI_RELIC_CONFESS_47.description": "At the start of each combat, add {Cards} random [gold]Angel[/gold] cards to your hand.",
-  "AK_EXUSIAI_RELIC_CONFESS_47.flavor": "Record forty-seven: she is still smiling.",
+  "AK_EXUSIAI_RELIC_CONFESS_47.flavor": "Laterano autonomous confession vehicle, designation ‘CONFESS-47,’ ready to hear your confession.",
 
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.title": "Fluorescent Light",
-  "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.description": "Whenever you play an [gold]Angel[/gold] card, Ammo deals {TemporaryAmmoDamagePower:diff()} additional damage this turn.",
+  "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.description": "Whenever you play an [gold]Angel[/gold] card, gain {TemporaryFirepowerPower:diff()} [gold]Firepower[/gold] this turn.",
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.flavor": "Laterano's light sometimes comes from a humming tube.",
 
   "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.title": "Firepower Radio",
   "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.description": "Damage granted by [gold]Ammo[/gold] is multiplied by {Multiplier}. At the start of your turn, lose {Ammo} Ammo.",
-  "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.flavor": "Channel clear. Coordinates confirmed. Firepower inbound."
+  "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.flavor": "Channel clear. Coordinates confirmed. Explosions inbound."
 }

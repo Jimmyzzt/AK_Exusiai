@@ -25,7 +25,7 @@ public sealed class ReadyForAction : ExusiaiCardTemplate
         new CardsVar(1),
     ];
 
-    public ReadyForAction() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public ReadyForAction() : base(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
     }
 

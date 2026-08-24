@@ -17,7 +17,13 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
     protected override bool ShowDeliveryHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Retain, CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(AmmoKey, 2m)];
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar(AmmoKey, 2m),
+        new PowerVar<FirepowerPower>(2m),
+    ];
 
     public PaganiniCustom() : base(4, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
@@ -26,10 +32,10 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<AmmoDamagePower>(
+        await PowerCmd.Apply<FirepowerPower>(
             choiceContext,
             Owner.Creature,
-            2m,
+            DynamicVars[nameof(FirepowerPower)].BaseValue,
             Owner.Creature,
             this);
         await PowerCmd.Apply<PaganiniCustomPower>(

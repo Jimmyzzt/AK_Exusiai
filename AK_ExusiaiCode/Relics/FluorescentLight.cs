@@ -17,12 +17,12 @@ public sealed class FluorescentLight : ExusiaiRelicTemplate
     public override RelicRarity Rarity => RelicRarity.Rare;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new PowerVar<TemporaryAmmoDamagePower>(1m)];
+        [new PowerVar<TemporaryFirepowerPower>(1m)];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ExusiaiKeywords.AngelHoverTip,
-        HoverTipFactory.FromPower<TemporaryAmmoDamagePower>(),
+        HoverTipFactory.FromPower<TemporaryFirepowerPower>(),
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -31,10 +31,10 @@ public sealed class FluorescentLight : ExusiaiRelicTemplate
             return;
 
         Flash();
-        await PowerCmd.Apply<TemporaryAmmoDamagePower>(
+        await PowerCmd.Apply<TemporaryFirepowerPower>(
             choiceContext,
             Owner.Creature,
-            ((PowerVar<TemporaryAmmoDamagePower>)DynamicVars[nameof(TemporaryAmmoDamagePower)]).BaseValue,
+            ((PowerVar<TemporaryFirepowerPower>)DynamicVars[nameof(TemporaryFirepowerPower)]).BaseValue,
             Owner.Creature,
             null);
     }

@@ -1,30 +1,32 @@
-using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-[RegisterCharacterStarterCard(typeof(AK_Exusiai.Characters.Exusiai), Order = 30)]
-[RegisterArchaicToothTranscendence(typeof(BarrageSkyShattering))]
-public sealed class ChargingMode : ModCardTemplate
+public sealed class BarrageSkyShattering : ExusiaiCardTemplate, IAmmoDamageMultiplier
 {
     private const string HitCountKey = "HitCount";
+    private const string AmmoMultiplierKey = "AmmoMultiplier";
+
+    public int AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
+    protected override bool ShowAmmoHoverTip => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(3m, ValueProp.Move),
+        new DamageVar(5m, ValueProp.Move),
         new DynamicVar(HitCountKey, 3m),
+        new DynamicVar(AmmoMultiplierKey, 3m),
     ];
 
-    public ChargingMode()
-        : base(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public BarrageSkyShattering()
+        : base(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
     }
 
@@ -39,8 +41,6 @@ public sealed class ChargingMode : ModCardTemplate
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(1m);
-    }
+    protected override void OnUpgrade() =>
+        DynamicVars[AmmoMultiplierKey].UpgradeValueBy(2m);
 }

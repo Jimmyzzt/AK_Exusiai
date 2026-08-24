@@ -5,9 +5,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class AmmoDamagePower : ModPowerTemplate
+public sealed class FirepowerPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(AmmoDamagePower));
+
+    // Reuse the existing ammo-damage artwork under its stable resource name.
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom("AmmoDamagePower");
 }

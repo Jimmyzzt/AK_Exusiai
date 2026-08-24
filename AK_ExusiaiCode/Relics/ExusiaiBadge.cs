@@ -11,6 +11,7 @@ namespace AK_Exusiai.Relics;
 
 [RegisterRelic(typeof(ExusiaiRelicPool))]
 [RegisterCharacterStarterRelic(typeof(Exusiai), Order = 0)]
+[RegisterTouchOfOrobasRefinement(typeof(ExusiaiSurprise))]
 public sealed class ExusiaiBadge : ExusiaiRelicTemplate
 {
     private const string AmmoKey = "Ammo";

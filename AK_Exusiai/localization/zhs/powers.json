@@ -2,12 +2,12 @@
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.title": "下回合弹药",
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.description": "下回合开始时，获得 {Amount} 发弹药。",
   "AK_EXUSIAI_POWER_AMMO_NEXT_TURN_POWER.smartDescription": "下回合开始时，获得 {Amount} 发弹药。",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.title": "临时改装",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.description": "本回合弹药额外增加 {Amount} 点伤害。",
-  "AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_POWER.smartDescription": "本回合弹药额外增加 {Amount} 点伤害。",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.title": "弹药增伤",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.description": "弹药额外增加 {Amount} 点伤害。",
-  "AK_EXUSIAI_POWER_AMMO_DAMAGE_POWER.smartDescription": "弹药额外增加 {Amount} 点伤害。",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.title": "临时火力",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.description": "在本回合获得 {Amount} 点[gold]火力[/gold]。",
+  "AK_EXUSIAI_POWER_TEMPORARY_FIREPOWER_POWER.smartDescription": "在本回合获得 {Amount} 点[gold]火力[/gold]。",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.title": "火力",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.description": "弹药额外增加伤害。",
+  "AK_EXUSIAI_POWER_FIREPOWER_POWER.smartDescription": "弹药额外增加伤害。",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "延时爆炸",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。",
   "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "下回合开始时，对所有敌人造成 {Damage:diff()} 点伤害。",
@@ -51,9 +51,9 @@
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.title": "圣城庇护",
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.description": "直到你的下回合开始，你的生命不会低于 1。",
   "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.smartDescription": "直到你的下回合开始，你的生命不会低于 1。"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.title": "双发套件"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.description": "本回合弹药额外造成 {Amount} 次增伤。"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_EXTRA_AMMO_TRIGGER_POWER.smartDescription": "本回合弹药额外造成 {Amount} 次增伤。"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.title": "双发套件"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.description": "本回合[gold]弹药[/gold]增伤效果提高 {Amount}00%。"
+  ,"AK_EXUSIAI_POWER_TEMPORARY_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "本回合[gold]弹药[/gold]增伤效果提高 {Amount}00%。"
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.title": "升华"
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.description": "本场战斗中的所有天使牌获得升级。"
   ,"AK_EXUSIAI_POWER_ASCENSION_POWER.smartDescription": "本场战斗中的所有天使牌获得升级。"
