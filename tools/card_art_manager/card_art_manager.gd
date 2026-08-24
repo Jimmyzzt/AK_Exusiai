@@ -46,6 +46,8 @@ var _cards: Array[Dictionary] = []
 var _assets: Array[String] = []
 var _filtered_assets: Array[String] = []
 var _source_cache: Dictionary = {}
+var _preview_base_cache: Dictionary = {}
+var _preview_material_cache: Dictionary = {}
 var _thumbnail_cache: Dictionary = {}
 var _thumbnail_queue: Array[Dictionary] = []
 var _current_card := ""
@@ -63,9 +65,10 @@ var _inner_split: HSplitContainer
 var _preview: CardArtPreview
 var _card_option: OptionButton
 var _resolution_option: OptionButton
-var _mode_option: OptionButton
 var _background_option: OptionButton
 var _motif_option: OptionButton
+var _background_toggle: CheckButton
+var _placeholder_toggle: CheckButton
 var _top_color: ColorPickerButton
 var _bottom_color: ColorPickerButton
 var _zoom_slider: HSlider
@@ -75,6 +78,8 @@ var _status_label: Label
 var _progress_label: Label
 var _ancient_label: Label
 var _frame_guide_toggle: CheckButton
+var _flip_horizontal_button: Button
+var _flip_vertical_button: Button
 var _add_files_dialog: FileDialog
 var _add_folder_dialog: FileDialog
 var _save_timer: Timer
@@ -246,8 +251,36 @@ func _build_ui() -> void:
 	preview_title.add_theme_font_size_override("font_size", 18)
 	preview_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	preview_header.add_child(preview_title)
+	var rotate_left := Button.new()
+	rotate_left.text = "左转"
+	rotate_left.tooltip_text = "逆时针旋转素材 90°"
+	rotate_left.pressed.connect(func() -> void: _rotate_material(-1))
+	preview_header.add_child(rotate_left)
+	var rotate_right := Button.new()
+	rotate_right.text = "右转"
+	rotate_right.tooltip_text = "顺时针旋转素材 90°"
+	rotate_right.pressed.connect(func() -> void: _rotate_material(1))
+	preview_header.add_child(rotate_right)
+	_flip_horizontal_button = Button.new()
+	_flip_horizontal_button.text = "水平翻转"
+	_flip_horizontal_button.toggle_mode = true
+	_flip_horizontal_button.pressed.connect(func() -> void: _flip_material(true))
+	preview_header.add_child(_flip_horizontal_button)
+	_flip_vertical_button = Button.new()
+	_flip_vertical_button.text = "垂直翻转"
+	_flip_vertical_button.toggle_mode = true
+	_flip_vertical_button.pressed.connect(func() -> void: _flip_material(false))
+	preview_header.add_child(_flip_vertical_button)
+	var center_horizontal := Button.new()
+	center_horizontal.text = "水平居中"
+	center_horizontal.pressed.connect(func() -> void: _center_material(true))
+	preview_header.add_child(center_horizontal)
+	var center_vertical := Button.new()
+	center_vertical.text = "垂直居中"
+	center_vertical.pressed.connect(func() -> void: _center_material(false))
+	preview_header.add_child(center_vertical)
 	var reset_transform := Button.new()
-	reset_transform.text = "复位构图"
+	reset_transform.text = "复位"
 	reset_transform.pressed.connect(_reset_transform)
 	preview_header.add_child(reset_transform)
 	_preview = CardArtPreview.new()
@@ -325,17 +358,6 @@ func _build_ui() -> void:
 	_frame_guide_toggle.toggled.connect(_on_frame_guide_toggled)
 	right.add_child(_frame_guide_toggle)
 
-	right.add_child(_make_field_label("素材类型"))
-	_mode_option = OptionButton.new()
-	_mode_option.add_item("插画裁切", 0)
-	_mode_option.set_item_metadata(0, "crop")
-	_mode_option.add_item("透明图标", 1)
-	_mode_option.set_item_metadata(1, "icon")
-	_mode_option.add_item("程序化占位", 2)
-	_mode_option.set_item_metadata(2, "placeholder")
-	_mode_option.item_selected.connect(_on_form_changed)
-	right.add_child(_mode_option)
-
 	right.add_child(_make_field_label("当前素材"))
 	_source_label = Label.new()
 	_source_label.text = "未选择"
@@ -347,7 +369,11 @@ func _build_ui() -> void:
 	clear_source.pressed.connect(_clear_source)
 	right.add_child(clear_source)
 
-	right.add_child(_make_field_label("图标背景"))
+	_background_toggle = CheckButton.new()
+	_background_toggle.text = "启用背景"
+	_background_toggle.toggled.connect(_on_toggle_changed)
+	right.add_child(_background_toggle)
+	right.add_child(_make_field_label("背景样式"))
 	_background_option = OptionButton.new()
 	for key in BACKGROUNDS:
 		var index := _background_option.item_count
@@ -356,6 +382,10 @@ func _build_ui() -> void:
 	_background_option.item_selected.connect(_on_background_changed)
 	right.add_child(_background_option)
 
+	_placeholder_toggle = CheckButton.new()
+	_placeholder_toggle.text = "显示占位图形"
+	_placeholder_toggle.toggled.connect(_on_toggle_changed)
+	right.add_child(_placeholder_toggle)
 	right.add_child(_make_field_label("占位图形"))
 	_motif_option = OptionButton.new()
 	for key in MOTIFS:
@@ -401,7 +431,7 @@ func _build_ui() -> void:
 	zoom_row.add_child(_zoom_value)
 
 	var hint := Label.new()
-	hint.text = "插画模式：1.00 表示刚好铺满画布。\n图标模式：1.00 表示默认图标大小。"
+	hint.text = "1.00 表示素材刚好铺满画布；小图标可使用小于 1 的倍率。"
 	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hint.add_theme_color_override("font_color", Color("858d9e"))
 	right.add_child(hint)
@@ -536,7 +566,7 @@ func _on_split_dragged(_offset: int) -> void:
 
 func _load_manifest() -> void:
 	_manifest = {
-		"version": 2,
+		"version": 3,
 		"output_dir": "AK_Exusiai/images/cards",
 		"resolution_scale": 2,
 		"asset_roots": DEFAULT_ASSET_ROOTS.duplicate(),
@@ -563,6 +593,63 @@ func _load_manifest() -> void:
 	if resolution_scale not in RESOLUTION_SCALES:
 		resolution_scale = 2
 	_manifest.resolution_scale = resolution_scale
+	_migrate_manifest_schema()
+
+
+func _migrate_manifest_schema() -> void:
+	var changed := int(_manifest.get("version", 1)) < 3
+	for card_name in _manifest.cards:
+		var saved = _manifest.cards[card_name]
+		if saved is not Dictionary:
+			continue
+		var old_mode := String(saved.get("mode", "crop"))
+		if saved.has("mode"):
+			if old_mode == "icon":
+				saved.zoom = _convert_legacy_icon_zoom(saved)
+			saved.erase("mode")
+			changed = true
+		if not saved.has("background_enabled"):
+			saved.background_enabled = true
+			changed = true
+		if not saved.has("placeholder_enabled"):
+			saved.placeholder_enabled = old_mode == "placeholder"
+			changed = true
+		if not saved.has("rotation"):
+			saved.rotation = 0
+			changed = true
+		if not saved.has("flip_horizontal"):
+			saved.flip_horizontal = false
+			changed = true
+		if not saved.has("flip_vertical"):
+			saved.flip_vertical = false
+			changed = true
+		_manifest.cards[card_name] = saved
+	_manifest.version = 3
+	if changed:
+		_save_manifest()
+
+
+func _convert_legacy_icon_zoom(saved: Dictionary) -> float:
+	var old_zoom := float(saved.get("zoom", 1.0))
+	var source_path := String(saved.get("source", ""))
+	if source_path.is_empty():
+		return old_zoom * 0.5
+	var source := _load_source_image(source_path)
+	if source == null or source.is_empty():
+		return old_zoom * 0.5
+	var bounds := _find_visible_bounds(source)
+	if bounds.size == Vector2i.ZERO:
+		return old_zoom * 0.5
+	var output_size := BASE_NORMAL_SIZE * int(_manifest.get("resolution_scale", 2))
+	var legacy_base := minf(
+		output_size.x * 0.62 / bounds.size.x,
+		output_size.y * 0.68 / bounds.size.y
+	)
+	var unified_base := maxf(
+		float(output_size.x) / bounds.size.x,
+		float(output_size.y) / bounds.size.y
+	)
+	return snappedf(old_zoom * legacy_base / unified_base, 0.001)
 
 
 func _save_manifest() -> void:
@@ -905,10 +992,12 @@ func _select_card_by_index(index: int) -> void:
 	_current_card = String(_card_option.get_item_metadata(index))
 	_loading_ui = true
 	var config := _get_effective_config(_current_card)
-	_select_option_by_metadata(_mode_option, config.mode)
-	_configure_zoom_range(config.mode)
 	_select_option_by_metadata(_background_option, config.background)
 	_select_option_by_metadata(_motif_option, config.motif)
+	_background_toggle.button_pressed = bool(config.background_enabled)
+	_placeholder_toggle.button_pressed = bool(config.placeholder_enabled)
+	_flip_horizontal_button.button_pressed = bool(config.flip_horizontal)
+	_flip_vertical_button.button_pressed = bool(config.flip_vertical)
 	_top_color.color = Color.from_string(config.top_color, Color("2b2340"))
 	_bottom_color.color = Color.from_string(config.bottom_color, Color("bd6c59"))
 	_zoom_slider.value = config.zoom
@@ -934,14 +1023,18 @@ func _get_effective_config(card_name: String) -> Dictionary:
 		background = "laterano_sunset"
 	var background_data: Dictionary = BACKGROUNDS[background]
 	return {
-		"mode": String(saved.get("mode", "crop")),
 		"source": String(saved.get("source", "")),
 		"zoom": float(saved.get("zoom", 1.0)),
 		"offset": saved.get("offset", [0.0, 0.0]),
+		"background_enabled": bool(saved.get("background_enabled", true)),
+		"placeholder_enabled": bool(saved.get("placeholder_enabled", false)),
 		"background": background,
 		"top_color": String(saved.get("top_color", background_data.top)),
 		"bottom_color": String(saved.get("bottom_color", background_data.bottom)),
 		"motif": String(saved.get("motif", "auto")),
+		"rotation": posmod(int(saved.get("rotation", 0)), 4),
+		"flip_horizontal": bool(saved.get("flip_horizontal", false)),
+		"flip_vertical": bool(saved.get("flip_vertical", false)),
 	}
 
 
@@ -950,14 +1043,18 @@ func _store_current_form() -> void:
 		return
 	var previous := _get_effective_config(_current_card)
 	var config := {
-		"mode": String(_mode_option.get_item_metadata(_mode_option.selected)),
 		"source": String(previous.source),
 		"zoom": snappedf(float(_zoom_slider.value), 0.001),
 		"offset": previous.offset,
+		"background_enabled": _background_toggle.button_pressed,
+		"placeholder_enabled": _placeholder_toggle.button_pressed,
 		"background": String(_background_option.get_item_metadata(_background_option.selected)),
 		"top_color": _top_color.color.to_html(false),
 		"bottom_color": _bottom_color.color.to_html(false),
 		"motif": String(_motif_option.get_item_metadata(_motif_option.selected)),
+		"rotation": int(previous.rotation),
+		"flip_horizontal": bool(previous.flip_horizontal),
+		"flip_vertical": bool(previous.flip_vertical),
 	}
 	_manifest.cards[_current_card] = config
 	_schedule_manifest_save()
@@ -994,27 +1091,24 @@ func _on_asset_selected(index: int) -> void:
 	var path := _filtered_assets[index]
 	var config := _get_effective_config(_current_card)
 	config.source = path
+	config.placeholder_enabled = false
+	config.offset = [0.0, 0.0]
 	_manifest.cards[_current_card] = config
 	_source_label.text = path
+	_loading_ui = true
+	_placeholder_toggle.button_pressed = false
+	_loading_ui = false
 	_schedule_manifest_save()
 	_rebuild_card_options_preserving_current()
 	_queue_preview_render()
 
 
 func _on_form_changed(_index: int) -> void:
-	if not _loading_ui:
-		var mode := String(_mode_option.get_item_metadata(_mode_option.selected))
-		_configure_zoom_range(mode)
 	_store_current_form()
 
 
-func _configure_zoom_range(_mode: String) -> void:
-	var was_loading := _loading_ui
-	_loading_ui = true
-	_zoom_slider.min_value = 0.05
-	if _zoom_slider.value < _zoom_slider.min_value:
-		_zoom_slider.value = _zoom_slider.min_value
-	_loading_ui = was_loading
+func _on_toggle_changed(_enabled: bool) -> void:
+	_store_current_form()
 
 
 func _on_background_changed(_index: int) -> void:
@@ -1054,11 +1148,59 @@ func _on_preview_transform_changed(zoom: float, offset: Vector2) -> void:
 
 
 func _reset_transform() -> void:
-	_store_transform(1.0, Vector2.ZERO)
+	if _current_card.is_empty():
+		return
+	var config := _get_effective_config(_current_card)
+	config.zoom = 1.0
+	config.offset = [0.0, 0.0]
+	config.rotation = 0
+	config.flip_horizontal = false
+	config.flip_vertical = false
+	_manifest.cards[_current_card] = config
+	_schedule_manifest_save()
+	_preview.set_transform_values(1.0, Vector2.ZERO)
+	_queue_preview_render()
 	_loading_ui = true
 	_zoom_slider.value = 1.0
 	_zoom_value.text = "1.00"
+	_flip_horizontal_button.button_pressed = false
+	_flip_vertical_button.button_pressed = false
 	_loading_ui = false
+
+
+func _center_material(horizontal: bool) -> void:
+	if _current_card.is_empty():
+		return
+	var config := _get_effective_config(_current_card)
+	var offset := _array_to_vector2(config.offset)
+	if horizontal:
+		offset.x = 0.0
+	else:
+		offset.y = 0.0
+	_store_transform(float(config.zoom), offset)
+
+
+func _rotate_material(direction: int) -> void:
+	if _current_card.is_empty():
+		return
+	var config := _get_effective_config(_current_card)
+	config.rotation = posmod(int(config.rotation) + direction, 4)
+	_manifest.cards[_current_card] = config
+	_schedule_manifest_save()
+	_queue_preview_render()
+
+
+func _flip_material(horizontal: bool) -> void:
+	if _current_card.is_empty():
+		return
+	var config := _get_effective_config(_current_card)
+	if horizontal:
+		config.flip_horizontal = not bool(config.flip_horizontal)
+	else:
+		config.flip_vertical = not bool(config.flip_vertical)
+	_manifest.cards[_current_card] = config
+	_schedule_manifest_save()
+	_queue_preview_render()
 
 
 func _clear_source() -> void:
@@ -1066,8 +1208,13 @@ func _clear_source() -> void:
 		return
 	var config := _get_effective_config(_current_card)
 	config.source = ""
+	config.placeholder_enabled = true
+	config.offset = [0.0, 0.0]
 	_manifest.cards[_current_card] = config
 	_source_label.text = "未选择"
+	_loading_ui = true
+	_placeholder_toggle.button_pressed = true
+	_loading_ui = false
 	_schedule_manifest_save()
 	_queue_preview_render()
 
@@ -1093,7 +1240,7 @@ func _render_preview() -> void:
 			500,
 			maxi(1, roundi(preview_size.y * preview_scale))
 		)
-	var image := _render_card_art(config, preview_size, _current_card)
+	var image := _render_card_art(config, preview_size, _current_card, true)
 	_preview.set_transform_values(config.zoom, _array_to_vector2(config.offset))
 	_preview.set_frame_guide(
 		String(card.get("card_type", "skill")),
@@ -1102,62 +1249,141 @@ func _render_preview() -> void:
 	)
 	_preview.set_art(image, output_size)
 	if image == null or image.is_empty():
-		_preview.set_empty_message("请选择素材；占位模式无需素材")
+		_preview.set_empty_message("请选择素材或启用背景 / 占位图形")
 
 
-func _render_card_art(config: Dictionary, output_size: Vector2i, card_name: String) -> Image:
-	var mode := String(config.mode)
-	if mode == "placeholder":
-		return _make_background(output_size, config, card_name, true)
+func _render_card_art(
+	config: Dictionary,
+	output_size: Vector2i,
+	card_name: String,
+	use_preview_cache := false
+) -> Image:
+	var result := _get_base_canvas(config, output_size, card_name, use_preview_cache)
 	var source_path := String(config.source)
 	if source_path.is_empty():
-		return Image.new()
+		return result
 	var source := _load_source_image(source_path)
 	if source == null or source.is_empty():
-		return Image.new()
-	if mode == "icon":
-		var background := _make_background(output_size, config, card_name, false)
-		_composite_icon(background, source, config)
-		return background
-	return _crop_illustration(source, output_size, float(config.zoom), _array_to_vector2(config.offset))
-
-
-func _crop_illustration(source: Image, output_size: Vector2i, zoom: float, offset: Vector2) -> Image:
-	var result := Image.create(output_size.x, output_size.y, false, Image.FORMAT_RGBA8)
-	result.fill(Color("11131a"))
-	var scale := maxf(
-		float(output_size.x) / float(source.get_width()),
-		float(output_size.y) / float(source.get_height())
-	) * maxf(zoom, 0.01)
-	var resized_width := maxi(1, roundi(source.get_width() * scale))
-	var resized_height := maxi(1, roundi(source.get_height() * scale))
-	var resized := source.duplicate()
-	resized.resize(resized_width, resized_height, Image.INTERPOLATE_LANCZOS)
-
-	var desired_x := roundi((output_size.x - resized_width) * 0.5 + offset.x * output_size.x)
-	var desired_y := roundi((output_size.y - resized_height) * 0.5 + offset.y * output_size.y)
-	var destination_x := desired_x
-	var destination_y := desired_y
-	if resized_width >= output_size.x:
-		destination_x = clampi(desired_x, output_size.x - resized_width, 0)
-	if resized_height >= output_size.y:
-		destination_y = clampi(desired_y, output_size.y - resized_height, 0)
-	var source_x := maxi(0, -destination_x)
-	var source_y := maxi(0, -destination_y)
-	var output_x := maxi(0, destination_x)
-	var output_y := maxi(0, destination_y)
-	var copy_width := mini(resized_width - source_x, output_size.x - output_x)
-	var copy_height := mini(resized_height - source_y, output_size.y - output_y)
-	if copy_width > 0 and copy_height > 0:
-		result.blend_rect(
-			resized,
-			Rect2i(source_x, source_y, copy_width, copy_height),
-			Vector2i(output_x, output_y)
-		)
+		return result
+	var material := _get_transformed_material(source, source_path, config, output_size, use_preview_cache)
+	if material == null or material.is_empty():
+		return result
+	var offset := _array_to_vector2(config.offset)
+	var position := Vector2i(
+		roundi((output_size.x - material.get_width()) * 0.5 + offset.x * output_size.x),
+		roundi((output_size.y - material.get_height()) * 0.5 + offset.y * output_size.y)
+	)
+	position = _constrain_material_position(position, material.get_size(), output_size)
+	_blend_clipped(result, material, position)
 	return result
 
 
-func _make_background(output_size: Vector2i, config: Dictionary, card_name: String, include_motif: bool) -> Image:
+func _constrain_material_position(
+	position: Vector2i,
+	material_size: Vector2i,
+	output_size: Vector2i
+) -> Vector2i:
+	# Keep a small, grabbable part of the material on the canvas. Legacy crop
+	# configs could contain large offsets that were previously hidden by clamping;
+	# without this guard they appeared to turn black as soon as zoom dropped below 1.
+	var visible_x := mini(material_size.x, maxi(12, roundi(output_size.x * 0.05)))
+	var visible_y := mini(material_size.y, maxi(12, roundi(output_size.y * 0.05)))
+	return Vector2i(
+		clampi(position.x, visible_x - material_size.x, output_size.x - visible_x),
+		clampi(position.y, visible_y - material_size.y, output_size.y - visible_y)
+	)
+
+
+func _get_base_canvas(
+	config: Dictionary,
+	output_size: Vector2i,
+	card_name: String,
+	use_preview_cache: bool
+) -> Image:
+	var cache_key := "%dx%d|%s|%s|%s|%s|%s|%s" % [
+		output_size.x,
+		output_size.y,
+		card_name,
+		str(bool(config.background_enabled)),
+		String(config.top_color),
+		String(config.bottom_color),
+		str(bool(config.placeholder_enabled)),
+		String(config.motif),
+	]
+	if use_preview_cache and _preview_base_cache.has(cache_key):
+		return (_preview_base_cache[cache_key] as Image).duplicate()
+	var result: Image
+	if bool(config.background_enabled):
+		result = _make_background(output_size, config, card_name)
+	else:
+		result = Image.create(output_size.x, output_size.y, false, Image.FORMAT_RGBA8)
+		result.fill(Color(0, 0, 0, 0))
+	if bool(config.placeholder_enabled):
+		_draw_placeholder_motif(result, String(config.motif), absi(card_name.hash()))
+	if use_preview_cache:
+		if _preview_base_cache.size() >= 32:
+			_preview_base_cache.clear()
+		_preview_base_cache[cache_key] = result.duplicate()
+	return result
+
+
+func _get_transformed_material(
+	source: Image,
+	source_path: String,
+	config: Dictionary,
+	output_size: Vector2i,
+	use_preview_cache: bool
+) -> Image:
+	var cache_key := "%s|%dx%d|%.4f|%d|%s|%s" % [
+		source_path,
+		output_size.x,
+		output_size.y,
+		float(config.zoom),
+		int(config.rotation),
+		str(bool(config.flip_horizontal)),
+		str(bool(config.flip_vertical)),
+	]
+	if use_preview_cache and _preview_material_cache.has(cache_key):
+		return _preview_material_cache[cache_key]
+	var bounds := _find_visible_bounds(source)
+	if bounds.size == Vector2i.ZERO:
+		return Image.new()
+	var material := source.get_region(bounds)
+	for _turn in posmod(int(config.rotation), 4):
+		material.rotate_90(CLOCKWISE)
+	if bool(config.flip_horizontal):
+		material.flip_x()
+	if bool(config.flip_vertical):
+		material.flip_y()
+	var scale := maxf(
+		float(output_size.x) / float(material.get_width()),
+		float(output_size.y) / float(material.get_height())
+	) * maxf(float(config.zoom), 0.01)
+	material.resize(
+		maxi(1, roundi(material.get_width() * scale)),
+		maxi(1, roundi(material.get_height() * scale)),
+		Image.INTERPOLATE_LANCZOS
+	)
+	if use_preview_cache:
+		if _preview_material_cache.size() >= 48:
+			_preview_material_cache.clear()
+		_preview_material_cache[cache_key] = material
+	return material
+
+
+func _blend_clipped(target: Image, source: Image, position: Vector2i) -> void:
+	var source_x := maxi(0, -position.x)
+	var source_y := maxi(0, -position.y)
+	var target_x := maxi(0, position.x)
+	var target_y := maxi(0, position.y)
+	var width := mini(source.get_width() - source_x, target.get_width() - target_x)
+	var height := mini(source.get_height() - source_y, target.get_height() - target_y)
+	if width <= 0 or height <= 0:
+		return
+	target.blend_rect(source, Rect2i(source_x, source_y, width, height), Vector2i(target_x, target_y))
+
+
+func _make_background(output_size: Vector2i, config: Dictionary, card_name: String) -> Image:
 	var image := Image.create(output_size.x, output_size.y, false, Image.FORMAT_RGBA8)
 	var top := Color.from_string(String(config.top_color), Color("2b2340"))
 	var bottom := Color.from_string(String(config.bottom_color), Color("bd6c59"))
@@ -1177,8 +1403,6 @@ func _make_background(output_size: Vector2i, config: Dictionary, card_name: Stri
 			if streak <= 1:
 				color = color.lightened(0.035)
 			image.set_pixel(x, y, Color(color.r, color.g, color.b, 1.0))
-	if include_motif:
-		_draw_placeholder_motif(image, String(config.motif), seed)
 	return image
 
 
@@ -1247,48 +1471,15 @@ func _draw_line(image: Image, start: Vector2, end: Vector2, thickness: float, co
 
 func _blend_pixel(image: Image, x: int, y: int, foreground: Color) -> void:
 	var background := image.get_pixel(x, y)
-	var alpha := foreground.a
-	image.set_pixel(x, y, Color(
-		foreground.r * alpha + background.r * (1.0 - alpha),
-		foreground.g * alpha + background.g * (1.0 - alpha),
-		foreground.b * alpha + background.b * (1.0 - alpha),
-		1.0
-	))
-
-
-func _composite_icon(background: Image, source: Image, config: Dictionary) -> void:
-	var bounds := _find_visible_bounds(source)
-	if bounds.size == Vector2i.ZERO:
+	var alpha := foreground.a + background.a * (1.0 - foreground.a)
+	if alpha <= 0.0001:
 		return
-	var icon := source.get_region(bounds)
-	var base_width := background.get_width() * 0.62
-	var base_height := background.get_height() * 0.68
-	var scale := minf(base_width / icon.get_width(), base_height / icon.get_height()) * float(config.zoom)
-	var width := maxi(1, roundi(icon.get_width() * scale))
-	var height := maxi(1, roundi(icon.get_height() * scale))
-	icon.resize(width, height, Image.INTERPOLATE_LANCZOS)
-	var offset := _array_to_vector2(config.offset)
-	var position := Vector2i(
-		roundi((background.get_width() - width) * 0.5 + offset.x * background.get_width()),
-		roundi((background.get_height() - height) * 0.5 + offset.y * background.get_height())
-	)
-	var shadow_position := position + Vector2i(4, 5)
-	_blend_icon_shadow(background, icon, shadow_position)
-	background.blend_rect(icon, Rect2i(Vector2i.ZERO, icon.get_size()), position)
-
-
-func _blend_icon_shadow(background: Image, icon: Image, position: Vector2i) -> void:
-	for y in icon.get_height():
-		var target_y := position.y + y
-		if target_y < 0 or target_y >= background.get_height():
-			continue
-		for x in icon.get_width():
-			var target_x := position.x + x
-			if target_x < 0 or target_x >= background.get_width():
-				continue
-			var alpha := icon.get_pixel(x, y).a * 0.45
-			if alpha > 0.01:
-				_blend_pixel(background, target_x, target_y, Color(0.02, 0.02, 0.03, alpha))
+	image.set_pixel(x, y, Color(
+		(foreground.r * foreground.a + background.r * background.a * (1.0 - foreground.a)) / alpha,
+		(foreground.g * foreground.a + background.g * background.a * (1.0 - foreground.a)) / alpha,
+		(foreground.b * foreground.a + background.b * background.a * (1.0 - foreground.a)) / alpha,
+		alpha
+	))
 
 
 func _find_visible_bounds(image: Image) -> Rect2i:
@@ -1352,27 +1543,45 @@ func _export_current() -> void:
 
 func _run_smoke_test() -> void:
 	var crop_config := {
-		"mode": "crop",
 		"source": "references/official/art/半身.jpg",
 		"zoom": 0.5,
 		"offset": [0.0, 0.0],
+		"background_enabled": true,
+		"placeholder_enabled": false,
 		"background": "laterano_sunset",
 		"top_color": "3c2059",
 		"bottom_color": "ee9558",
 		"motif": "auto",
+		"rotation": 0,
+		"flip_horizontal": false,
+		"flip_vertical": false,
 	}
 	var icon_config := crop_config.duplicate(true)
-	icon_config.mode = "icon"
 	icon_config.source = "references/free/art/弹药.svg"
 	icon_config.zoom = 0.25
 	var placeholder_config := crop_config.duplicate(true)
-	placeholder_config.mode = "placeholder"
 	placeholder_config.source = ""
+	placeholder_config.placeholder_enabled = true
+	var rotated_config := crop_config.duplicate(true)
+	rotated_config.rotation = 1
+	rotated_config.flip_horizontal = true
 	var expected_normal := BASE_NORMAL_SIZE * 2
 	var expected_ancient := BASE_ANCIENT_SIZE * 2
 	var crop := _render_card_art(crop_config, expected_normal, "SmokeCrop")
 	var icon := _render_card_art(icon_config, expected_normal, "SmokeIcon")
 	var ancient := _render_card_art(placeholder_config, expected_ancient, "SmokeAncient")
+	var rotated := _render_card_art(rotated_config, expected_normal, "SmokeRotated")
+	_preview_base_cache.clear()
+	_preview_material_cache.clear()
+	var cached_config := crop_config.duplicate(true)
+	_render_card_art(cached_config, expected_normal, "SmokeCached", true)
+	cached_config.offset = [0.35, -0.2]
+	_render_card_art(cached_config, expected_normal, "SmokeCached", true)
+	var constrained := _constrain_material_position(
+		Vector2i(5000, 5000),
+		Vector2i(100, 80),
+		expected_normal
+	)
 	var ancient_count := 0
 	var card_type_counts := {"attack": 0, "skill": 0, "power": 0}
 	for card in _cards:
@@ -1384,6 +1593,11 @@ func _run_smoke_test() -> void:
 		crop.get_size() != expected_normal
 		or icon.get_size() != expected_normal
 		or ancient.get_size() != expected_ancient
+		or rotated.get_size() != expected_normal
+		or _preview_base_cache.size() != 1
+		or _preview_material_cache.size() != 1
+		or constrained.x >= expected_normal.x
+		or constrained.y >= expected_normal.y
 		or _cards.size() != 99
 		or ancient_count != 2
 		or card_type_counts.attack <= 0
@@ -1401,6 +1615,7 @@ func _run_smoke_test() -> void:
 	crop.save_png(smoke_dir.path_join("crop.png"))
 	icon.save_png(smoke_dir.path_join("icon.png"))
 	ancient.save_png(smoke_dir.path_join("ancient.png"))
+	rotated.save_png(smoke_dir.path_join("rotated.png"))
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var original_ui_scale := get_window().content_scale_factor
@@ -1453,7 +1668,11 @@ func _export_all_configured() -> void:
 
 func _export_card(card_name: String) -> bool:
 	var config := _get_effective_config(card_name)
-	if config.mode != "placeholder" and String(config.source).is_empty():
+	if (
+		String(config.source).is_empty()
+		and not bool(config.background_enabled)
+		and not bool(config.placeholder_enabled)
+	):
 		return false
 	var card := _find_card(card_name)
 	if card.is_empty():

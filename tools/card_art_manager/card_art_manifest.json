@@ -1,29 +1,34 @@
 {
-  "version": 2.0,
+  "version": 3,
   "output_dir": "AK_Exusiai/images/cards",
   "resolution_scale": 2,
   "asset_roots": [
     "references/official/art",
     "references/official/asset",
-    "references/free/art"
+    "references/free/art",
+    "references/free/asset",
+    "references/official/asset/character"
   ],
   "asset_files": [],
   "cards": {
     "AngelsBlessings": {
-      "mode": "crop",
       "source": "references/official/asset/Avg_61_i01_1.png",
-      "zoom": 1.171,
+      "zoom": 1.17,
       "offset": [
-        0.9746,
-        0.0624
+        0.2512,
+        0.0752
       ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
       "background": "holy_gold",
       "top_color": "493918",
       "bottom_color": "e3c06b",
-      "motif": "halo"
+      "motif": "halo",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
     },
     "TheSaintsTravels": {
-      "mode": "crop",
       "source": "references/official/asset/Avg_61_i24_2.png",
       "zoom": 1.0,
       "offset": [
@@ -33,12 +38,16 @@
       "background": "laterano_sunset",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
-      "motif": "auto"
+      "motif": "auto",
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
     },
     "AngelsHeart": {
-      "mode": "icon",
       "source": "references/free/art/天使之心.svg",
-      "zoom": 1.259,
+      "zoom": 0.499,
       "offset": [
         -0.0102,
         -0.0502
@@ -46,20 +55,488 @@
       "background": "laterano_sunset",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
-      "motif": "auto"
+      "motif": "auto",
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
     },
     "ApplePie": {
-      "mode": "icon",
-      "source": "references/official/asset/立绘_新约能天使_1.png",
-      "zoom": 1.714,
+      "source": "references/official/asset/f414a8cb50d1cbd0e1b5121fe14ca930.jpg",
+      "zoom": 0.92,
       "offset": [
-        -0.0343,
-        0.0976
+        -0.1031,
+        -0.1005
       ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
       "background": "laterano_sunset",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
-      "motif": "auto"
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ApplePieWithCharSiu": {
+      "source": "references/free/asset/叉烧苹果派.png",
+      "zoom": 0.927,
+      "offset": [
+        -0.0108,
+        -0.0937
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "red_alert",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ArmedEscort": {
+      "source": "references/official/asset/006QZngZgy1fll7n6ryljj31hc0xckby.jpg",
+      "zoom": 1.166,
+      "offset": [
+        -0.1394,
+        -0.0843
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ArmorPiercingRound": {
+      "source": "references/free/asset/穿甲弹.png",
+      "zoom": 0.919,
+      "offset": [
+        -0.0057,
+        -0.3915
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "burst",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Ascension": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_004604_900.png",
+      "zoom": 1.467,
+      "offset": [
+        -0.0075,
+        -0.2148
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "BarrageSkyShattering": {
+      "source": "references/official/asset/Avg_61_i20.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.4959,
+        0.0021
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Bison": {
+      "source": "references/official/asset/character/Avg_ac5_1.png",
+      "zoom": 0.926,
+      "offset": [
+        -0.1619,
+        -0.0572
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "BotchedModification": {
+      "source": "references/official/asset/Avg_61_i13.png",
+      "zoom": 1.001,
+      "offset": [
+        0.0521,
+        -0.0764
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ChaoticRampage": {
+      "source": "references/official/asset/Avg_61_i19.png",
+      "zoom": 0.926,
+      "offset": [
+        0.0112,
+        -0.0946
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "BoostedRound": {
+      "source": "references/free/asset/增压弹.png",
+      "zoom": 1.0,
+      "offset": [
+        0.0325,
+        -0.025
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ChargingMode": {
+      "source": "references/official/art/技能_冲锋模式.png",
+      "zoom": 0.734,
+      "offset": [
+        -0.0015,
+        -0.1003
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "red_alert",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Childhood": {
+      "source": "references/official/asset/EjtEBoyUwAEEfOR.jpg",
+      "zoom": 1.0,
+      "offset": [
+        0.0289,
+        -0.0068
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Confession": {
+      "source": "references/official/asset/Avg_61_i03_6.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.0981,
+        -0.0106
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "CoveringFire": {
+      "source": "references/official/asset/6EBC742414E86B8F340E6CB1E2647168.png",
+      "zoom": 1.259,
+      "offset": [
+        0.2361,
+        -0.0715
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Croissant": {
+      "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
+      "zoom": 1.0,
+      "offset": [
+        -0.2098,
+        0.0066
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "CrossOfDevotion": {
+      "source": "references/free/asset/ChatGPT Image 2026年8月25日 01_57_11.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.0535,
+        -0.0029
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DelayedBlast": {
+      "source": "",
+      "zoom": 0.863,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": true,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "burst",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DessertTime": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_050734_963_upscayl_4x_digital-art-4x.png",
+      "zoom": 0.74,
+      "offset": [
+        0.0833,
+        -0.1005
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Disruption": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_014904_196_edited.png",
+      "zoom": 0.857,
+      "offset": [
+        -0.0265,
+        -0.0788
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DivineJudgment": {
+      "source": "references/official/asset/G3mlhpWWgAASi18.jpg",
+      "zoom": 0.93,
+      "offset": [
+        -0.0029,
+        0.2424
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "top_color": "ffffff",
+      "bottom_color": "ffffff",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DivineJudgmentTraditional": {
+      "source": "references/official/asset/E0rTeUvVkAgvWBc.jpg",
+      "zoom": 1.08,
+      "offset": [
+        0.0751,
+        0.2588
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "top_color": "90897f",
+      "bottom_color": "605c53",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DoubleShotKit": {
+      "source": "references/free/art/双发套件.png",
+      "zoom": 0.74,
+      "offset": [
+        0.0016,
+        -0.0334
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "EmbraceNewLife": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_015527_551.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.0221,
+        -0.0638
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "EmpathyForm": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_015640_703.png",
+      "zoom": 1.166,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Emperor": {
+      "source": "references/official/asset/Avg_ac5_2_on_a.png",
+      "zoom": 2.721,
+      "offset": [
+        -0.0203,
+        0.7913
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Expedite": {
+      "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
+      "zoom": 1.851,
+      "offset": [
+        0.4625,
+        -0.1583
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ExplosiveAmmo": {
+      "source": "references/free/asset/ChatGPT Image 2026年8月25日 05_50_02.png",
+      "zoom": 0.926,
+      "offset": [
+        0.0169,
+        -0.0331
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Exusiai": {
+      "source": "references/official/asset/ELVxHQkUEAUEWTR.jpg",
+      "zoom": 1.0,
+      "offset": [
+        -0.0414,
+        -0.0009
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
     }
   }
 }
