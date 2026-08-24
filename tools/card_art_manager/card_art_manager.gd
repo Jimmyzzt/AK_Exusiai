@@ -1,6 +1,7 @@
 extends Control
 
 const MANIFEST_PATH := "res://tools/card_art_manager/card_art_manifest.json"
+const UI_SETTINGS_PATH := "user://card_art_manager_ui.json"
 const CARD_SOURCE_DIR := "res://AK_ExusiaiCode/Cards"
 const LOCALIZATION_PATH := "res://AK_Exusiai/localization/zhs/cards.json"
 const DEFAULT_OUTPUT_DIR := "res://AK_Exusiai/images/cards"
@@ -12,6 +13,8 @@ const DEFAULT_ASSET_ROOTS := [
 	"references/official/asset",
 	"references/free/art",
 ]
+const ALL_FOLDERS := "__all__"
+const UI_SCALES := [1.0, 1.25, 1.5, 1.75, 2.0]
 const BACKGROUNDS := {
 	"laterano_sunset": {"label": "拉特兰夕照", "top": "3c2059", "bottom": "ee9558"},
 	"angel_blue": {"label": "天使蓝光", "top": "10273f", "bottom": "52b8d6"},
@@ -30,6 +33,13 @@ const MOTIFS := {
 }
 
 var _manifest: Dictionary = {}
+var _ui_settings: Dictionary = {
+	"scale": 1.0,
+	"asset_view": "list",
+	"folder": ALL_FOLDERS,
+	"outer_split_offset": 340,
+	"inner_split_offset": -340,
+}
 var _cards: Array[Dictionary] = []
 var _assets: Array[String] = []
 var _filtered_assets: Array[String] = []
@@ -39,9 +49,15 @@ var _thumbnail_queue: Array[Dictionary] = []
 var _current_card := ""
 var _loading_ui := false
 var _render_queued := false
+var _is_smoke_test := false
 
 var _asset_list: ItemList
 var _asset_search: LineEdit
+var _asset_view_option: OptionButton
+var _folder_option: OptionButton
+var _ui_scale_option: OptionButton
+var _outer_split: HSplitContainer
+var _inner_split: HSplitContainer
 var _preview: CardArtPreview
 var _card_option: OptionButton
 var _mode_option: OptionButton
@@ -61,22 +77,27 @@ var _save_timer: Timer
 
 
 func _ready() -> void:
+	_is_smoke_test = "--card-art-smoke-test" in OS.get_cmdline_user_args()
 	get_window().title = "AK_Exusiai 卡图管理器"
 	get_window().size = Vector2i(1440, 860)
 	get_window().min_size = Vector2i(1100, 680)
+	_load_ui_settings()
+	_apply_ui_scale(float(_ui_settings.scale), true)
 	_build_ui()
 	_load_manifest()
 	_load_cards()
 	_scan_manifest_assets()
+	_rebuild_folder_options()
+	_apply_asset_view(String(_ui_settings.asset_view))
 	_rebuild_asset_list()
 	_rebuild_card_options()
+	_restore_split_offsets.call_deferred()
 	if not _cards.is_empty():
 		_select_card_by_index(0)
 	_set_status("就绪。清单会在修改后自动保存。", false)
 	set_process(true)
-	if "--card-art-smoke-test" in OS.get_cmdline_user_args():
-		_run_smoke_test()
-		get_tree().quit()
+	if _is_smoke_test:
+		_run_smoke_test.call_deferred()
 
 
 func _process(_delta: float) -> void:
@@ -97,6 +118,8 @@ func _process(_delta: float) -> void:
 func _exit_tree() -> void:
 	if _save_timer != null and not _save_timer.is_stopped():
 		_save_manifest()
+	if not _is_smoke_test:
+		_save_ui_settings()
 
 
 func _build_ui() -> void:
@@ -124,6 +147,18 @@ func _build_ui() -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	toolbar.add_child(title)
 
+	var scale_label := Label.new()
+	scale_label.text = "界面缩放"
+	toolbar.add_child(scale_label)
+	_ui_scale_option = OptionButton.new()
+	for scale in UI_SCALES:
+		var scale_index := _ui_scale_option.item_count
+		_ui_scale_option.add_item("%d%%" % roundi(float(scale) * 100.0))
+		_ui_scale_option.set_item_metadata(scale_index, scale)
+	_ui_scale_option.item_selected.connect(_on_ui_scale_selected)
+	toolbar.add_child(_ui_scale_option)
+	_select_option_by_float_metadata(_ui_scale_option, float(_ui_settings.scale))
+
 	var add_files := Button.new()
 	add_files.text = "添加素材"
 	add_files.pressed.connect(_show_add_files_dialog)
@@ -144,37 +179,58 @@ func _build_ui() -> void:
 	save_manifest.pressed.connect(_save_manifest)
 	toolbar.add_child(save_manifest)
 
-	var split := HBoxContainer.new()
-	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	split.add_theme_constant_override("separation", 8)
-	root.add_child(split)
+	_outer_split = HSplitContainer.new()
+	_outer_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_outer_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_outer_split.dragged.connect(_on_split_dragged)
+	root.add_child(_outer_split)
 
 	var left_panel := _make_panel_container()
-	left_panel.custom_minimum_size.x = 250
-	split.add_child(left_panel)
+	left_panel.custom_minimum_size.x = 240
+	_outer_split.add_child(left_panel)
 	var left := VBoxContainer.new()
 	left.add_theme_constant_override("separation", 8)
 	left_panel.add_child(left)
+	var asset_header := HBoxContainer.new()
+	asset_header.add_theme_constant_override("separation", 6)
+	left.add_child(asset_header)
 	var asset_title := Label.new()
 	asset_title.text = "素材区"
 	asset_title.add_theme_font_size_override("font_size", 18)
-	left.add_child(asset_title)
+	asset_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	asset_header.add_child(asset_title)
+	_asset_view_option = OptionButton.new()
+	_asset_view_option.add_item("列表")
+	_asset_view_option.set_item_metadata(0, "list")
+	_asset_view_option.add_item("紧凑")
+	_asset_view_option.set_item_metadata(1, "compact")
+	_asset_view_option.item_selected.connect(_on_asset_view_selected)
+	asset_header.add_child(_asset_view_option)
+	_select_option_by_metadata(_asset_view_option, String(_ui_settings.asset_view))
+	_folder_option = OptionButton.new()
+	_folder_option.tooltip_text = "按素材所在文件夹分类筛选"
+	_folder_option.item_selected.connect(_on_folder_selected)
+	left.add_child(_folder_option)
 	_asset_search = LineEdit.new()
 	_asset_search.placeholder_text = "筛选文件名……"
 	_asset_search.text_changed.connect(_on_asset_search_changed)
 	left.add_child(_asset_search)
 	_asset_list = ItemList.new()
-	_asset_list.icon_mode = ItemList.ICON_MODE_TOP
-	_asset_list.fixed_icon_size = Vector2i(88, 62)
-	_asset_list.max_columns = 2
-	_asset_list.same_column_width = true
 	_asset_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_asset_list.item_selected.connect(_on_asset_selected)
+	_asset_list.resized.connect(_update_asset_columns)
 	left.add_child(_asset_list)
+
+	_inner_split = HSplitContainer.new()
+	_inner_split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_inner_split.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_inner_split.dragged.connect(_on_split_dragged)
+	_outer_split.add_child(_inner_split)
 
 	var middle_panel := _make_panel_container()
 	middle_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	split.add_child(middle_panel)
+	middle_panel.custom_minimum_size.x = 420
+	_inner_split.add_child(middle_panel)
 	var middle := VBoxContainer.new()
 	middle.add_theme_constant_override("separation", 8)
 	middle_panel.add_child(middle)
@@ -219,8 +275,8 @@ func _build_ui() -> void:
 	export_bar.add_child(export_all)
 
 	var right_panel := _make_panel_container()
-	right_panel.custom_minimum_size.x = 330
-	split.add_child(right_panel)
+	right_panel.custom_minimum_size.x = 300
+	_inner_split.add_child(right_panel)
 	var scroll := ScrollContainer.new()
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	right_panel.add_child(scroll)
@@ -369,6 +425,85 @@ func _make_field_label(text: String) -> Label:
 	label.text = text
 	label.add_theme_color_override("font_color", Color("d4d8e2"))
 	return label
+
+
+func _load_ui_settings() -> void:
+	if not FileAccess.file_exists(UI_SETTINGS_PATH):
+		return
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string(UI_SETTINGS_PATH))
+	if parsed is not Dictionary:
+		return
+	for key in parsed:
+		if _ui_settings.has(key):
+			_ui_settings[key] = parsed[key]
+	var scale := float(_ui_settings.get("scale", 1.0))
+	if scale not in UI_SCALES:
+		_ui_settings.scale = 1.0
+	var asset_view := String(_ui_settings.get("asset_view", "list"))
+	if asset_view not in ["list", "compact"]:
+		_ui_settings.asset_view = "list"
+
+
+func _save_ui_settings() -> void:
+	if _outer_split != null:
+		_ui_settings.outer_split_offset = _outer_split.split_offset
+	if _inner_split != null:
+		_ui_settings.inner_split_offset = _inner_split.split_offset
+	var file := FileAccess.open(UI_SETTINGS_PATH, FileAccess.WRITE)
+	if file == null:
+		return
+	file.store_string(JSON.stringify(_ui_settings, "  ", false) + "\n")
+
+
+func _apply_ui_scale(scale: float, resize_window: bool) -> void:
+	scale = clampf(scale, 1.0, 2.0)
+	var window := get_window()
+	var old_scale := maxf(window.content_scale_factor, 0.01)
+	var new_size := window.size
+	if resize_window:
+		new_size = Vector2i(
+			roundi(window.size.x * scale / old_scale),
+			roundi(window.size.y * scale / old_scale)
+		)
+		var screen := DisplayServer.window_get_current_screen()
+		var usable := DisplayServer.screen_get_usable_rect(screen)
+		new_size.x = mini(new_size.x, usable.size.x)
+		new_size.y = mini(new_size.y, usable.size.y)
+	window.content_scale_factor = scale
+	if resize_window:
+		window.size = new_size
+
+
+func _on_ui_scale_selected(index: int) -> void:
+	if _loading_ui or index < 0:
+		return
+	var scale := float(_ui_scale_option.get_item_metadata(index))
+	_ui_settings.scale = scale
+	_apply_ui_scale(scale, true)
+	_save_ui_settings()
+
+
+func _select_option_by_float_metadata(option: OptionButton, metadata: float) -> void:
+	for index in option.item_count:
+		if is_equal_approx(float(option.get_item_metadata(index)), metadata):
+			option.select(index)
+			return
+
+
+func _restore_split_offsets() -> void:
+	if _outer_split == null or _inner_split == null:
+		return
+	_outer_split.split_offset = int(_ui_settings.outer_split_offset)
+	_inner_split.split_offset = int(_ui_settings.inner_split_offset)
+	_outer_split.clamp_split_offset()
+	_inner_split.clamp_split_offset()
+
+
+func _on_split_dragged(_offset: int) -> void:
+	_ui_settings.outer_split_offset = _outer_split.split_offset
+	_ui_settings.inner_split_offset = _inner_split.split_offset
+	_save_ui_settings()
+	_update_asset_columns()
 
 
 func _load_manifest() -> void:
@@ -528,21 +663,107 @@ func _add_asset_path(stored_path: String) -> void:
 		_assets.append(stored_path)
 
 
+func _rebuild_folder_options() -> void:
+	if _folder_option == null:
+		return
+	var counts := {}
+	for path in _assets:
+		var folder := path.get_base_dir()
+		counts[folder] = int(counts.get(folder, 0)) + 1
+	var folders: Array = counts.keys()
+	folders.sort_custom(func(a, b) -> bool: return String(a).naturalnocasecmp_to(String(b)) < 0)
+	var wanted := String(_ui_settings.get("folder", ALL_FOLDERS))
+	_loading_ui = true
+	_folder_option.clear()
+	_folder_option.add_item("全部文件夹（%d）" % _assets.size())
+	_folder_option.set_item_metadata(0, ALL_FOLDERS)
+	var selected_index := 0
+	for folder_value in folders:
+		var folder := String(folder_value)
+		var index := _folder_option.item_count
+		_folder_option.add_item("%s（%d）" % [_folder_display_name(folder), counts[folder]])
+		_folder_option.set_item_metadata(index, folder)
+		_folder_option.set_item_tooltip(index, folder)
+		if folder == wanted:
+			selected_index = index
+	_folder_option.select(selected_index)
+	if selected_index == 0:
+		_ui_settings.folder = ALL_FOLDERS
+	_loading_ui = false
+
+
+func _folder_display_name(folder: String) -> String:
+	if folder.is_absolute_path():
+		return folder.get_file()
+	return folder
+
+
+func _on_folder_selected(index: int) -> void:
+	if _loading_ui or index < 0:
+		return
+	_ui_settings.folder = String(_folder_option.get_item_metadata(index))
+	_save_ui_settings()
+	_rebuild_asset_list()
+
+
+func _on_asset_view_selected(index: int) -> void:
+	if _loading_ui or index < 0:
+		return
+	var view := String(_asset_view_option.get_item_metadata(index))
+	_ui_settings.asset_view = view
+	_apply_asset_view(view)
+	_save_ui_settings()
+	_rebuild_asset_list()
+
+
+func _apply_asset_view(view: String) -> void:
+	if _asset_list == null:
+		return
+	if view == "compact":
+		_asset_list.icon_mode = ItemList.ICON_MODE_TOP
+		_asset_list.fixed_icon_size = Vector2i(96, 68)
+		_asset_list.fixed_column_width = 116
+		_asset_list.same_column_width = true
+	else:
+		_asset_list.icon_mode = ItemList.ICON_MODE_LEFT
+		_asset_list.fixed_icon_size = Vector2i(88, 62)
+		_asset_list.fixed_column_width = 0
+		_asset_list.same_column_width = false
+	_update_asset_columns()
+
+
+func _update_asset_columns() -> void:
+	if _asset_list == null:
+		return
+	if String(_ui_settings.get("asset_view", "list")) == "compact":
+		_asset_list.max_columns = maxi(1, floori(_asset_list.size.x / 122.0))
+	else:
+		_asset_list.max_columns = 1
+
+
 func _rebuild_asset_list() -> void:
 	_asset_list.clear()
 	_filtered_assets.clear()
 	_thumbnail_queue.clear()
 	var query := _asset_search.text.strip_edges().to_lower()
+	var selected_folder := String(_ui_settings.get("folder", ALL_FOLDERS))
+	var compact := String(_ui_settings.get("asset_view", "list")) == "compact"
 	for path in _assets:
 		if not query.is_empty() and not path.get_file().to_lower().contains(query):
 			continue
+		if selected_folder != ALL_FOLDERS and path.get_base_dir() != selected_folder:
+			continue
 		_filtered_assets.append(path)
-		var index := _asset_list.add_item(path.get_file().get_basename())
+		var item_text := path.get_file().get_basename()
+		if not compact:
+			item_text += "  ·  " + _folder_display_name(path.get_base_dir())
+		var index := _asset_list.add_item(item_text)
 		_asset_list.set_item_tooltip(index, path)
 		if _thumbnail_cache.has(path):
 			_asset_list.set_item_icon(index, _thumbnail_cache[path])
 		else:
 			_thumbnail_queue.append({"index": index, "path": path})
+	_update_asset_columns()
 
 
 func _get_thumbnail(path: String) -> ImageTexture:
@@ -1048,21 +1269,44 @@ func _run_smoke_test() -> void:
 		or ancient.get_size() != ANCIENT_SIZE
 		or _cards.size() != 99
 		or ancient_count != 2
+		or _ui_scale_option.item_count != UI_SCALES.size()
+		or _folder_option.item_count < 2
 	):
 		push_error("Card art manager smoke test failed.")
+		get_tree().quit(1)
 		return
 	var smoke_dir := ProjectSettings.globalize_path("res://tmp/card_art_manager_smoke")
 	DirAccess.make_dir_recursive_absolute(smoke_dir)
 	crop.save_png(smoke_dir.path_join("crop.png"))
 	icon.save_png(smoke_dir.path_join("icon.png"))
 	ancient.save_png(smoke_dir.path_join("ancient.png"))
-	print("CARD_ART_MANAGER_SMOKE_OK cards=%d ancient_cards=%d crop=%s icon=%s ancient=%s" % [
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var original_ui_scale := get_window().content_scale_factor
+	_apply_ui_scale(1.25, false)
+	if not is_equal_approx(get_window().content_scale_factor, 1.25):
+		push_error("Card art manager UI scale smoke test failed.")
+		get_tree().quit(1)
+		return
+	_apply_ui_scale(original_ui_scale, false)
+	_apply_asset_view("compact")
+	_update_asset_columns()
+	if _asset_list.max_columns < 1 or _outer_split.get_child_count() != 2 or _inner_split.get_child_count() != 2:
+		push_error("Card art manager layout smoke test failed.")
+		get_tree().quit(1)
+		return
+	_apply_asset_view(String(_ui_settings.asset_view))
+	print("CARD_ART_MANAGER_SMOKE_OK cards=%d ancient_cards=%d folders=%d sidebars=%d/%d crop=%s icon=%s ancient=%s" % [
 		_cards.size(),
 		ancient_count,
+		_folder_option.item_count - 1,
+		roundi((_outer_split.get_child(0) as Control).size.x),
+		roundi((_inner_split.get_child(1) as Control).size.x),
 		crop.get_size(),
 		icon.get_size(),
 		ancient.get_size(),
 	])
+	get_tree().quit()
 
 
 func _export_all_configured() -> void:
@@ -1158,6 +1402,7 @@ func _refresh_assets() -> void:
 	_source_cache.clear()
 	_thumbnail_cache.clear()
 	_scan_manifest_assets()
+	_rebuild_folder_options()
 	_rebuild_asset_list()
 	_update_progress()
 	_queue_preview_render()

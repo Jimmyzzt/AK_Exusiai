@@ -10,11 +10,11 @@
   "cards": {
     "AngelsBlessings": {
       "mode": "crop",
-      "source": "",
+      "source": "references/official/art/技能_使命必达！.png",
       "zoom": 1.0,
       "offset": [
-        0.0,
-        0.0
+        0.0934,
+        0.4239
       ],
       "background": "laterano_sunset",
       "top_color": "3c2059",

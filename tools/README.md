@@ -18,4 +18,4 @@ Run the local Godot card-art GUI from the repository root:
 .\tools\card_art_manager\run_card_art_manager.ps1
 ```
 
-It scans the tracked reference folders, provides pan/zoom crop previews, icon backgrounds and procedural placeholders, saves a JSON manifest, and exports normal card portraits at 250×190 or Ancient portraits at 250×351. See `tools/card_art_manager/README.md` for the workflow.
+It scans and groups the tracked reference folders, provides scalable UI, resizable sidebars, list/compact thumbnail views, pan/zoom crop previews, icon backgrounds and procedural placeholders, saves a JSON manifest, and exports normal card portraits at 250×190 or Ancient portraits at 250×351. See `tools/card_art_manager/README.md` for the workflow and cache locations.
