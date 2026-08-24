@@ -3,6 +3,7 @@ using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -12,6 +13,12 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class EmbraceNewLife : ExusiaiCardTemplate
 {
+    protected override IEnumerable<IHoverTip> CardHoverTips =>
+    [
+        HoverTipFactory.FromCard<HolyCityGuidance>(),
+        HoverTipFactory.FromCard<HolyCityPurge>(),
+        HoverTipFactory.FromCard<HolyCityProtection>(),
+    ];
     protected override bool HasEnergyCostX => true;
     protected override bool ShowAngelHoverTip => true;
 

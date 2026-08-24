@@ -1,4 +1,3 @@
-using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
 using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
@@ -12,7 +11,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-[RegisterDustyTomeCard(typeof(Exusiai))]
+[RegisterDustyTomeCard(typeof(AK_Exusiai.Characters.Exusiai))]
 public sealed class TheSaintsTravels : ExusiaiCardTemplate
 {
     private int _currentFirepower = 1;

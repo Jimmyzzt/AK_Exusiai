@@ -39,10 +39,10 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
         if (!ReferenceEquals(card, Owner))
             return currentCost;
 
-        if (!IsInCombatPile(card))
-            return Math.Min(currentCost, card.EnergyCost.Canonical);
-
-        return RecordAndClamp(card, currentCost);
+        currentCost = Math.Min(currentCost, Math.Max(0, card.EnergyCost.Canonical));
+        return !IsInCombatPile(card) || _lowestCombatCost == NoCombatMinimum
+            ? currentCost
+            : Math.Min(currentCost, _lowestCombatCost);
     }
 
     protected override JsonNode SaveAdditionalState()
@@ -76,15 +76,12 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
             owner.RemoveModKeyword(ExusiaiKeywords.AngelKeyword);
     }
 
-    private int RecordAndClamp(CardModel card, int currentCost)
+    internal void RecordCombatMinimum(int currentCost)
     {
-        currentCost = Math.Min(currentCost, Math.Max(0, card.EnergyCost.Canonical));
         int previousMinimum = _lowestCombatCost;
         _lowestCombatCost = Math.Min(_lowestCombatCost, Math.Max(0, currentCost));
         if (_lowestCombatCost != previousMinimum)
             MarkDirty();
-
-        return _lowestCombatCost;
     }
 
     private static bool IsInCombatPile(CardModel card)
@@ -102,5 +99,15 @@ public static class AngelCmd
     {
         card.Capabilities().GetOrCreate<AngelCapability>();
         AscensionCmd.UpgradeIfNeeded(card);
+    }
+
+    public static void RecordCurrentCombatCost(CardModel card)
+    {
+        AngelCapability? capability = card.Capabilities().Get<AngelCapability>();
+        if (capability == null || card.Pile?.IsCombatPile != true)
+            return;
+
+        int localCost = card.EnergyCost.GetWithModifiers(CostModifiers.Local);
+        capability.RecordCombatMinimum(Math.Min(localCost, Math.Max(0, card.EnergyCost.Canonical)));
     }
 }

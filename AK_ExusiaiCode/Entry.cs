@@ -31,6 +31,7 @@ public partial class Entry
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
+        _patcher.RegisterPatch<AngelEnergyCostPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
         if (!_patcher.PatchAll())
             throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");

@@ -10,7 +10,7 @@
 | `references/free/art/帕格尼尼.svg` | SVG 图标 | 项目维护者提供 | “帕格尼尼定制”的回合开始弹药能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/PaganiniCustomPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/干扰.svg` | SVG 图标 | 项目维护者提供 | “干扰”敌人减益图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/InterferencePower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天使之心.svg` | SVG 图标 | 项目维护者提供 | “天使之心”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/AngelFreePower.svg` | 原始作者或授权链接尚待维护者补充 |
-| `references/free/art/守护铳.png` | PNG 图标 | 项目维护者提供 | “守护铳”能力图标 | 2026-08-23 更新源图，并同步替换 `AK_Exusiai/images/powers/PatronFirearmPower.png` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/守护铳_剪影.svg` | SVG 图标 | 项目维护者提供 | “守护铳”能力图标 | 复制为 `AK_Exusiai/images/powers/PatronFirearmPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/爆弹.svg` | SVG 图标 | 项目维护者提供 | “爆弹”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/AmmoSplashPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/冰镇甜品.svg` | SVG 图标 | 项目维护者提供 | “冰镇甜品”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/FrozenTreatPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/升华.svg` | SVG 图标 | 项目维护者提供 | “升华”能力图标 | 复制为 `AK_Exusiai/images/powers/AscensionPower.svg` | 原始作者或授权链接尚待维护者补充 |

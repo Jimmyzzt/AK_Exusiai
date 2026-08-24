@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "output_dir": "AK_Exusiai/images/cards",
+  "asset_roots": [
+    "references/official/art",
+    "references/official/asset",
+    "references/free/art"
+  ],
+  "asset_files": [],
+  "cards": {
+    "AngelsBlessings": {
+      "mode": "crop",
+      "source": "",
+      "zoom": 1.0,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "AK_EXUSIAI_CHARACTER_EXUSIAI.title": "能天使",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.titleObject": "能天使",
-  "AK_EXUSIAI_CHARACTER_EXUSIAI.description": "企鹅物流的开朗速射手。消耗弹药，使一张攻击牌的每段伤害得到强化。",
+  "AK_EXUSIAI_CHARACTER_EXUSIAI.description": "企鹅物流资深员工、苹果派物流老板能天使，刚从拉特兰城回到罗德岛。",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.bestiaryQuote": "发现目标——尽情开火吧！",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.pronounObject": "她",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.possessiveAdjective": "她的",
@@ -10,5 +10,6 @@
   "AK_EXUSIAI_CHARACTER_EXUSIAI.cardsModifierTitle": "能天使卡牌",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.cardsModifierDescription": "加入能天使牌池中的卡牌。",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.eventDeathPrevention": "还没结束呢！",
+  "AK_EXUSIAI_CHARACTER_EXUSIAI.banter.alive.endTurnPing": "......主啊，这个人也是我们要拯救的吗？",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.unlockText": "无需解锁。"
 }
