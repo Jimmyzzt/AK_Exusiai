@@ -8,8 +8,11 @@ var _zoom := 1.0
 var _offset := Vector2.ZERO
 var _dragging := false
 var _frame_rect := Rect2()
-var _output_size := Vector2i(250, 190)
+var _output_size := Vector2i(500, 380)
 var _empty_message := "从左侧选择素材，或将素材类型切换为占位图"
+var _card_type := "skill"
+var _ancient := false
+var _show_frame_guide := true
 
 
 func _ready() -> void:
@@ -35,6 +38,13 @@ func set_transform_values(zoom: float, offset: Vector2) -> void:
 
 func set_empty_message(message: String) -> void:
 	_empty_message = message
+	queue_redraw()
+
+
+func set_frame_guide(card_type: String, ancient: bool, visible: bool) -> void:
+	_card_type = card_type
+	_ancient = ancient
+	_show_frame_guide = visible
 	queue_redraw()
 
 
@@ -75,6 +85,8 @@ func _draw() -> void:
 		)
 
 	draw_rect(_frame_rect, Color("e8ba67"), false, 2.0)
+	if _show_frame_guide:
+		_draw_card_frame_guide()
 	var size_text := "%d × %d" % [_output_size.x, _output_size.y]
 	draw_string(
 		ThemeDB.fallback_font,
@@ -87,6 +99,77 @@ func _draw() -> void:
 	)
 
 
+func _draw_card_frame_guide() -> void:
+	var guide_color := Color(0.47, 0.94, 1.0, 0.95)
+	var shadow_color := Color(0.0, 0.0, 0.0, 0.5)
+	if _ancient:
+		var inset := maxf(4.0, _frame_rect.size.x * 0.025)
+		var ancient_rect := _frame_rect.grow(-inset)
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color.TRANSPARENT
+		style.border_color = guide_color
+		style.set_border_width_all(3)
+		var radius := roundi(_frame_rect.size.x * 0.07)
+		style.set_corner_radius_all(radius)
+		draw_style_box(style, ancient_rect)
+		_draw_guide_label("先古卡可视框", guide_color)
+		return
+
+	var normalized_points: Array[Vector2]
+	var label := "技能牌可视框"
+	if _card_type == "attack":
+		normalized_points = [
+			Vector2(0.05, 0.02),
+			Vector2(0.05, 0.71),
+			Vector2(0.38, 0.89),
+			Vector2(0.62, 0.89),
+			Vector2(0.95, 0.71),
+			Vector2(0.95, 0.02),
+		]
+		label = "攻击牌可视框"
+	elif _card_type == "power":
+		normalized_points = [
+			Vector2(0.05, 0.02),
+			Vector2(0.05, 0.55),
+			Vector2(0.06, 0.65),
+			Vector2(0.10, 0.74),
+			Vector2(0.17, 0.81),
+			Vector2(0.27, 0.86),
+			Vector2(0.39, 0.89),
+			Vector2(0.61, 0.89),
+			Vector2(0.73, 0.86),
+			Vector2(0.83, 0.81),
+			Vector2(0.90, 0.74),
+			Vector2(0.94, 0.65),
+			Vector2(0.95, 0.55),
+			Vector2(0.95, 0.02),
+		]
+		label = "能力牌可视框"
+	else:
+		normalized_points = [
+			Vector2(0.05, 0.02),
+			Vector2(0.05, 0.84),
+			Vector2(0.95, 0.84),
+			Vector2(0.95, 0.02),
+		]
+
+	var points := PackedVector2Array()
+	for point in normalized_points:
+		points.append(_frame_rect.position + point * _frame_rect.size)
+	draw_polyline(points, shadow_color, 8.0, true)
+	draw_polyline(points, guide_color, 2.5, true)
+	_draw_guide_label(label, guide_color)
+
+
+func _draw_guide_label(label: String, color: Color) -> void:
+	var font := ThemeDB.fallback_font
+	var font_size := 13
+	var width := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+	var position := _frame_rect.position + Vector2(_frame_rect.size.x - width - 6.0, 18.0)
+	draw_string(font, position + Vector2(1, 1), label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, Color(0, 0, 0, 0.8))
+	draw_string(font, position, label, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mouse_event := event as InputEventMouseButton
@@ -96,11 +179,11 @@ func _gui_input(event: InputEvent) -> void:
 			return
 		if mouse_event.pressed and _frame_rect.has_point(mouse_event.position):
 			if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				_zoom = clampf(_zoom * 1.08, 0.2, 4.0)
+				_zoom = clampf(_zoom * 1.08, 0.05, 4.0)
 				transform_changed.emit(_zoom, _offset)
 				accept_event()
 			elif mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				_zoom = clampf(_zoom / 1.08, 0.2, 4.0)
+				_zoom = clampf(_zoom / 1.08, 0.05, 4.0)
 				transform_changed.emit(_zoom, _offset)
 				accept_event()
 	elif event is InputEventMouseMotion and _dragging:

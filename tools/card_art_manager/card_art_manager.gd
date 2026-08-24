@@ -5,8 +5,9 @@ const UI_SETTINGS_PATH := "user://card_art_manager_ui.json"
 const CARD_SOURCE_DIR := "res://AK_ExusiaiCode/Cards"
 const LOCALIZATION_PATH := "res://AK_Exusiai/localization/zhs/cards.json"
 const DEFAULT_OUTPUT_DIR := "res://AK_Exusiai/images/cards"
-const NORMAL_SIZE := Vector2i(250, 190)
-const ANCIENT_SIZE := Vector2i(250, 351)
+const BASE_NORMAL_SIZE := Vector2i(250, 190)
+const BASE_ANCIENT_SIZE := Vector2i(250, 351)
+const RESOLUTION_SCALES := [1, 2, 3, 4]
 const SUPPORTED_EXTENSIONS := ["png", "jpg", "jpeg", "webp", "svg"]
 const DEFAULT_ASSET_ROOTS := [
 	"references/official/art",
@@ -39,6 +40,7 @@ var _ui_settings: Dictionary = {
 	"folder": ALL_FOLDERS,
 	"outer_split_offset": 340,
 	"inner_split_offset": -340,
+	"show_frame_guide": true,
 }
 var _cards: Array[Dictionary] = []
 var _assets: Array[String] = []
@@ -60,6 +62,7 @@ var _outer_split: HSplitContainer
 var _inner_split: HSplitContainer
 var _preview: CardArtPreview
 var _card_option: OptionButton
+var _resolution_option: OptionButton
 var _mode_option: OptionButton
 var _background_option: OptionButton
 var _motif_option: OptionButton
@@ -71,6 +74,7 @@ var _source_label: Label
 var _status_label: Label
 var _progress_label: Label
 var _ancient_label: Label
+var _frame_guide_toggle: CheckButton
 var _add_files_dialog: FileDialog
 var _add_folder_dialog: FileDialog
 var _save_timer: Timer
@@ -85,6 +89,7 @@ func _ready() -> void:
 	_apply_ui_scale(float(_ui_settings.scale), true)
 	_build_ui()
 	_load_manifest()
+	_sync_resolution_option()
 	_load_cards()
 	_scan_manifest_assets()
 	_rebuild_folder_options()
@@ -297,6 +302,29 @@ func _build_ui() -> void:
 	_ancient_label.add_theme_color_override("font_color", Color("e8ba67"))
 	right.add_child(_ancient_label)
 
+	right.add_child(_make_field_label("输出分辨率（保持官方比例）"))
+	_resolution_option = OptionButton.new()
+	for scale in RESOLUTION_SCALES:
+		var normal := BASE_NORMAL_SIZE * int(scale)
+		var ancient := BASE_ANCIENT_SIZE * int(scale)
+		var index := _resolution_option.item_count
+		_resolution_option.add_item("%d× · %d×%d / 先古 %d×%d" % [
+			scale,
+			normal.x,
+			normal.y,
+			ancient.x,
+			ancient.y,
+		])
+		_resolution_option.set_item_metadata(index, scale)
+	_resolution_option.item_selected.connect(_on_resolution_selected)
+	right.add_child(_resolution_option)
+
+	_frame_guide_toggle = CheckButton.new()
+	_frame_guide_toggle.text = "显示实际卡牌可视框"
+	_frame_guide_toggle.button_pressed = bool(_ui_settings.show_frame_guide)
+	_frame_guide_toggle.toggled.connect(_on_frame_guide_toggled)
+	right.add_child(_frame_guide_toggle)
+
 	right.add_child(_make_field_label("素材类型"))
 	_mode_option = OptionButton.new()
 	_mode_option.add_item("插画裁切", 0)
@@ -361,7 +389,7 @@ func _build_ui() -> void:
 	var zoom_row := HBoxContainer.new()
 	right.add_child(zoom_row)
 	_zoom_slider = HSlider.new()
-	_zoom_slider.min_value = 0.2
+	_zoom_slider.min_value = 0.05
 	_zoom_slider.max_value = 4.0
 	_zoom_slider.step = 0.01
 	_zoom_slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -508,8 +536,9 @@ func _on_split_dragged(_offset: int) -> void:
 
 func _load_manifest() -> void:
 	_manifest = {
-		"version": 1,
+		"version": 2,
 		"output_dir": "AK_Exusiai/images/cards",
+		"resolution_scale": 2,
 		"asset_roots": DEFAULT_ASSET_ROOTS.duplicate(),
 		"asset_files": [],
 		"cards": {},
@@ -530,6 +559,10 @@ func _load_manifest() -> void:
 		_manifest.asset_roots = DEFAULT_ASSET_ROOTS.duplicate()
 	if not _manifest.has("asset_files") or not _manifest.asset_files is Array:
 		_manifest.asset_files = []
+	var resolution_scale := int(_manifest.get("resolution_scale", 2))
+	if resolution_scale not in RESOLUTION_SCALES:
+		resolution_scale = 2
+	_manifest.resolution_scale = resolution_scale
 
 
 func _save_manifest() -> void:
@@ -568,11 +601,17 @@ func _load_cards() -> void:
 		var card_class := filename.get_basename()
 		var source := FileAccess.get_file_as_string(CARD_SOURCE_DIR.path_join(filename))
 		var ancient := source.contains("CardRarity.Ancient")
+		var card_type := "skill"
+		if source.contains("CardType.Attack"):
+			card_type = "attack"
+		elif source.contains("CardType.Power"):
+			card_type = "power"
 		var title: String = titles.get(card_class, card_class)
 		_cards.append({
 			"class_name": card_class,
 			"title": title,
 			"ancient": ancient,
+			"card_type": card_type,
 		})
 
 
@@ -798,6 +837,68 @@ func _rebuild_card_options() -> void:
 	_update_progress()
 
 
+func _sync_resolution_option() -> void:
+	if _resolution_option == null:
+		return
+	var wanted := int(_manifest.get("resolution_scale", 2))
+	_loading_ui = true
+	for index in _resolution_option.item_count:
+		if int(_resolution_option.get_item_metadata(index)) == wanted:
+			_resolution_option.select(index)
+			break
+	_loading_ui = false
+
+
+func _on_resolution_selected(index: int) -> void:
+	if _loading_ui or index < 0:
+		return
+	_manifest.resolution_scale = int(_resolution_option.get_item_metadata(index))
+	_save_manifest()
+	_update_current_card_summary()
+	_queue_preview_render()
+
+
+func _on_frame_guide_toggled(enabled: bool) -> void:
+	_ui_settings.show_frame_guide = enabled
+	_save_ui_settings()
+	_queue_preview_render()
+
+
+func _get_resolution_scale() -> int:
+	return int(_manifest.get("resolution_scale", 2))
+
+
+func _get_output_size(card: Dictionary) -> Vector2i:
+	var base_size := BASE_ANCIENT_SIZE if card.get("ancient", false) else BASE_NORMAL_SIZE
+	return base_size * _get_resolution_scale()
+
+
+func _card_type_label(card_type: String) -> String:
+	match card_type:
+		"attack":
+			return "攻击牌"
+		"power":
+			return "能力牌"
+		_:
+			return "技能牌"
+
+
+func _update_current_card_summary() -> void:
+	if _current_card.is_empty():
+		return
+	var card := _find_card(_current_card)
+	if card.is_empty():
+		return
+	var output_size := _get_output_size(card)
+	var rarity_label := "先古卡" if card.get("ancient", false) else "普通卡"
+	_ancient_label.text = "%s · %s · 输出 %d × %d" % [
+		_card_type_label(String(card.get("card_type", "skill"))),
+		rarity_label,
+		output_size.x,
+		output_size.y,
+	]
+
+
 func _select_card_by_index(index: int) -> void:
 	if _loading_ui or index < 0 or index >= _card_option.item_count:
 		return
@@ -813,8 +914,7 @@ func _select_card_by_index(index: int) -> void:
 	_zoom_slider.value = config.zoom
 	_zoom_value.text = "%.2f" % config.zoom
 	_source_label.text = config.source if not String(config.source).is_empty() else "未选择"
-	var card := _find_card(_current_card)
-	_ancient_label.text = "先古卡 · 输出 250 × 351" if card.get("ancient", false) else "普通卡 · 输出 250 × 190"
+	_update_current_card_summary()
 	_preview.set_transform_values(config.zoom, _array_to_vector2(config.offset))
 	_loading_ui = false
 	_queue_preview_render()
@@ -908,10 +1008,10 @@ func _on_form_changed(_index: int) -> void:
 	_store_current_form()
 
 
-func _configure_zoom_range(mode: String) -> void:
+func _configure_zoom_range(_mode: String) -> void:
 	var was_loading := _loading_ui
 	_loading_ui = true
-	_zoom_slider.min_value = 1.0 if mode == "crop" else 0.2
+	_zoom_slider.min_value = 0.05
 	if _zoom_slider.value < _zoom_slider.min_value:
 		_zoom_slider.value = _zoom_slider.min_value
 	_loading_ui = was_loading
@@ -946,9 +1046,6 @@ func _on_zoom_changed(value: float) -> void:
 
 
 func _on_preview_transform_changed(zoom: float, offset: Vector2) -> void:
-	var mode := String(_mode_option.get_item_metadata(_mode_option.selected))
-	if mode == "crop":
-		zoom = maxf(1.0, zoom)
 	_loading_ui = true
 	_zoom_slider.value = zoom
 	_zoom_value.text = "%.2f" % zoom
@@ -988,9 +1085,21 @@ func _render_preview() -> void:
 		return
 	var config := _get_effective_config(_current_card)
 	var card := _find_card(_current_card)
-	var output_size := ANCIENT_SIZE if card.get("ancient", false) else NORMAL_SIZE
-	var image := _render_card_art(config, output_size, _current_card)
+	var output_size := _get_output_size(card)
+	var preview_size := output_size
+	if preview_size.x > 500:
+		var preview_scale := 500.0 / preview_size.x
+		preview_size = Vector2i(
+			500,
+			maxi(1, roundi(preview_size.y * preview_scale))
+		)
+	var image := _render_card_art(config, preview_size, _current_card)
 	_preview.set_transform_values(config.zoom, _array_to_vector2(config.offset))
+	_preview.set_frame_guide(
+		String(card.get("card_type", "skill")),
+		bool(card.get("ancient", false)),
+		bool(_ui_settings.show_frame_guide)
+	)
 	_preview.set_art(image, output_size)
 	if image == null or image.is_empty():
 		_preview.set_empty_message("请选择素材；占位模式无需素材")
@@ -1027,10 +1136,12 @@ func _crop_illustration(source: Image, output_size: Vector2i, zoom: float, offse
 
 	var desired_x := roundi((output_size.x - resized_width) * 0.5 + offset.x * output_size.x)
 	var desired_y := roundi((output_size.y - resized_height) * 0.5 + offset.y * output_size.y)
-	var min_x := mini(0, output_size.x - resized_width)
-	var min_y := mini(0, output_size.y - resized_height)
-	var destination_x := clampi(desired_x, min_x, 0)
-	var destination_y := clampi(desired_y, min_y, 0)
+	var destination_x := desired_x
+	var destination_y := desired_y
+	if resized_width >= output_size.x:
+		destination_x = clampi(desired_x, output_size.x - resized_width, 0)
+	if resized_height >= output_size.y:
+		destination_y = clampi(desired_y, output_size.y - resized_height, 0)
 	var source_x := maxi(0, -destination_x)
 	var source_y := maxi(0, -destination_y)
 	var output_x := maxi(0, destination_x)
@@ -1038,7 +1149,7 @@ func _crop_illustration(source: Image, output_size: Vector2i, zoom: float, offse
 	var copy_width := mini(resized_width - source_x, output_size.x - output_x)
 	var copy_height := mini(resized_height - source_y, output_size.y - output_y)
 	if copy_width > 0 and copy_height > 0:
-		result.blit_rect(
+		result.blend_rect(
 			resized,
 			Rect2i(source_x, source_y, copy_width, copy_height),
 			Vector2i(output_x, output_y)
@@ -1243,7 +1354,7 @@ func _run_smoke_test() -> void:
 	var crop_config := {
 		"mode": "crop",
 		"source": "references/official/art/半身.jpg",
-		"zoom": 1.0,
+		"zoom": 0.5,
 		"offset": [0.0, 0.0],
 		"background": "laterano_sunset",
 		"top_color": "3c2059",
@@ -1253,23 +1364,33 @@ func _run_smoke_test() -> void:
 	var icon_config := crop_config.duplicate(true)
 	icon_config.mode = "icon"
 	icon_config.source = "references/free/art/弹药.svg"
+	icon_config.zoom = 0.25
 	var placeholder_config := crop_config.duplicate(true)
 	placeholder_config.mode = "placeholder"
 	placeholder_config.source = ""
-	var crop := _render_card_art(crop_config, NORMAL_SIZE, "SmokeCrop")
-	var icon := _render_card_art(icon_config, NORMAL_SIZE, "SmokeIcon")
-	var ancient := _render_card_art(placeholder_config, ANCIENT_SIZE, "SmokeAncient")
+	var expected_normal := BASE_NORMAL_SIZE * 2
+	var expected_ancient := BASE_ANCIENT_SIZE * 2
+	var crop := _render_card_art(crop_config, expected_normal, "SmokeCrop")
+	var icon := _render_card_art(icon_config, expected_normal, "SmokeIcon")
+	var ancient := _render_card_art(placeholder_config, expected_ancient, "SmokeAncient")
 	var ancient_count := 0
+	var card_type_counts := {"attack": 0, "skill": 0, "power": 0}
 	for card in _cards:
 		if card.ancient:
 			ancient_count += 1
+		var card_type := String(card.card_type)
+		card_type_counts[card_type] = int(card_type_counts.get(card_type, 0)) + 1
 	if (
-		crop.get_size() != NORMAL_SIZE
-		or icon.get_size() != NORMAL_SIZE
-		or ancient.get_size() != ANCIENT_SIZE
+		crop.get_size() != expected_normal
+		or icon.get_size() != expected_normal
+		or ancient.get_size() != expected_ancient
 		or _cards.size() != 99
 		or ancient_count != 2
+		or card_type_counts.attack <= 0
+		or card_type_counts.skill <= 0
+		or card_type_counts.power <= 0
 		or _ui_scale_option.item_count != UI_SCALES.size()
+		or _resolution_option.item_count != RESOLUTION_SCALES.size()
 		or _folder_option.item_count < 2
 	):
 		push_error("Card art manager smoke test failed.")
@@ -1296,8 +1417,15 @@ func _run_smoke_test() -> void:
 		get_tree().quit(1)
 		return
 	_apply_asset_view(String(_ui_settings.asset_view))
-	print("CARD_ART_MANAGER_SMOKE_OK cards=%d ancient_cards=%d folders=%d sidebars=%d/%d crop=%s icon=%s ancient=%s" % [
+	_preview.set_frame_guide("attack", false, true)
+	_preview.set_frame_guide("skill", false, true)
+	_preview.set_frame_guide("power", false, true)
+	_preview.set_frame_guide("attack", true, true)
+	print("CARD_ART_MANAGER_SMOKE_OK cards=%d types=%d/%d/%d ancient_cards=%d folders=%d sidebars=%d/%d crop=%s icon=%s ancient=%s" % [
 		_cards.size(),
+		card_type_counts.attack,
+		card_type_counts.skill,
+		card_type_counts.power,
 		ancient_count,
 		_folder_option.item_count - 1,
 		roundi((_outer_split.get_child(0) as Control).size.x),
@@ -1330,7 +1458,7 @@ func _export_card(card_name: String) -> bool:
 	var card := _find_card(card_name)
 	if card.is_empty():
 		return false
-	var output_size := ANCIENT_SIZE if card.ancient else NORMAL_SIZE
+	var output_size := _get_output_size(card)
 	var image := _render_card_art(config, output_size, card_name)
 	if image == null or image.is_empty():
 		return false

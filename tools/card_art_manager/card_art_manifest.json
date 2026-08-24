@@ -1,6 +1,7 @@
 {
-  "version": 1.0,
+  "version": 2.0,
   "output_dir": "AK_Exusiai/images/cards",
+  "resolution_scale": 2,
   "asset_roots": [
     "references/official/art",
     "references/official/asset",
@@ -10,11 +11,50 @@
   "cards": {
     "AngelsBlessings": {
       "mode": "crop",
-      "source": "references/official/art/技能_使命必达！.png",
+      "source": "references/official/asset/Avg_61_i01_1.png",
+      "zoom": 1.171,
+      "offset": [
+        0.9746,
+        0.0624
+      ],
+      "background": "holy_gold",
+      "top_color": "493918",
+      "bottom_color": "e3c06b",
+      "motif": "halo"
+    },
+    "TheSaintsTravels": {
+      "mode": "crop",
+      "source": "references/official/asset/Avg_61_i24_2.png",
       "zoom": 1.0,
       "offset": [
-        0.0934,
-        0.4239
+        -0.0383,
+        -0.0079
+      ],
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto"
+    },
+    "AngelsHeart": {
+      "mode": "icon",
+      "source": "references/free/art/天使之心.svg",
+      "zoom": 1.259,
+      "offset": [
+        -0.0102,
+        -0.0502
+      ],
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto"
+    },
+    "ApplePie": {
+      "mode": "icon",
+      "source": "references/official/asset/立绘_新约能天使_1.png",
+      "zoom": 1.714,
+      "offset": [
+        -0.0343,
+        0.0976
       ],
       "background": "laterano_sunset",
       "top_color": "3c2059",
