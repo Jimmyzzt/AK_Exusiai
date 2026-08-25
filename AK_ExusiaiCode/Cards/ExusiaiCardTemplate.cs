@@ -1,4 +1,5 @@
 using AK_Exusiai.Mechanics;
+using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
 using STS2RitsuLib.Combat.SecondaryResources;
@@ -14,6 +15,17 @@ public abstract class ExusiaiCardTemplate(
     bool showInCardLibrary = true)
     : ModCardTemplate(baseCost, type, rarity, target, showInCardLibrary)
 {
+    public override CardAssetProfile AssetProfile
+    {
+        get
+        {
+            string portraitPath = $"{Entry.ResPath}/images/cards/{GetType().Name}.png";
+            return ResourceLoader.Exists(portraitPath)
+                ? new CardAssetProfile(PortraitPath: portraitPath)
+                : CardAssetProfile.Empty;
+        }
+    }
+
     protected virtual bool ShowAmmoHoverTip => false;
     protected virtual bool ShowDeliveryHoverTip => false;
     protected virtual bool ShowAngelHoverTip => false;

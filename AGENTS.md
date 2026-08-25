@@ -115,6 +115,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 
 ### 资源与 Godot
 
+- Godot 将 PNG 导入并写入 PCK，不等于卡牌会自动使用它；所有卡牌必须通过 `CardAssetProfile.PortraitPath` 绑定 `res://AK_Exusiai/images/cards/<ClassName>.png`，缺图时才回退到 RitsuLib 占位图。
 - `PowerAssetProfile` 当前加载静态 `Texture2D`；GIF 不会自动成为逐帧能力图标。动态效果需要 Godot 场景和专用 UI。
 - 能量视觉分为描述小图标、卡牌费用图标和战斗能量计数器场景；旋转/获得能量动画来自场景和 `NEnergyCounter`，不是 GIF。
 - 当前原版资源尺寸：遗物小图/轮廓 85×85，大图 256×256；药水小图/轮廓 80×80，原版大图 256×256。均使用透明方形画布；RitsuLib 0.5.14 的药水配置只直接覆盖小图和轮廓，大图需要另行验证或补充覆盖。

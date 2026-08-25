@@ -23,5 +23,5 @@ public sealed class AngelsBlessings : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         await PowerCmd.Apply<AngelsBlessingsPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

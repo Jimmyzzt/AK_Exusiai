@@ -8,13 +8,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
-using STS2RitsuLib.Scaffolding.Content;
 
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
 [RegisterCharacterStarterCard(typeof(AK_Exusiai.Characters.Exusiai), Order = 40)]
-public sealed class LockedAndLoaded : ModCardTemplate
+public sealed class LockedAndLoaded : ExusiaiCardTemplate
 {
     private const string AmmoKey = "Ammo";
 

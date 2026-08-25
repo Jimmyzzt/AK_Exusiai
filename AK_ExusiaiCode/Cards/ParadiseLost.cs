@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -15,7 +16,7 @@ namespace AK_Exusiai.Cards;
 public sealed class ParadiseLost : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
-        [EnergyHoverTip, HoverTipFactory.FromCard<Decay>()];
+        [EnergyHoverTip, HoverTipFactory.FromPower<ConfusedPower>(), HoverTipFactory.FromCard<Decay>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

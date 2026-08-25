@@ -18,6 +18,7 @@ public sealed class PatronFirearmPower : ModPowerTemplate, ISecondaryResourceHoo
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(PatronFirearmPower));
+    public override int DisplayAmount => Math.Max(0, Amount - _spent);
 
     public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
@@ -27,6 +28,7 @@ public sealed class PatronFirearmPower : ModPowerTemplate, ISecondaryResourceHoo
         _spent += context.Amount;
         int draws = _spent / Amount;
         _spent %= Amount;
+        InvokeDisplayAmountChanged();
         if (draws <= 0 || Owner.Player is not { } player)
             return;
 
