@@ -117,40 +117,62 @@ func _draw_card_frame_guide() -> void:
 
 	var normalized_points: Array[Vector2]
 	var label := "技能牌可视框"
+	# Calibrated against the inner edge of the three official portrait-border
+	# textures, mapped from the native 250x190 portrait to this normalized area.
 	if _card_type == "attack":
 		normalized_points = [
-			Vector2(0.05, 0.02),
-			Vector2(0.05, 0.71),
-			Vector2(0.38, 0.89),
-			Vector2(0.62, 0.89),
-			Vector2(0.95, 0.71),
-			Vector2(0.95, 0.02),
+			Vector2(0.022, 0.02),
+			Vector2(0.022, 0.758),
+			Vector2(0.066, 0.800),
+			Vector2(0.164, 0.842),
+			Vector2(0.262, 0.884),
+			Vector2(0.336, 0.916),
+			Vector2(0.386, 0.937),
+			Vector2(0.614, 0.937),
+			Vector2(0.664, 0.916),
+			Vector2(0.738, 0.884),
+			Vector2(0.836, 0.842),
+			Vector2(0.934, 0.800),
+			Vector2(0.978, 0.758),
+			Vector2(0.978, 0.02),
 		]
 		label = "攻击牌可视框"
 	elif _card_type == "power":
 		normalized_points = [
-			Vector2(0.05, 0.02),
-			Vector2(0.05, 0.55),
-			Vector2(0.06, 0.65),
-			Vector2(0.10, 0.74),
-			Vector2(0.17, 0.81),
-			Vector2(0.27, 0.86),
-			Vector2(0.39, 0.89),
-			Vector2(0.61, 0.89),
-			Vector2(0.73, 0.86),
-			Vector2(0.83, 0.81),
-			Vector2(0.90, 0.74),
-			Vector2(0.94, 0.65),
-			Vector2(0.95, 0.55),
-			Vector2(0.95, 0.02),
+			Vector2(0.022, 0.02),
+			Vector2(0.022, 0.589),
+			Vector2(0.024, 0.632),
+			Vector2(0.030, 0.674),
+			Vector2(0.042, 0.716),
+			Vector2(0.056, 0.758),
+			Vector2(0.078, 0.800),
+			Vector2(0.104, 0.842),
+			Vector2(0.140, 0.884),
+			Vector2(0.168, 0.905),
+			Vector2(0.188, 0.916),
+			Vector2(0.210, 0.926),
+			Vector2(0.242, 0.937),
+			Vector2(0.758, 0.937),
+			Vector2(0.790, 0.926),
+			Vector2(0.812, 0.916),
+			Vector2(0.832, 0.905),
+			Vector2(0.860, 0.884),
+			Vector2(0.896, 0.842),
+			Vector2(0.922, 0.800),
+			Vector2(0.944, 0.758),
+			Vector2(0.958, 0.716),
+			Vector2(0.970, 0.674),
+			Vector2(0.976, 0.632),
+			Vector2(0.978, 0.589),
+			Vector2(0.978, 0.02),
 		]
 		label = "能力牌可视框"
 	else:
 		normalized_points = [
-			Vector2(0.05, 0.02),
-			Vector2(0.05, 0.84),
-			Vector2(0.95, 0.84),
-			Vector2(0.95, 0.02),
+			Vector2(0.022, 0.02),
+			Vector2(0.022, 0.937),
+			Vector2(0.978, 0.937),
+			Vector2(0.978, 0.02),
 		]
 
 	var points := PackedVector2Array()
