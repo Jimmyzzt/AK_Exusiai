@@ -2,6 +2,7 @@ extends Control
 
 const MANIFEST_PATH := "res://tools/card_art_manager/card_art_manifest.json"
 const UI_SETTINGS_PATH := "user://card_art_manager_ui.json"
+const THUMBNAIL_CACHE_DIR := "user://card_art_manager_thumbnails"
 const CARD_SOURCE_DIR := "res://AK_ExusiaiCode/Cards"
 const LOCALIZATION_PATH := "res://AK_Exusiai/localization/zhs/cards.json"
 const DEFAULT_OUTPUT_DIR := "res://AK_Exusiai/images/cards"
@@ -46,6 +47,7 @@ var _cards: Array[Dictionary] = []
 var _assets: Array[String] = []
 var _filtered_assets: Array[String] = []
 var _source_cache: Dictionary = {}
+var _asset_signatures: Dictionary = {}
 var _preview_base_cache: Dictionary = {}
 var _preview_material_cache: Dictionary = {}
 var _thumbnail_cache: Dictionary = {}
@@ -54,6 +56,7 @@ var _current_card := ""
 var _loading_ui := false
 var _render_queued := false
 var _is_smoke_test := false
+var _exporting := false
 
 var _asset_list: ItemList
 var _asset_search: LineEdit
@@ -76,6 +79,11 @@ var _zoom_value: Label
 var _source_label: Label
 var _status_label: Label
 var _progress_label: Label
+var _export_progress_label: Label
+var _export_progress: ProgressBar
+var _export_progress_box: VBoxContainer
+var _export_current_button: Button
+var _export_all_button: Button
 var _ancient_label: Label
 var _frame_guide_toggle: CheckButton
 var _flip_horizontal_button: Button
@@ -111,18 +119,22 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if _thumbnail_queue.is_empty():
-		return
-	var request: Dictionary = _thumbnail_queue.pop_front()
-	var index: int = request.index
-	var path: String = request.path
-	if index < 0 or index >= _asset_list.item_count:
-		return
-	if _asset_list.get_item_tooltip(index) != path:
-		return
-	var thumbnail := _get_thumbnail(path)
-	if thumbnail != null:
-		_asset_list.set_item_icon(index, thumbnail)
+	var deadline := Time.get_ticks_usec() + 6000
+	var processed := 0
+	while not _thumbnail_queue.is_empty() and processed < 4:
+		var request: Dictionary = _thumbnail_queue.pop_front()
+		var index: int = request.index
+		var path: String = request.path
+		if index < 0 or index >= _asset_list.item_count:
+			continue
+		if _asset_list.get_item_tooltip(index) != path:
+			continue
+		var thumbnail := _get_thumbnail(path)
+		if thumbnail != null:
+			_asset_list.set_item_icon(index, thumbnail)
+		processed += 1
+		if Time.get_ticks_usec() >= deadline:
+			break
 
 
 func _exit_tree() -> void:
@@ -303,14 +315,30 @@ func _build_ui() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	export_bar.add_child(spacer)
-	var export_current := Button.new()
-	export_current.text = "导出当前卡图"
-	export_current.pressed.connect(_export_current)
-	export_bar.add_child(export_current)
-	var export_all := Button.new()
-	export_all.text = "批量导出已配置"
-	export_all.pressed.connect(_export_all_configured)
-	export_bar.add_child(export_all)
+	_export_current_button = Button.new()
+	_export_current_button.text = "导出当前卡图"
+	_export_current_button.pressed.connect(_export_current)
+	export_bar.add_child(_export_current_button)
+	_export_all_button = Button.new()
+	_export_all_button.text = "批量导出已配置"
+	_export_all_button.pressed.connect(_export_all_configured)
+	export_bar.add_child(_export_all_button)
+
+	_export_progress_box = VBoxContainer.new()
+	_export_progress_box.add_theme_constant_override("separation", 3)
+	middle.add_child(_export_progress_box)
+	_export_progress_label = Label.new()
+	_export_progress_label.text = ""
+	_export_progress_label.add_theme_color_override("font_color", Color("b9c2d3"))
+	_export_progress_box.add_child(_export_progress_label)
+	_export_progress = ProgressBar.new()
+	_export_progress.min_value = 0
+	_export_progress.max_value = 1
+	_export_progress.value = 0
+	_export_progress.show_percentage = true
+	_export_progress.custom_minimum_size.y = 18
+	_export_progress_box.add_child(_export_progress)
+	_export_progress_box.visible = false
 
 	var right_panel := _make_panel_container()
 	right_panel.custom_minimum_size.x = 300
@@ -753,6 +781,33 @@ func _scan_manifest_assets() -> void:
 	for file_path in _manifest.asset_files:
 		_add_asset_path(String(file_path))
 	_assets.sort_custom(func(a: String, b: String) -> bool: return a.naturalnocasecmp_to(b) < 0)
+	_reconcile_asset_caches()
+
+
+func _reconcile_asset_caches() -> void:
+	var current_signatures := {}
+	var changed := false
+	for path in _assets:
+		var absolute := _absolute_from_stored(path)
+		var signature := "%d:%d" % [
+			FileAccess.get_modified_time(absolute),
+			FileAccess.get_size(absolute),
+		]
+		current_signatures[path] = signature
+		if _asset_signatures.has(path) and _asset_signatures[path] == signature:
+			continue
+		_source_cache.erase(path)
+		_thumbnail_cache.erase(path)
+		changed = true
+	for old_path in _asset_signatures:
+		if current_signatures.has(old_path):
+			continue
+		_source_cache.erase(old_path)
+		_thumbnail_cache.erase(old_path)
+		changed = true
+	_asset_signatures = current_signatures
+	if changed:
+		_preview_material_cache.clear()
 
 
 func _scan_asset_root(stored_path: String) -> void:
@@ -895,19 +950,35 @@ func _rebuild_asset_list() -> void:
 func _get_thumbnail(path: String) -> ImageTexture:
 	if _thumbnail_cache.has(path):
 		return _thumbnail_cache[path]
-	var image := _load_image_uncached(path)
+	var disk_cache_path := _thumbnail_disk_path(path)
+	if FileAccess.file_exists(disk_cache_path):
+		var cached_image := Image.new()
+		if cached_image.load(ProjectSettings.globalize_path(disk_cache_path)) == OK and not cached_image.is_empty():
+			var cached_texture := ImageTexture.create_from_image(cached_image)
+			_thumbnail_cache[path] = cached_texture
+			return cached_texture
+	var image := _load_image_uncached(path, 0, 1.0)
 	if image == null or image.is_empty():
 		return null
-	var thumbnail := image.duplicate()
+	var thumbnail := image
 	var thumbnail_scale := minf(88.0 / thumbnail.get_width(), 62.0 / thumbnail.get_height())
 	thumbnail.resize(
 		maxi(1, roundi(thumbnail.get_width() * thumbnail_scale)),
 		maxi(1, roundi(thumbnail.get_height() * thumbnail_scale)),
-		Image.INTERPOLATE_LANCZOS
+		Image.INTERPOLATE_BILINEAR
 	)
 	var texture := ImageTexture.create_from_image(thumbnail)
 	_thumbnail_cache[path] = texture
+	var disk_cache_absolute := ProjectSettings.globalize_path(disk_cache_path)
+	if DirAccess.make_dir_recursive_absolute(disk_cache_absolute.get_base_dir()) == OK:
+		thumbnail.save_png(disk_cache_absolute)
 	return texture
+
+
+func _thumbnail_disk_path(path: String) -> String:
+	var signature := String(_asset_signatures.get(path, "unknown"))
+	var cache_key := "%s|%s|88x62-v1" % [path, signature]
+	return THUMBNAIL_CACHE_DIR.path_join(cache_key.sha256_text() + ".png")
 
 
 func _rebuild_card_options() -> void:
@@ -1509,14 +1580,14 @@ func _load_source_image(stored_path: String) -> Image:
 	return image
 
 
-func _load_image_uncached(stored_path: String) -> Image:
+func _load_image_uncached(stored_path: String, max_edge := 1600, svg_scale := 4.0) -> Image:
 	var absolute := _absolute_from_stored(stored_path)
 	var image := Image.new()
 	var error := ERR_FILE_UNRECOGNIZED
 	if stored_path.get_extension().to_lower() == "svg":
 		var svg_text := FileAccess.get_file_as_string(absolute)
 		if not svg_text.is_empty():
-			error = image.load_svg_from_string(svg_text, 4.0)
+			error = image.load_svg_from_string(svg_text, svg_scale)
 	else:
 		error = image.load(absolute)
 	if error != OK:
@@ -1524,8 +1595,8 @@ func _load_image_uncached(stored_path: String) -> Image:
 		return null
 	image.convert(Image.FORMAT_RGBA8)
 	var longest_edge := maxi(image.get_width(), image.get_height())
-	if longest_edge > 1600:
-		var scale := 1600.0 / longest_edge
+	if max_edge > 0 and longest_edge > max_edge:
+		var scale := float(max_edge) / longest_edge
 		image.resize(
 			maxi(1, roundi(image.get_width() * scale)),
 			maxi(1, roundi(image.get_height() * scale)),
@@ -1535,7 +1606,7 @@ func _load_image_uncached(stored_path: String) -> Image:
 
 
 func _export_current() -> void:
-	if _current_card.is_empty():
+	if _current_card.is_empty() or _exporting:
 		return
 	if _export_card(_current_card):
 		_set_status("已导出 %s.png" % _current_card, false)
@@ -1582,6 +1653,15 @@ func _run_smoke_test() -> void:
 		Vector2i(100, 80),
 		expected_normal
 	)
+	var cached_thumbnail_reused := false
+	var thumbnail_disk_cached := false
+	if not _assets.is_empty():
+		var thumbnail_path := _assets[0]
+		var thumbnail_before := _get_thumbnail(thumbnail_path)
+		thumbnail_disk_cached = FileAccess.file_exists(_thumbnail_disk_path(thumbnail_path))
+		_refresh_assets()
+		var thumbnail_after = _thumbnail_cache.get(thumbnail_path)
+		cached_thumbnail_reused = thumbnail_before != null and thumbnail_after == thumbnail_before
 	var ancient_count := 0
 	var card_type_counts := {"attack": 0, "skill": 0, "power": 0}
 	for card in _cards:
@@ -1598,6 +1678,11 @@ func _run_smoke_test() -> void:
 		or _preview_material_cache.size() != 1
 		or constrained.x >= expected_normal.x
 		or constrained.y >= expected_normal.y
+		or not cached_thumbnail_reused
+		or not thumbnail_disk_cached
+		or _asset_signatures.size() != _assets.size()
+		or _export_progress == null
+		or _export_progress_label == null
 		or _cards.size() != 99
 		or ancient_count != 2
 		or card_type_counts.attack <= 0
@@ -1653,16 +1738,52 @@ func _run_smoke_test() -> void:
 
 
 func _export_all_configured() -> void:
+	if _exporting:
+		return
+	var card_names: Array[String] = []
+	for card_name in _manifest.cards:
+		card_names.append(String(card_name))
+	if card_names.is_empty():
+		_set_status("没有已配置的卡图可供导出。", true)
+		return
+	_exporting = true
+	_export_current_button.disabled = true
+	_export_all_button.disabled = true
+	_export_progress_box.visible = true
+	_export_progress.min_value = 0
+	_export_progress.max_value = card_names.size()
+	_export_progress.value = 0
+	_export_progress_label.text = "准备批量导出 %d 张卡图……" % card_names.size()
+	await get_tree().process_frame
+
 	var success := 0
 	var skipped := 0
-	for card_name in _manifest.cards:
-		if _find_card(String(card_name)).is_empty():
+	for index in card_names.size():
+		var card_name := card_names[index]
+		var card := _find_card(card_name)
+		var display_name := card_name
+		if not card.is_empty():
+			display_name = "%s (%s)" % [String(card.title), card_name]
+		_export_progress_label.text = "正在导出 %d / %d：%s" % [
+			index + 1,
+			card_names.size(),
+			display_name,
+		]
+		# Give the UI one frame to display the next filename before the PNG encode.
+		await get_tree().process_frame
+		if card.is_empty():
 			skipped += 1
-			continue
-		if _export_card(String(card_name)):
+		elif _export_card(card_name):
 			success += 1
 		else:
 			skipped += 1
+		_export_progress.value = index + 1
+		await get_tree().process_frame
+
+	_exporting = false
+	_export_current_button.disabled = false
+	_export_all_button.disabled = false
+	_export_progress_label.text = "导出完成：%d 张成功，%d 张跳过。" % [success, skipped]
 	_set_status("批量导出完成：%d 张成功，%d 张跳过。" % [success, skipped], skipped > 0)
 
 
@@ -1746,14 +1867,18 @@ func _on_folder_added(path: String) -> void:
 
 
 func _refresh_assets() -> void:
-	_source_cache.clear()
-	_thumbnail_cache.clear()
 	_scan_manifest_assets()
 	_rebuild_folder_options()
 	_rebuild_asset_list()
 	_update_progress()
 	_queue_preview_render()
-	_set_status("素材列表已重新扫描。", false)
+	_set_status(
+		"素材列表已重新扫描；复用 %d / %d 个缩略图缓存。" % [
+			_thumbnail_cache.size(),
+			_assets.size(),
+		],
+		false
+	)
 
 
 func _on_asset_search_changed(_text: String) -> void:

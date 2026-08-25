@@ -347,7 +347,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "burst",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -364,7 +364,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -381,7 +381,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -398,7 +398,7 @@
       "top_color": "ffffff",
       "bottom_color": "ffffff",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -415,7 +415,7 @@
       "top_color": "90897f",
       "bottom_color": "605c53",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -432,7 +432,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -449,7 +449,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -466,7 +466,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -483,13 +483,13 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
     "Expedite": {
       "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
-      "zoom": 1.851,
+      "zoom": 1.85,
       "offset": [
         0.4625,
         -0.1583
@@ -517,7 +517,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -527,6 +527,23 @@
       "offset": [
         -0.0414,
         -0.0009
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ExusiaiDefend": {
+      "source": "",
+      "zoom": 1.0,
+      "offset": [
+        0.0,
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
