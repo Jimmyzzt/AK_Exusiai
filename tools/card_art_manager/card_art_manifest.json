@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "output_dir": "AK_Exusiai/images/cards",
   "resolution_scale": 2,
   "asset_roots": [
@@ -26,7 +26,9 @@
       "motif": "halo",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "TheSaintsTravels": {
       "source": "references/official/asset/Avg_61_i24_2.png",
@@ -43,7 +45,9 @@
       "placeholder_enabled": false,
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "AngelsHeart": {
       "source": "references/free/art/天使之心.svg",
@@ -60,7 +64,9 @@
       "placeholder_enabled": false,
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ApplePie": {
       "source": "references/official/asset/f414a8cb50d1cbd0e1b5121fe14ca930.jpg",
@@ -77,7 +83,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ApplePieWithCharSiu": {
       "source": "references/free/asset/叉烧苹果派.png",
@@ -94,7 +102,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ArmedEscort": {
       "source": "references/official/asset/006QZngZgy1fll7n6ryljj31hc0xckby.jpg",
@@ -111,7 +121,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ArmorPiercingRound": {
       "source": "references/free/asset/穿甲弹.png",
@@ -128,7 +140,9 @@
       "motif": "burst",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Ascension": {
       "source": "references/official/asset/ScreenShot_2026-08-25_004604_900.png",
@@ -145,7 +159,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "BarrageSkyShattering": {
       "source": "references/official/asset/Avg_61_i20.png",
@@ -162,7 +178,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Bison": {
       "source": "references/official/asset/character/Avg_ac5_1.png",
@@ -179,7 +197,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "BotchedModification": {
       "source": "references/official/asset/Avg_61_i13.png",
@@ -196,7 +216,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ChaoticRampage": {
       "source": "references/official/asset/Avg_61_i19.png",
@@ -213,7 +235,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "BoostedRound": {
       "source": "references/free/asset/增压弹.png",
@@ -230,7 +254,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ChargingMode": {
       "source": "references/official/art/技能_冲锋模式.png",
@@ -247,7 +273,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Childhood": {
       "source": "references/official/asset/EjtEBoyUwAEEfOR.jpg",
@@ -264,7 +292,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Confession": {
       "source": "references/official/asset/Avg_61_i03_6.png",
@@ -281,7 +311,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "CoveringFire": {
       "source": "references/official/asset/6EBC742414E86B8F340E6CB1E2647168.png",
@@ -298,7 +330,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Croissant": {
       "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
@@ -315,7 +349,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "CrossOfDevotion": {
       "source": "references/free/asset/ChatGPT Image 2026年8月25日 01_57_11.png",
@@ -332,22 +368,26 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "DelayedBlast": {
       "source": "",
-      "zoom": 0.863,
+      "zoom": 0.86,
       "offset": [
         0.0,
         0.0
       ],
       "background_enabled": true,
-      "placeholder_enabled": true,
+      "placeholder_enabled": false,
       "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "burst",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -366,7 +406,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Disruption": {
       "source": "references/official/asset/ScreenShot_2026-08-25_014904_196_edited.png",
@@ -383,7 +425,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "DivineJudgment": {
       "source": "references/official/asset/G3mlhpWWgAASi18.jpg",
@@ -400,7 +444,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "DivineJudgmentTraditional": {
       "source": "references/official/asset/E0rTeUvVkAgvWBc.jpg",
@@ -417,7 +463,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "DoubleShotKit": {
       "source": "references/free/art/双发套件.png",
@@ -434,7 +482,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "EmbraceNewLife": {
       "source": "references/official/asset/ScreenShot_2026-08-25_015527_551.png",
@@ -451,7 +501,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "EmpathyForm": {
       "source": "references/official/asset/ScreenShot_2026-08-25_015640_703.png",
@@ -468,7 +520,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Emperor": {
       "source": "references/official/asset/Avg_ac5_2_on_a.png",
@@ -485,7 +539,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Expedite": {
       "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
@@ -500,9 +556,11 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ExplosiveAmmo": {
       "source": "references/free/asset/ChatGPT Image 2026年8月25日 05_50_02.png",
@@ -519,7 +577,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "Exusiai": {
       "source": "references/official/asset/ELVxHQkUEAUEWTR.jpg",
@@ -536,7 +596,9 @@
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     },
     "ExusiaiDefend": {
       "source": "",
@@ -551,9 +613,11 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
-      "flip_vertical": false
+      "flip_vertical": false,
+      "gradient_mode": "vertical",
+      "texture": "streaks"
     }
   }
 }

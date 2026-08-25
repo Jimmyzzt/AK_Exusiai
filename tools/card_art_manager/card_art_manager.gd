@@ -3,6 +3,10 @@ extends Control
 const MANIFEST_PATH := "res://tools/card_art_manager/card_art_manifest.json"
 const UI_SETTINGS_PATH := "user://card_art_manager_ui.json"
 const THUMBNAIL_CACHE_DIR := "user://card_art_manager_thumbnails"
+const THUMBNAIL_CACHE_MAX_BYTES := 128 * 1024 * 1024
+const THUMBNAIL_MEMORY_MAX_ITEMS := 512
+const SOURCE_MEMORY_MAX_ITEMS := 12
+const PREVIEW_MATERIAL_MAX_BYTES := 96 * 1024 * 1024
 const CARD_SOURCE_DIR := "res://AK_ExusiaiCode/Cards"
 const LOCALIZATION_PATH := "res://AK_Exusiai/localization/zhs/cards.json"
 const DEFAULT_OUTPUT_DIR := "res://AK_Exusiai/images/cards"
@@ -33,6 +37,20 @@ const MOTIFS := {
 	"package": "包裹",
 	"speedlines": "速度线",
 }
+const GRADIENT_MODES := {
+	"vertical": "垂直渐变",
+	"horizontal": "水平渐变",
+	"radial": "中心扩散",
+	"diagonal": "对角渐变",
+	"solid": "纯色",
+}
+const BACKGROUND_TEXTURES := {
+	"none": "无纹理",
+	"streaks": "斜向细纹",
+	"grain": "颗粒噪点",
+	"grid": "光栅网格",
+	"rays": "放射光线",
+}
 
 var _manifest: Dictionary = {}
 var _ui_settings: Dictionary = {
@@ -57,6 +75,7 @@ var _loading_ui := false
 var _render_queued := false
 var _is_smoke_test := false
 var _exporting := false
+var _disk_thumbnail_cache_bytes := 0
 
 var _asset_list: ItemList
 var _asset_search: LineEdit
@@ -69,6 +88,8 @@ var _preview: CardArtPreview
 var _card_option: OptionButton
 var _resolution_option: OptionButton
 var _background_option: OptionButton
+var _gradient_option: OptionButton
+var _texture_option: OptionButton
 var _motif_option: OptionButton
 var _background_toggle: CheckButton
 var _placeholder_toggle: CheckButton
@@ -79,6 +100,8 @@ var _zoom_value: Label
 var _source_label: Label
 var _status_label: Label
 var _progress_label: Label
+var _cache_label: Label
+var _motif_controls: VBoxContainer
 var _export_progress_label: Label
 var _export_progress: ProgressBar
 var _export_progress_box: VBoxContainer
@@ -101,6 +124,8 @@ func _ready() -> void:
 	_load_ui_settings()
 	_apply_ui_scale(float(_ui_settings.scale), true)
 	_build_ui()
+	_refresh_cache_stats_from_disk()
+	_prune_thumbnail_disk_cache()
 	_load_manifest()
 	_sync_resolution_option()
 	_load_cards()
@@ -195,6 +220,12 @@ func _build_ui() -> void:
 	refresh.text = "重新扫描"
 	refresh.pressed.connect(_refresh_assets)
 	toolbar.add_child(refresh)
+
+	var clear_cache := Button.new()
+	clear_cache.text = "清理缓存"
+	clear_cache.tooltip_text = "清理卡图管理器生成的缩略图和内存图片缓存，不会删除素材或导出卡图"
+	clear_cache.pressed.connect(_clear_thumbnail_cache)
+	toolbar.add_child(clear_cache)
 
 	var save_manifest := Button.new()
 	save_manifest.text = "保存清单"
@@ -401,7 +432,7 @@ func _build_ui() -> void:
 	_background_toggle.text = "启用背景"
 	_background_toggle.toggled.connect(_on_toggle_changed)
 	right.add_child(_background_toggle)
-	right.add_child(_make_field_label("背景样式"))
+	right.add_child(_make_field_label("背景配色"))
 	_background_option = OptionButton.new()
 	for key in BACKGROUNDS:
 		var index := _background_option.item_count
@@ -410,18 +441,39 @@ func _build_ui() -> void:
 	_background_option.item_selected.connect(_on_background_changed)
 	right.add_child(_background_option)
 
+	right.add_child(_make_field_label("渐变方式"))
+	_gradient_option = OptionButton.new()
+	for key in GRADIENT_MODES:
+		var index := _gradient_option.item_count
+		_gradient_option.add_item(GRADIENT_MODES[key])
+		_gradient_option.set_item_metadata(index, key)
+	_gradient_option.item_selected.connect(_on_form_changed)
+	right.add_child(_gradient_option)
+
+	right.add_child(_make_field_label("背景纹理"))
+	_texture_option = OptionButton.new()
+	for key in BACKGROUND_TEXTURES:
+		var index := _texture_option.item_count
+		_texture_option.add_item(BACKGROUND_TEXTURES[key])
+		_texture_option.set_item_metadata(index, key)
+	_texture_option.item_selected.connect(_on_form_changed)
+	right.add_child(_texture_option)
+
 	_placeholder_toggle = CheckButton.new()
 	_placeholder_toggle.text = "显示占位图形"
 	_placeholder_toggle.toggled.connect(_on_toggle_changed)
 	right.add_child(_placeholder_toggle)
-	right.add_child(_make_field_label("占位图形"))
+	_motif_controls = VBoxContainer.new()
+	_motif_controls.add_theme_constant_override("separation", 6)
+	right.add_child(_motif_controls)
+	_motif_controls.add_child(_make_field_label("占位图形"))
 	_motif_option = OptionButton.new()
 	for key in MOTIFS:
 		var index := _motif_option.item_count
 		_motif_option.add_item(MOTIFS[key])
 		_motif_option.set_item_metadata(index, key)
 	_motif_option.item_selected.connect(_on_form_changed)
-	right.add_child(_motif_option)
+	_motif_controls.add_child(_motif_option)
 
 	var color_row := HBoxContainer.new()
 	color_row.add_theme_constant_override("separation", 8)
@@ -429,7 +481,7 @@ func _build_ui() -> void:
 	var top_box := VBoxContainer.new()
 	top_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	color_row.add_child(top_box)
-	top_box.add_child(_make_field_label("顶部颜色"))
+	top_box.add_child(_make_field_label("颜色 A / 中心"))
 	_top_color = ColorPickerButton.new()
 	_top_color.custom_minimum_size.y = 36
 	_top_color.color_changed.connect(_on_custom_color_changed)
@@ -437,7 +489,7 @@ func _build_ui() -> void:
 	var bottom_box := VBoxContainer.new()
 	bottom_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	color_row.add_child(bottom_box)
-	bottom_box.add_child(_make_field_label("底部颜色"))
+	bottom_box.add_child(_make_field_label("颜色 B / 外围"))
 	_bottom_color = ColorPickerButton.new()
 	_bottom_color.custom_minimum_size.y = 36
 	_bottom_color.color_changed.connect(_on_custom_color_changed)
@@ -458,15 +510,14 @@ func _build_ui() -> void:
 	_zoom_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	zoom_row.add_child(_zoom_value)
 
-	var hint := Label.new()
-	hint.text = "1.00 表示素材刚好铺满画布；小图标可使用小于 1 的倍率。"
-	hint.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	hint.add_theme_color_override("font_color", Color("858d9e"))
-	right.add_child(hint)
-
 	_progress_label = Label.new()
 	_progress_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	right.add_child(_progress_label)
+
+	_cache_label = Label.new()
+	_cache_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_cache_label.add_theme_color_override("font_color", Color("858d9e"))
+	right.add_child(_cache_label)
 
 	_status_label = Label.new()
 	_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -594,7 +645,7 @@ func _on_split_dragged(_offset: int) -> void:
 
 func _load_manifest() -> void:
 	_manifest = {
-		"version": 3,
+		"version": 4,
 		"output_dir": "AK_Exusiai/images/cards",
 		"resolution_scale": 2,
 		"asset_roots": DEFAULT_ASSET_ROOTS.duplicate(),
@@ -625,7 +676,7 @@ func _load_manifest() -> void:
 
 
 func _migrate_manifest_schema() -> void:
-	var changed := int(_manifest.get("version", 1)) < 3
+	var changed := int(_manifest.get("version", 1)) < 4
 	for card_name in _manifest.cards:
 		var saved = _manifest.cards[card_name]
 		if saved is not Dictionary:
@@ -651,8 +702,14 @@ func _migrate_manifest_schema() -> void:
 		if not saved.has("flip_vertical"):
 			saved.flip_vertical = false
 			changed = true
+		if not saved.has("gradient_mode"):
+			saved.gradient_mode = "vertical"
+			changed = true
+		if not saved.has("texture"):
+			saved.texture = "streaks"
+			changed = true
 		_manifest.cards[card_name] = saved
-	_manifest.version = 3
+	_manifest.version = 4
 	if changed:
 		_save_manifest()
 
@@ -935,9 +992,7 @@ func _rebuild_asset_list() -> void:
 		if selected_folder != ALL_FOLDERS and path.get_base_dir() != selected_folder:
 			continue
 		_filtered_assets.append(path)
-		var item_text := path.get_file().get_basename()
-		if not compact:
-			item_text += "  ·  " + _folder_display_name(path.get_base_dir())
+		var item_text := _asset_item_text(path, compact)
 		var index := _asset_list.add_item(item_text)
 		_asset_list.set_item_tooltip(index, path)
 		if _thumbnail_cache.has(path):
@@ -945,6 +1000,17 @@ func _rebuild_asset_list() -> void:
 		else:
 			_thumbnail_queue.append({"index": index, "path": path})
 	_update_asset_columns()
+
+
+func _asset_item_text(path: String, compact: bool) -> String:
+	var item_text := path.get_file().get_basename()
+	if compact:
+		return item_text
+	return item_text + "  ·  %s · %s  ·  %s" % [
+		path.get_extension().to_upper(),
+		_format_bytes(FileAccess.get_size(_absolute_from_stored(path))),
+		_folder_display_name(path.get_base_dir()),
+	]
 
 
 func _get_thumbnail(path: String) -> ImageTexture:
@@ -955,7 +1021,9 @@ func _get_thumbnail(path: String) -> ImageTexture:
 		var cached_image := Image.new()
 		if cached_image.load(ProjectSettings.globalize_path(disk_cache_path)) == OK and not cached_image.is_empty():
 			var cached_texture := ImageTexture.create_from_image(cached_image)
+			_trim_thumbnail_memory_cache()
 			_thumbnail_cache[path] = cached_texture
+			_update_cache_label()
 			return cached_texture
 	var image := _load_image_uncached(path, 0, 1.0)
 	if image == null or image.is_empty():
@@ -968,10 +1036,15 @@ func _get_thumbnail(path: String) -> ImageTexture:
 		Image.INTERPOLATE_BILINEAR
 	)
 	var texture := ImageTexture.create_from_image(thumbnail)
+	_trim_thumbnail_memory_cache()
 	_thumbnail_cache[path] = texture
 	var disk_cache_absolute := ProjectSettings.globalize_path(disk_cache_path)
 	if DirAccess.make_dir_recursive_absolute(disk_cache_absolute.get_base_dir()) == OK:
-		thumbnail.save_png(disk_cache_absolute)
+		var previous_size := FileAccess.get_size(disk_cache_path) if FileAccess.file_exists(disk_cache_path) else 0
+		if thumbnail.save_png(disk_cache_absolute) == OK:
+			_disk_thumbnail_cache_bytes += FileAccess.get_size(disk_cache_path) - previous_size
+			_prune_thumbnail_disk_cache()
+	_update_cache_label()
 	return texture
 
 
@@ -981,11 +1054,122 @@ func _thumbnail_disk_path(path: String) -> String:
 	return THUMBNAIL_CACHE_DIR.path_join(cache_key.sha256_text() + ".png")
 
 
+func _trim_thumbnail_memory_cache() -> void:
+	while _thumbnail_cache.size() >= THUMBNAIL_MEMORY_MAX_ITEMS:
+		var keys := _thumbnail_cache.keys()
+		if keys.is_empty():
+			break
+		_thumbnail_cache.erase(keys[0])
+
+
+func _refresh_cache_stats_from_disk() -> void:
+	_disk_thumbnail_cache_bytes = 0
+	var directory := DirAccess.open(THUMBNAIL_CACHE_DIR)
+	if directory != null:
+		for filename in directory.get_files():
+			if filename.get_extension().to_lower() == "png":
+				_disk_thumbnail_cache_bytes += FileAccess.get_size(THUMBNAIL_CACHE_DIR.path_join(filename))
+	_update_cache_label()
+
+
+func _prune_thumbnail_disk_cache() -> void:
+	if _disk_thumbnail_cache_bytes <= THUMBNAIL_CACHE_MAX_BYTES:
+		_update_cache_label()
+		return
+	var directory := DirAccess.open(THUMBNAIL_CACHE_DIR)
+	if directory == null:
+		_disk_thumbnail_cache_bytes = 0
+		_update_cache_label()
+		return
+	var entries: Array[Dictionary] = []
+	for filename in directory.get_files():
+		if filename.get_extension().to_lower() != "png":
+			continue
+		var stored_path := THUMBNAIL_CACHE_DIR.path_join(filename)
+		entries.append({
+			"path": stored_path,
+			"size": FileAccess.get_size(stored_path),
+			"modified": FileAccess.get_modified_time(stored_path),
+		})
+	entries.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return int(a.modified) < int(b.modified))
+	for entry in entries:
+		if _disk_thumbnail_cache_bytes <= THUMBNAIL_CACHE_MAX_BYTES:
+			break
+		var absolute := ProjectSettings.globalize_path(String(entry.path))
+		if DirAccess.remove_absolute(absolute) == OK:
+			_disk_thumbnail_cache_bytes -= int(entry.size)
+	_update_cache_label()
+
+
+func _clear_thumbnail_cache() -> void:
+	var removed := 0
+	var directory := DirAccess.open(THUMBNAIL_CACHE_DIR)
+	if directory != null:
+		for filename in directory.get_files():
+			if filename.get_extension().to_lower() != "png":
+				continue
+			var absolute := ProjectSettings.globalize_path(THUMBNAIL_CACHE_DIR.path_join(filename))
+			if DirAccess.remove_absolute(absolute) == OK:
+				removed += 1
+	_source_cache.clear()
+	_thumbnail_cache.clear()
+	_thumbnail_queue.clear()
+	for index in _asset_list.item_count:
+		_asset_list.set_item_icon(index, null)
+	_preview_base_cache.clear()
+	_preview_material_cache.clear()
+	_disk_thumbnail_cache_bytes = 0
+	_update_cache_label()
+	_set_status("已清理 %d 个缩略图缓存；可点击“重新扫描”按需重建。" % removed, false)
+
+
+func _update_cache_label() -> void:
+	if _cache_label == null:
+		return
+	_cache_label.text = "磁盘缩略图：%s / %s\n内存缓存：%s（%d 个缩略图 · %d 张原图）" % [
+		_format_bytes(_disk_thumbnail_cache_bytes),
+		_format_bytes(THUMBNAIL_CACHE_MAX_BYTES),
+		_format_bytes(_estimate_memory_cache_bytes()),
+		_thumbnail_cache.size(),
+		_source_cache.size(),
+	]
+
+
+func _estimate_memory_cache_bytes() -> int:
+	var total := 0
+	for value in _source_cache.values():
+		if value is Image:
+			total += value.get_width() * value.get_height() * 4
+	for value in _preview_base_cache.values():
+		if value is Image:
+			total += value.get_width() * value.get_height() * 4
+	for value in _preview_material_cache.values():
+		if value is Image:
+			total += value.get_width() * value.get_height() * 4
+	for value in _thumbnail_cache.values():
+		if value is Texture2D:
+			total += value.get_width() * value.get_height() * 4
+	return total
+
+
+func _format_bytes(byte_count: int) -> String:
+	if byte_count >= 1024 * 1024 * 1024:
+		return "%.2f GB" % (float(byte_count) / (1024.0 * 1024.0 * 1024.0))
+	if byte_count >= 1024 * 1024:
+		return "%.1f MB" % (float(byte_count) / (1024.0 * 1024.0))
+	if byte_count >= 1024:
+		return "%.1f KB" % (float(byte_count) / 1024.0)
+	return "%d B" % byte_count
+
+
 func _rebuild_card_options() -> void:
 	_loading_ui = true
 	_card_option.clear()
 	for card in _cards:
-		var marker := "● " if _manifest.cards.has(card.class_name) else "○ "
+		var marker := "○ "
+		if _manifest.cards.has(card.class_name):
+			var saved: Dictionary = _manifest.cards[card.class_name]
+			marker = "● " if not String(saved.get("source", "")).is_empty() else "◇ "
 		var ancient := "【先古】" if card.ancient else ""
 		var label := "%s%s%s (%s)" % [marker, ancient, card.title, card.class_name]
 		var index := _card_option.item_count
@@ -1064,9 +1248,12 @@ func _select_card_by_index(index: int) -> void:
 	_loading_ui = true
 	var config := _get_effective_config(_current_card)
 	_select_option_by_metadata(_background_option, config.background)
+	_select_option_by_metadata(_gradient_option, config.gradient_mode)
+	_select_option_by_metadata(_texture_option, config.texture)
 	_select_option_by_metadata(_motif_option, config.motif)
 	_background_toggle.button_pressed = bool(config.background_enabled)
 	_placeholder_toggle.button_pressed = bool(config.placeholder_enabled)
+	_motif_controls.visible = bool(config.placeholder_enabled)
 	_flip_horizontal_button.button_pressed = bool(config.flip_horizontal)
 	_flip_vertical_button.button_pressed = bool(config.flip_vertical)
 	_top_color.color = Color.from_string(config.top_color, Color("2b2340"))
@@ -1093,6 +1280,12 @@ func _get_effective_config(card_name: String) -> Dictionary:
 	if not BACKGROUNDS.has(background):
 		background = "laterano_sunset"
 	var background_data: Dictionary = BACKGROUNDS[background]
+	var gradient_mode := String(saved.get("gradient_mode", "vertical"))
+	if not GRADIENT_MODES.has(gradient_mode):
+		gradient_mode = "vertical"
+	var texture := String(saved.get("texture", "streaks"))
+	if not BACKGROUND_TEXTURES.has(texture):
+		texture = "streaks"
 	return {
 		"source": String(saved.get("source", "")),
 		"zoom": float(saved.get("zoom", 1.0)),
@@ -1100,6 +1293,8 @@ func _get_effective_config(card_name: String) -> Dictionary:
 		"background_enabled": bool(saved.get("background_enabled", true)),
 		"placeholder_enabled": bool(saved.get("placeholder_enabled", false)),
 		"background": background,
+		"gradient_mode": gradient_mode,
+		"texture": texture,
 		"top_color": String(saved.get("top_color", background_data.top)),
 		"bottom_color": String(saved.get("bottom_color", background_data.bottom)),
 		"motif": String(saved.get("motif", "auto")),
@@ -1120,6 +1315,8 @@ func _store_current_form() -> void:
 		"background_enabled": _background_toggle.button_pressed,
 		"placeholder_enabled": _placeholder_toggle.button_pressed,
 		"background": String(_background_option.get_item_metadata(_background_option.selected)),
+		"gradient_mode": String(_gradient_option.get_item_metadata(_gradient_option.selected)),
+		"texture": String(_texture_option.get_item_metadata(_texture_option.selected)),
 		"top_color": _top_color.color.to_html(false),
 		"bottom_color": _bottom_color.color.to_html(false),
 		"motif": String(_motif_option.get_item_metadata(_motif_option.selected)),
@@ -1168,6 +1365,7 @@ func _on_asset_selected(index: int) -> void:
 	_source_label.text = path
 	_loading_ui = true
 	_placeholder_toggle.button_pressed = false
+	_motif_controls.visible = false
 	_loading_ui = false
 	_schedule_manifest_save()
 	_rebuild_card_options_preserving_current()
@@ -1179,6 +1377,8 @@ func _on_form_changed(_index: int) -> void:
 
 
 func _on_toggle_changed(_enabled: bool) -> void:
+	if _motif_controls != null:
+		_motif_controls.visible = _placeholder_toggle.button_pressed
 	_store_current_form()
 
 
@@ -1285,8 +1485,10 @@ func _clear_source() -> void:
 	_source_label.text = "未选择"
 	_loading_ui = true
 	_placeholder_toggle.button_pressed = true
+	_motif_controls.visible = true
 	_loading_ui = false
 	_schedule_manifest_save()
+	_rebuild_card_options_preserving_current()
 	_queue_preview_render()
 
 
@@ -1319,6 +1521,7 @@ func _render_preview() -> void:
 		bool(_ui_settings.show_frame_guide)
 	)
 	_preview.set_art(image, output_size)
+	_update_cache_label()
 	if image == null or image.is_empty():
 		_preview.set_empty_message("请选择素材或启用背景 / 占位图形")
 
@@ -1371,13 +1574,15 @@ func _get_base_canvas(
 	card_name: String,
 	use_preview_cache: bool
 ) -> Image:
-	var cache_key := "%dx%d|%s|%s|%s|%s|%s|%s" % [
+	var cache_key := "%dx%d|%s|%s|%s|%s|%s|%s|%s|%s" % [
 		output_size.x,
 		output_size.y,
 		card_name,
 		str(bool(config.background_enabled)),
 		String(config.top_color),
 		String(config.bottom_color),
+		String(config.gradient_mode),
+		String(config.texture),
 		str(bool(config.placeholder_enabled)),
 		String(config.motif),
 	]
@@ -1436,10 +1641,32 @@ func _get_transformed_material(
 		Image.INTERPOLATE_LANCZOS
 	)
 	if use_preview_cache:
-		if _preview_material_cache.size() >= 48:
-			_preview_material_cache.clear()
+		_trim_image_memory_cache(
+			_preview_material_cache,
+			PREVIEW_MATERIAL_MAX_BYTES,
+			material.get_width() * material.get_height() * 4
+		)
 		_preview_material_cache[cache_key] = material
 	return material
+
+
+func _trim_image_memory_cache(cache: Dictionary, max_bytes: int, incoming_bytes: int) -> void:
+	var current_bytes := _estimate_image_dictionary_bytes(cache)
+	while not cache.is_empty() and current_bytes + incoming_bytes > max_bytes:
+		var keys := cache.keys()
+		var oldest_key = keys[0]
+		var oldest = cache[oldest_key]
+		if oldest is Image:
+			current_bytes -= oldest.get_width() * oldest.get_height() * 4
+		cache.erase(oldest_key)
+
+
+func _estimate_image_dictionary_bytes(cache: Dictionary) -> int:
+	var total := 0
+	for value in cache.values():
+		if value is Image:
+			total += value.get_width() * value.get_height() * 4
+	return total
 
 
 func _blend_clipped(target: Image, source: Image, position: Vector2i) -> void:
@@ -1458,21 +1685,58 @@ func _make_background(output_size: Vector2i, config: Dictionary, card_name: Stri
 	var image := Image.create(output_size.x, output_size.y, false, Image.FORMAT_RGBA8)
 	var top := Color.from_string(String(config.top_color), Color("2b2340"))
 	var bottom := Color.from_string(String(config.bottom_color), Color("bd6c59"))
+	var gradient_mode := String(config.gradient_mode)
+	var texture := String(config.texture)
+	if gradient_mode == "solid" and texture == "none":
+		image.fill(Color(top.r, top.g, top.b, 1.0))
+		return image
 	var seed: int = absi(card_name.hash())
 	var glow_center := Vector2(0.35 + float(seed % 31) / 100.0, 0.38)
+	var texture_spacing := maxi(12, roundi(minf(output_size.x, output_size.y) / 12.0))
 	for y in output_size.y:
 		var vertical := float(y) / maxf(1.0, output_size.y - 1.0)
 		for x in output_size.x:
 			var horizontal := float(x) / maxf(1.0, output_size.x - 1.0)
-			var color := top.lerp(bottom, smoothstep(0.0, 1.0, vertical))
-			var distance := Vector2(horizontal, vertical).distance_to(glow_center)
-			var glow := clampf(1.0 - distance / 0.72, 0.0, 1.0)
-			color = color.lightened(glow * 0.16)
-			var edge := maxf(abs(horizontal - 0.5) * 2.0, abs(vertical - 0.5) * 2.0)
-			color = color.darkened(pow(edge, 2.4) * 0.28)
-			var streak := posmod(x + y * 2 + seed, 47)
-			if streak <= 1:
-				color = color.lightened(0.035)
+			var centered := Vector2(horizontal - 0.5, vertical - 0.5)
+			var radial := clampf(centered.length() / 0.7071, 0.0, 1.0)
+			var mix_amount := 0.0
+			match gradient_mode:
+				"horizontal":
+					mix_amount = horizontal
+				"radial":
+					mix_amount = radial
+				"diagonal":
+					mix_amount = (horizontal + vertical) * 0.5
+				"solid":
+					mix_amount = 0.0
+				_:
+					mix_amount = vertical
+			var color := top.lerp(bottom, smoothstep(0.0, 1.0, mix_amount))
+			match texture:
+				"streaks":
+					var distance := Vector2(horizontal, vertical).distance_to(glow_center)
+					var glow := clampf(1.0 - distance / 0.72, 0.0, 1.0)
+					color = color.lightened(glow * 0.13)
+					var edge := maxf(abs(centered.x) * 2.0, abs(centered.y) * 2.0)
+					color = color.darkened(pow(edge, 2.4) * 0.24)
+					if posmod(x + y * 2 + seed, 47) <= 1:
+						color = color.lightened(0.04)
+				"grain":
+					var noise := float(posmod(x * x * 17 + y * y * 31 + x * y * 7 + seed, 101)) / 100.0
+					if noise >= 0.5:
+						color = color.lightened((noise - 0.5) * 0.12)
+					else:
+						color = color.darkened((0.5 - noise) * 0.1)
+				"grid":
+					var grid_x := posmod(x + seed, texture_spacing)
+					var grid_y := posmod(y + seed / 7, texture_spacing)
+					if grid_x <= 1 or grid_y <= 1:
+						color = color.lightened(0.08)
+					color = color.darkened(pow(radial, 2.0) * 0.12)
+				"rays":
+					var angle := atan2(centered.y, centered.x)
+					var ray := (sin(angle * 14.0 + float(seed % 53)) + 1.0) * 0.5
+					color = color.lightened(ray * 0.09 * (1.0 - radial * 0.35))
 			image.set_pixel(x, y, Color(color.r, color.g, color.b, 1.0))
 	return image
 
@@ -1576,7 +1840,13 @@ func _load_source_image(stored_path: String) -> Image:
 		return _source_cache[stored_path]
 	var image := _load_image_uncached(stored_path)
 	if image != null:
+		while _source_cache.size() >= SOURCE_MEMORY_MAX_ITEMS:
+			var keys := _source_cache.keys()
+			if keys.is_empty():
+				break
+			_source_cache.erase(keys[0])
 		_source_cache[stored_path] = image
+		_update_cache_label()
 	return image
 
 
@@ -1620,6 +1890,8 @@ func _run_smoke_test() -> void:
 		"background_enabled": true,
 		"placeholder_enabled": false,
 		"background": "laterano_sunset",
+		"gradient_mode": "vertical",
+		"texture": "streaks",
 		"top_color": "3c2059",
 		"bottom_color": "ee9558",
 		"motif": "auto",
@@ -1636,12 +1908,22 @@ func _run_smoke_test() -> void:
 	var rotated_config := crop_config.duplicate(true)
 	rotated_config.rotation = 1
 	rotated_config.flip_horizontal = true
+	var solid_config := crop_config.duplicate(true)
+	solid_config.source = ""
+	solid_config.gradient_mode = "solid"
+	solid_config.texture = "none"
+	solid_config.top_color = "27405c"
+	var radial_config := solid_config.duplicate(true)
+	radial_config.gradient_mode = "radial"
+	radial_config.texture = "rays"
 	var expected_normal := BASE_NORMAL_SIZE * 2
 	var expected_ancient := BASE_ANCIENT_SIZE * 2
 	var crop := _render_card_art(crop_config, expected_normal, "SmokeCrop")
 	var icon := _render_card_art(icon_config, expected_normal, "SmokeIcon")
 	var ancient := _render_card_art(placeholder_config, expected_ancient, "SmokeAncient")
 	var rotated := _render_card_art(rotated_config, expected_normal, "SmokeRotated")
+	var solid := _render_card_art(solid_config, expected_normal, "SmokeSolid")
+	var radial := _render_card_art(radial_config, expected_normal, "SmokeRadial")
 	_preview_base_cache.clear()
 	_preview_material_cache.clear()
 	var cached_config := crop_config.duplicate(true)
@@ -1655,8 +1937,14 @@ func _run_smoke_test() -> void:
 	)
 	var cached_thumbnail_reused := false
 	var thumbnail_disk_cached := false
+	var list_metadata_visible := false
 	if not _assets.is_empty():
 		var thumbnail_path := _assets[0]
+		var list_text := _asset_item_text(thumbnail_path, false)
+		list_metadata_visible = (
+			list_text.contains(thumbnail_path.get_extension().to_upper())
+			and list_text.contains(_format_bytes(FileAccess.get_size(_absolute_from_stored(thumbnail_path))))
+		)
 		var thumbnail_before := _get_thumbnail(thumbnail_path)
 		thumbnail_disk_cached = FileAccess.file_exists(_thumbnail_disk_path(thumbnail_path))
 		_refresh_assets()
@@ -1664,6 +1952,12 @@ func _run_smoke_test() -> void:
 		cached_thumbnail_reused = thumbnail_before != null and thumbnail_after == thumbnail_before
 	var ancient_count := 0
 	var card_type_counts := {"attack": 0, "skill": 0, "power": 0}
+	var card_markers := {"○": false, "◇": false, "●": false}
+	for option_index in _card_option.item_count:
+		var option_text := _card_option.get_item_text(option_index)
+		for marker in card_markers:
+			if option_text.begins_with(String(marker)):
+				card_markers[marker] = true
 	for card in _cards:
 		if card.ancient:
 			ancient_count += 1
@@ -1674,15 +1968,30 @@ func _run_smoke_test() -> void:
 		or icon.get_size() != expected_normal
 		or ancient.get_size() != expected_ancient
 		or rotated.get_size() != expected_normal
+		or solid.get_size() != expected_normal
+		or radial.get_size() != expected_normal
+		or not solid.get_pixel(0, 0).is_equal_approx(solid.get_pixel(expected_normal.x / 2, expected_normal.y / 2))
 		or _preview_base_cache.size() != 1
 		or _preview_material_cache.size() != 1
 		or constrained.x >= expected_normal.x
 		or constrained.y >= expected_normal.y
 		or not cached_thumbnail_reused
 		or not thumbnail_disk_cached
+		or not list_metadata_visible
 		or _asset_signatures.size() != _assets.size()
 		or _export_progress == null
 		or _export_progress_label == null
+		or _cache_label == null
+		or _disk_thumbnail_cache_bytes > THUMBNAIL_CACHE_MAX_BYTES
+		or _thumbnail_cache.size() > THUMBNAIL_MEMORY_MAX_ITEMS
+		or _source_cache.size() > SOURCE_MEMORY_MAX_ITEMS
+		or _estimate_image_dictionary_bytes(_preview_material_cache) > PREVIEW_MATERIAL_MAX_BYTES
+		or _gradient_option.item_count != GRADIENT_MODES.size()
+		or _texture_option.item_count != BACKGROUND_TEXTURES.size()
+		or _motif_controls == null
+		or not bool(card_markers["○"])
+		or not bool(card_markers["◇"])
+		or not bool(card_markers["●"])
 		or _cards.size() != 99
 		or ancient_count != 2
 		or card_type_counts.attack <= 0
@@ -1701,6 +2010,8 @@ func _run_smoke_test() -> void:
 	icon.save_png(smoke_dir.path_join("icon.png"))
 	ancient.save_png(smoke_dir.path_join("ancient.png"))
 	rotated.save_png(smoke_dir.path_join("rotated.png"))
+	solid.save_png(smoke_dir.path_join("solid.png"))
+	radial.save_png(smoke_dir.path_join("radial.png"))
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var original_ui_scale := get_window().content_scale_factor
@@ -1835,10 +2146,26 @@ func _step_card(direction: int) -> void:
 
 func _update_progress() -> void:
 	var configured := 0
+	var sourced := 0
+	var placeholders := 0
 	for card in _cards:
 		if _manifest.cards.has(card.class_name):
 			configured += 1
-	_progress_label.text = "已配置 %d / %d 张\n左侧素材 %d 个" % [configured, _cards.size(), _assets.size()]
+			var saved: Dictionary = _manifest.cards[card.class_name]
+			if String(saved.get("source", "")).is_empty():
+				placeholders += 1
+			else:
+				sourced += 1
+	_progress_label.text = (
+		"已配置 %d / %d 张 · 已绑定 %d · 待替换 %d\n" % [
+			configured,
+			_cards.size(),
+			sourced,
+			placeholders,
+		]
+		+ "标记：○ 未配置　◇ 无素材　● 已绑定素材\n"
+		+ "左侧素材 %d 个" % _assets.size()
+	)
 
 
 func _show_add_files_dialog() -> void:
@@ -1871,6 +2198,7 @@ func _refresh_assets() -> void:
 	_rebuild_folder_options()
 	_rebuild_asset_list()
 	_update_progress()
+	_update_cache_label()
 	_queue_preview_render()
 	_set_status(
 		"素材列表已重新扫描；复用 %d / %d 个缩略图缓存。" % [
