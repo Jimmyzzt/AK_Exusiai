@@ -9,7 +9,7 @@ const SOURCE_MEMORY_MAX_ITEMS := 12
 const PREVIEW_MATERIAL_MAX_BYTES := 96 * 1024 * 1024
 const CARD_SOURCE_DIR := "res://AK_ExusiaiCode/Cards"
 const LOCALIZATION_PATH := "res://AK_Exusiai/localization/zhs/cards.json"
-const DEFAULT_OUTPUT_DIR := "res://AK_Exusiai/images/cards"
+const DEFAULT_OUTPUT_DIR := "AK_Exusiai/images/cards"
 const BASE_NORMAL_SIZE := Vector2i(250, 190)
 const BASE_ANCIENT_SIZE := Vector2i(250, 351)
 const RESOLUTION_SCALES := [1, 2, 3, 4]
@@ -113,6 +113,7 @@ var _flip_horizontal_button: Button
 var _flip_vertical_button: Button
 var _add_files_dialog: FileDialog
 var _add_folder_dialog: FileDialog
+var _clear_cache_dialog: ConfirmationDialog
 var _save_timer: Timer
 
 
@@ -224,7 +225,7 @@ func _build_ui() -> void:
 	var clear_cache := Button.new()
 	clear_cache.text = "清理缓存"
 	clear_cache.tooltip_text = "清理卡图管理器生成的缩略图和内存图片缓存，不会删除素材或导出卡图"
-	clear_cache.pressed.connect(_clear_thumbnail_cache)
+	clear_cache.pressed.connect(_show_clear_cache_confirmation)
 	toolbar.add_child(clear_cache)
 
 	var save_manifest := Button.new()
@@ -346,6 +347,11 @@ func _build_ui() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	export_bar.add_child(spacer)
+	var open_output := Button.new()
+	open_output.text = "查看卡图"
+	open_output.tooltip_text = "在文件管理器中打开卡图输出目录"
+	open_output.pressed.connect(_open_output_folder)
+	export_bar.add_child(open_output)
 	_export_current_button = Button.new()
 	_export_current_button.text = "导出当前卡图"
 	_export_current_button.pressed.connect(_export_current)
@@ -555,6 +561,14 @@ func _build_ui() -> void:
 	_add_folder_dialog.use_native_dialog = true
 	_add_folder_dialog.dir_selected.connect(_on_folder_added)
 	add_child(_add_folder_dialog)
+
+	_clear_cache_dialog = ConfirmationDialog.new()
+	_clear_cache_dialog.title = "确认清理缓存"
+	_clear_cache_dialog.dialog_text = "确定要清理卡图管理器生成的缩略图和内存图片缓存吗？\n素材、清单和已导出的卡图不会被删除。"
+	_clear_cache_dialog.ok_button_text = "清理缓存"
+	_clear_cache_dialog.cancel_button_text = "取消"
+	_clear_cache_dialog.confirmed.connect(_clear_thumbnail_cache)
+	add_child(_clear_cache_dialog)
 
 	_save_timer = Timer.new()
 	_save_timer.one_shot = true
@@ -1136,6 +1150,10 @@ func _clear_thumbnail_cache() -> void:
 	_disk_thumbnail_cache_bytes = 0
 	_update_cache_label()
 	_set_status("已清理 %d 个缩略图缓存；可点击“重新扫描”按需重建。" % removed, false)
+
+
+func _show_clear_cache_confirmation() -> void:
+	_clear_cache_dialog.popup_centered(Vector2i(520, 180))
 
 
 func _update_cache_label() -> void:
@@ -1897,6 +1915,16 @@ func _export_current() -> void:
 		_set_status("已导出 %s.png" % _current_card, false)
 
 
+func _open_output_folder() -> void:
+	var output_dir := String(_manifest.get("output_dir", DEFAULT_OUTPUT_DIR))
+	var absolute := _absolute_from_stored(output_dir)
+	var error := DirAccess.make_dir_recursive_absolute(absolute)
+	if error != OK:
+		_set_status("无法创建卡图输出目录：%s" % error_string(error), true)
+		return
+	OS.shell_show_in_file_manager(absolute, true)
+
+
 func _run_smoke_test() -> void:
 	var crop_config := {
 		"source": "references/official/art/半身.jpg",
@@ -1978,6 +2006,15 @@ func _run_smoke_test() -> void:
 			ancient_count += 1
 		var card_type := String(card.card_type)
 		card_type_counts[card_type] = int(card_type_counts.get(card_type, 0)) + 1
+	_export_progress_box.visible = true
+	_export_progress.value = 1
+	_export_progress_label.text = "Smoke"
+	_reset_export_progress()
+	var export_progress_reset := (
+		not _export_progress_box.visible
+		and _export_progress.value == 0
+		and _export_progress_label.text.is_empty()
+	)
 	if (
 		crop.get_size() != expected_normal
 		or icon.get_size() != expected_normal
@@ -1996,6 +2033,11 @@ func _run_smoke_test() -> void:
 		or _asset_signatures.size() != _assets.size()
 		or _export_progress == null
 		or _export_progress_label == null
+		or not export_progress_reset
+		or _clear_cache_dialog == null
+		or not DirAccess.dir_exists_absolute(
+			_absolute_from_stored(String(_manifest.get("output_dir", DEFAULT_OUTPUT_DIR)))
+		)
 		or _cache_label == null
 		or _disk_thumbnail_cache_bytes > THUMBNAIL_CACHE_MAX_BYTES
 		or _thumbnail_cache.size() > THUMBNAIL_MEMORY_MAX_ITEMS
@@ -2115,8 +2157,14 @@ func _export_all_configured() -> void:
 	_exporting = false
 	_export_current_button.disabled = false
 	_export_all_button.disabled = false
-	_export_progress_label.text = "导出完成：%d 张成功，%d 张跳过。" % [success, skipped]
 	_set_status("批量导出完成：%d 张成功，%d 张跳过。" % [success, skipped], skipped > 0)
+	_reset_export_progress()
+
+
+func _reset_export_progress() -> void:
+	_export_progress_box.visible = false
+	_export_progress.value = 0
+	_export_progress_label.text = ""
 
 
 func _export_card(card_name: String) -> bool:
@@ -2134,7 +2182,7 @@ func _export_card(card_name: String) -> bool:
 	var image := _render_card_art(config, output_size, card_name)
 	if image == null or image.is_empty():
 		return false
-	var output_dir := String(_manifest.get("output_dir", "AK_Exusiai/images/cards"))
+	var output_dir := String(_manifest.get("output_dir", DEFAULT_OUTPUT_DIR))
 	var output_path := _absolute_from_stored(output_dir).path_join(card_name + ".png")
 	var error := DirAccess.make_dir_recursive_absolute(output_path.get_base_dir())
 	if error != OK:
