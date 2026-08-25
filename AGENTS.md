@@ -110,6 +110,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 ### 伤害、时序与预览
 
 - 延时伤害若复制打出时伤害，应在原 `CardPlay` 有效时保存最终攻击方修正值；下回合直接使用快照，不再次套用弹药或新的攻击方修正。
+- 回合结束因虚无消耗而触发的抽牌必须参考原版“黑暗之拥”：在 `AfterCardExhausted(..., causedByEthereal: true)` 只累计次数，等 `AfterSideTurnEnd` 再抽牌，避免新牌被当前回合的弃牌清理移入弃牌堆。
 - 卡面预览读取当前临时能力；若牌自身会先创建增伤，再用牌专用预览接口补上即将获得的层数。
 - 复用临时力量等原版逻辑但要显示自制来源时，设置 `OriginModel`；自定义图标使用资源覆盖接口。
 - 需要逐次消耗人工制品的多层减益必须逐次 `PowerCmd.Apply`，不能先合并总数。
