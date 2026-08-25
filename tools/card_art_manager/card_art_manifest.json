@@ -21,14 +21,14 @@
       "background_enabled": true,
       "placeholder_enabled": false,
       "background": "holy_gold",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "493918",
       "bottom_color": "e3c06b",
       "motif": "halo",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
+      "flip_vertical": false
     },
     "TheSaintsTravels": {
       "source": "references/official/asset/Avg_61_i24_2.png",
@@ -374,13 +374,13 @@
     },
     "DelayedBlast": {
       "source": "",
-      "zoom": 0.86,
+      "zoom": 0.929,
       "offset": [
         0.0,
         0.0
       ],
       "background_enabled": true,
-      "placeholder_enabled": false,
+      "placeholder_enabled": true,
       "background": "laterano_sunset",
       "gradient_mode": "vertical",
       "texture": "streaks",
@@ -525,23 +525,23 @@
       "texture": "streaks"
     },
     "Emperor": {
-      "source": "references/official/asset/Avg_ac5_2_on_a.png",
-      "zoom": 2.721,
+      "source": "references/official/asset/character/ScreenShot_2026-08-25_145429_106.png",
+      "zoom": 1.08,
       "offset": [
-        -0.0203,
-        0.7913
+        -0.01,
+        -0.1375
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
       "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
+      "flip_vertical": false
     },
     "Expedite": {
       "source": "references/official/asset/8c5f991ad83f736a074c14077a007719.jpg",
@@ -572,14 +572,14 @@
       "background_enabled": true,
       "placeholder_enabled": false,
       "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
+      "flip_vertical": false
     },
     "Exusiai": {
       "source": "references/official/asset/ELVxHQkUEAUEWTR.jpg",
@@ -608,16 +608,453 @@
         0.0
       ],
       "background_enabled": true,
+      "placeholder_enabled": true,
+      "background": "penguin_night",
+      "gradient_mode": "radial",
+      "texture": "grid",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ForgetMeNot": {
+      "source": "references/official/asset/Egpl6YwU8AA3ZYE.jpg",
+      "zoom": 1.081,
+      "offset": [
+        0.0509,
+        0.1412
+      ],
+      "background_enabled": true,
       "placeholder_enabled": false,
       "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
-      "flip_vertical": false,
+      "flip_vertical": false
+    },
+    "GroupPhoto": {
+      "source": "references/official/asset/5c5a29dae10fb026ddf002bca59d8374161775300.jpg",
+      "zoom": 0.858,
+      "offset": [
+        -0.0794,
+        -0.0753
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
       "gradient_mode": "vertical",
-      "texture": "streaks"
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Loan": {
+      "source": "references/official/asset/character/79e60a409797ecaa73a3e9d006799aa7161775300.png",
+      "zoom": 1.166,
+      "offset": [
+        -0.2396,
+        0.0412
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Mostima": {
+      "source": "references/official/asset/EZQnxXoUcAEk6c1.jpg",
+      "zoom": 1.0,
+      "offset": [
+        -0.0104,
+        0.0413
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Texas": {
+      "source": "references/official/asset/GimVYQZakAA1VSj.jpg",
+      "zoom": 1.0,
+      "offset": [
+        0.0034,
+        0.3103
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "TexasCall": {
+      "source": "references/official/asset/03e9a2097fc80e8a8cee4fc0a04607cc59597d60.jpg",
+      "zoom": 1.0,
+      "offset": [
+        -0.149,
+        0.008
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PaganiniCustom": {
+      "source": "references/official/asset/Avg_61_i05.png",
+      "zoom": 0.926,
+      "offset": [
+        -0.0016,
+        -0.0682
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PartyTime": {
+      "source": "references/official/asset/6894e20b58cb8da5c810543f.jpg",
+      "zoom": 0.926,
+      "offset": [
+        0.0629,
+        -0.0569
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PatronFirearm": {
+      "source": "references/free/asset/ChatGPT Image 2026年8月25日 16_04_21.png",
+      "zoom": 0.68,
+      "offset": [
+        -0.0078,
+        -0.0418
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "grain",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LaserCannon": {
+      "source": "references/official/asset/f1c1b714-2683-4ff1-8ec4-ea543d8b38e7.png",
+      "zoom": 1.259,
+      "offset": [
+        0.0871,
+        -0.0681
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ExusiaiStrike": {
+      "source": "",
+      "zoom": 1.0,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": true,
+      "background": "red_alert",
+      "gradient_mode": "radial",
+      "texture": "rays",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "crosshair",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Talent": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_161033_497.png",
+      "zoom": 1.469,
+      "offset": [
+        -0.0046,
+        -0.0875
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PrecisionStrike": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_144231_467.png",
+      "zoom": 1.08,
+      "offset": [
+        -0.1215,
+        -0.0162
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Run": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_145444_559.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.065,
+        -0.0512
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "HolyCityProtection": {
+      "source": "references/official/asset/character/立绘_信仰搅拌机_2.png",
+      "zoom": 1.0,
+      "offset": [
+        0.0088,
+        0.0032
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "gradient_mode": "vertical",
+      "texture": "rays",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "HolyCityEternal": {
+      "source": "references/official/asset/Avg_26_i02.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.0543,
+        -0.0688
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "GuaranteedSuccess": {
+      "source": "references/official/art/技能_使命必达！.png",
+      "zoom": 0.43,
+      "offset": [
+        0.0,
+        -0.0707
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "gradient_mode": "radial",
+      "texture": "grain",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Shootoholic": {
+      "source": "references/official/art/技能_开火成瘾症.png",
+      "zoom": 0.43,
+      "offset": [
+        0.0,
+        -0.1101
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "red_alert",
+      "gradient_mode": "radial",
+      "texture": "grain",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "SweepingTheSkies": {
+      "source": "references/official/art/技能_天空大扫除.png",
+      "zoom": 0.46,
+      "offset": [
+        0.0,
+        -0.0987
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "red_alert",
+      "gradient_mode": "diagonal",
+      "texture": "grain",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LogisticsOutsourcing": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_170442_861.png",
+      "zoom": 1.01,
+      "offset": [
+        0.0023,
+        -0.11
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "solid",
+      "texture": "none",
+      "top_color": "000000",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LookingBack": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_145639_845.png",
+      "zoom": 1.0,
+      "offset": [
+        0.1329,
+        -0.0976
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "SecureDelivery": {
+      "source": "references/official/asset/ChatGPT Image 2026年8月25日 17_02_59.png",
+      "zoom": 0.738,
+      "offset": [
+        -0.0181,
+        -0.0464
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "solid",
+      "texture": "grain",
+      "top_color": "0b1016",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "OutstandingGraduate": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_145746_526.png",
+      "zoom": 1.08,
+      "offset": [
+        -0.0272,
+        -0.1413
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
     }
   }
 }

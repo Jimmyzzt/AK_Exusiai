@@ -22,11 +22,11 @@ const DEFAULT_ASSET_ROOTS := [
 const ALL_FOLDERS := "__all__"
 const UI_SCALES := [1.0, 1.25, 1.5, 1.75, 2.0]
 const BACKGROUNDS := {
-	"laterano_sunset": {"label": "拉特兰夕照", "top": "3c2059", "bottom": "ee9558"},
-	"angel_blue": {"label": "天使蓝光", "top": "10273f", "bottom": "52b8d6"},
-	"penguin_night": {"label": "企鹅物流夜色", "top": "182330", "bottom": "677485"},
-	"red_alert": {"label": "战斗警报", "top": "35151d", "bottom": "d35a48"},
-	"holy_gold": {"label": "圣城金辉", "top": "493918", "bottom": "e3c06b"},
+	"laterano_sunset": {"label": "夕照", "top": "3c2059", "bottom": "ee9558"},
+	"angel_blue": {"label": "蓝光", "top": "10273f", "bottom": "52b8d6"},
+	"penguin_night": {"label": "夜色", "top": "182330", "bottom": "677485"},
+	"red_alert": {"label": "警报", "top": "35151d", "bottom": "d35a48"},
+	"holy_gold": {"label": "金辉", "top": "493918", "bottom": "e3c06b"},
 	"custom": {"label": "自定义", "top": "2b2340", "bottom": "bd6c59"},
 }
 const MOTIFS := {
@@ -38,18 +38,18 @@ const MOTIFS := {
 	"speedlines": "速度线",
 }
 const GRADIENT_MODES := {
-	"vertical": "垂直渐变",
-	"horizontal": "水平渐变",
-	"radial": "中心扩散",
-	"diagonal": "对角渐变",
+	"vertical": "垂直",
+	"horizontal": "水平",
+	"radial": "中心",
+	"diagonal": "对角",
 	"solid": "纯色",
 }
 const BACKGROUND_TEXTURES := {
 	"none": "无纹理",
-	"streaks": "斜向细纹",
-	"grain": "颗粒噪点",
-	"grid": "光栅网格",
-	"rays": "放射光线",
+	"streaks": "斜纹",
+	"grain": "颗粒",
+	"grid": "网格",
+	"rays": "放射",
 }
 
 var _manifest: Dictionary = {}
@@ -432,32 +432,47 @@ func _build_ui() -> void:
 	_background_toggle.text = "启用背景"
 	_background_toggle.toggled.connect(_on_toggle_changed)
 	right.add_child(_background_toggle)
-	right.add_child(_make_field_label("背景配色"))
+	var background_row := HBoxContainer.new()
+	background_row.add_theme_constant_override("separation", 6)
+	right.add_child(background_row)
+	var palette_column := VBoxContainer.new()
+	palette_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	palette_column.add_child(_make_field_label("配色"))
+	background_row.add_child(palette_column)
 	_background_option = OptionButton.new()
+	_background_option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for key in BACKGROUNDS:
 		var index := _background_option.item_count
 		_background_option.add_item(BACKGROUNDS[key].label)
 		_background_option.set_item_metadata(index, key)
 	_background_option.item_selected.connect(_on_background_changed)
-	right.add_child(_background_option)
+	palette_column.add_child(_background_option)
 
-	right.add_child(_make_field_label("渐变方式"))
+	var gradient_column := VBoxContainer.new()
+	gradient_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	gradient_column.add_child(_make_field_label("渐变"))
+	background_row.add_child(gradient_column)
 	_gradient_option = OptionButton.new()
+	_gradient_option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for key in GRADIENT_MODES:
 		var index := _gradient_option.item_count
 		_gradient_option.add_item(GRADIENT_MODES[key])
 		_gradient_option.set_item_metadata(index, key)
 	_gradient_option.item_selected.connect(_on_form_changed)
-	right.add_child(_gradient_option)
+	gradient_column.add_child(_gradient_option)
 
-	right.add_child(_make_field_label("背景纹理"))
+	var texture_column := VBoxContainer.new()
+	texture_column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	texture_column.add_child(_make_field_label("纹理"))
+	background_row.add_child(texture_column)
 	_texture_option = OptionButton.new()
+	_texture_option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for key in BACKGROUND_TEXTURES:
 		var index := _texture_option.item_count
 		_texture_option.add_item(BACKGROUND_TEXTURES[key])
 		_texture_option.set_item_metadata(index, key)
 	_texture_option.item_selected.connect(_on_form_changed)
-	right.add_child(_texture_option)
+	texture_column.add_child(_texture_option)
 
 	_placeholder_toggle = CheckButton.new()
 	_placeholder_toggle.text = "显示占位图形"
@@ -1988,6 +2003,12 @@ func _run_smoke_test() -> void:
 		or _estimate_image_dictionary_bytes(_preview_material_cache) > PREVIEW_MATERIAL_MAX_BYTES
 		or _gradient_option.item_count != GRADIENT_MODES.size()
 		or _texture_option.item_count != BACKGROUND_TEXTURES.size()
+		or _background_option.get_parent().get_parent() != _gradient_option.get_parent().get_parent()
+		or _background_option.get_parent().get_parent() != _texture_option.get_parent().get_parent()
+		or _background_option.get_item_text(0) != "夕照"
+		or _gradient_option.get_item_text(0) != "垂直"
+		or _texture_option.get_item_text(1) != "斜纹"
+		or _progress_label.text.contains("标记：")
 		or _motif_controls == null
 		or not bool(card_markers["○"])
 		or not bool(card_markers["◇"])
@@ -2163,7 +2184,6 @@ func _update_progress() -> void:
 			sourced,
 			placeholders,
 		]
-		+ "标记：○ 未配置　◇ 无素材　● 已绑定素材\n"
 		+ "左侧素材 %d 个" % _assets.size()
 	)
 
