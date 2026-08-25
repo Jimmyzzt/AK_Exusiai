@@ -104,6 +104,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - 会受战斗修正的伤害/格挡使用 `{Damage:diff()}`、`{Block:diff()}`；`PowerVar<T>` 默认键是完整类型名，如 `WeakPower`。
 - 能量使用 `{Energy:energyIcons()}` 且变量必须是 `EnergyVar`。1–3 点自动显示多个图标，4 点以上显示“数字+图标”。
 - 任一错误变量键或格式器都可能令整段 SmartFormat 原样显示；简中和英文必须一起检查。
+- 能力栏说明中的实际数值使用 `[blue]...[/blue]`；已知能力层数的卡牌/遗物悬浮说明必须调用带数值的 `HoverTipFactory.FromPower<T>(amount)`，否则会显示规范模型的 0。嵌套关键词只需解释机制时，应使用独立的无数值通用文本。
 - 规则关键词在描述中用 `[gold]...[/gold]`。额外悬浮说明按描述显式启用，不能因所有攻击都可能消耗弹药就给每张攻击牌附加弹药说明。
 
 ### 伤害、时序与预览
@@ -112,6 +113,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - 卡面预览读取当前临时能力；若牌自身会先创建增伤，再用牌专用预览接口补上即将获得的层数。
 - 复用临时力量等原版逻辑但要显示自制来源时，设置 `OriginModel`；自定义图标使用资源覆盖接口。
 - 需要逐次消耗人工制品的多层减益必须逐次 `PowerCmd.Apply`，不能先合并总数。
+- 必选一张牌并在选择后立即返回时，使用原版“全息影像”式 `CardSelectorPrefs(prompt, 1)`；`(0, 1)` 表示“至多一张”，会额外等待确认。
 
 ### 资源与 Godot
 
@@ -119,6 +121,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `PowerAssetProfile` 当前加载静态 `Texture2D`；GIF 不会自动成为逐帧能力图标。动态效果需要 Godot 场景和专用 UI。
 - 能量视觉分为描述小图标、卡牌费用图标和战斗能量计数器场景；旋转/获得能量动画来自场景和 `NEnergyCounter`，不是 GIF。
 - 当前原版资源尺寸：遗物小图/轮廓 85×85，大图 256×256；药水小图/轮廓 80×80，原版大图 256×256。均使用透明方形画布；RitsuLib 0.5.14 的药水配置只直接覆盖小图和轮廓，大图需要另行验证或补充覆盖。
+- 原版角色 `IconTexture` 为 85×85，且历史记录和顶部面板会直接使用该纹理尺寸；高分辨率源图保留在 `references/`，运行时角色头像由资源脚本缩放到 85×85。
 - 本项目遗物使用一张 256×256 主图兼作小图和大图，药水使用一张 80×80 主图；两者各有同尺寸白色轮廓图。替换源图后运行 `& $GodotExe --headless --path . --script .\tools\generate_item_assets.gd`，映射与详细说明见 `tools/README.md`。
 - `*.import` 是可再生元数据且被忽略。协作时提交源 PNG/JPG/SVG，并以完整构建中的 `reimport`、`savepack` 记录确认进入 PCK。
 

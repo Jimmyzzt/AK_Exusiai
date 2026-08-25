@@ -44,7 +44,7 @@ public sealed class TheSaintsTravels : ExusiaiCardTemplate
         [new PowerVar<FirepowerPower>(CurrentFirepower)];
 
     protected override IEnumerable<IHoverTip> CardHoverTips =>
-        [HoverTipFactory.FromPower<FirepowerPower>()];
+        [HoverTipFactory.FromPower<FirepowerPower>(DynamicVars[nameof(FirepowerPower)].IntValue)];
 
     public TheSaintsTravels()
         : base(2, CardType.Power, CardRarity.Ancient, TargetType.Self)

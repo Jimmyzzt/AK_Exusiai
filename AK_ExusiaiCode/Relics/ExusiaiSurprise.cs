@@ -27,7 +27,7 @@ public sealed class ExusiaiSurprise : ExusiaiRelicTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
-        HoverTipFactory.FromPower<FirepowerPower>(),
+        HoverTipFactory.FromPower<FirepowerPower>(DynamicVars[nameof(FirepowerPower)].IntValue),
     ];
 
     public override async Task BeforeCombatStart()

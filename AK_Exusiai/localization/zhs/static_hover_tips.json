@@ -1,4 +1,5 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "弹药",
-  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "拥有弹药时打出攻击牌会消耗 1 发弹药，使该牌的每段伤害额外造成 2 点伤害。"
+  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "拥有弹药时打出攻击牌会消耗 1 发弹药，使该牌的每段伤害额外造成 2 点伤害。若一张攻击牌消耗多发弹药，每发都会使其每段伤害获得一次增伤。",
+  "AK_EXUSIAI_FIREPOWER_GENERIC.description": "弹药额外增加伤害。"
 }

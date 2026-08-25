@@ -15,7 +15,8 @@ public sealed class FieldModification : ExusiaiCardTemplate
     public override bool GainsBlock => true;
 
     protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
-        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<TemporaryFirepowerPower>()];
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<TemporaryFirepowerPower>(
+            DynamicVars[nameof(TemporaryFirepowerPower)].IntValue)];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

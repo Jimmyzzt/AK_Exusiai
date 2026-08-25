@@ -34,7 +34,7 @@ public sealed class LookingBack : ExusiaiCardTemplate
             choiceContext,
             PileType.Discard.GetPile(Owner),
             Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, 1))).FirstOrDefault();
+            new CardSelectorPrefs(SelectionScreenPrompt, 1))).FirstOrDefault();
         if (selected != null)
             await CardPileCmd.Add(selected, PileType.Hand);
     }

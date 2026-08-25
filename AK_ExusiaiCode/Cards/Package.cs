@@ -1,6 +1,5 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -16,17 +15,16 @@ public sealed class Package : ExusiaiCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(1),
         new BlockVar(4m, ValueProp.Move),
     ];
 
     public Package() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        DeliveryCmd.Set(this, 2);
+        DeliveryCmd.Set(this, 3);
     }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+    protected override Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
+        Task.CompletedTask;
 
     protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(2m);
 }

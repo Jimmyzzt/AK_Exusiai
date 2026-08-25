@@ -18,7 +18,7 @@ public sealed class EtchedRound : ExusiaiRelicTemplate
         [new PowerVar<FirepowerPower>(1m)];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [HoverTipFactory.FromPower<FirepowerPower>()];
+        [HoverTipFactory.FromPower<FirepowerPower>(DynamicVars[nameof(FirepowerPower)].IntValue)];
 
     public override async Task BeforeCombatStart()
     {

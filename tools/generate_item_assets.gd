@@ -18,7 +18,7 @@ const ITEMS := [
 ]
 
 const COPIES := [
-    {"source": "references/official/art/Exusiai_icon.png", "output": "AK_Exusiai/images/character/exusiai_icon.png"},
+    {"source": "references/official/art/Exusiai_icon.png", "output": "AK_Exusiai/images/character/exusiai_icon.png", "size": 85},
 ]
 
 func _initialize() -> void:
@@ -27,7 +27,7 @@ func _initialize() -> void:
         if not _generate_item(item):
             failed = true
     for item in COPIES:
-        if not _copy_png(item.source, item.output):
+        if not _copy_png(item.source, item.output, item.get("size", 0)):
             failed = true
 
     if failed:
@@ -76,12 +76,14 @@ func _generate_item(item: Dictionary) -> bool:
     print("Generated %s and %s" % [output_path, outline_path])
     return true
 
-func _copy_png(source_relative: String, output_relative: String) -> bool:
+func _copy_png(source_relative: String, output_relative: String, size: int = 0) -> bool:
     var image := Image.new()
     var error := image.load(_absolute(source_relative))
     if error != OK:
         push_error("Cannot load source image: %s (%s)" % [source_relative, error_string(error)])
         return false
+    if size > 0 and image.get_size() != Vector2i(size, size):
+        image.resize(size, size, Image.INTERPOLATE_LANCZOS)
     return _save_png(image, output_relative)
 
 func _find_alpha_bounds(image: Image) -> Rect2i:

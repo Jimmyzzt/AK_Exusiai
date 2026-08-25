@@ -22,7 +22,8 @@ public sealed class FluorescentLight : ExusiaiRelicTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ExusiaiKeywords.AngelHoverTip,
-        HoverTipFactory.FromPower<TemporaryFirepowerPower>(),
+        HoverTipFactory.FromPower<TemporaryFirepowerPower>(
+            DynamicVars[nameof(TemporaryFirepowerPower)].IntValue),
     ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)

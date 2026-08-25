@@ -18,7 +18,8 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
-        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>()];
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>(
+            DynamicVars[nameof(FirepowerPower)].IntValue)];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(AmmoKey, 2m),

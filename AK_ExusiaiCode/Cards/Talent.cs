@@ -12,7 +12,8 @@ namespace AK_Exusiai.Cards;
 public sealed class Talent : ExusiaiCardTemplate
 {
     protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
-        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>()];
+        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>(
+            DynamicVars[nameof(FirepowerPower)].IntValue)];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(2m)];
     public Talent() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
