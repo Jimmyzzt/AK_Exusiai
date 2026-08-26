@@ -32,22 +32,22 @@
     },
     "TheSaintsTravels": {
       "source": "references/official/asset/Avg_61_i24_2.png",
-      "zoom": 1.0,
+      "zoom": 1.08,
       "offset": [
-        -0.0383,
-        -0.0079
+        -0.0479,
+        -0.0577
       ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
       "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
+      "flip_vertical": false
     },
     "AngelsHeart": {
       "source": "references/free/art/天使之心.svg",
@@ -64,7 +64,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -83,7 +83,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -102,7 +102,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -121,7 +121,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -140,7 +140,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "burst",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -159,7 +159,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -178,7 +178,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -197,7 +197,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -216,7 +216,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -235,7 +235,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -273,7 +273,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -311,7 +311,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -330,7 +330,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": true,
       "flip_vertical": false
     },
@@ -349,7 +349,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -387,7 +387,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "burst",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -425,7 +425,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -444,7 +444,7 @@
       "top_color": "dbd4ce",
       "bottom_color": "ffffff",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -463,7 +463,7 @@
       "top_color": "90897f",
       "bottom_color": "625e55",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -482,7 +482,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -501,7 +501,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -539,7 +539,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -558,7 +558,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -577,7 +577,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -653,7 +653,7 @@
       "top_color": "92464b",
       "bottom_color": "c17157",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -672,7 +672,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -691,7 +691,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -710,7 +710,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -748,7 +748,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -767,7 +767,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -786,7 +786,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -805,7 +805,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -843,7 +843,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -862,7 +862,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -881,7 +881,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -919,7 +919,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -938,7 +938,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -995,7 +995,7 @@
       "top_color": "000000",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1014,7 +1014,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1033,7 +1033,7 @@
       "top_color": "0b1016",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1052,7 +1052,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1212,8 +1212,8 @@
       "source": "references/official/asset/ScreenShot_2026-08-25_175019_263.png",
       "zoom": 1.166,
       "offset": [
-        0.2233,
-        -0.1287
+        0.1239,
+        -0.1104
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1223,7 +1223,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1242,7 +1242,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1280,16 +1280,16 @@
       "top_color": "e4ecf2",
       "bottom_color": "99bbe1",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
     "WelcomeToLaterano": {
       "source": "references/official/asset/86a0846a3fb40b44ad07ba9e1abf9c85161775300.jpg",
-      "zoom": 0.926,
+      "zoom": 1.0,
       "offset": [
-        -0.0024,
-        -0.035
+        -0.0081,
+        -0.018
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1299,7 +1299,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1337,7 +1337,7 @@
       "top_color": "949494",
       "bottom_color": "d83b33",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1364,8 +1364,8 @@
       "source": "references/official/asset/Avg_61_i27.png",
       "zoom": 1.0,
       "offset": [
-        0.0622,
-        -0.0024
+        0.0828,
+        0.0046
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1375,7 +1375,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1413,7 +1413,7 @@
       "top_color": "ad8346",
       "bottom_color": "a11610",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1432,7 +1432,7 @@
       "top_color": "b79f07",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1451,7 +1451,7 @@
       "top_color": "99c9ff",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     }
