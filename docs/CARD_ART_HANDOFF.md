@@ -7,7 +7,7 @@
 - `AK_Exusiai/images/cards/` 目前没有正式卡图。
 - `ExusiaiStrike`、`ExusiaiDefend` 暂时引用铁甲战士原版卡图。
 - 其他卡牌主要使用 RitsuLib 占位图。
-- 卡牌设计、中文名、英文名和效果以 `docs/AK_Exusiai-Card.csv` 为准；卡图工作不得顺便修改规则或公开 ID。
+- 卡牌设计、中文名、英文名和效果以 `docs/AK_Exusiai-Card_V0.1.csv` 为准；卡图工作不得顺便修改规则或公开 ID。
 
 ## 素材位置
 

@@ -95,9 +95,18 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             return;
         }
 
-        int ammoToSpend = cardPlay.Card is IMultiAmmoAttack multi
-            ? Math.Min(SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id), multi.MaxAmmoSpend)
+        int baseAmmoLimit = cardPlay.Card is IMultiAmmoAttack multi
+            ? multi.MaxAmmoSpend
             : 1;
+        int extraAmmoLimit = cardPlay.Player.Creature.Powers
+            .OfType<RockNGospelPower>()
+            .Sum(power => power.Amount);
+        int ammoLimit = baseAmmoLimit == int.MaxValue
+            ? int.MaxValue
+            : Math.Min(int.MaxValue, baseAmmoLimit + Math.Max(0, extraAmmoLimit));
+        int ammoToSpend = Math.Min(
+            SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id),
+            ammoLimit);
         if (ammoToSpend <= 0)
             return;
 
@@ -145,9 +154,18 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
                    GetAmmoDamageMultiplier(dealer, cardSource);
         }
 
-        int previewMultiplier = cardSource is IMultiAmmoAttack multi
-            ? Math.Min(SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id), multi.MaxAmmoSpend)
-            : SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id) > 0 ? 1 : 0;
+        int basePreviewLimit = cardSource is IMultiAmmoAttack multi
+            ? multi.MaxAmmoSpend
+            : 1;
+        int extraPreviewLimit = dealer.Powers
+            .OfType<RockNGospelPower>()
+            .Sum(power => power.Amount);
+        int previewLimit = basePreviewLimit == int.MaxValue
+            ? int.MaxValue
+            : Math.Min(int.MaxValue, basePreviewLimit + Math.Max(0, extraPreviewLimit));
+        int previewMultiplier = Math.Min(
+            SecondaryResourceCmd.Get(dealer.Player, AmmoResource.Id),
+            previewLimit);
         return GetAmmoDamageBonus(dealer) * previewMultiplier *
                GetAmmoDamageMultiplier(dealer, cardSource);
     }

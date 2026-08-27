@@ -17,11 +17,11 @@ public sealed class CrossOfDevotion : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(11m, ValueProp.Move),
+        new DamageVar(9m, ValueProp.Move),
         new DynamicVar(HitCountKey, 2m),
     ];
 
-    public CrossOfDevotion() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public CrossOfDevotion() : base(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
     }
 
@@ -42,6 +42,6 @@ public sealed class CrossOfDevotion : ExusiaiCardTemplate
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

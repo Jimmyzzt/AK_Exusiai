@@ -20,7 +20,7 @@ public sealed class HolyCityMercy : ExusiaiCardTemplate
         HoverTipFactory.FromCard<HolyCityProtection>(),
     ];
     protected override bool ShowAngelHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
     public HolyCityMercy() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

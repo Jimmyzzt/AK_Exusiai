@@ -22,7 +22,6 @@ public sealed class CoveringFire : ExusiaiCardTemplate, IMultiAmmoAttack
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(1m, ValueProp.Move),
-        new DynamicVar("HitCount", 3m),
         new DynamicVar("StrengthLoss", 2m),
     ];
     public CoveringFire() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies) { }
@@ -30,7 +29,6 @@ public sealed class CoveringFire : ExusiaiCardTemplate, IMultiAmmoAttack
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars["HitCount"].IntValue)
             .FromCard(this, cardPlay).TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         int ammoSpent = AK_Exusiai.Characters.Exusiai.GetAmmoMultiplier(cardPlay);

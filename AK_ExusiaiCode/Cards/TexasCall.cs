@@ -18,7 +18,7 @@ public sealed class TexasCall : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move),
+        new BlockVar(5m, ValueProp.Move),
     ];
 
     public TexasCall() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)

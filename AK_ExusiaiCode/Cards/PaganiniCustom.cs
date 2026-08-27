@@ -26,9 +26,9 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
         new PowerVar<FirepowerPower>(2m),
     ];
 
-    public PaganiniCustom() : base(4, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public PaganiniCustom() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        DeliveryCmd.Set(this, 4);
+        DeliveryCmd.Set(this, 3);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -47,5 +47,9 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
             this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[AmmoKey].UpgradeValueBy(1m);
+    protected override void OnUpgrade()
+    {
+        DynamicVars[AmmoKey].UpgradeValueBy(1m);
+        DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
+    }
 }

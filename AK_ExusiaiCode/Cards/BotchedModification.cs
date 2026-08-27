@@ -31,5 +31,5 @@ public sealed class BotchedModification : ExusiaiCardTemplate
             CombatState!.CreateCard<Clumsy>(Owner), PileType.Discard, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

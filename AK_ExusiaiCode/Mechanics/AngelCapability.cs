@@ -11,6 +11,7 @@ using AK_Exusiai.Cards;
 namespace AK_Exusiai.Mechanics;
 
 [RegisterModelCapability]
+[RegisterDefaultModelCapability(typeof(DivineJudgment))]
 [RegisterDefaultModelCapability(typeof(HolyCityPurge))]
 [RegisterDefaultModelCapability(typeof(HolyCityGuidance))]
 [RegisterDefaultModelCapability(typeof(HolyCityProtection))]

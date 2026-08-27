@@ -17,7 +17,7 @@ public sealed class PenguinInternational : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(2),
-        new EnergyVar(3),
+        new EnergyVar(2),
         new DynamicVar("Delivery", 4m),
     ];
     public PenguinInternational() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }

@@ -1,10 +1,11 @@
 using AK_Exusiai.Content;
-using AK_Exusiai.Powers;
+using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -33,8 +34,8 @@ public sealed class Marksmanship : ExusiaiCardTemplate
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        await PowerCmd.Apply<AmmoNextTurnPower>(choiceContext, Owner.Creature,
-            DynamicVars[AmmoKey].BaseValue, Owner.Creature, this);
+        await SecondaryResourceCmd.Gain(
+            Owner, AmmoResource.Id, DynamicVars[AmmoKey].IntValue, this);
     }
 
     protected override void OnUpgrade()

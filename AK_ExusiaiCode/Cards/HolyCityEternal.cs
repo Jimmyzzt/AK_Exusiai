@@ -12,32 +12,25 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(TokenCardPool))]
 public sealed class HolyCityEternal : ExusiaiCardTemplate
 {
-    private const string TurnsKey = "Turns";
     protected override bool ShowAngelHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new DynamicVar(TurnsKey, 1m),
-        new EnergyVar(1),
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Retain, CardKeyword.Exhaust];
+        [CardKeyword.Exhaust];
 
-    public HolyCityEternal() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public HolyCityEternal() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        decimal turns = DynamicVars[TurnsKey].BaseValue;
         await PowerCmd.Apply<MegaCrit.Sts2.Core.Models.Powers.RetainHandPower>(
-            choiceContext, Owner.Creature, turns, Owner.Creature, this);
+            choiceContext, Owner.Creature, 1m, Owner.Creature, this);
         await PowerCmd.Apply<EnergyNextTurnPower>(
             choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars[TurnsKey].UpgradeValueBy(1m);
         DynamicVars.Energy.UpgradeValueBy(1m);
     }
 }

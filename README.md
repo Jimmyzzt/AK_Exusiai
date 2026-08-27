@@ -9,7 +9,7 @@
 1. `AGENTS.md`：开发约束、已验证机制经验与构建方式。
 2. `docs/PROGRESS.md`：当前完成状态和待测项。
 3. `docs/CARD_ART_HANDOFF.md`：卡图工作的素材、命名和接入流程。
-4. `docs/AK_Exusiai-Card.csv`：双方确认后的只读设计来源。
+4. `docs/AK_Exusiai-Card_V0.1.csv`：双方确认后的当前只读设计来源；历史版本与平衡说明位于 `docs/archive/`。
 
 ## 当前状态
 

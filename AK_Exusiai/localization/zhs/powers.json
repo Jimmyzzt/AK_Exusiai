@@ -30,8 +30,8 @@
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "攻击牌消耗弹药后，对所有敌人额外造成该次攻击每段由弹药增加的伤害。",
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "攻击牌消耗弹药后，对所有敌人额外造成该次攻击每段由弹药增加的伤害。",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.title": "“主”的宽恕",
-  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "原本不可打出的诅咒牌可以花费 {Energy:energyIcons()} 打出，并在结算后消耗。",
-  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "原本不可打出的诅咒牌可以花费 {Energy:energyIcons()} 打出，并在结算后消耗。",
+  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "你可以花费 {Energy:energyIcons()} 打出原本不可打出的诅咒牌。打出诅咒牌会将其消耗。",
+  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "你可以花费 {Energy:energyIcons()} 打出原本不可打出的诅咒牌。打出诅咒牌会将其消耗。",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.title": "显圣吊坠",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.description": "每消耗 [blue]1[/blue] 发弹药，获得 [blue]{Amount}[/blue] 点格挡。",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.smartDescription": "每消耗 [blue]1[/blue] 发弹药，获得 [blue]{Amount}[/blue] 点格挡。",
@@ -70,8 +70,8 @@
   ,"AK_EXUSIAI_POWER_CONFESSION_POWER.description": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。"
   ,"AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。"
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "易燃易爆"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "快递牌被打出后，对所有敌人造成 [blue]{Amount}[/blue] 点伤害并获得 [blue]1[/blue] 发弹药。"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "快递牌被打出后，对所有敌人造成 [blue]{Amount}[/blue] 点伤害并获得 [blue]1[/blue] 发弹药。"
+  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "快递牌被打出后，对所有敌人造成 [blue]{Amount}[/blue] 点伤害并获得 [blue]{Ammo}[/blue] 发弹药。"
+  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "快递牌被打出后，对所有敌人造成 [blue]{Amount}[/blue] 点伤害并获得 [blue]{Ammo}[/blue] 发弹药。"
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.title": "易燃易爆计数"
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.description": "记录易燃易爆的叠加层数。"
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.smartDescription": "记录易燃易爆的叠加层数。"
@@ -79,9 +79,8 @@
   ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。"
   ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。"
   ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "福音摇滚"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "回合开始时，选择 [blue]{Amount}[/blue] 张手牌添加天使。"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "回合开始时，选择 [blue]{Amount}[/blue] 张手牌添加天使。"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt": "选择要添加天使的手牌。"
+  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "攻击牌可以额外消耗 [blue]{Amount}[/blue] 发弹药。"
+  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "攻击牌可以额外消耗 [blue]{Amount}[/blue] 发弹药。"
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "天使的祝福"
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。"
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。"

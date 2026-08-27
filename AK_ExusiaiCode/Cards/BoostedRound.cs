@@ -38,7 +38,6 @@ public sealed class BoostedRound : ExusiaiCardTemplate
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
-        DynamicVars["Slow"].UpgradeValueBy(10m);
+        DynamicVars["Slow"].UpgradeValueBy(20m);
     }
 }

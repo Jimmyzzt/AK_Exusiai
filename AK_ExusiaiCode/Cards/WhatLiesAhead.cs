@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -11,12 +12,14 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class WhatLiesAhead : ExusiaiCardTemplate
+public sealed class WhatLiesAhead : ExusiaiCardTemplate, IMultiAmmoAttack
 {
+    public int MaxAmmoSpend => 3;
+    protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Doubt>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(8m, ValueProp.Move),
         new DynamicVar("HitCount", 3m),
     ];
     public WhatLiesAhead() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }

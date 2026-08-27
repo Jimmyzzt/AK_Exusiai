@@ -18,7 +18,7 @@ public sealed class SwearOnThisGun : ExusiaiCardTemplate
     protected override bool ShowDeliveryHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(36m, ValueProp.Move),
+        new DamageVar(30m, ValueProp.Move),
         new CardsVar(3),
         new DynamicVar("Delivery", 3m),
     ];
@@ -45,5 +45,5 @@ public sealed class SwearOnThisGun : ExusiaiCardTemplate
         await DeliveryCmd.Add(choiceContext, selected, DynamicVars["Delivery"].IntValue);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(10m);
 }

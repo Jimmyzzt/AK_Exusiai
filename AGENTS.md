@@ -6,7 +6,7 @@
 
 - Mod ID、程序集名、PCK 名：`AK_Exusiai`。
 - 角色：能天使 / Exusiai；初始最大生命 77，初始金币 99。
-- 卡牌设计：`docs/AK_Exusiai-Card.csv`。
+- 当前卡牌设计：`docs/AK_Exusiai-Card_V0.1.csv`；旧版与平衡调整记录位于 `docs/archive/`。
 - 遗物与药水设计：`docs/AK_Exusiai-Relic_Potion.csv`。
 - 当前状态：角色、弹药、初始牌、9 个角色遗物、3 个角色药水、20 张普通牌、35 张罕见牌、25 张稀有牌及相关衍生牌已有实现；普通牌完成过回归，其余内容仍需集中测试。正式卡图尚未批量接入。
 - 当前进度和待测项只维护在 `docs/PROGRESS.md`，不要在本页追加流水账。
@@ -64,6 +64,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 
 - 无常规上限，战斗结束清空。
 - 有弹药时，每个实际打出的攻击牌消耗 1 发；0 弹药不阻止攻击。
+- “福音摇滚”按能力层数提高攻击牌的弹药消耗上限；与牌自身的多弹药上限相加，并同步用于卡面预览。无限上限牌仍保持无限。
 - 每发弹药使该次出牌的每段 Powered Attack 基础额外造成 2 点伤害，再叠加角色的“火力”。“临时火力”必须仿照原版临时集中：施加时同步增加火力，叠层时同步增加，回合结束时扣除等量火力。
 - Replay 的每个实际 `CardPlay` 分别结算；明确声明“不消耗弹药”的自动攻击按其专用逻辑处理。
 - 多段、AOE、延时伤害和卡面预览都必须分别核对，不能只验证生命值结果。
@@ -110,6 +111,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 ### 伤害、时序与预览
 
 - 延时伤害若复制打出时伤害，应在原 `CardPlay` 有效时保存最终攻击方修正值；下回合直接使用快照，不再次套用弹药或新的攻击方修正。
+- 向其他敌人传递主目标实际伤害时，参考原版“万向斩”：先记录主目标 `DamageResult`，再以 `TotalDamage + OverkillDamage` 和 `Unpowered | Move` 造成等量伤害，避免二次计算力量、火力等攻击修正。
 - 回合结束因虚无消耗而触发的抽牌必须参考原版“黑暗之拥”：在 `AfterCardExhausted(..., causedByEthereal: true)` 只累计次数，等 `AfterSideTurnEnd` 再抽牌，避免新牌被当前回合的弃牌清理移入弃牌堆。
 - 卡面预览读取当前临时能力；若牌自身会先创建增伤，再用牌专用预览接口补上即将获得的层数。
 - 复用临时力量等原版逻辑但要显示自制来源时，设置 `OriginModel`；自定义图标使用资源覆盖接口。

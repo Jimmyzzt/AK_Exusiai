@@ -30,8 +30,8 @@
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "After an Attack spends Ammo, deal the Ammo-added damage from each hit to ALL enemies.",
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "After an Attack spends Ammo, deal the Ammo-added damage from each hit to ALL enemies.",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.title": "The Lord's Forgiveness",
-  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "Otherwise Unplayable Curse cards can be played for {Energy:energyIcons()}, then Exhausted.",
-  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "Otherwise Unplayable Curse cards can be played for {Energy:energyIcons()}, then Exhausted.",
+  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "You may play otherwise Unplayable Curse cards for {Energy:energyIcons()}. Playing a Curse Exhausts it.",
+  "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "You may play otherwise Unplayable Curse cards for {Energy:energyIcons()}. Playing a Curse Exhausts it.",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.title": "Necklace of the Presence",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.description": "Whenever you spend [blue]1[/blue] Ammo, gain [blue]{Amount}[/blue] Block.",
   "AK_EXUSIAI_POWER_NECKLACE_OF_THE_PRESENCE_POWER.smartDescription": "Whenever you spend [blue]1[/blue] Ammo, gain [blue]{Amount}[/blue] Block.",
@@ -70,8 +70,8 @@
   ,"AK_EXUSIAI_POWER_CONFESSION_POWER.description": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s)."
   ,"AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s)."
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "Flammable & Explosive"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "After a Delivery card is played, deal [blue]{Amount}[/blue] damage to ALL enemies and gain [blue]1[/blue] Ammo."
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "After a Delivery card is played, deal [blue]{Amount}[/blue] damage to ALL enemies and gain [blue]1[/blue] Ammo."
+  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "After a Delivery card is played, deal [blue]{Amount}[/blue] damage to ALL enemies and gain [blue]{Ammo}[/blue] Ammo."
+  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "After a Delivery card is played, deal [blue]{Amount}[/blue] damage to ALL enemies and gain [blue]{Ammo}[/blue] Ammo."
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.title": "Flammable & Explosive Count"
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.description": "Tracks stacks of Flammable & Explosive."
   ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_STACKS_POWER.smartDescription": "Tracks stacks of Flammable & Explosive."
@@ -79,9 +79,8 @@
   ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "Whenever you play an Angel card, gain {Energy:energyIcons()}per stack."
   ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "Whenever you play an Angel card, gain {Energy:energyIcons()}per stack."
   ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "Rock n' Gospel"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "At the start of your turn, choose [blue]{Amount}[/blue] cards in your hand to gain Angel."
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "At the start of your turn, choose [blue]{Amount}[/blue] cards in your hand to gain Angel."
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt": "Choose cards in your hand to gain Angel."
+  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "Attack cards can spend [blue]{Amount}[/blue] additional Ammo."
+  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "Attack cards can spend [blue]{Amount}[/blue] additional Ammo."
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "Angel's Blessings"
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand."
   ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand."
