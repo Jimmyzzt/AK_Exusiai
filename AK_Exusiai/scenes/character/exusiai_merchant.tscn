@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/character/spine/default/build_exusiai_default_skeleton_data.tres" id="1_spine"]
+[ext_resource type="Script" path="res://AK_Exusiai/scripts/character/exusiai_spine_auto_player.gd" id="2_auto_player"]
 
 [node name="ExusiaiCharacterMerchant" type="Node2D"]
 
@@ -8,3 +9,6 @@
 unique_name_in_owner = true
 scale = Vector2(1, 1)
 skeleton_data_res = ExtResource("1_spine")
+
+[node name="AutoPlayer" type="Node" parent="Visuals"]
+script = ExtResource("2_auto_player")

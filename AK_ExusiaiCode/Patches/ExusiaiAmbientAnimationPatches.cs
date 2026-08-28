@@ -13,6 +13,7 @@ internal static class ExusiaiAmbientAnimation
     internal const string MerchantSceneRootName = "ExusiaiCharacterMerchant";
     internal const string RestSiteSceneRootName = "ExusiaiCharacterRestSite";
     internal const string MerchantAnimation = "Relax";
+    internal const string MerchantInteractAnimation = "Interact";
     internal const string RestSiteAnimation = "Sit";
 
     internal static Node? FindSpineSprite(Node root, string sceneRootName)
@@ -96,7 +97,7 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
 {
     public static string PatchId => "exusiai_merchant_relax_play_animation";
     public static string Description =>
-        "Map merchant animation requests to Exusiai's looping Relax animation";
+        "Map Exusiai's merchant idle and interaction requests to Relax and Interact";
 
     public static ModPatchTarget[] GetTargets() =>
     [
@@ -116,18 +117,27 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
         if (spineNode is null)
             return true;
 
-        string resolvedAnimation = anim == CharacterModel.relaxedAnim
-            ? ExusiaiAmbientAnimation.MerchantAnimation
-            : anim;
+        bool isIdleRequest = anim == CharacterModel.relaxedAnim
+            || anim == ExusiaiAmbientAnimation.MerchantAnimation;
         MegaSprite sprite = new(spineNode);
-        if (!sprite.HasAnimation(resolvedAnimation))
-            resolvedAnimation = ExusiaiAmbientAnimation.MerchantAnimation;
+        __instance.RunWhenSpineReady(sprite, animationState =>
+        {
+            if (isIdleRequest)
+            {
+                animationState.SetAnimation(
+                    ExusiaiAmbientAnimation.MerchantAnimation,
+                    loop: true);
+                return;
+            }
 
-        ExusiaiAmbientAnimation.Play(
-            __instance,
-            spineNode,
-            resolvedAnimation,
-            loop || resolvedAnimation == ExusiaiAmbientAnimation.MerchantAnimation);
+            animationState.SetAnimation(
+                ExusiaiAmbientAnimation.MerchantInteractAnimation,
+                loop: false);
+            animationState.AddAnimation(
+                ExusiaiAmbientAnimation.MerchantAnimation,
+                delay: 0f,
+                loop: true);
+        });
         return false;
     }
 }
