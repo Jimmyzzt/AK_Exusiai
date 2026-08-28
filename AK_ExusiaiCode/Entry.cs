@@ -35,6 +35,9 @@ public partial class Entry
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<ExusiaiDeathAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiGameOverAnimationPatch>();
+        _patcher.RegisterPatch<ExusiaiMerchantCharacterReadyPatch>();
+        _patcher.RegisterPatch<ExusiaiMerchantCharacterPlayAnimationPatch>();
+        _patcher.RegisterPatch<ExusiaiRestSiteCharacterReadyPatch>();
         if (!_patcher.PatchAll())
             throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");
 

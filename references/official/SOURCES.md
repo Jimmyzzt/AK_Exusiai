@@ -26,6 +26,6 @@
 | `references/official/asset/` 中 2026-08-23 新增的 14 张 PNG/JPG | 官方美术参考批次 | 项目维护者提供 | 保留原文件名 | 后续卡图构图与角色美术参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-23 |
 | `references/official/spine/char_103_angel/` | Spine 角色动画源素材 | [PRTS 能天使](https://prts.wiki/w/%E8%83%BD%E5%A4%A9%E4%BD%BF) / `char_spine/char_103_angel/meta.json` | 默认、午夜邮差、野地秘行、城市骑手的 `front` 与 `build` `.skel/.atlas/.png` | 战斗、火堆、商店及后续外观切换 | 仅下载“正面/基建”模型组并保持服务器原始目录与文件名；SHA-256、URL 见 `download_manifest.json` | Codex/2026-08-28 |
 | `references/official/spine/char_1041_angel2/` | Spine 角色动画源素材 | [PRTS 新约能天使](https://prts.wiki/w/%E6%96%B0%E7%BA%A6%E8%83%BD%E5%A4%A9%E4%BD%BF) / `char_spine/char_1041_angel2/meta.json` | 默认、寻翼之歌的 `front` 与 `build` `.skel/.atlas/.png` | 后续外观切换与场景动画 | 仅下载“正面/基建”模型组并保持服务器原始目录与文件名；SHA-256、URL 见 `download_manifest.json` | Codex/2026-08-28 |
-| `AK_Exusiai/images/character/spine/default/` | Spine 4.2.43 运行时资源 | 上述能天使默认 `front` 与 `build` 素材 | `char_103_angel*`、`build_char_103_angel*` | 首版默认战斗动画；基建模型预留给火堆/商店 | 使用 SpineSkeletonDataConverter v3.8 将 `.skel` 从 3.8 转为 4.2.43；`.atlas/.png` 未修改 | Codex/2026-08-28 |
+| `AK_Exusiai/images/character/spine/default/` | Spine 4.2.43 运行时资源 | 上述能天使默认 `front` 与 `build` 素材 | `char_103_angel*`、`build_char_103_angel*` | 首版默认战斗动画；基建模型用于火堆/商店 | 使用 SpineSkeletonDataConverter v3.8 将 `.skel` 从 3.8 转为 4.2.43；基建 PNG 从 PRTS 下载尺寸 312×312 规范化为 atlas 声明的 468×468，原始下载文件未修改 | Codex/2026-08-28 |
 
 不要在这里存放整套游戏资源、可执行文件、DLL/PCK、无关批量提取结果或其他 Mod 的素材。

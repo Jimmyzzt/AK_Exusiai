@@ -31,6 +31,17 @@ PRTS source skeletons are Spine 3.8.99. Convert runtime copies to the game's Spi
 
 Original downloads and their hashes remain under `references/official/spine/`; only converted runtime copies belong under `AK_Exusiai/images/character/spine/`.
 
+PRTS `build` textures are stored at two-thirds of the pixel dimensions declared by their `.atlas` files. Copying one unchanged makes the runtime sample the wrong rectangles and displays the character as scattered fragments. Keep the downloaded PNG unchanged under `references/`, then normalize only the runtime copy to the atlas page size:
+
+```powershell
+& $GodotExe --headless --path . --script .\tools\normalize_spine_texture.gd -- `
+  .\references\official\spine\char_103_angel\defaultskin\build\build_char_103_angel.atlas `
+  .\references\official\spine\char_103_angel\defaultskin\build\build_char_103_angel.png `
+  .\AK_Exusiai\images\character\spine\default\build_char_103_angel.png
+```
+
+The script reads the atlas page dimensions and applies Lanczos resizing only when the source dimensions differ. Front-model textures currently match their atlas dimensions and do not need this step.
+
 ## Card art manager
 
 Run the local Godot card-art GUI from the repository root:
