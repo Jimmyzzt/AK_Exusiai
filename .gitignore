@@ -10,6 +10,7 @@ obj/
 
 # Local machine configuration
 local.props
+SpineGodotExtension4.5.1/
 *.user
 *.suo
 

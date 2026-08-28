@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/character/spine/default/build_exusiai_default_skeleton_data.tres" id="1_spine"]
+
+[node name="ExusiaiCharacterMerchant" type="Node2D"]
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+scale = Vector2(1, 1)
+skeleton_data_res = ExtResource("1_spine")

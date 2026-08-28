@@ -33,6 +33,8 @@ public partial class Entry
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
         _patcher.RegisterPatch<AngelEnergyCostPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
+        _patcher.RegisterPatch<ExusiaiDeathAnimationPatch>();
+        _patcher.RegisterPatch<ExusiaiGameOverAnimationPatch>();
         if (!_patcher.PatchAll())
             throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");
 
@@ -86,6 +88,8 @@ public partial class Entry
             $"{ResPath}/images/potions/BottledHaloOutline.png",
             $"{ResPath}/images/ui/ammo.svg",
             $"{ResPath}/scenes/character/exusiai_visuals.tscn",
+            $"{ResPath}/scenes/character/exusiai_merchant.tscn",
+            $"{ResPath}/scenes/character/exusiai_rest_site.tscn",
         ];
 
         string[] missing = requiredPaths.Where(path => !ResourceLoader.Exists(path)).ToArray();

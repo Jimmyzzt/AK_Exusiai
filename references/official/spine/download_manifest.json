@@ -1,0 +1,366 @@
+{
+  "downloaded_utc": "2026-08-28T13:00:19.1183063Z",
+  "scope": "PRTS char_spine 正面/front and 基建/build model groups only",
+  "files": [
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.skel",
+      "bytes": 115418,
+      "sha256": "ce1a0c2ca945bde3ef558e97b2b03797baa07cd27dee52771a02b324617ddfef"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.atlas",
+      "bytes": 7707,
+      "sha256": "a0d642ffa17902ad00590a4977d75a173449d1212c9900f5149c1389173159e9"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/front/char_103_angel_sale_8.png",
+      "bytes": 61016,
+      "sha256": "61c0ea553724df63e4466ef1983c2ae85af40e4b59de489952f313fc9e9c50eb"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.skel",
+      "bytes": 268451,
+      "sha256": "b33adecde36e752286a32790d3a946c4e8487767ffae24b1e21452f2ca65ec53"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.atlas",
+      "bytes": 10557,
+      "sha256": "a541ffffc117db5fe72465f33feb5772686f4f5fdb61158f67771f20b9c6cc34"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "午夜邮差",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_sale_8/build/build_char_103_angel_sale_8.png",
+      "bytes": 477411,
+      "sha256": "5a62dd9809f9ace1b5c1cb9a023d22fd6aeb2563e5a24a02531eb414d927ef80"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.skel",
+      "bytes": 58241,
+      "sha256": "f1e773797ecada3274d40b5fca3719a7446e0f9cb40a52fd2e941cb5c3e5e00b"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.atlas",
+      "bytes": 5102,
+      "sha256": "76b43e5263e6b0f517c9fc71674a359e5fbd8b4da216aa415b0c7ef894fb3f72"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/front/char_103_angel_wild_1.png",
+      "bytes": 52146,
+      "sha256": "ee1fb682dc9d153f87e0c3bf9dce98eb2a25fb5fa7b6d3ac15a32104444c36c8"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.skel",
+      "bytes": 113069,
+      "sha256": "a1a70c12fe05c0d1400b883769f4eebb6b03e5346458cf60f6dfb7e0e171ef86"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.atlas",
+      "bytes": 6372,
+      "sha256": "b9fc5527563d76eb1e972043a70f614b255340abc644908f6e1a5ae260f5ff07"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "野地秘行",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_wild_1/build/build_char_103_angel_wild_1.png",
+      "bytes": 124746,
+      "sha256": "c74212cde44fec57cd314b2865d4c12f5e9ba17deccbb92216496cf22ce9b7f2"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.skel",
+      "bytes": 62708,
+      "sha256": "409e2e117be07a7cb86ae2911b12ff1ded7abce6ab3deab0ed0db547d1b3229c"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.atlas",
+      "bytes": 7243,
+      "sha256": "bf2f29b628eb81bf5636886a35caf241b82c34ec144b3a01608985703bfd17cf"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "正面",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/front/char_103_angel_kfc_1.png",
+      "bytes": 82424,
+      "sha256": "d3b12d6c7922bb067c60034d2937ac5c26529b984586a8b0969912967a8a21d1"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.skel",
+      "bytes": 99595,
+      "sha256": "985d404d754224ac394f30586d0fad507b6cb9e43bc45e65a6ba738ba105302e"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.atlas",
+      "bytes": 8215,
+      "sha256": "99b80fb2b167d51b5fa49dc08d6708f17468503639cd96439c3975723a3a3fcc"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "城市骑手",
+      "group": "基建",
+      "relative_path": "char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/char_103_angel_kfc_1/build/build_char_103_angel_kfc_1.png",
+      "bytes": 162300,
+      "sha256": "139693c15dfff3fae4634018d3563450d8eb8f8d1539be84182f0990703779ff"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_103_angel/defaultskin/front/char_103_angel.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/front/char_103_angel.skel",
+      "bytes": 52531,
+      "sha256": "b3d4b609b4124008f0e5a0bd6d0c9300aa3ce7826bc23d6236b101e5168ef20b"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_103_angel/defaultskin/front/char_103_angel.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/front/char_103_angel.atlas",
+      "bytes": 3721,
+      "sha256": "00c875197f07d3496dd3725d28592bc1dc6e16412fa6082daf633570a7584f1a"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_103_angel/defaultskin/front/char_103_angel.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/front/char_103_angel.png",
+      "bytes": 43716,
+      "sha256": "0eaaf61b2997dc4ae1baf56758802ee8476d99298e4ca4683cce7a4d991dc1f4"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_103_angel/defaultskin/build/build_char_103_angel.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/build/build_char_103_angel.skel",
+      "bytes": 81856,
+      "sha256": "55850a5b73f312eb1fa5bc164da42e9baae6545540cd4c0191476196b57caec7"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_103_angel/defaultskin/build/build_char_103_angel.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/build/build_char_103_angel.atlas",
+      "bytes": 4058,
+      "sha256": "f86f0c5430194ce9db63b461511b100d5e5c3eba5d56d4542998ba1ba76129f7"
+    },
+    {
+      "character": "char_103_angel",
+      "name": "能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_103_angel/defaultskin/build/build_char_103_angel.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_103_angel/defaultskin/build/build_char_103_angel.png",
+      "bytes": 86618,
+      "sha256": "e8604e3d9e6e9c855c1204964a12d8e703e9d48895a3a5bbfb5457d7d43a393b"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/defaultskin/front/char_1041_angel2.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/front/char_1041_angel2.skel",
+      "bytes": 1132701,
+      "sha256": "2b53b10e6518af9a2f870e08f0024bae0bfd9022f3e98bfe51eb967299cd9751"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/defaultskin/front/char_1041_angel2.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/front/char_1041_angel2.atlas",
+      "bytes": 13950,
+      "sha256": "a16547b88bb0ed7189d8ac75e12d5fa2dfe34d8e21b0bbaa6a7b3f635ff16023"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/defaultskin/front/char_1041_angel2.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/front/char_1041_angel2.png",
+      "bytes": 105816,
+      "sha256": "ffcaba985b13cf77b0c5879bf4c88c45f2d7b24722855f73cc115f5f2b38d76f"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/defaultskin/build/build_char_1041_angel2.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/build/build_char_1041_angel2.skel",
+      "bytes": 380821,
+      "sha256": "42d2c519b25da82a697bcfb684adf1d46ccab0d2b4120150bd92eb1730c24071"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/defaultskin/build/build_char_1041_angel2.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/build/build_char_1041_angel2.atlas",
+      "bytes": 21798,
+      "sha256": "ba51ed4b60eca1d59801897a336a442e633d2b29c9abc91c499358a16c34d40b"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "默认",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/defaultskin/build/build_char_1041_angel2.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/defaultskin/build/build_char_1041_angel2.png",
+      "bytes": 291158,
+      "sha256": "a34a69a61ee41d482d1eaa4257a4de724bde610b34f3bcbc6478339ba2533e4c"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.skel",
+      "bytes": 1696861,
+      "sha256": "033250ca1fa0306c4128a911a4f0e8d94771d79c6370b4b6927ba005513ef058"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.atlas",
+      "bytes": 18442,
+      "sha256": "9b90bd784ce512dc611a365e9fe28c9b9586d9df5ef543a1930658443087dab1"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "正面",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/front/char_1041_angel2_iteration_6.png",
+      "bytes": 191047,
+      "sha256": "3ca1a920a5039a5addaea6d184ad3b3069213d65001ac77f5d0d1aa7137ab166"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.skel",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.skel",
+      "bytes": 479093,
+      "sha256": "0210c5cb3a1c5d2346c760dc20255e1de532cab374adeaaa97077936229f1963"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.atlas",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.atlas",
+      "bytes": 14804,
+      "sha256": "d060611856eecc508b308fa43901ecf6ed96f3bd010b7713a657319724ff4b7a"
+    },
+    {
+      "character": "char_1041_angel2",
+      "name": "新约能天使",
+      "skin": "寻翼之歌",
+      "group": "基建",
+      "relative_path": "char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.png",
+      "source": "https://torappu.prts.wiki/assets/char_spine/char_1041_angel2/char_1041_angel2_iteration_6/build/build_char_1041_angel2_iteration_6.png",
+      "bytes": 304131,
+      "sha256": "826ec6703a2b2feb85a852993f4fd32d35613af3b273e5cea7b446cbc274a7f5"
+    }
+  ]
+}

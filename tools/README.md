@@ -10,6 +10,27 @@ The manifest in `generate_item_assets.gd` maps tracked source images to runtime 
 
 Relic code uses the generated 256×256 main image for both the small icon and large inspection image. Potion code uses one 80×80 main image and one 80×80 outline image, matching RitsuLib's current two-path potion asset profile.
 
+## Spine character assets
+
+Use the Windows Spine-Godot extension built for Godot 4.5.1 as a local editor dependency. Copy its complete directory into the repository root as `SpineGodotExtension4.5.1/`; that directory is ignored by Git and excluded from the exported PCK. The game already supplies its own Spine runtime, so the editor extension must not be shipped in the mod pack.
+
+After copying the extension, let Godot scan and import the `.atlas`, `.png`, and converted `.skel` files:
+
+```powershell
+& $GodotExe --headless --editor --path . --import
+& $GodotExe --headless --path . --script .\tools\validate_spine_setup.gd
+```
+
+The current ordinary Godot 4.5.1 Mono editor passes this validation; MegaDot is not required for the checked-in default Exusiai Spine scene. Keep `editor/export/convert_text_resources_to_binary=false` in `project.godot`, because binary conversion breaks the external custom Spine resource dependencies when they are loaded from the mod PCK.
+
+PRTS source skeletons are Spine 3.8.99. Convert runtime copies to the game's Spine 4.2.43 format with [SpineSkeletonDataConverter](https://github.com/wang606/SpineSkeletonDataConverter), for example:
+
+```powershell
+& .\SpineSkeletonDataConverter.exe input.skel output_42.skel -v 4.2.43
+```
+
+Original downloads and their hashes remain under `references/official/spine/`; only converted runtime copies belong under `AK_Exusiai/images/character/spine/`.
+
 ## Card art manager
 
 Run the local Godot card-art GUI from the repository root:

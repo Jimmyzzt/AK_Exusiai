@@ -2,12 +2,15 @@ using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using System.Runtime.CompilerServices;
 using Godot;
+using MegaCrit.Sts2.Core.Animation;
+using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -16,13 +19,21 @@ using AK_Exusiai.Relics;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
-using STS2RitsuLib.Scaffolding.Visuals.Definition;
+using STS2RitsuLib.Scaffolding.Godot;
+using STS2RitsuLib.Scaffolding.Visuals.StateMachine;
 
 namespace AK_Exusiai.Characters;
 
 [RegisterCharacter]
 public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelicPool, ExusiaiPotionPool>
 {
+    private const string CharacterScenePath =
+        $"{Entry.ResPath}/scenes/character/exusiai_visuals.tscn";
+    private const string MerchantScenePath =
+        $"{Entry.ResPath}/scenes/character/exusiai_merchant.tscn";
+    private const string RestSiteScenePath =
+        $"{Entry.ResPath}/scenes/character/exusiai_rest_site.tscn";
+
     private static readonly ConditionalWeakTable<Exusiai, AmmoData> AmmoDataByCharacter = new();
 
     private sealed class AmmoData
@@ -35,8 +46,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     public override Color NameColor => new("F04B61");
     public override int StartingHp => 77;
     public override int StartingGold => 99;
-    public override float AttackAnimDelay => 0.15f;
-    public override float CastAnimDelay => 0.2f;
+    public override float AttackAnimDelay => 0.35f;
+    public override float CastAnimDelay => 0.35f;
     public override bool ShouldReceiveCombatHooks => true;
     public override bool RequiresEpochAndTimeline => false;
     public override string? PlaceholderCharacterId => "IRONCLAD";
@@ -50,22 +61,71 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
 
     public override CharacterAssetProfile AssetProfile => new(
         Scenes: new CharacterSceneAssetSet(
-            VisualsPath: $"{Entry.ResPath}/scenes/character/exusiai_visuals.tscn"),
+            VisualsPath: CharacterScenePath,
+            MerchantAnimPath: MerchantScenePath,
+            RestSiteAnimPath: RestSiteScenePath),
         Ui: new CharacterUiAssetSet(
             IconTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             IconOutlineTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             CharacterSelectBgPath: $"{Entry.ResPath}/images/character/exusiai_select_bg.png",
             CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_select_icon.jpg",
-            MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
-        VisualCues: VisualCueSetBuilder.Create()
-            .Single("idle", $"{Entry.ResPath}/images/character/exusiai_stand.png")
-            .Single("relaxed", $"{Entry.ResPath}/images/character/exusiai_stand.png")
-            .Single("attack", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
-            .Single("cast", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
-            .Single("hit", $"{Entry.ResPath}/images/character/exusiai_stand.png", 0.2f)
-            .Single("dead", $"{Entry.ResPath}/images/character/exusiai_stand.png")
-            .Build());
+            MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"));
+
+    protected override CreatureAnimator? SetupCustomCreatureAnimator(MegaSprite controller)
+    {
+        AnimState idle = new("Idle", isLooping: true);
+        AnimState start = new("Start");
+        AnimState attack = new("Attack");
+        AnimState cast = new("Attack");
+        AnimState hit = new("Idle");
+        AnimState dead = new("Die");
+        AnimState relaxed = new("Idle", isLooping: true);
+
+        start.NextState = idle;
+        attack.NextState = idle;
+        cast.NextState = idle;
+        hit.NextState = idle;
+        relaxed.AddBranch("Idle", idle);
+
+        CreatureAnimator animator = new(start, controller);
+        animator.AddAnyState("Start", start);
+        animator.AddAnyState("Idle", idle);
+        animator.AddAnyState("Dead", dead);
+        animator.AddAnyState("Hit", hit);
+        animator.AddAnyState("Attack", attack);
+        animator.AddAnyState("Cast", cast);
+        animator.AddAnyState("Relaxed", relaxed);
+        return animator;
+    }
+
+    protected override NCreatureVisuals? TryCreateCreatureVisuals()
+    {
+        return RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(
+            CharacterScenePath);
+    }
+
+    protected override ModAnimStateMachine? SetupCustomMerchantAnimationStateMachine(
+        Node merchantRoot,
+        CharacterModel character)
+    {
+        return ModAnimStateMachines.StandardMerchantCue(
+            merchantRoot,
+            character,
+            idleName: "Relax",
+            relaxedName: "Relax");
+    }
+
+    protected override ModAnimStateMachine? SetupCustomRestSiteAnimationStateMachine(
+        Node restSiteRoot,
+        CharacterModel character)
+    {
+        return ModAnimStateMachines.StandardRestSiteCue(
+            restSiteRoot,
+            character,
+            idleName: "Sit",
+            relaxedName: "Sit");
+    }
 
     public override Task BeforeCombatStart()
     {
