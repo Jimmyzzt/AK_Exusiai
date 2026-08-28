@@ -18,7 +18,7 @@
 - 游戏基线：Slay the Spire 2 public beta `v0.111.0`。
 - Godot：4.5.1 Mono。
 - .NET SDK：9.x；目标框架 `net9.0`。
-- RitsuLib：`STS2.RitsuLib` 0.5.14，对应游戏 API 0.111.0。
+- RitsuLib：`STS2.RitsuLib` 0.5.17，对应游戏 API 0.111.0。
 - 各自通过未跟踪的 `local.props` 配置游戏、Godot 和部署目录；模板见 `local.props.template`。共享文件不得包含绝对路径。
 
 游戏、NuGet 编译包和游戏中部署的 RitsuLib 运行时必须匹配。不要仅因线上出现新版本就升级；先核对游戏 API、NuGet 包和运行时，再单独升级并回归。审计记录见 `docs/FRAMEWORK_AUDIT.md`。
@@ -123,7 +123,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - Godot 将 PNG 导入并写入 PCK，不等于卡牌会自动使用它；所有卡牌必须通过 `CardAssetProfile.PortraitPath` 绑定 `res://AK_Exusiai/images/cards/<ClassName>.png`，缺图时才回退到 RitsuLib 占位图。
 - `PowerAssetProfile` 当前加载静态 `Texture2D`；GIF 不会自动成为逐帧能力图标。动态效果需要 Godot 场景和专用 UI。
 - 能量视觉分为描述小图标、卡牌费用图标和战斗能量计数器场景；旋转/获得能量动画来自场景和 `NEnergyCounter`，不是 GIF。
-- 当前原版资源尺寸：遗物小图/轮廓 85×85，大图 256×256；药水小图/轮廓 80×80，原版大图 256×256。均使用透明方形画布；RitsuLib 0.5.14 的药水配置只直接覆盖小图和轮廓，大图需要另行验证或补充覆盖。
+- 当前原版资源尺寸：遗物小图/轮廓 85×85，大图 256×256；药水小图/轮廓 80×80，原版大图 256×256。均使用透明方形画布；RitsuLib 0.5.17 的药水配置只直接覆盖小图和轮廓，大图需要另行验证或补充覆盖。
 - 原版角色 `IconTexture` 为 85×85，且历史记录和顶部面板会直接使用该纹理尺寸；高分辨率源图保留在 `references/`，运行时角色头像由资源脚本缩放到 85×85。
 - 本项目遗物使用一张 256×256 主图兼作小图和大图，药水使用一张 80×80 主图；两者各有同尺寸白色轮廓图。替换源图后运行 `& $GodotExe --headless --path . --script .\tools\generate_item_assets.gd`，映射与详细说明见 `tools/README.md`。
 - `*.import` 是可再生元数据且被忽略。协作时提交源 PNG/JPG/SVG，并以完整构建中的 `reimport`、`savepack` 记录确认进入 PCK。
