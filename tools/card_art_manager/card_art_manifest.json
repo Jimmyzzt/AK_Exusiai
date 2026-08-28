@@ -45,7 +45,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1223,7 +1223,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1299,7 +1299,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1375,7 +1375,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1452,6 +1452,443 @@
       "bottom_color": "677485",
       "motif": "auto",
       "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "FreeDelivery": {
+      "source": "references/free/asset/货物清单-2.svg",
+      "zoom": 0.58,
+      "offset": [
+        0.0,
+        0.0015
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "angel_blue",
+      "gradient_mode": "diagonal",
+      "texture": "grid",
+      "top_color": "10273f",
+      "bottom_color": "52b8d6",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "FrozenTreat": {
+      "source": "references/free/art/冰镇甜品.svg",
+      "zoom": 0.46,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "radial",
+      "texture": "rays",
+      "top_color": "8c96a0",
+      "bottom_color": "3b889f",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "FullSalvo": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_172906_367.png",
+      "zoom": 1.36,
+      "offset": [
+        -0.0097,
+        -0.01
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "HolyCitysEmbrace": {
+      "source": "references/official/art/rogue_4_relic_fight_5.png",
+      "zoom": 0.43,
+      "offset": [
+        0.0,
+        -0.001
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "diagonal",
+      "texture": "grain",
+      "top_color": "989898",
+      "bottom_color": "d3c499",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "RockNGospel": {
+      "source": "references/free/art/福音摇滚.svg",
+      "zoom": 0.54,
+      "offset": [
+        0.0,
+        -0.0402
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "gradient_mode": "horizontal",
+      "texture": "grain",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LockedAndLoaded": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_173501_287.png",
+      "zoom": 1.469,
+      "offset": [
+        0.0972,
+        -0.0948
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "HotPursuit": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_174516_357.png",
+      "zoom": 1.714,
+      "offset": [
+        0.0279,
+        0.0034
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "JungleStyle": {
+      "source": "references/free/asset/ChatGPT Image 2026年8月28日 17_50_56.png",
+      "zoom": 0.68,
+      "offset": [
+        -0.0341,
+        -0.0323
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "red_alert",
+      "gradient_mode": "horizontal",
+      "texture": "grain",
+      "top_color": "35151d",
+      "bottom_color": "d35a48",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LoadEmUp": {
+      "source": "references/free/art/药水形状的弹夹.png",
+      "zoom": 0.32,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "horizontal",
+      "texture": "streaks",
+      "top_color": "2d2338",
+      "bottom_color": "6a8ab1",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Marksmanship": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_175305_166.png",
+      "zoom": 1.36,
+      "offset": [
+        -0.2434,
+        -0.0698
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "MayTheLordBeWithUs": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_175424_001.png",
+      "zoom": 1.36,
+      "offset": [
+        -0.0114,
+        0.1125
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "MayTheLordGuideUs": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_175600_905.png",
+      "zoom": 1.36,
+      "offset": [
+        -0.2561,
+        -0.0119
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "MoveOut": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_180729_314.png",
+      "zoom": 1.08,
+      "offset": [
+        0.003,
+        -0.0494
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "NecklaceOfThePresence": {
+      "source": "references/official/art/显圣吊坠.png",
+      "zoom": 0.504,
+      "offset": [
+        0.0096,
+        0.001
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "horizontal",
+      "texture": "grain",
+      "top_color": "aa833d",
+      "bottom_color": "9b928a",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "OverloadingMode": {
+      "source": "references/official/art/技能_过载模式.png",
+      "zoom": 0.46,
+      "offset": [
+        0.0,
+        -0.03
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "radial",
+      "texture": "grain",
+      "top_color": "ff5147",
+      "bottom_color": "1c1c1c",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Package": {
+      "source": "references/free/asset/快递.svg",
+      "zoom": 0.537,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "vertical",
+      "texture": "grid",
+      "top_color": "10273f",
+      "bottom_color": "3d8ca3",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": true,
+      "flip_vertical": false
+    },
+    "PenguinExpress": {
+      "source": "references/free/asset/运输带.svg",
+      "zoom": 0.794,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PenguinFreight": {
+      "source": "references/free/asset/货物-2.svg",
+      "zoom": 0.68,
+      "offset": [
+        -0.035,
+        -0.0272
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "penguin_night",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "182330",
+      "bottom_color": "677485",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ReadyForAction": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_175708_379.png",
+      "zoom": 1.08,
+      "offset": [
+        0.0076,
+        -0.0482
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PiercingStrike": {
+      "source": "references/official/asset/ScreenShot_2026-08-28_180413_398.png",
+      "zoom": 1.166,
+      "offset": [
+        -0.041,
+        -0.0412
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "QuickMag": {
+      "source": "references/free/asset/ChatGPT Image 2026年8月28日 18_12_31.png",
+      "zoom": 0.31,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "vertical",
+      "texture": "grain",
+      "top_color": "3f3f42",
+      "bottom_color": "777f58",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "SteadfastHeart": {
+      "source": "references/free/asset/{715C4470-3915-AE73-E7D0-F253206A1A35}.jpg",
+      "zoom": 1.001,
+      "offset": [
+        -0.0052,
+        0.002
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "ViolentDelivery": {
+      "source": "references/free/asset/{DE47A5AA-5CB5-208A-B898-6E1257BBFAD1}.jpg",
+      "zoom": 1.0,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     }
