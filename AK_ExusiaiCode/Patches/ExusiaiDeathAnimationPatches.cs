@@ -9,8 +9,8 @@ namespace AK_Exusiai.Patches;
 
 internal static class ExusiaiSpineAnimation
 {
-    private const string SkeletonDataPath =
-        $"{Entry.ResPath}/images/character/spine/default/exusiai_default_skeleton_data.tres";
+    private const string SkeletonDataRoot =
+        $"{Entry.ResPath}/images/character/spine/";
 
     internal static void PlayDeath(MegaAnimationState? animationState)
     {
@@ -36,7 +36,10 @@ internal static class ExusiaiSpineAnimation
 
         Variant skeletonDataVariant = node.Get("skeleton_data_res");
         Resource? skeletonData = skeletonDataVariant.AsGodotObject() as Resource;
-        return skeletonData?.ResourcePath == SkeletonDataPath;
+        string? path = skeletonData?.ResourcePath;
+        return path is not null
+            && path.StartsWith(SkeletonDataRoot, StringComparison.Ordinal)
+            && path.EndsWith("/combat_skeleton_data.tres", StringComparison.Ordinal);
     }
 }
 
@@ -80,7 +83,7 @@ internal sealed class ExusiaiGameOverAnimationPatch : IPatchMethod
         foreach (Node spineNode in ExusiaiSpineAnimation.FindExusiaiSpineSprites(creatureContainer))
         {
             MegaSprite sprite = new(spineNode);
-            if (sprite.HasAnimation("Die") && !sprite.HasAnimation("die"))
+            if (sprite.HasAnimation("Die"))
                 ExusiaiSpineAnimation.PlayDeath(sprite.GetAnimationState());
         }
     }

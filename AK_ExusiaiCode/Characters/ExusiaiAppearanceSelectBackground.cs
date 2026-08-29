@@ -17,17 +17,8 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
     [Export(PropertyHint.Range, "0.1,1.0,0.05")]
     public float ArrowScale { get; set; } = 0.2f;
 
-    [Export]
-    public Vector2 CharacterArrowCenterRatio { get; set; } = new(0.205f, 0.074f);
-
-    [Export]
-    public Vector2 OutfitArrowCenterRatio { get; set; } = new(0.205f, 0.173f);
-
-    [Export]
-    public Vector2 PreviousArrowOffset { get; set; } = new(-165f, 0f);
-
-    [Export]
-    public Vector2 NextArrowOffset { get; set; } = new(-20f, 0f);
+    [Export(PropertyHint.Range, "80,300,5")]
+    public float ArrowDistance { get; set; } = 180f;
 
     private Node _preview = null!;
     private TextureRect _background = null!;
@@ -153,12 +144,12 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
             return;
         }
 
-        Vector2 characterCenter = Size * CharacterArrowCenterRatio;
-        _previousCharacter.Position = characterCenter + PreviousArrowOffset;
-        _nextCharacter.Position = characterCenter + NextArrowOffset;
-        Vector2 outfitCenter = Size * OutfitArrowCenterRatio;
-        _previousOutfit.Position = outfitCenter + PreviousArrowOffset;
-        _nextOutfit.Position = outfitCenter + NextArrowOffset;
+        Vector2 characterCenter = GetLabelCenter(_characterSelector, _characterName);
+        CenterArrow(_previousCharacter, characterCenter + Vector2.Left * ArrowDistance);
+        CenterArrow(_nextCharacter, characterCenter + Vector2.Right * ArrowDistance);
+        Vector2 outfitCenter = GetLabelCenter(_outfitSelector, _outfitName);
+        CenterArrow(_previousOutfit, outfitCenter + Vector2.Left * ArrowDistance);
+        CenterArrow(_nextOutfit, outfitCenter + Vector2.Right * ArrowDistance);
 
         _previousCharacter.FocusNeighborRight = _nextCharacter.GetPath();
         _nextCharacter.FocusNeighborLeft = _previousCharacter.GetPath();
@@ -168,6 +159,17 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
         _nextOutfit.FocusNeighborTop = _nextCharacter.GetPath();
         _previousOutfit.FocusNeighborRight = _nextOutfit.GetPath();
         _nextOutfit.FocusNeighborLeft = _previousOutfit.GetPath();
+    }
+
+    private static Vector2 GetLabelCenter(Control selector, Control label) =>
+        selector.Position + label.Position + label.Size * 0.5f;
+
+    private static void CenterArrow(NGoldArrowButton button, Vector2 targetCenter)
+    {
+        TextureRect icon = button.GetNode<TextureRect>("TextureRect");
+        button.PivotOffset = Vector2.Zero;
+        Vector2 iconCenter = icon.Position + icon.Size * 0.5f;
+        button.Position = targetCenter - iconCenter * button.Scale;
     }
 
     private void ChangeCharacter(int delta)
