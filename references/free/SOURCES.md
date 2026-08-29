@@ -32,3 +32,7 @@
 | `references/free/art/药水形状的弹夹.png` | PNG 药水图 | 项目维护者提供 | “药水形状的弹匣”药水图标 | 脚本裁切、等比缩放并生成 `PotionShapedMag.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/大帝的珍藏.png` | PNG 药水图 | 项目维护者提供 | “大帝的珍藏”药水图标 | 脚本裁切、等比缩放并生成 `EmperorsStash.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/瓶装光环.png` | PNG 药水图 | 项目维护者提供 | “瓶装光环”药水图标 | 脚本裁切、等比缩放并生成 `BottledHalo.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/asset/Exusiai_multiplayer_hand_point.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房指向手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_point.png` | 项目自有素材 |
+| `references/free/asset/Exusiai_multiplayer_hand_rock.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“石头”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_rock.png` | 项目自有素材 |
+| `references/free/asset/Exusiai_multiplayer_hand_paper.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“布”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_paper.png` | 项目自有素材 |
+| `references/free/asset/Exusiai_multiplayer_hand_scissors.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“剪刀”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_scissors.png` | 项目自有素材 |

@@ -70,7 +70,12 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             CharacterSelectBgPath: $"{Entry.ResPath}/images/character/exusiai_select_bg.png",
             CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_select_icon.jpg",
-            MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"));
+            MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
+        Multiplayer: new CharacterMultiplayerAssetSet(
+            ArmPointingTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_point.png",
+            ArmRockTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_rock.png",
+            ArmPaperTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_paper.png",
+            ArmScissorsTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_scissors.png"));
 
     protected override CreatureAnimator? SetupCustomCreatureAnimator(MegaSprite controller)
     {
