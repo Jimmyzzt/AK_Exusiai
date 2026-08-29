@@ -47,6 +47,9 @@ internal static class ExusiaiAppearanceManager
     ];
 
     private static readonly int[] SelectedSkins = new int[Characters.Length];
+    private static Resource? _cachedCombatSkeletonData;
+    private static string? _cachedCombatSkeletonPath;
+    private static string? _pendingCombatSkeletonPath;
     private static bool _initialized;
     private static int _selectedCharacter;
 
@@ -91,20 +94,22 @@ internal static class ExusiaiAppearanceManager
 
         _initialized = true;
         ConfigFile config = new();
-        if (config.Load(ConfigPath) != Error.Ok)
-            return;
-
-        _selectedCharacter = Math.Clamp(
-            config.GetValue(ConfigSection, CharacterKey, 0).AsInt32(),
-            0,
-            Characters.Length - 1);
-        for (int index = 0; index < Characters.Length; index++)
+        if (config.Load(ConfigPath) == Error.Ok)
         {
-            SelectedSkins[index] = Math.Clamp(
-                config.GetValue(ConfigSection, SkinKey(index), 0).AsInt32(),
+            _selectedCharacter = Math.Clamp(
+                config.GetValue(ConfigSection, CharacterKey, 0).AsInt32(),
                 0,
-                Characters[index].Skins.Length - 1);
+                Characters.Length - 1);
+            for (int index = 0; index < Characters.Length; index++)
+            {
+                SelectedSkins[index] = Math.Clamp(
+                    config.GetValue(ConfigSection, SkinKey(index), 0).AsInt32(),
+                    0,
+                    Characters[index].Skins.Length - 1);
+            }
         }
+
+        BeginSelectedCombatPreload();
     }
 
     internal static void SelectCharacter(int index)
@@ -112,6 +117,7 @@ internal static class ExusiaiAppearanceManager
         Initialize();
         _selectedCharacter = Wrap(index, Characters.Length);
         Save();
+        BeginSelectedCombatPreload();
     }
 
     internal static void SelectSkin(int index)
@@ -119,16 +125,23 @@ internal static class ExusiaiAppearanceManager
         Initialize();
         SelectedSkins[_selectedCharacter] = Wrap(index, SelectedSkinCount);
         Save();
+        BeginSelectedCombatPreload();
     }
 
-    internal static bool ApplyCombatSkin(Node root) =>
-        ApplySkin(root, SelectedSkin.CombatSkeletonPath);
+    internal static bool ApplyCombatSkin(Node root)
+    {
+        Node? spineNode = FindSpineSprite(root);
+        return spineNode is not null && ApplyCombatSkinToSprite(spineNode);
+    }
 
     internal static bool ApplyBuildSkin(Node root) =>
         ApplySkin(root, SelectedSkin.BuildSkeletonPath);
 
-    internal static bool ApplyCombatSkinToSprite(Node spineNode) =>
-        ApplySkinToSprite(spineNode, SelectedSkin.CombatSkeletonPath);
+    internal static bool ApplyCombatSkinToSprite(Node spineNode)
+    {
+        Resource? skeletonData = GetSelectedCombatSkeletonData();
+        return skeletonData is not null && ApplySkeletonData(spineNode, skeletonData);
+    }
 
     internal static bool ApplyBuildSkinToSprite(Node spineNode) =>
         ApplySkinToSprite(spineNode, SelectedSkin.BuildSkeletonPath);
@@ -208,10 +221,59 @@ internal static class ExusiaiAppearanceManager
             return false;
         }
 
+        return ApplySkeletonData(spineNode, skeletonData);
+    }
+
+    private static bool ApplySkeletonData(Node spineNode, Resource skeletonData)
+    {
         MegaSprite sprite = new(spineNode);
         MegaSkeletonDataResource data = new(Variant.From(skeletonData));
         sprite.SetSkeletonDataRes(data);
         return true;
+    }
+
+    private static void BeginSelectedCombatPreload()
+    {
+        string path = SelectedSkin.CombatSkeletonPath;
+        if (_cachedCombatSkeletonPath == path || _pendingCombatSkeletonPath == path)
+            return;
+
+        _cachedCombatSkeletonData = null;
+        _cachedCombatSkeletonPath = null;
+        Error error = ResourceLoader.LoadThreadedRequest(
+            path,
+            null,
+            useSubThreads: true,
+            ResourceLoader.CacheMode.Reuse);
+        if (error == Error.Ok)
+        {
+            _pendingCombatSkeletonPath = path;
+            return;
+        }
+
+        _pendingCombatSkeletonPath = null;
+        Entry.Logger.Warn($"Unable to preload Exusiai combat appearance: {path} ({error})");
+    }
+
+    private static Resource? GetSelectedCombatSkeletonData()
+    {
+        string path = SelectedSkin.CombatSkeletonPath;
+        if (_cachedCombatSkeletonPath == path && _cachedCombatSkeletonData is not null)
+            return _cachedCombatSkeletonData;
+
+        Resource? resource = _pendingCombatSkeletonPath == path
+            ? ResourceLoader.LoadThreadedGet(path)
+            : ResourceLoader.Load<Resource>(path, null, ResourceLoader.CacheMode.Reuse);
+        _pendingCombatSkeletonPath = null;
+        if (resource is null)
+        {
+            Entry.Logger.Error($"Unable to load Exusiai combat appearance: {path}");
+            return null;
+        }
+
+        _cachedCombatSkeletonPath = path;
+        _cachedCombatSkeletonData = resource;
+        return resource;
     }
 
     private sealed record CharacterDefinition(

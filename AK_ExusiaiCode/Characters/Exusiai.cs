@@ -117,18 +117,14 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
     {
         AnimState idle = new("Idle", isLooping: true);
         AnimState start = new("Start");
-        AnimState attackBegin = new("Attack_Begin");
-        AnimState attackLoop = new("Attack_Loop");
-        AnimState attackEnd = new("Attack_End");
+        AnimState attack = new("Attack_Loop");
         AnimState cast = new("Skill_3_Skill");
         AnimState hit = new("Idle");
         AnimState dead = new("Die");
         AnimState relaxed = new("Idle", isLooping: true);
 
         start.NextState = idle;
-        attackBegin.NextState = attackLoop;
-        attackLoop.NextState = attackEnd;
-        attackEnd.NextState = idle;
+        attack.NextState = idle;
         cast.NextState = idle;
         hit.NextState = idle;
         relaxed.AddBranch("Idle", idle);
@@ -138,7 +134,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         animator.AddAnyState("Idle", idle);
         animator.AddAnyState("Dead", dead);
         animator.AddAnyState("Hit", hit);
-        animator.AddAnyState("Attack", attackBegin);
+        animator.AddAnyState("Attack", attack);
         animator.AddAnyState("Cast", cast);
         animator.AddAnyState("Relaxed", relaxed);
         return animator;
@@ -159,11 +155,10 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         Node merchantRoot,
         CharacterModel character)
     {
-        return ModAnimStateMachines.StandardMerchantCue(
-            merchantRoot,
-            character,
-            idleName: ExusiaiAppearanceManager.SelectedMerchantAnimation,
-            relaxedName: ExusiaiAppearanceManager.SelectedMerchantAnimation);
+        // The merchant scene is Spine-driven by the merchant compatibility patches.
+        // Returning a second RitsuLib state machine would make both systems own
+        // the same track and can leave a queued loop alive while abandoning a run.
+        return null;
     }
 
     protected override ModAnimStateMachine? SetupCustomRestSiteAnimationStateMachine(

@@ -136,10 +136,6 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
             animationState.SetAnimation(
                 ExusiaiAmbientAnimation.MerchantInteractAnimation,
                 loop: false);
-            animationState.AddAnimation(
-                idleAnimation,
-                delay: 0f,
-                loop: true);
         });
         return false;
     }

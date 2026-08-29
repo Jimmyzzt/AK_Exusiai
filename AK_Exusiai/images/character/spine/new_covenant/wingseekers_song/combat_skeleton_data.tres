@@ -6,4 +6,4 @@
 [resource]
 atlas_res = ExtResource("1_atlas")
 skeleton_file_res = ExtResource("2_skeleton")
-default_mix = 0.15
+default_mix = 0.0

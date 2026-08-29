@@ -20,9 +20,7 @@ const CHARACTER_SCENES := {
 const EXUSIAI_COMBAT_ANIMATIONS := ["Idle", "Attack", "Die"]
 const NEW_COVENANT_COMBAT_ANIMATIONS := [
     "Idle",
-    "Attack_Begin",
     "Attack_Loop",
-    "Attack_End",
     "Skill_3_Skill",
     "Die",
 ]

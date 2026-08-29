@@ -36,6 +36,7 @@ public partial class Entry
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<ExusiaiDeathAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiGameOverAnimationPatch>();
+        _patcher.RegisterPatch<ExusiaiNewCovenantAttackAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiMerchantCharacterReadyPatch>();
         _patcher.RegisterPatch<ExusiaiMerchantCharacterPlayAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiRestSiteCharacterReadyPatch>();
