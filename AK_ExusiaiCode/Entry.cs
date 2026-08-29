@@ -27,6 +27,7 @@ public partial class Entry
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
+        ExusiaiAppearanceManager.Initialize();
         ExusiaiKeywords.Register();
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 
@@ -93,6 +94,21 @@ public partial class Entry
             $"{ResPath}/scenes/character/exusiai_visuals.tscn",
             $"{ResPath}/scenes/character/exusiai_merchant.tscn",
             $"{ResPath}/scenes/character/exusiai_rest_site.tscn",
+            $"{ResPath}/scenes/character/exusiai_character_select_bg.tscn",
+            $"{ResPath}/images/character/appearance/Exusiai.png",
+            $"{ResPath}/images/character/appearance/Exusiai_the_New_Covenant.png",
+            $"{ResPath}/images/character/spine/exusiai/default/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/default/build_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/midnight_delivery/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/midnight_delivery/build_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/wild_operation/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/wild_operation/build_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/city_rider/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/exusiai/city_rider/build_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/new_covenant/default/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/new_covenant/default/build_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/new_covenant/wingseekers_song/combat_skeleton_data.tres",
+            $"{ResPath}/images/character/spine/new_covenant/wingseekers_song/build_skeleton_data.tres",
         ];
 
         string[] missing = requiredPaths.Where(path => !ResourceLoader.Exists(path)).ToArray();

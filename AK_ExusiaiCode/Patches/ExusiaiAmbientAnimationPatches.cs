@@ -1,4 +1,5 @@
 using Godot;
+using AK_Exusiai.Characters;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
@@ -12,7 +13,6 @@ internal static class ExusiaiAmbientAnimation
 {
     internal const string MerchantSceneRootName = "ExusiaiCharacterMerchant";
     internal const string RestSiteSceneRootName = "ExusiaiCharacterRestSite";
-    internal const string MerchantAnimation = "Relax";
     internal const string MerchantInteractAnimation = "Interact";
     internal const string RestSiteAnimation = "Sit";
 
@@ -69,7 +69,7 @@ internal sealed class ExusiaiMerchantCharacterReadyPatch : IPatchMethod
 {
     public static string PatchId => "exusiai_merchant_relax_ready";
     public static string Description =>
-        "Start Exusiai's looping Relax animation when the merchant scene becomes ready";
+        "Start Exusiai's selected looping merchant animation when the scene becomes ready";
 
     public static ModPatchTarget[] GetTargets() =>
     [
@@ -84,10 +84,11 @@ internal sealed class ExusiaiMerchantCharacterReadyPatch : IPatchMethod
         if (spineNode is null)
             return true;
 
+        ExusiaiAppearanceManager.ApplyBuildSkinToSprite(spineNode);
         ExusiaiAmbientAnimation.Play(
             __instance,
             spineNode,
-            ExusiaiAmbientAnimation.MerchantAnimation,
+            ExusiaiAppearanceManager.SelectedMerchantAnimation,
             loop: true);
         return false;
     }
@@ -118,14 +119,16 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
             return true;
 
         bool isIdleRequest = anim == CharacterModel.relaxedAnim
-            || anim == ExusiaiAmbientAnimation.MerchantAnimation;
+            || anim == "Relax"
+            || anim == "Special";
+        string idleAnimation = ExusiaiAppearanceManager.SelectedMerchantAnimation;
         MegaSprite sprite = new(spineNode);
         __instance.RunWhenSpineReady(sprite, animationState =>
         {
             if (isIdleRequest)
             {
                 animationState.SetAnimation(
-                    ExusiaiAmbientAnimation.MerchantAnimation,
+                    idleAnimation,
                     loop: true);
                 return;
             }
@@ -134,7 +137,7 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
                 ExusiaiAmbientAnimation.MerchantInteractAnimation,
                 loop: false);
             animationState.AddAnimation(
-                ExusiaiAmbientAnimation.MerchantAnimation,
+                idleAnimation,
                 delay: 0f,
                 loop: true);
         });
@@ -161,6 +164,7 @@ internal sealed class ExusiaiRestSiteCharacterReadyPatch : IPatchMethod
         if (spineNode is null)
             return;
 
+        ExusiaiAppearanceManager.ApplyBuildSkinToSprite(spineNode);
         ExusiaiAmbientAnimation.Play(
             __instance,
             spineNode,

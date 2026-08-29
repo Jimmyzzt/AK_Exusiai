@@ -11,5 +11,14 @@
   "AK_EXUSIAI_CHARACTER_EXUSIAI.cardsModifierDescription": "Adds cards from Exusiai's card pool.",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.eventDeathPrevention": "Not done yet!",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.banter.alive.endTurnPing": "Oh Lord... is this another soul for us to save?",
-  "AK_EXUSIAI_CHARACTER_EXUSIAI.unlockText": "Available immediately."
+  "AK_EXUSIAI_CHARACTER_EXUSIAI.unlockText": "Available immediately.",
+  "AK_EXUSIAI_APPEARANCE.characterTitle": "Character",
+  "AK_EXUSIAI_APPEARANCE.outfitTitle": "Outfit",
+  "AK_EXUSIAI_APPEARANCE.character.exusiai": "Exusiai",
+  "AK_EXUSIAI_APPEARANCE.character.newCovenant": "Exusiai the New Covenant",
+  "AK_EXUSIAI_APPEARANCE.outfit.default": "Default",
+  "AK_EXUSIAI_APPEARANCE.outfit.midnightDelivery": "Midnight Delivery",
+  "AK_EXUSIAI_APPEARANCE.outfit.wildOperation": "Wild Operation",
+  "AK_EXUSIAI_APPEARANCE.outfit.cityRider": "City Rider",
+  "AK_EXUSIAI_APPEARANCE.outfit.wingseekersSong": "Wingseeker's Song"
 }

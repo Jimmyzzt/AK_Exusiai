@@ -17,7 +17,8 @@
 | `references/official/art/企鹅物流logo.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `企鹅物流logo.png` | “物流外包”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/LogisticsOutsourcingPower.png` | 主维护者/2026-08-22 |
 | `references/official/art/Logo_拉特兰.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `Logo_拉特兰.png` | “共感形态”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/EmpathyFormPower.png` | 主维护者/2026-08-22 |
 | `references/official/art/半身.jpg` | JPG 角色立绘 | 《明日方舟》官方美术（项目维护者提供） | `半身.jpg` | 角色选择界面小图 | 源文件未修改；复制为 `AK_Exusiai/images/character/exusiai_select_icon.jpg` | 主维护者/2026-08-23 |
-| `references/official/art/Avg_61_i23_upscayl_2x_upscayl-standard-4x.png` | PNG CG | 《明日方舟》官方游戏素材的放大版本（项目维护者提供） | `Avg_61_i23_upscayl_2x_upscayl-standard-4x.png` | 角色选择界面背景 | 源文件未修改；复制并替换 `AK_Exusiai/images/character/exusiai_select_bg.png` | 主维护者/2026-08-23 |
+| `references/official/art/Exusiai.png` | PNG 角色背景 | 《明日方舟》官方美术（项目维护者提供） | `Exusiai.png` | 选择“能天使”时的角色选择背景 | 源文件未修改；复制为 `AK_Exusiai/images/character/appearance/Exusiai.png` | 主维护者/2026-08-29 |
+| `references/official/art/Exusiai_the_New_Covenant.png` | PNG 角色背景 | 《明日方舟》官方美术（项目维护者提供） | `Exusiai_the_New_Covenant.png` | 选择“新约能天使”时的角色选择背景 | 源文件未修改；复制为 `AK_Exusiai/images/character/appearance/Exusiai_the_New_Covenant.png` | 主维护者/2026-08-29 |
 | `references/official/asset/03e9a2097fc80e8a8cee4fc0a04607cc59597d60.jpg` | JPG 源素材 | 项目维护者提供 | `03e9a2097fc80e8a8cee4fc0a04607cc59597d60.jpg` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
 | `references/official/asset/4dbed73c549864a582df1318f25b2b41.webp` | WebP 源素材 | 项目维护者提供 | `4dbed73c549864a582df1318f25b2b41.webp` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
 | `references/official/asset/5c5a29dae10fb026ddf002bca59d8374161775300.jpg` | JPG 源素材 | 项目维护者提供 | `5c5a29dae10fb026ddf002bca59d8374161775300.jpg` | 后续卡牌与角色美术制作参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-22 |
@@ -26,6 +27,6 @@
 | `references/official/asset/` 中 2026-08-23 新增的 14 张 PNG/JPG | 官方美术参考批次 | 项目维护者提供 | 保留原文件名 | 后续卡图构图与角色美术参考 | 源文件未修改，当前未接入运行时 | 主维护者/2026-08-23 |
 | `references/official/spine/char_103_angel/` | Spine 角色动画源素材 | [PRTS 能天使](https://prts.wiki/w/%E8%83%BD%E5%A4%A9%E4%BD%BF) / `char_spine/char_103_angel/meta.json` | 默认、午夜邮差、野地秘行、城市骑手的 `front` 与 `build` `.skel/.atlas/.png` | 战斗、火堆、商店及后续外观切换 | 仅下载“正面/基建”模型组并保持服务器原始目录与文件名；SHA-256、URL 见 `download_manifest.json` | Codex/2026-08-28 |
 | `references/official/spine/char_1041_angel2/` | Spine 角色动画源素材 | [PRTS 新约能天使](https://prts.wiki/w/%E6%96%B0%E7%BA%A6%E8%83%BD%E5%A4%A9%E4%BD%BF) / `char_spine/char_1041_angel2/meta.json` | 默认、寻翼之歌的 `front` 与 `build` `.skel/.atlas/.png` | 后续外观切换与场景动画 | 仅下载“正面/基建”模型组并保持服务器原始目录与文件名；SHA-256、URL 见 `download_manifest.json` | Codex/2026-08-28 |
-| `AK_Exusiai/images/character/spine/default/` | Spine 4.2.43 运行时资源 | 上述能天使默认 `front` 与 `build` 素材 | `char_103_angel*`、`build_char_103_angel*` | 首版默认战斗动画；基建模型用于火堆/商店 | 使用 SpineSkeletonDataConverter v3.8 将 `.skel` 从 3.8 转为 4.2.43；基建 PNG 从 PRTS 下载尺寸 312×312 规范化为 atlas 声明的 468×468，原始下载文件未修改 | Codex/2026-08-28 |
+| `AK_Exusiai/images/character/spine/` | Spine 4.2.43 运行时资源 | 上述能天使 4 套、新约能天使 2 套 `front` 与 `build` 素材 | `char_103_angel*`、`char_1041_angel2*` 及对应 `build_*` | 战斗、预览、火堆、商店和外观切换 | 使用 SpineSkeletonDataConverter v3.8 将 12 个 `.skel` 从 3.8 转为 4.2.43；全部基建 PNG 规范化为 atlas 声明尺寸，原始下载文件未修改 | Codex/2026-08-29 |
 
 不要在这里存放整套游戏资源、可执行文件、DLL/PCK、无关批量提取结果或其他 Mod 的素材。
