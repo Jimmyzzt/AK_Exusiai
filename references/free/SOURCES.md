@@ -36,3 +36,6 @@
 | `references/free/asset/Exusiai_multiplayer_hand_rock.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“石头”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_rock.png` | 项目自有素材 |
 | `references/free/asset/Exusiai_multiplayer_hand_paper.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“布”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_paper.png` | 项目自有素材 |
 | `references/free/asset/Exusiai_multiplayer_hand_scissors.png` | PNG 多人手势 | 项目维护者绘制并提供 | 多人宝箱房“剪刀”手势 | 原样复制为 `AK_Exusiai/images/character/Exusiai_multiplayer_hand_scissors.png` | 项目自有素材 |
+| `references/free/asset/ChatGPT Image 2026年8月29日 03_11_13.psd` | PSD 美术工程文件 | 项目维护者提供的 AI 辅助绘制素材 | 后续角色与多人手势美术修改参考 | 源文件未修改，当前不接入运行时 | 项目自有工作文件 |
+| `references/free/asset/ChatGPT Image 2026年8月29日 03_40_37.png` | PNG 美术源图 | 项目维护者提供的 AI 辅助绘制素材 | 后续角色与多人手势美术修改参考 | 源文件未修改，当前不接入运行时 | 项目自有工作文件 |
+| `references/free/asset/ChatGPT Image 2026年8月29日 16_53_10.png` | PNG 美术源图 | 项目维护者提供的 AI 辅助绘制素材 | 后续角色与多人手势美术修改参考 | 源文件未修改，当前不接入运行时 | 项目自有工作文件 |

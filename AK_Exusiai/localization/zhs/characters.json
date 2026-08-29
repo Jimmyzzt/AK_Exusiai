@@ -11,5 +11,14 @@
   "AK_EXUSIAI_CHARACTER_EXUSIAI.cardsModifierDescription": "加入能天使牌池中的卡牌。",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.eventDeathPrevention": "还没结束呢！",
   "AK_EXUSIAI_CHARACTER_EXUSIAI.banter.alive.endTurnPing": "......主啊，这个人也是我们要拯救的吗？",
-  "AK_EXUSIAI_CHARACTER_EXUSIAI.unlockText": "无需解锁。"
+  "AK_EXUSIAI_CHARACTER_EXUSIAI.unlockText": "无需解锁。",
+  "AK_EXUSIAI_APPEARANCE.characterTitle": "角色",
+  "AK_EXUSIAI_APPEARANCE.outfitTitle": "时装",
+  "AK_EXUSIAI_APPEARANCE.character.exusiai": "能天使",
+  "AK_EXUSIAI_APPEARANCE.character.newCovenant": "新约能天使",
+  "AK_EXUSIAI_APPEARANCE.outfit.default": "默认",
+  "AK_EXUSIAI_APPEARANCE.outfit.midnightDelivery": "午夜邮差",
+  "AK_EXUSIAI_APPEARANCE.outfit.wildOperation": "野地秘行",
+  "AK_EXUSIAI_APPEARANCE.outfit.cityRider": "城市骑手",
+  "AK_EXUSIAI_APPEARANCE.outfit.wingseekersSong": "寻翼之歌"
 }

@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://dchqrkxr2cllu"]
+
+[ext_resource type="Script" uid="uid://bsuwphrmvfat1" path="res://AK_ExusiaiCode/Characters/ExusiaiAppearanceSelectBackground.cs" id="1_script"]
+[ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/character/spine/exusiai/default/combat_skeleton_data.tres" id="2_spine"]
+
+[node name="ExusiaiCharacterSelectBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 1600.0
+offset_bottom = 660.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1280, 600)
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1280.0
+offset_top = -600.0
+offset_right = 640.0
+offset_bottom = 478.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AppearancePreview" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_spine")
+preview_skin = "Default"
+preview_animation = "-- Empty --"
+preview_frame = false
+preview_time = 0.0
+z_index = 2
+position = Vector2(500, 343)
+scale = Vector2(0.45, 0.45)
+
+[node name="CharacterSelector" type="Control" parent="."]
+z_index = 3
+anchors_preset = 0
+offset_left = 380.0
+offset_top = 35.0
+offset_right = 620.0
+offset_bottom = 151.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="CharacterSelector"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 37.0
+theme_override_colors/font_color = Color(0.95, 0.84, 0.48, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.04, 0.02, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Character"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Name" type="Label" parent="CharacterSelector"]
+layout_mode = 0
+offset_top = 45.0
+offset_right = 240.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(1, 0.93, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.04, 0.02, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "Exusiai the New covergence"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="OutfitSelector" type="Control" parent="."]
+z_index = 3
+anchors_preset = 0
+offset_left = 610.0
+offset_top = 35.0
+offset_right = 845.0
+offset_bottom = 145.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="OutfitSelector"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.2
+offset_left = 1.0
+offset_right = 185.0
+offset_bottom = 0.0
+theme_override_colors/font_color = Color(0.95, 0.84, 0.48, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.04, 0.02, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 24
+text = "Outfit"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Name" type="Label" parent="OutfitSelector"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.17400001
+anchor_right = 0.17400001
+offset_left = 0.109996796
+offset_top = 45.0
+offset_right = 201.11
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(1, 0.93, 0.72, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.04, 0.02, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "Default"
+horizontal_alignment = 1
+autowrap_mode = 2

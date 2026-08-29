@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/character/spine/default/exusiai_default_skeleton_data.tres" id="1_spine"]
+[ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/character/spine/exusiai/default/combat_skeleton_data.tres" id="1_spine"]
 
 [node name="ExusiaiVisuals" type="Node2D"]
 

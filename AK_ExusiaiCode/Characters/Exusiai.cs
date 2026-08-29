@@ -33,6 +33,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         $"{Entry.ResPath}/scenes/character/exusiai_merchant.tscn";
     private const string RestSiteScenePath =
         $"{Entry.ResPath}/scenes/character/exusiai_rest_site.tscn";
+    private const string CharacterSelectBgScenePath =
+        $"{Entry.ResPath}/scenes/character/exusiai_character_select_bg.tscn";
 
     private static readonly ConditionalWeakTable<Exusiai, AmmoData> AmmoDataByCharacter = new();
 
@@ -68,7 +70,7 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             IconTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             IconOutlineTexturePath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
-            CharacterSelectBgPath: $"{Entry.ResPath}/images/character/exusiai_select_bg.png",
+            CharacterSelectBgPath: CharacterSelectBgScenePath,
             CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_select_icon.jpg",
             MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
         Multiplayer: new CharacterMultiplayerAssetSet(
@@ -78,6 +80,13 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
             ArmScissorsTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_scissors.png"));
 
     protected override CreatureAnimator? SetupCustomCreatureAnimator(MegaSprite controller)
+    {
+        return ExusiaiAppearanceManager.IsNewCovenant
+            ? SetupNewCovenantAnimator(controller)
+            : SetupExusiaiAnimator(controller);
+    }
+
+    private static CreatureAnimator SetupExusiaiAnimator(MegaSprite controller)
     {
         AnimState idle = new("Idle", isLooping: true);
         AnimState start = new("Start");
@@ -104,10 +113,46 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         return animator;
     }
 
+    private static CreatureAnimator SetupNewCovenantAnimator(MegaSprite controller)
+    {
+        AnimState idle = new("Idle", isLooping: true);
+        AnimState start = new("Start");
+        AnimState attackBegin = new("Attack_Begin");
+        AnimState attackLoop = new("Attack_Loop");
+        AnimState attackEnd = new("Attack_End");
+        AnimState cast = new("Skill_3_Skill");
+        AnimState hit = new("Idle");
+        AnimState dead = new("Die");
+        AnimState relaxed = new("Idle", isLooping: true);
+
+        start.NextState = idle;
+        attackBegin.NextState = attackLoop;
+        attackLoop.NextState = attackEnd;
+        attackEnd.NextState = idle;
+        cast.NextState = idle;
+        hit.NextState = idle;
+        relaxed.AddBranch("Idle", idle);
+
+        CreatureAnimator animator = new(start, controller);
+        animator.AddAnyState("Start", start);
+        animator.AddAnyState("Idle", idle);
+        animator.AddAnyState("Dead", dead);
+        animator.AddAnyState("Hit", hit);
+        animator.AddAnyState("Attack", attackBegin);
+        animator.AddAnyState("Cast", cast);
+        animator.AddAnyState("Relaxed", relaxed);
+        return animator;
+    }
+
     protected override NCreatureVisuals? TryCreateCreatureVisuals()
     {
-        return RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(
+        NCreatureVisuals? visuals =
+            RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(
             CharacterScenePath);
+        if (visuals is not null)
+            ExusiaiAppearanceManager.ApplyCombatSkin(visuals);
+
+        return visuals;
     }
 
     protected override ModAnimStateMachine? SetupCustomMerchantAnimationStateMachine(
@@ -117,8 +162,8 @@ public sealed class Exusiai : ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelic
         return ModAnimStateMachines.StandardMerchantCue(
             merchantRoot,
             character,
-            idleName: "Relax",
-            relaxedName: "Relax");
+            idleName: ExusiaiAppearanceManager.SelectedMerchantAnimation,
+            relaxedName: ExusiaiAppearanceManager.SelectedMerchantAnimation);
     }
 
     protected override ModAnimStateMachine? SetupCustomRestSiteAnimationStateMachine(
