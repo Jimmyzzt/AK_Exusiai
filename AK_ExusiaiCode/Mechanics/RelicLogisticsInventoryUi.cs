@@ -1,11 +1,11 @@
 using System.Runtime.CompilerServices;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Extensions;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models.Relics;
-using MegaCrit.Sts2.Core.Nodes;
-using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Relics;
 using MegaCrit.Sts2.addons.mega_text;
@@ -115,13 +115,8 @@ internal static class RelicLogisticsInventoryUi
         if (nodes.Count == 0)
             return null;
 
-        Texture2D? arrowTexture = NGame.Instance?
-            .GetInspectRelicScreen()
-            .GetNodeOrNull<NGoldArrowButton>("%LeftArrow")?
-            .GetNodeOrNull<TextureRect>("TextureRect")?
-            .Texture;
-        if (arrowTexture == null)
-            return null;
+        Texture2D arrowTexture = PreloadManager.Cache.GetTexture2D(
+            ImageHelper.GetImagePath("packed/common_ui/settings_tiny_left_arrow.png"));
 
         Player? player = PlayerField(inventory);
         button = new RelicInventoryCollapseButton();
@@ -177,6 +172,9 @@ internal static class RelicLogisticsInventoryUi
 
 internal partial class RelicInventoryCollapseButton : NButton
 {
+    private static readonly Vector2 ButtonSize = new(68f, 68f);
+    private static readonly Vector2 IconSize = new(44f, 44f);
+
     private static readonly Color CounterColor = new("#f6d36a");
     private static readonly Color CounterOutlineColor = new("#261b24");
 
@@ -190,20 +188,21 @@ internal partial class RelicInventoryCollapseButton : NButton
         Action toggle)
     {
         _toggle = toggle;
-        CustomMinimumSize = new Vector2(64f, 64f);
-        Size = CustomMinimumSize;
+        CustomMinimumSize = ButtonSize;
+        Size = ButtonSize;
         MouseFilter = Control.MouseFilterEnum.Stop;
         FocusMode = Control.FocusModeEnum.All;
 
         _icon = new TextureRect
         {
             Name = "Arrow",
-            Texture = arrowTexture,
-            Position = new Vector2(9f, 9f),
-            Size = new Vector2(46f, 46f),
-            PivotOffset = new Vector2(23f, 23f),
             ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+            Texture = arrowTexture,
+            Position = (ButtonSize - IconSize) * 0.5f,
+            Size = IconSize,
+            CustomMinimumSize = Vector2.Zero,
+            PivotOffset = IconSize * 0.5f,
             MouseFilter = Control.MouseFilterEnum.Ignore,
         };
         AddChild(_icon);
@@ -211,8 +210,8 @@ internal partial class RelicInventoryCollapseButton : NButton
         _countLabel = (MegaLabel)sourceAmountLabel.Duplicate();
         _countLabel.Name = "HiddenCount";
         _countLabel.UniqueNameInOwner = false;
-        _countLabel.Position = new Vector2(34f, -4f);
-        _countLabel.Size = new Vector2(36f, 28f);
+        _countLabel.Position = new Vector2(36f, -3f);
+        _countLabel.Size = new Vector2(32f, 27f);
         _countLabel.MinFontSize = 10;
         _countLabel.MaxFontSize = 22;
         _countLabel.MouseFilter = Control.MouseFilterEnum.Ignore;
