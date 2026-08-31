@@ -13,6 +13,7 @@ internal sealed class RelicLogisticsInventorySortPatch : IPatchMethod
     [
         PatchTarget.Method<NRelicInventory>("Initialize"),
         PatchTarget.Method<NRelicInventory>("OnRelicObtained"),
+        PatchTarget.Method<NRelicInventory>("OnRelicRemoved"),
     ];
 
     public static void Postfix(NRelicInventory __instance)
