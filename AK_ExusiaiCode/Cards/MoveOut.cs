@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -11,10 +12,10 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class MoveOut : ExusiaiCardTemplate
 {
+    protected override bool ShowTransitHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(5m, ValueProp.Move),
-        new DynamicVar("HitCount", 2m),
+        new DamageVar(4m, ValueProp.Move),
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Innate, CardKeyword.Exhaust];
@@ -25,10 +26,10 @@ public sealed class MoveOut : ExusiaiCardTemplate
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars["HitCount"].IntValue)
             .FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
+        await RelicLogisticsCmd.AddNamedTransit<MegaCrit.Sts2.Core.Models.Relics.SturdyClamp>(Owner, 1);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

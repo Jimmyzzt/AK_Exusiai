@@ -1,8 +1,11 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -11,15 +14,25 @@ namespace AK_Exusiai.Cards;
 public sealed class PenguinFreight : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delivery", 3m)];
+    public override bool GainsBlock => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("Delivery", 99m),
+        new BlockVar(60m, ValueProp.Move),
+    ];
     public PenguinFreight() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        foreach (var card in Owner.PlayerCombatState!.Hand.Cards.ToList())
-            await DeliveryCmd.Add(choiceContext, card, DynamicVars["Delivery"].IntValue);
+        if (!await RelicLogisticsCmd.ChooseAndAddDelivery(
+                choiceContext,
+                Owner,
+                DynamicVars["Delivery"].IntValue))
+            return;
+
+        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+        await PowerCmd.Apply<BlurPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(15m);
 }

@@ -16,7 +16,7 @@
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "Delivered on time and best enjoyed warm. Ammunition, too.",
 
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "Boss's Medal",
-  "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "The first time you add [gold]Delivery[/gold] to a card each turn, gain {Block:diff()} [gold]Block[/gold].",
+  "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "The first time you give a relic [gold]Delivery[/gold] each turn, gain {Block:diff()} [gold]Block[/gold].",
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.flavor": "Best Boss Medal. Super Boss Medal. Invincible, peerless Boss Medal.",
 
   "AK_EXUSIAI_RELIC_LORD_SERVER.title": "Lord-Server",

@@ -23,7 +23,13 @@ public sealed class PenguinInternational : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await RelicLogisticsCmd.ChooseAndAddDelivery(Owner, DynamicVars["Delivery"].IntValue);
+        if (!await RelicLogisticsCmd.ChooseAndAddDelivery(
+                choiceContext,
+                Owner,
+                DynamicVars["Delivery"].IntValue))
+        {
+            return;
+        }
 
         RelicModel? transit = await RelicLogisticsCmd.ChooseTransitRelic(Owner);
         transit?.GetOrCreateCapability<RelicLogisticsCapability>()
