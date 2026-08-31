@@ -5,11 +5,11 @@ using STS2RitsuLib.Patching.Models;
 
 namespace AK_Exusiai.Patches;
 
-internal sealed class ExusiaiNewCovenantAttackAnimationPatch : IPatchMethod
+internal sealed class ExusiaiNewCovenantCombatAnimationPatch : IPatchMethod
 {
-    public static string PatchId => "exusiai_new_covenant_attack_animation_reset";
+    public static string PatchId => "exusiai_new_covenant_combat_animation_reset";
     public static string Description =>
-        "Reset New Covenant Spine state before its optimized attack animation";
+        "Reset New Covenant Spine state before optimized attack and cast animations";
 
     public static ModPatchTarget[] GetTargets() =>
     [
@@ -20,7 +20,7 @@ internal sealed class ExusiaiNewCovenantAttackAnimationPatch : IPatchMethod
 
     public static void Prefix(NCreature __instance, string trigger)
     {
-        if (trigger != "Attack"
+        if (trigger is not ("Attack" or "Cast")
             || __instance.Entity.Player?.Character is not Exusiai
             || !ExusiaiAppearanceManager.IsNewCovenant
             || !__instance.HasSpineAnimation)
