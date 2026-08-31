@@ -210,6 +210,12 @@ internal partial class RelicInventoryCollapseButton : NButton
         _countLabel = (MegaLabel)sourceAmountLabel.Duplicate();
         _countLabel.Name = "HiddenCount";
         _countLabel.UniqueNameInOwner = false;
+        _countLabel.AnchorLeft = 0f;
+        _countLabel.AnchorTop = 0f;
+        _countLabel.AnchorRight = 0f;
+        _countLabel.AnchorBottom = 0f;
+        _countLabel.GrowHorizontal = Control.GrowDirection.Begin;
+        _countLabel.GrowVertical = Control.GrowDirection.Begin;
         _countLabel.Position = new Vector2(36f, -3f);
         _countLabel.Size = new Vector2(32f, 27f);
         _countLabel.MinFontSize = 10;
