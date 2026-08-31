@@ -1,6 +1,6 @@
 # AK_Exusiai 当前进度
 
-最后更新：2026-08-31
+最后更新：2026-09-01
 工作分支：`mechanic/v1-relic-logistics`
 
 ## V1 大修协调
@@ -42,8 +42,9 @@
 
 ## 最近验证
 
-- V1 遗物物流核心与首批物流牌快速构建通过：0 警告、0 错误；中英本地化 JSON 全量解析通过，`git diff --check` 无空白错误。
-- 完整 `dotnet build .\AK_Exusiai.csproj`：0 警告、0 错误；项目 DLL 与部署 DLL SHA-256 一致。
+- V1 遗物物流核心与首批物流牌快速、完整构建均通过：0 警告、0 错误；中英本地化 JSON 全量解析通过，`git diff --check` 无空白错误。
+- 完整 `dotnet build .\AK_Exusiai.csproj` 已成功导出并部署 PCK；项目 DLL 与部署 DLL SHA-256 均为 `D5F58BC3053D164A570F69A3C99BC918BAB0BA35FF6F54F71369E342D4563E40`。
+- Steam 环境真实启动到主菜单：AK_Exusiai 的 20/20 个玩法补丁、RitsuLib 的动态补丁和 166/166 项自动注册均成功；新增快递/中转关键词、物流 capability、卡牌、能力和遗物全部注册，日志无 Mod 初始化错误或异常。
 - PCK 导出成功；9 个遗物和 3 个药水的主图/轮廓图、中英文 `relics.json`/`potions.json` 均出现在打包记录中，制作脚本本身已从 PCK 排除。
 - Steam 环境真实启动冒烟测试：RitsuLib 与 AK_Exusiai 初始化成功，153/153 自动注册成功，9 个遗物、3 个药水公开 ID 正确，`ModelDbDefer` 完成，未出现 Mod 初始化或规范模型错误。
 - 遗物轮廓图为 256×256，药水主图和轮廓图为 80×80；本轮更新的角色头像和初始证章已进入运行时资源。
