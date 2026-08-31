@@ -1,11 +1,10 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 
@@ -14,13 +13,11 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class ArmedEscort : ExusiaiCardTemplate
 {
-    private const string DeliveryKey = "Delivery";
-    protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowTransitHoverTip => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(7m, ValueProp.Move),
-        new DynamicVar(DeliveryKey, 3m),
+        new DamageVar(9m, ValueProp.Move),
     ];
 
     public ArmedEscort() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -35,20 +32,11 @@ public sealed class ArmedEscort : ExusiaiCardTemplate
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-
-        CardModel? selected = (await CardSelectCmd.FromHand(
-            choiceContext,
-            Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
-            null,
-            this)).FirstOrDefault();
-        if (selected != null)
-            await DeliveryCmd.Add(choiceContext, selected, DynamicVars[DeliveryKey].IntValue);
+        await RelicLogisticsCmd.AddNamedTransit<HappyFlower>(Owner, 1);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
-        DynamicVars[DeliveryKey].UpgradeValueBy(-1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

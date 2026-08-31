@@ -1,6 +1,8 @@
 {
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "Delivery",
-  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A card with Delivery gains Retain and Exhaust. At the end of your turn, its Delivery decreases by 1. When Delivery reaches 0, the card is immediately played for free against a random valid target.",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A relic with Delivery X is inactive. Delivery decreases by 1 after each combat and the relic reactivates at 0. Starter and inactive relics cannot be chosen.",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.title": "Transit",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "A temporary relic with Transit X also loses 1 Transit after the combat in which it was gained. At 0 it remains in the inventory but is inactive, and can gain Transit again.",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "Angel",
   "AK_EXUSIAI_KEYWORD_ANGEL.description": "This card's Energy cost cannot increase this combat."
 }
