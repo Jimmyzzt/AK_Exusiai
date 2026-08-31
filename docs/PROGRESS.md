@@ -1,7 +1,14 @@
 # AK_Exusiai 当前进度
 
-最后更新：2026-08-29
-工作分支：`feature/appearance-switcher`
+最后更新：2026-08-31
+工作分支：`mechanic/v1-overhaul`
+
+## V1 大修协调
+
+- 当前设计源为 `AK_Exusiai-Card_V1.csv` 与 `AK_Exusiai-Relic_Potion_V1.csv`；旧版已移入 `docs/archive/`。
+- 大修前 `main` 固定在 `40da91d`，以注释标签 `v0.1-pre-overhaul` 标记。
+- 第一阶段从设计冻结提交拆分：`mechanic/v1-ammo` 负责弹药、过载和弹药 UI；`mechanic/v1-relic-logistics` 负责快递、中转、遗物选择、失效过滤与跨战斗状态。
+- `Entry.cs`、共享本地化、卡图清单和本页由集成分支统一收口，避免两个开发分支同时编辑。
 
 ## 当前结果
 

@@ -9,10 +9,11 @@
 1. `AGENTS.md`：开发约束、已验证机制经验与构建方式。
 2. `docs/PROGRESS.md`：当前完成状态和待测项。
 3. `docs/CARD_ART_HANDOFF.md`：卡图工作的素材、命名和接入流程。
-4. `docs/AK_Exusiai-Card_V0.1.csv`：双方确认后的当前只读设计来源；历史版本与平衡说明位于 `docs/archive/`。
+4. `docs/AK_Exusiai-Card_V1.csv`：V1 大修的当前只读卡牌设计；遗物/药水见 `docs/AK_Exusiai-Relic_Potion_V1.csv`，历史版本与平衡说明位于 `docs/archive/`。
 
 ## 当前状态
 
+- V1 机制大修已完成设计冻结，集成分支为 `mechanic/v1-overhaul`；第一阶段拆分为弹药/过载与快递/中转两条开发分支。
 - 角色、弹药、初始牌组和初始遗物已可用。
 - 20 张普通牌已完成游戏内回归。
 - 35 张罕见牌、25 张稀有牌和相关衍生牌已完成代码首版，等待集中回归。
