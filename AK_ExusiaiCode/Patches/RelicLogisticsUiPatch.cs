@@ -79,7 +79,8 @@ internal sealed class RelicLogisticsUiPatch : IPatchMethod
         label.VerticalAlignment = VerticalAlignment.Center;
         label.Size = new Vector2(34f, 30f);
         label.Scale = Vector2.One;
-        label.ZIndex = 10;
+        label.ZIndex = source.ZIndex;
+        label.ZAsRelative = source.ZAsRelative;
         label.AddThemeFontSizeOverride("font_size", 24);
         label.AddThemeConstantOverride("outline_size", 5);
         label.AddThemeColorOverride("font_color", textColor);
