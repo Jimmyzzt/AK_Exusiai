@@ -8,21 +8,27 @@ namespace AK_Exusiai.Mechanics;
 public static class ExusiaiKeywords
 {
     public static string DeliveryId { get; private set; } = string.Empty;
+    public static string TransitId { get; private set; } = string.Empty;
     public static string AngelId { get; private set; } = string.Empty;
     public static CardKeyword DeliveryKeyword { get; private set; }
+    public static CardKeyword TransitKeyword { get; private set; }
     public static CardKeyword AngelKeyword { get; private set; }
 
     public static void Register()
     {
         var registry = RitsuLibFramework.GetKeywordRegistry(Entry.ModId);
         var delivery = registry.RegisterCardKeywordOwnedByLocNamespace("delivery");
+        var transit = registry.RegisterCardKeywordOwnedByLocNamespace("transit");
         var angel = registry.RegisterCardKeywordOwnedByLocNamespace("angel");
         DeliveryId = delivery.Id;
+        TransitId = transit.Id;
         AngelId = angel.Id;
         DeliveryKeyword = delivery.CardKeywordValue;
+        TransitKeyword = transit.CardKeywordValue;
         AngelKeyword = angel.CardKeywordValue;
     }
 
     public static IHoverTip DeliveryHoverTip => ModKeywordRegistry.CreateHoverTip(DeliveryId);
+    public static IHoverTip TransitHoverTip => ModKeywordRegistry.CreateHoverTip(TransitId);
     public static IHoverTip AngelHoverTip => ModKeywordRegistry.CreateHoverTip(AngelId);
 }

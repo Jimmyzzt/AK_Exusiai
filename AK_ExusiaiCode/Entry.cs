@@ -34,6 +34,12 @@ public partial class Entry
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
         _patcher.RegisterPatch<AngelEnergyCostPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
+        _patcher.RegisterPatch<RelicLogisticsHookPatch>();
+        _patcher.RegisterPatch<RelicLogisticsLifecyclePatch>();
+        _patcher.RegisterPatch<RelicLogisticsUiPatch>();
+        _patcher.RegisterPatch<RelicLogisticsInventorySortPatch>();
+        _patcher.RegisterPatch<RelicSelectionLayoutPatch>();
+        _patcher.RegisterPatch<RelicSelectionDefaultFocusPatch>();
         _patcher.RegisterPatch<ExusiaiDeathAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiGameOverAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiNewCovenantCombatAnimationPatch>();

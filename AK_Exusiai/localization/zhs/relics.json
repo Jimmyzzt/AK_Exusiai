@@ -16,7 +16,7 @@
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "准时送达，趁热享用。弹药也一样。",
 
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "老板奖章",
-  "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "每回合第一次为卡牌添加[gold]快递[/gold]层数时，获得 {Block:diff()} 点[gold]格挡[/gold]。",
+  "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "每回合第一次给予遗物[gold]快递[/gold]层数时，获得 {Block:diff()} 点[gold]格挡[/gold]。",
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.flavor": "最佳老板奖章，超强老板奖章，无敌绝世老板奖章。",
 
   "AK_EXUSIAI_RELIC_LORD_SERVER.title": "主-主机",

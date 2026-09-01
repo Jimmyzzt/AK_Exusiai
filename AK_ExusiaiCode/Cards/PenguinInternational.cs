@@ -1,12 +1,11 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using MegaCrit.Sts2.Core.CardSelection;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace AK_Exusiai.Cards;
 
@@ -14,29 +13,28 @@ namespace AK_Exusiai.Cards;
 public sealed class PenguinInternational : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowTransitHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2),
-        new EnergyVar(2),
-        new DynamicVar("Delivery", 4m),
+        new DynamicVar("Delivery", 5m),
+        new DynamicVar("Transit", 3m),
     ];
     public PenguinInternational() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        List<CardModel> selected = (await CardSelectCmd.FromCombatPile(
-            choiceContext,
-            PileType.Draw.GetPile(Owner),
-            Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, DynamicVars.Cards.IntValue)))
-            .ToList();
-        foreach (CardModel card in selected)
+        if (!await RelicLogisticsCmd.ChooseAndAddDelivery(
+                choiceContext,
+                Owner,
+                DynamicVars["Delivery"].IntValue))
         {
-            await CardPileCmd.Add(card, PileType.Hand);
-            card.EnergyCost.AddUntilPlayed(DynamicVars.Energy.IntValue);
-            await DeliveryCmd.Add(choiceContext, card, DynamicVars["Delivery"].IntValue);
+            return;
         }
+
+        RelicModel? transit = await RelicLogisticsCmd.ChooseTransitRelic(Owner);
+        transit?.GetOrCreateCapability<RelicLogisticsCapability>()
+            .StartOrExtendTransit(DynamicVars["Transit"].IntValue);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Transit"].UpgradeValueBy(1m);
 }

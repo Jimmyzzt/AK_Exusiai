@@ -1,11 +1,9 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 
@@ -37,15 +35,11 @@ public sealed class GuaranteedSuccess : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        CardModel? selected = (await CardSelectCmd.FromHand(
-            choiceContext,
-            Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, 1),
-            DeliveryCmd.HasDelivery,
-            this)).FirstOrDefault();
+        MegaCrit.Sts2.Core.Models.RelicModel? selected =
+            await RelicLogisticsCmd.ChooseDeliveredRelic(Owner);
         if (selected != null)
-            await CardCmd.AutoPlay(choiceContext, selected, null, AutoPlayType.Default);
+            RelicLogisticsCmd.ReactivateDelivery(selected);
     }
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
