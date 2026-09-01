@@ -24,13 +24,12 @@ public sealed class AmmoSplashPower : ModPowerTemplate
             !Exusiai.HasAmmoBackedBonus(command.CardPlay))
             return;
 
-        int bonus = Exusiai.GetAmmoBonus(command.CardPlay);
-        int hitCount = command.Results.Count();
-        if (bonus <= 0 || hitCount <= 0 || Owner.CombatState is not { } combatState)
+        IReadOnlyList<decimal> bonuses = Exusiai.GetAmmoHitBonuses(command.CardPlay);
+        if (bonuses.Count <= 0 || Owner.CombatState is not { } combatState)
             return;
 
         Flash();
-        for (int i = 0; i < hitCount; i++)
+        foreach (decimal bonus in bonuses)
         {
             await CreatureCmd.Damage(
                 choiceContext,

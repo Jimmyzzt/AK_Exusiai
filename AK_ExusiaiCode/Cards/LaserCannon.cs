@@ -10,15 +10,12 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoDamageMultiplier
+public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoSpendAllAttack
 {
-    private const string AmmoMultiplierKey = "AmmoMultiplier";
-    public int AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(20m, ValueProp.Move),
-        new DynamicVar(AmmoMultiplierKey, 2m),
     ];
 
     public LaserCannon() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
@@ -34,9 +31,5 @@ public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoDamageMultiplier
             .Execute(choiceContext);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(4m);
-        DynamicVars[AmmoMultiplierKey].UpgradeValueBy(1m);
-    }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(8m);
 }

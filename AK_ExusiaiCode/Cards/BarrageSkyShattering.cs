@@ -15,7 +15,7 @@ public sealed class BarrageSkyShattering : ExusiaiCardTemplate, IAmmoDamageMulti
     private const string HitCountKey = "HitCount";
     private const string AmmoMultiplierKey = "AmmoMultiplier";
 
-    public int AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
+    public decimal AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
     protected override bool ShowAmmoHoverTip => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

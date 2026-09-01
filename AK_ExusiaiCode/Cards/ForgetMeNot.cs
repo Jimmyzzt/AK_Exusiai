@@ -12,11 +12,11 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class ForgetMeNot : ExusiaiCardTemplate, IMultiAmmoAttack
+public sealed class ForgetMeNot : ExusiaiCardTemplate, IAmmoSpendAllAttack
 {
-    public int MaxAmmoSpend => int.MaxValue;
     protected override bool ShowAmmoHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(1m, ValueProp.Move),
@@ -34,5 +34,5 @@ public sealed class ForgetMeNot : ExusiaiCardTemplate, IMultiAmmoAttack
             await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, ammo, this);
     }
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

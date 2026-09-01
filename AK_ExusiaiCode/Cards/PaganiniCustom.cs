@@ -13,30 +13,24 @@ namespace AK_Exusiai.Cards;
 public sealed class PaganiniCustom : ExusiaiCardTemplate
 {
     private const string AmmoKey = "Ammo";
+    private const string AmmoMultiplierKey = "AmmoMultiplier";
     protected override bool ShowAmmoHoverTip => true;
-    protected override bool ShowDeliveryHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Retain, CardKeyword.Exhaust];
-    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
-        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>(
-            DynamicVars[nameof(FirepowerPower)].IntValue)];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(AmmoKey, 2m),
-        new PowerVar<FirepowerPower>(2m),
+        new DynamicVar(AmmoMultiplierKey, 50m),
     ];
 
-    public PaganiniCustom() : base(3, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public PaganiniCustom() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        DeliveryCmd.Set(this, 3);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<FirepowerPower>(
+        await PowerCmd.Apply<AmmoDamageMultiplierPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars[nameof(FirepowerPower)].BaseValue,
+            DynamicVars[AmmoMultiplierKey].BaseValue,
             Owner.Creature,
             this);
         await PowerCmd.Apply<PaganiniCustomPower>(
@@ -50,6 +44,5 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
     protected override void OnUpgrade()
     {
         DynamicVars[AmmoKey].UpgradeValueBy(1m);
-        DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
     }
 }

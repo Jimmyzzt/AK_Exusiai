@@ -10,10 +10,9 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class FullSalvo : ExusiaiCardTemplate, IMultiAmmoAttack
+public sealed class FullSalvo : ExusiaiCardTemplate, IAmmoSpendAllAttack
 {
     private const string HitCountKey = "HitCount";
-    public int MaxAmmoSpend => int.MaxValue;
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

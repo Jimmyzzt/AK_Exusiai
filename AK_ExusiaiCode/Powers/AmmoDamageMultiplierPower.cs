@@ -5,9 +5,9 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class FlammableAndExplosivePower : ModPowerTemplate
+public sealed class AmmoDamageMultiplierPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(FlammableAndExplosivePower));
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom("AmmoDamagePower");
 }
