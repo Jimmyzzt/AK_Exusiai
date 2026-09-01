@@ -12,7 +12,7 @@ public sealed class MayTheLordBeWithUs : ExusiaiCardTemplate
 {
     protected override bool ShowTransitHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Transit", 1m)];
-    public MayTheLordBeWithUs() : base(2, CardType.Power, CardRarity.Rare, TargetType.Self) { }
+    public MayTheLordBeWithUs() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -28,7 +28,7 @@ public sealed class MoveOut : ExusiaiCardTemplate
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
-        await RelicLogisticsCmd.AddNamedTransit<MegaCrit.Sts2.Core.Models.Relics.SturdyClamp>(Owner, 1);
+        await RelicLogisticsCmd.AddNamedTransit<MegaCrit.Sts2.Core.Models.Relics.HornCleat>(Owner, 1);
     }
 
     protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
