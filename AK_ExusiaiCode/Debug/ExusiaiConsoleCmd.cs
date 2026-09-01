@@ -1,16 +1,14 @@
 using System.Text;
+using AK_Exusiai.Cards;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Combat.SecondaryResources;
-using STS2RitsuLib.Models.Capabilities;
 
 namespace AK_Exusiai.Debug;
 
@@ -22,6 +20,30 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private const int TestEnergy = 100;
     private const int MaxSafeReplayCount = 100;
 
+    private static IReadOnlyList<CardModel> DeliveryTestCards =>
+    [
+        ModelDb.Card<ViolentDelivery>(),
+        ModelDb.Card<FreeDelivery>(),
+        ModelDb.Card<PenguinExpress>(),
+        ModelDb.Card<PenguinStandard>(),
+        ModelDb.Card<PenguinInternational>(),
+        ModelDb.Card<PenguinFreight>(),
+        ModelDb.Card<GuaranteedSuccess>(),
+        ModelDb.Card<Expedite>(),
+        ModelDb.Card<LogisticsOutsourcing>(),
+        ModelDb.Card<CargoInMotion>(),
+    ];
+
+    private static IReadOnlyList<CardModel> TransitTestCards =>
+    [
+        ModelDb.Card<ArmedEscort>(),
+        ModelDb.Card<TheLordsProtection>(),
+        ModelDb.Card<MoveOut>(),
+        ModelDb.Card<PenguinTransitHub>(),
+        ModelDb.Card<Package>(),
+        ModelDb.Card<MayTheLordBeWithUs>(),
+    ];
+
     private static readonly string[] Subcommands =
     [
         "help",
@@ -29,12 +51,11 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "hand",
         "replay",
         "ammo",
-        "delivery",
     ];
 
     public override string CmdName => "exusiai";
 
-    public override string Args => "<logic|hand|replay|ammo|delivery> [args]";
+    public override string Args => "<logic|hand|replay|ammo> [args]";
 
     public override string Description =>
         "Runs AK_Exusiai combat test fixtures and card-state utilities.";
@@ -54,7 +75,6 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             "hand" => ShowHand(issuingPlayer, subArgs),
             "replay" => AddReplay(issuingPlayer, subArgs),
             "ammo" => SetAmmo(issuingPlayer, subArgs),
-            "delivery" => AddDelivery(issuingPlayer, subArgs),
             _ => new CmdResult(
                 success: false,
                 $"Unknown Exusiai test command '{args[0]}'.\n{UsageSummary()}"),
@@ -75,12 +95,24 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         if (subcommand is "logic" or "logistics" && args.Length == 2)
         {
             return CompleteArgument(
-                ["base", "upgraded"],
+                ["delivery", "transit", "base", "upgraded"],
                 [args[0]],
                 args[1]);
         }
 
-        if (subcommand is "replay" or "delivery")
+        if (subcommand is "logic" or "logistics" && args.Length == 3)
+        {
+            string[] candidates = args[1].Equals("base", StringComparison.OrdinalIgnoreCase) ||
+                                  args[1].Equals("upgraded", StringComparison.OrdinalIgnoreCase)
+                ? ["delivery", "transit"]
+                : ["base", "upgraded"];
+            return CompleteArgument(
+                candidates,
+                [args[0], args[1]],
+                args[2]);
+        }
+
+        if (subcommand == "replay")
         {
             if (args.Length == 2)
             {
@@ -92,11 +124,8 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 
             if (args.Length == 3)
             {
-                string[] amounts = subcommand == "replay"
-                    ? ["1", "2", "5", "10"]
-                    : ["1", "2", "3", "7", "99"];
                 return CompleteArgument(
-                    amounts,
+                    ["1", "2", "5", "10"],
                     [args[0], args[1]],
                     args[2]);
             }
@@ -120,11 +149,10 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static CmdResult Help() => new(
         success: true,
         "[gold]Exusiai test commands[/gold]\n" +
-        "  exusiai logic [base|upgraded] - Replace the hand with all 8 Logistics cards and set energy to 100.\n" +
+        "  exusiai logic [delivery|transit] [base|upgraded] - Replace the hand with new relic-logistics test cards and set energy to 100.\n" +
         "  exusiai hand - List the current hand with zero-based indices and test-relevant state.\n" +
         "  exusiai replay <hand-index> <amount> - Add Replay to one card (maximum total: 100).\n" +
-        "  exusiai ammo <amount> - Set ammunition (0-30).\n" +
-        "  exusiai delivery <hand-index> <amount> - Add Delivery to one card (1-99)."
+        "  exusiai ammo <amount> - Set ammunition (0-30)."
     );
 
     private static string UsageSummary() =>
@@ -135,34 +163,90 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         if (!TryGetCombatPlayer(player, out Player combatPlayer, out CmdResult error))
             return error;
 
-        if (args.Length > 1 ||
-            (args.Length == 1 &&
-             !args[0].Equals("base", StringComparison.OrdinalIgnoreCase) &&
-             !args[0].Equals("upgraded", StringComparison.OrdinalIgnoreCase)))
+        if (!TryParseLogicArgs(args, out bool useTransitCards, out bool upgraded))
         {
             return new CmdResult(
                 success: false,
-                "Usage: exusiai logic [base|upgraded]");
+                "Usage: exusiai logic [delivery|transit] [base|upgraded]");
         }
 
-        bool upgraded = args.Length == 1 &&
-                        args[0].Equals("upgraded", StringComparison.OrdinalIgnoreCase);
-        Task task = SetupLogicAsync(combatPlayer, upgraded);
+        IReadOnlyList<CardModel> canonicals = useTransitCards
+            ? TransitTestCards
+            : DeliveryTestCards;
+        if (canonicals.Count > CardPile.MaxCardsInHand)
+        {
+            return new CmdResult(
+                success: false,
+                $"The selected test group contains {canonicals.Count} cards, exceeding the hand limit of {CardPile.MaxCardsInHand}. Split the group before running it.");
+        }
+
+        Task task = SetupLogicAsync(combatPlayer, canonicals, upgraded);
         return new CmdResult(
             task,
             success: true,
-            $"Replacing the hand with all Logistics cards ({(upgraded ? "upgraded" : "base")}) and setting energy to {TestEnergy}.");
+            $"Replacing the hand with {canonicals.Count} {(useTransitCards ? "Transit" : "Delivery")} relic-logistics cards ({(upgraded ? "upgraded" : "base")}) and setting energy to {TestEnergy}.");
     }
 
-    private static async Task SetupLogicAsync(Player player, bool upgraded)
+    private static bool TryParseLogicArgs(
+        string[] args,
+        out bool useTransitCards,
+        out bool upgraded)
+    {
+        useTransitCards = false;
+        upgraded = false;
+        bool groupSpecified = false;
+        bool upgradeSpecified = false;
+
+        foreach (string arg in args)
+        {
+            switch (arg.ToLowerInvariant())
+            {
+                case "delivery":
+                case "1":
+                    if (groupSpecified)
+                        return false;
+                    useTransitCards = false;
+                    groupSpecified = true;
+                    break;
+                case "transit":
+                case "2":
+                    if (groupSpecified)
+                        return false;
+                    useTransitCards = true;
+                    groupSpecified = true;
+                    break;
+                case "base":
+                    if (upgradeSpecified)
+                        return false;
+                    upgraded = false;
+                    upgradeSpecified = true;
+                    break;
+                case "upgraded":
+                    if (upgradeSpecified)
+                        return false;
+                    upgraded = true;
+                    upgradeSpecified = true;
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        return args.Length <= 2;
+    }
+
+    private static async Task SetupLogicAsync(
+        Player player,
+        IReadOnlyList<CardModel> canonicals,
+        bool upgraded)
     {
         await PlayerCmd.SetEnergy(TestEnergy, player);
 
         CardPile hand = player.PlayerCombatState!.Hand;
-        await CardPileCmd.RemoveFromCombat(hand.Cards.ToList(), skipVisuals: true);
+        await CardPileCmd.RemoveFromCombat(hand.Cards.ToList());
 
-        List<CardModel> cards = LogisticsCardCatalog.CanonicalCards
-            .Select(canonical => LogisticsCardCatalog.Create(player, canonical))
+        List<CardModel> cards = canonicals
+            .Select(canonical => player.Creature.CombatState!.CreateCard(canonical, player))
             .ToList();
         if (upgraded)
         {
@@ -189,10 +273,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         for (int i = 0; i < hand.Cards.Count; i++)
         {
             CardModel card = hand.Cards[i];
-            int delivery = card.Capabilities().Get<DeliveryCapability>()?.Amount ?? 0;
             message.Append($"[{i}] {card.Title} ({card.Id.Entry}) replay={card.BaseReplayCount}");
-            if (delivery > 0)
-                message.Append($" delivery={delivery}");
             if (AngelCmd.IsAngel(card))
                 message.Append(" angel");
             if (card.IsUpgraded)
@@ -238,31 +319,6 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             amount,
             combatPlayer.Character);
         return new CmdResult(task, success: true, $"Setting ammunition to {amount}.");
-    }
-
-    private static CmdResult AddDelivery(Player? player, string[] args)
-    {
-        if (!TryGetHandCard(player, args, "delivery", out CardModel card, out int amount, out CmdResult error))
-            return error;
-        if (amount is < 1 or > 99)
-            return new CmdResult(success: false, "Delivery amount must be between 1 and 99.");
-
-        Task task = AddDeliveryAsync(card, amount);
-        return new CmdResult(
-            task,
-            success: true,
-            $"Adding {amount} Delivery to '{card.Title}'.");
-    }
-
-    private static async Task AddDeliveryAsync(CardModel card, int amount)
-    {
-        Player player = card.Owner;
-        HookPlayerChoiceContext context = new(
-            player,
-            player.NetId,
-            GameActionType.Combat);
-        Task task = DeliveryCmd.Add(context, card, amount);
-        await context.AssignTaskAndWaitForPauseOrCompletion(task);
     }
 
     private static bool TryGetHandCard(
