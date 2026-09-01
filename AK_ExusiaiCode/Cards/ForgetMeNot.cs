@@ -15,7 +15,8 @@ namespace AK_Exusiai.Cards;
 public sealed class ForgetMeNot : ExusiaiCardTemplate, IAmmoSpendAllAttack
 {
     protected override bool ShowAmmoHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+        [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(1m, ValueProp.Move),
@@ -33,5 +34,5 @@ public sealed class ForgetMeNot : ExusiaiCardTemplate, IAmmoSpendAllAttack
             await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, ammo, this);
     }
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

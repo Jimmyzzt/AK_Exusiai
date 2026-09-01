@@ -55,8 +55,6 @@ public static partial class AmmoResource
         decimal baseDamage = GetBaseDamageBonus(ammo) + firepower;
         decimal commonMultiplier = 1m + player.Creature.Powers
             .OfType<AK_Exusiai.Powers.AmmoDamageMultiplierPower>()
-            .Sum(power => power.Amount / 100m) + player.Creature.Powers
-            .OfType<AK_Exusiai.Powers.TemporaryAmmoDamageMultiplierPower>()
             .Sum(power => power.Amount / 100m);
         FirepowerRadio? radio = player.Relics.OfType<FirepowerRadio>().FirstOrDefault();
         decimal radioMultiplier = radio?.DamageMultiplier ?? 1m;

@@ -4,11 +4,6 @@ public interface IAmmoFreeAttack
 {
 }
 
-public interface IMultiAmmoAttack
-{
-    int MaxAmmoSpend { get; }
-}
-
 public interface IAmmoDamageMultiplier
 {
     decimal AmmoDamageMultiplier { get; }
@@ -31,6 +26,8 @@ internal sealed class AmmoAttackInfo(
     decimal ammoDamagePerHit,
     int spendLimit)
 {
+    private decimal? _spendAllAmmoDamage;
+
     public AmmoAttackMode Mode { get; } = mode;
     public decimal AmmoDamagePerHit { get; } = ammoDamagePerHit;
     public int SpendLimit { get; } = Math.Max(0, spendLimit);
@@ -64,7 +61,7 @@ internal sealed class AmmoAttackInfo(
     {
         if (Mode == AmmoAttackMode.Overloaded)
         {
-            if (AmmoDamagePerHit <= 0m || AmmoBackedHitCount >= SpendLimit)
+            if (AmmoDamagePerHit <= 0m)
                 return false;
 
             SetCurrentHit(AmmoDamagePerHit, spend: false);
@@ -99,12 +96,19 @@ internal sealed class AmmoAttackInfo(
         MegaCrit.Sts2.Core.Models.CardModel card,
         MegaCrit.Sts2.Core.Models.AbstractModel source)
     {
+        if (_spendAllAmmoDamage is { } cachedDamage)
+        {
+            SetCurrentHit(cachedDamage, spend: false);
+            return true;
+        }
+
         if (Mode == AmmoAttackMode.Overloaded)
         {
-            if (AmmoDamagePerHit <= 0m || AmmoBackedHitCount >= SpendLimit)
+            if (AmmoDamagePerHit <= 0m || SpendLimit <= 0)
                 return false;
 
-            SetCurrentHit(AmmoDamagePerHit * SpendLimit, spend: false);
+            _spendAllAmmoDamage = AmmoDamagePerHit * SpendLimit;
+            SetCurrentHit(_spendAllAmmoDamage.Value, spend: false);
             return true;
         }
 
@@ -127,7 +131,8 @@ internal sealed class AmmoAttackInfo(
             return false;
         }
 
-        SetCurrentHit(AmmoDamagePerHit * ammo, spend: true, spentAmount: ammo);
+        _spendAllAmmoDamage = AmmoDamagePerHit * ammo;
+        SetCurrentHit(_spendAllAmmoDamage.Value, spend: true, spentAmount: ammo);
         return true;
     }
 

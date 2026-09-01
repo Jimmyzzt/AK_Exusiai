@@ -1,6 +1,4 @@
-using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
-using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -14,21 +12,23 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class CoveringFire : ExusiaiCardTemplate, IMultiAmmoAttack
+public sealed class CoveringFire : ExusiaiCardTemplate
 {
-    public int MaxAmmoSpend => 3;
+    private const string HitCountKey = "HitCount";
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(1m, ValueProp.Move),
-        new DynamicVar("StrengthLoss", 2m),
+        new DynamicVar(HitCountKey, 3m),
+        new DynamicVar("StrengthLoss", 3m),
     ];
     public CoveringFire() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars[HitCountKey].IntValue)
             .FromCard(this, cardPlay).TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         int ammoSpent = AK_Exusiai.Characters.Exusiai.GetAmmoMultiplier(cardPlay);
