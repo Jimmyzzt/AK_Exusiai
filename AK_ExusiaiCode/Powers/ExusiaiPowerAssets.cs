@@ -16,7 +16,6 @@ internal static class ExusiaiPowerAssets
     public static PowerAssetProfile Energy => From<EnergyNextTurnPower>();
     public static PowerAssetProfile Echo => From<EchoFormPower>();
     public static PowerAssetProfile Retain => From<BarricadePower>();
-    public static PowerAssetProfile Angel => Custom(nameof(AngelFreePower));
     public static PowerAssetProfile Delivery => Custom(nameof(LogisticsOutsourcingPower), ".png");
     public static PowerAssetProfile ExtraTurn => From<AmbergrisPower>();
     public static PowerAssetProfile Mercy => From<DarkEmbracePower>();

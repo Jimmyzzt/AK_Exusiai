@@ -23,7 +23,7 @@ public sealed class CoveringFire : ExusiaiCardTemplate
         new DynamicVar(HitCountKey, 3m),
         new DynamicVar("StrengthLoss", 3m),
     ];
-    public CoveringFire() : base(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies) { }
+    public CoveringFire() : base(1, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

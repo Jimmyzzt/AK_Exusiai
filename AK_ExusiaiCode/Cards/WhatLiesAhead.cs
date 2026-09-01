@@ -17,7 +17,7 @@ public sealed class WhatLiesAhead : ExusiaiCardTemplate
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Doubt>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Move),
+        new DamageVar(12m, ValueProp.Move),
         new DynamicVar("HitCount", 3m),
     ];
     public WhatLiesAhead() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }

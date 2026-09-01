@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class FlammableAndExplosive : ExusiaiCardTemplate
 {
+    protected override bool ShowOverloadHoverTip => true;
     private const string OverloadBonusKey = "OverloadBonus";
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

@@ -17,7 +17,7 @@ public sealed class EmbraceNewLife : ExusiaiCardTemplate
     [
         HoverTipFactory.FromCard<HolyCityGuidance>(),
         HoverTipFactory.FromCard<HolyCityPurge>(),
-        HoverTipFactory.FromCard<HolyCityProtection>(),
+        HoverTipFactory.FromCard<HolyCityIceCream>(),
     ];
     protected override bool HasEnergyCostX => true;
     protected override bool ShowAngelHoverTip => true;

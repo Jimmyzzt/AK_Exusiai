@@ -11,7 +11,7 @@ namespace AK_Exusiai.Cards;
 public sealed class HolyCityGuidance : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
 
     public HolyCityGuidance() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)

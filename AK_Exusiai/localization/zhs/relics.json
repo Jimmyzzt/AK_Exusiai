@@ -12,7 +12,7 @@
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.flavor": "信仰悬在你的心口上方十公分处，语言流入你的血液，子弹滑进你的弹仓。",
 
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.title": "苹果派物流",
-  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "每回合第一次打出攻击牌时，获得等量于其消耗的[gold]弹药[/gold]。",
+  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "每回合第一次打出攻击牌时，获得等同于其实际支付能量的[gold]弹药[/gold]。",
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "准时送达，趁热享用。弹药也一样。",
 
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "老板奖章",
@@ -23,15 +23,15 @@
   "AK_EXUSIAI_RELIC_LORD_SERVER.description": "你在战斗中获得诅咒牌时，获得 {Energy:energyIcons()}。",
   "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "连接已建立。每一次祈祷都……不一定得到回应。",
 
-  "AK_EXUSIAI_RELIC_CONFESS_47.title": "CONFESS-47",
-  "AK_EXUSIAI_RELIC_CONFESS_47.description": "每场战斗开始时，将 {Cards} 张随机[gold]天使[/gold]牌加入你的手牌。",
-  "AK_EXUSIAI_RELIC_CONFESS_47.flavor": "拉特兰自律告解车，编号“CONFESS-47”，愿意聆听你的告解。",
+  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.title": "袖珍角子机",
+  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "每场战斗开始时，给予所有敌人 {InterferencePower:diff()} 层[gold]干扰[/gold]。",
+  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.flavor": "小巧、便携，而且每一次转动都让空气里多一点火药味。",
 
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.title": "日光灯",
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.description": "每当打出一张[gold]天使[/gold]牌，在本回合获得 {TemporaryFirepowerPower:diff()} 点[gold]火力[/gold]。",
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.flavor": "拉特兰的光，偶尔也来自一根嗡嗡作响的灯管。",
 
-  "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.title": "火力电台",
-  "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.description": "[gold]弹药[/gold]增加的伤害变为 {Multiplier} 倍。你的回合开始时失去 {Ammo} 发弹药。",
-  "AK_EXUSIAI_RELIC_FIREPOWER_RADIO.flavor": "频道畅通。坐标确认。爆炸已在路上。"
+  "AK_EXUSIAI_RELIC_FIREPOWER_FM.title": "火力电台",
+  "AK_EXUSIAI_RELIC_FIREPOWER_FM.description": "[gold]弹药[/gold]增加的伤害变为 {Multiplier} 倍。你的回合开始时失去 {Ammo} 发弹药。",
+  "AK_EXUSIAI_RELIC_FIREPOWER_FM.flavor": "频道畅通。坐标确认。爆炸已在路上。"
 }

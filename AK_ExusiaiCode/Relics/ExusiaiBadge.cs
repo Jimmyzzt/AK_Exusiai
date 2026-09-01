@@ -20,7 +20,7 @@ public sealed class ExusiaiBadge : ExusiaiRelicTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar(AmmoKey, 4m),
+        new DynamicVar(AmmoKey, 5m),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

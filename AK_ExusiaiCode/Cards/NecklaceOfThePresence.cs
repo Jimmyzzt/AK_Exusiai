@@ -13,9 +13,9 @@ public sealed class NecklaceOfThePresence : ExusiaiCardTemplate
 {
     private const string BlockKey = "Block";
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(BlockKey, 4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(BlockKey, 2m)];
 
-    public NecklaceOfThePresence() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public NecklaceOfThePresence() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
     }
 

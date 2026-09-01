@@ -107,6 +107,8 @@ internal sealed class AmmoAttackInfo(
             if (AmmoDamagePerHit <= 0m || SpendLimit <= 0)
                 return false;
 
+            // Overload prevents the actual payment but preserves the full
+            // spend-all damage calculation (30 Ammo at the normal cap).
             _spendAllAmmoDamage = AmmoDamagePerHit * SpendLimit;
             SetCurrentHit(_spendAllAmmoDamage.Value, spend: false);
             return true;

@@ -13,15 +13,15 @@ public sealed class LoadEmUp : ExusiaiCardTemplate
 {
     protected override bool HasEnergyCostX => true;
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Ammo", 3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Ammo", 4m)];
     public LoadEmUp() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int ammo = DynamicVars["Ammo"].IntValue * ResolveEnergyXValue();
+        int ammo = DynamicVars["Ammo"].IntValue * (ResolveEnergyXValue() + (IsUpgraded ? 1 : 0));
         if (ammo > 0)
             await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, ammo, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["Ammo"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() { }
 }

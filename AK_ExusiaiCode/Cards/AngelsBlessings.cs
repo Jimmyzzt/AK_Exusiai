@@ -15,7 +15,7 @@ public sealed class AngelsBlessings : ExusiaiCardTemplate
     [
         HoverTipFactory.FromCard<HolyCityGuidance>(),
         HoverTipFactory.FromCard<HolyCityPurge>(),
-        HoverTipFactory.FromCard<HolyCityProtection>(),
+        HoverTipFactory.FromCard<HolyCityIceCream>(),
     ];
     protected override bool ShowAngelHoverTip => true;
     public AngelsBlessings() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }

@@ -56,7 +56,7 @@ public static partial class AmmoResource
         decimal commonMultiplier = 1m + player.Creature.Powers
             .OfType<AK_Exusiai.Powers.AmmoDamageMultiplierPower>()
             .Sum(power => power.Amount / 100m);
-        FirepowerRadio? radio = player.Relics.OfType<FirepowerRadio>().FirstOrDefault();
+        FirepowerFm? radio = player.Relics.OfType<FirepowerFm>().FirstOrDefault();
         decimal radioMultiplier = radio?.DamageMultiplier ?? 1m;
         return new AmmoDamageBreakdown(
             ammo,
@@ -113,7 +113,7 @@ public static partial class AmmoResource
         int Firepower,
         decimal BaseDamage,
         decimal CommonMultiplier,
-        decimal FirepowerRadioMultiplier,
+        decimal FirepowerFmMultiplier,
         decimal CardMultiplier,
         decimal DamagePerAmmo);
 

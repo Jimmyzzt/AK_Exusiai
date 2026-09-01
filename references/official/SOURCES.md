@@ -12,7 +12,8 @@
 | `references/official/art/职业分支图标_速射手.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `职业分支图标_速射手.png` | 预留职业分支标记；曾用于首版临时角色头像 | 源文件未修改 | 主维护者/2026-08-21 |
 | `references/official/art/模组_证章.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_证章.png` | 初始遗物“能天使的证章”图标 | 2026-08-24 更新源图；脚本生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
 | `references/official/art/模组_能天使的杰作.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `模组_能天使的杰作.png` | 先古遗物“能天使的杰作”图标 | 脚本生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
-| `references/official/art/立绘_CONFESS-47_1.png` | PNG 角色立绘 | 《明日方舟》官方游戏素材（项目维护者提供） | `立绘_CONFESS-47_1.png` | 遗物“CONFESS-47”图标 | 脚本裁切、等比缩放并生成 256×256 主图和白色轮廓图 | 主维护者/2026-08-24 |
+| `references/official/art/立绘_CONFESS-47_1.png` | PNG 角色立绘 | 《明日方舟》官方游戏素材（项目维护者提供） | `立绘_CONFESS-47_1.png` | 已弃用遗物“CONFESS-47”的历史源图 | 源文件未修改，当前不接入运行时 | 主维护者/2026-08-24 |
+| `references/official/art/uniequip_002_angel2.png` | PNG 模组图 | 《明日方舟》官方游戏素材（项目维护者提供） | `uniequip_002_angel2.png` | 遗物“袖珍角子机”图标 | 脚本裁切、等比缩放并生成 256×256 主图和白色轮廓图 | 主维护者/2026-09-01 |
 | `references/official/art/显圣吊坠.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `显圣吊坠.png` | “显圣吊坠”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/NecklaceOfThePresencePower.png` | 主维护者/2026-08-22 |
 | `references/official/art/企鹅物流logo.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `企鹅物流logo.png` | “物流外包”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/LogisticsOutsourcingPower.png` | 主维护者/2026-08-22 |
 | `references/official/art/Logo_拉特兰.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `Logo_拉特兰.png` | “共感形态”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/EmpathyFormPower.png` | 主维护者/2026-08-22 |

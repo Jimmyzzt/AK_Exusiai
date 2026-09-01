@@ -8,27 +8,18 @@
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.title": "火力",
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.description": "弹药额外增加 [blue]{Amount}[/blue] 点伤害。",
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.smartDescription": "弹药额外增加 [blue]{Amount}[/blue] 点伤害。",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "延时爆炸",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "下回合开始时，对所有敌人造成 [blue]{Damage:diff()}[/blue] 点伤害。",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "下回合开始时，对所有敌人造成 [blue]{Damage:diff()}[/blue] 点伤害。",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.title": "临时混乱",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.description": "本回合后续抽到的非 X 费牌耗能会被随机为 [blue]0[/blue] 至 [blue]3[/blue]。",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.smartDescription": "本回合后续抽到的非 X 费牌耗能会被随机为 [blue]0[/blue] 至 [blue]3[/blue]。",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.title": "童年",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.description": "耗能不小于 [blue]3[/blue] 的卡牌耗能减少 [blue]{Amount}[/blue]。在混乱之后结算。",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.smartDescription": "耗能不小于 [blue]3[/blue] 的卡牌耗能减少 [blue]{Amount}[/blue]。在混乱之后结算。",
   "AK_EXUSIAI_POWER_INTERFERENCE_POWER.title": "干扰",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "[blue]{Amount}[/blue] 回合内，被动能力失效，攻击伤害减少 [blue]10%[/blue]。",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "[blue]{Amount}[/blue] 回合内，被动能力失效，攻击伤害减少 [blue]10%[/blue]。",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.title": "天使之心",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.description": "接下来的 [blue]{Amount}[/blue] 个回合，[gold]天使[/gold]牌均可免费打出。",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.smartDescription": "接下来的 [blue]{Amount}[/blue] 个回合，[gold]天使[/gold]牌均可免费打出。",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "每层使攻击造成的伤害降低 [blue]10%[/blue]，最多降低 [blue]50%[/blue]。不会自行减少。",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "每层使攻击造成的伤害降低 [blue]10%[/blue]，最多降低 [blue]50%[/blue]。不会自行减少。",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.title": "沉默",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.description": "被动能力失效。敌方回合结束时减少 [blue]1[/blue] 层。",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.smartDescription": "被动能力失效。敌方回合结束时减少 [blue]1[/blue] 层。",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.title": "守护铳",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.description": "每累计消耗 [blue]{Amount}[/blue] 发弹药，抽 [blue]1[/blue] 张牌。",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.smartDescription": "每累计消耗 [blue]{Amount}[/blue] 发弹药，抽 [blue]1[/blue] 张牌。",
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.title": "爆弹",
-  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "攻击牌消耗弹药后，对所有敌人额外造成该次攻击每段由弹药增加的伤害。",
-  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "攻击牌消耗弹药后，对所有敌人额外造成该次攻击每段由弹药增加的伤害。",
+  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "后续 [blue]{Amount}[/blue] 张消耗弹药的攻击牌结算后，对所有敌人造成一次其总实际伤害 [blue]50%[/blue] 的伤害。",
+  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "后续 [blue]{Amount}[/blue] 张消耗弹药的攻击牌结算后，对所有敌人造成一次其总实际伤害 [blue]50%[/blue] 的伤害。",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.title": "“主”的宽恕",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "你可以花费 {Energy:energyIcons()} 打出原本不可打出的诅咒牌。打出诅咒牌会将其消耗。",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "你可以花费 {Energy:energyIcons()} 打出原本不可打出的诅咒牌。打出诅咒牌会将其消耗。",
@@ -51,57 +42,46 @@
   "AK_EXUSIAI_POWER_CARGO_IN_MOTION_TRANSIT_POWER.description": "货如轮转也会由中转遗物触发。",
   "AK_EXUSIAI_POWER_CARGO_IN_MOTION_TRANSIT_POWER.smartDescription": "货如轮转也会由中转遗物触发。",
   "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.title": "共感形态",
-  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description": "本场战斗中所有卡牌获得天使。天使牌消耗时额外打出一次。",
-  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.smartDescription": "本场战斗中所有卡牌获得天使。天使牌消耗时额外打出一次。",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.title": "冰镇甜品",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.description": "未使用的能量可以保留到下一回合。",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.smartDescription": "未使用的能量可以保留到下一回合。",
+  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description": "本场战斗中所有卡牌获得天使。每张天使牌首次免费打出时额外打出一次。",
+  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.smartDescription": "本场战斗中所有卡牌获得天使。每张天使牌首次免费打出时额外打出一次。",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.title": "帕格尼尼定制",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.description": "回合开始时获得 [blue]{Amount}[/blue] 发弹药。",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.smartDescription": "回合开始时获得 [blue]{Amount}[/blue] 发弹药。",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.title": "圣城庇护",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.description": "直到你的下回合开始，你的生命不会低于 [blue]1[/blue]。",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.smartDescription": "直到你的下回合开始，你的生命不会低于 [blue]1[/blue]。"
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.title": "弹药增幅"
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.description": "[gold]弹药[/gold]提供的伤害提高 [blue]{Amount}%[/blue]。"
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "[gold]弹药[/gold]提供的伤害提高 [blue]{Amount}%[/blue]。"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.title": "过载"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.description": "攻击伤害提高 [blue]50%[/blue]。不能获得或消耗[gold]弹药[/gold]。"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.smartDescription": "攻击伤害提高 [blue]50%[/blue]。不能获得或消耗[gold]弹药[/gold]。"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.title": "过载弹药保留"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "本回合结束时保留剩余[gold]弹药[/gold]。"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "本回合结束时保留剩余[gold]弹药[/gold]。"
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.title": "升华"
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.description": "本场战斗中的所有天使牌获得升级。"
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.smartDescription": "本场战斗中的所有天使牌获得升级。"
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.title": "物流安保"
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.description": "每当你的卡牌的快递层数变化时，每变化 [blue]1[/blue] 层获得 [blue]{Amount}[/blue] 点格挡。"
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.smartDescription": "每当你的卡牌的快递层数变化时，每变化 [blue]1[/blue] 层获得 [blue]{Amount}[/blue] 点格挡。"
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "加急"
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "快递层数变为 [blue]1[/blue] 时立即自动打出。"
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "快递层数变为 [blue]1[/blue] 时立即自动打出。"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "闪光"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "[blue]{Amount}[/blue] 回合内，[gold]虚弱[/gold]的效果变为两倍。"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "[blue]{Amount}[/blue] 回合内，[gold]虚弱[/gold]的效果变为两倍。"
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.title": "告解"
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.description": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。"
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "易燃易爆"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "[gold]过载[/gold]时，攻击伤害额外提高 [blue]{Amount}%[/blue]。"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "[gold]过载[/gold]时，攻击伤害额外提高 [blue]{Amount}%[/blue]。"
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.title": "圣城感召"
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。"
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "福音摇滚"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "攻击牌可以额外消耗 [blue]{Amount}[/blue] 发弹药。"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "攻击牌可以额外消耗 [blue]{Amount}[/blue] 发弹药。"
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "天使的祝福"
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。"
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。"
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.title": "莫斯提马"
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "本回合结束后，额外获得 [blue]{Amount}[/blue] 个回合。"
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "本回合结束后，额外获得 [blue]{Amount}[/blue] 个回合。"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.title": "缓慢"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "你在本回合内每打出一张牌，该敌人本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "你在本回合内每打出一张牌，该敌人本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。"
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.title": "弹药增幅",
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.description": "[gold]弹药[/gold]提供的伤害提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "[gold]弹药[/gold]提供的伤害提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.title": "过载",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.description": "攻击伤害提高 [blue]50%[/blue]。不能获得[gold]弹药[/gold]，计算消耗加成但不实际扣除。",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.smartDescription": "攻击伤害提高 [blue]50%[/blue]。不能获得[gold]弹药[/gold]，计算消耗加成但不实际扣除。",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.title": "过载弹药保留",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "本回合结束时保留剩余[gold]弹药[/gold]。",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "本回合结束时保留剩余[gold]弹药[/gold]。",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "加急",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "快递层数变为 [blue]1[/blue] 时立即自动打出。",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "快递层数变为 [blue]1[/blue] 时立即自动打出。",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.title": "告解",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.description": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "每当抽到或消耗一张诅咒或天使牌时，额外抽 [blue]{Amount}[/blue] 张牌。",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "易燃易爆",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "[gold]过载[/gold]时，攻击伤害额外提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "[gold]过载[/gold]时，攻击伤害额外提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.title": "圣城感召",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "每当打出一张天使牌时，每层获得 {Energy:energyIcons()}。",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "福音摇滚",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "回合开始时，选择 [blue]{Amount}[/blue] 张手牌获得天使。已有天使牌会刷新免费资格。",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "回合开始时，选择 [blue]{Amount}[/blue] 张手牌获得天使。已有天使牌会刷新免费资格。",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt": "选择要获得天使的牌。",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "天使的祝福",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "回合开始时，将 [blue]{Amount}[/blue] 张随机天使牌加入手牌。",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.title": "莫斯提马",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "本回合结束后，额外获得 [blue]{Amount}[/blue] 个回合。",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "本回合结束后，额外获得 [blue]{Amount}[/blue] 个回合。",
+  "AK_EXUSIAI_POWER_TALENT_POWER.title": "天赋",
+  "AK_EXUSIAI_POWER_TALENT_POWER.description": "能天使对目标造成的伤害，按其每层干扰提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_TALENT_POWER.smartDescription": "能天使对目标造成的伤害，按其每层干扰提高 [blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.title": "后勤支援",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.description": "回合开始时，获得 [blue]{Amount}[/blue] 发弹药。",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.smartDescription": "回合开始时，获得 [blue]{Amount}[/blue] 发弹药。"
 }

@@ -4,5 +4,7 @@
   "AK_EXUSIAI_KEYWORD_TRANSIT.title": "Transit",
   "AK_EXUSIAI_KEYWORD_TRANSIT.description": "A temporary relic with Transit X also loses 1 Transit after the combat in which it was gained. At 0 it remains in the inventory but is inactive, and can gain Transit again.",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "Angel",
-  "AK_EXUSIAI_KEYWORD_ANGEL.description": "This card's Energy cost cannot increase this combat."
+  "AK_EXUSIAI_KEYWORD_ANGEL.description": "Retain. The first play after gaining Angel is free and cannot be changed by other cost effects. Gaining Angel again refreshes this free play. Status and Curse cards are Exhausted immediately when they gain Angel.",
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.title": "Overload",
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "Attack damage is increased by 50%. While Overloaded, Ammo cannot be gained and is not actually deducted; effects that scale with Ammo spent still use their allowed spending limit. At the end of your turn, lose all Ammo and exit Overload."
 }

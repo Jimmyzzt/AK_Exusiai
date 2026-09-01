@@ -1,4 +1,3 @@
-using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -19,8 +18,8 @@ public sealed class ArmorPiercingRound : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Move),
-        new PowerVar<VulnerablePower>(2m),
+        new DamageVar(6m, ValueProp.Move),
+        new PowerVar<VulnerablePower>(1m),
     ];
 
     public ArmorPiercingRound() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -30,20 +29,24 @@ public sealed class ArmorPiercingRound : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        await CreatureCmd.LoseBlock(
+            choiceContext,
+            cardPlay.Target,
+            cardPlay.Target.Block,
+            Owner.Creature);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        if (AK_Exusiai.Characters.Exusiai.DidSpendAmmo(cardPlay))
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target,
-                DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target,
+            DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.Damage.UpgradeValueBy(1m);
         DynamicVars.Vulnerable.UpgradeValueBy(1m);
     }
 }

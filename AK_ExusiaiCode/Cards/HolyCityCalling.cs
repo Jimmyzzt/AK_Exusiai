@@ -13,7 +13,7 @@ public sealed class HolyCityCalling : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
-    public HolyCityCalling() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
+    public HolyCityCalling() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         await PowerCmd.Apply<HolyCityCallingPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);

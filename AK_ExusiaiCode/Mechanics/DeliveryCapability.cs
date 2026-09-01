@@ -230,24 +230,5 @@ internal static class DeliveryChangeCmd
                 await bossMedal.AfterDeliveryAdded(choiceContext);
         }
 
-        int block = 0;
-        if (card is Package)
-            block += card.DynamicVars.Block.IntValue * changedLayers;
-
-        SecureDeliveryPower? secureDelivery = card.Owner.Creature.GetPower<SecureDeliveryPower>();
-        if (secureDelivery != null)
-        {
-            secureDelivery.Flash();
-            block += secureDelivery.Amount * changedLayers;
-        }
-
-        if (block > 0)
-        {
-            await CreatureCmd.GainBlock(
-                card.Owner.Creature,
-                block,
-                MegaCrit.Sts2.Core.ValueProps.ValueProp.Unpowered,
-                null);
-        }
     }
 }

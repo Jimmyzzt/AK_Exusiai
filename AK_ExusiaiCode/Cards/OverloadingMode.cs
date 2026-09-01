@@ -12,6 +12,7 @@ namespace AK_Exusiai.Cards;
 public sealed class OverloadingMode : ExusiaiCardTemplate
 {
     protected override bool ShowAmmoHoverTip => true;
+    protected override bool ShowOverloadHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];
 
     public OverloadingMode() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)

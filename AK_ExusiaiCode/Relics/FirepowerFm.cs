@@ -12,7 +12,7 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Relics;
 
 [RegisterRelic(typeof(ExusiaiRelicPool))]
-public sealed class FirepowerRadio : ExusiaiRelicTemplate
+public sealed class FirepowerFm : ExusiaiRelicTemplate
 {
     public override RelicRarity Rarity => RelicRarity.Shop;
 

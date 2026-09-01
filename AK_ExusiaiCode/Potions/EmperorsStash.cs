@@ -29,6 +29,6 @@ public sealed class EmperorsStash : ExusiaiPotionTemplate
             .Range(0, DynamicVars.Cards.IntValue)
             .Select(_ => LogisticsCardCatalog.CreateRandom(player))
             .ToList();
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, player);
     }
 }

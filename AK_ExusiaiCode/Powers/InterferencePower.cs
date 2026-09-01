@@ -1,9 +1,6 @@
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
@@ -24,17 +21,11 @@ public sealed class InterferencePower : ModPowerTemplate
         ValueProp props,
         Creature? dealer,
         CardModel? cardSource,
-        CardPlay? cardPlay)
+        MegaCrit.Sts2.Core.Entities.Cards.CardPlay? cardPlay)
     {
-        return dealer == Owner && props.IsPoweredAttack() ? 0.9m : 1m;
-    }
+        if (dealer != Owner || !props.IsPoweredAttack())
+            return 1m;
 
-    public override async Task AfterSideTurnEnd(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IEnumerable<Creature> participants)
-    {
-        if (side == CombatSide.Enemy && participants.Contains(Owner))
-            await PowerCmd.TickDownDuration(this);
+        return 1m - Math.Min(5, Amount) * 0.1m;
     }
 }

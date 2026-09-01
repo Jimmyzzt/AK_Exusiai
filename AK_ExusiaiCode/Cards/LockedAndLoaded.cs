@@ -19,7 +19,7 @@ public sealed class LockedAndLoaded : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar(AmmoKey, 3m),
+        new DynamicVar(AmmoKey, 4m),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

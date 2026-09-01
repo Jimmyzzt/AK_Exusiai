@@ -30,6 +30,7 @@ public abstract class ExusiaiCardTemplate(
     protected virtual bool ShowDeliveryHoverTip => false;
     protected virtual bool ShowTransitHoverTip => false;
     protected virtual bool ShowAngelHoverTip => false;
+    protected virtual bool ShowOverloadHoverTip => false;
     protected virtual IEnumerable<IHoverTip> CardHoverTips => [];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips
@@ -44,6 +45,8 @@ public abstract class ExusiaiCardTemplate(
                 yield return ExusiaiKeywords.TransitHoverTip;
             if (ShowAngelHoverTip)
                 yield return ExusiaiKeywords.AngelHoverTip;
+            if (ShowOverloadHoverTip)
+                yield return ExusiaiKeywords.OverloadHoverTip;
 
             foreach (IHoverTip hoverTip in CardHoverTips)
                 yield return hoverTip;

@@ -32,6 +32,6 @@ public sealed class BottledHalo : ExusiaiPotionTemplate
             .Range(0, DynamicVars.Cards.IntValue)
             .Select(_ => AngelCardCatalog.CreateRandom(player))
             .ToList();
-        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, player);
     }
 }

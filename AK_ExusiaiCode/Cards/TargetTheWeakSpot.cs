@@ -1,10 +1,9 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -12,31 +11,23 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class TargetTheWeakSpot : ExusiaiCardTemplate
 {
-    protected override IEnumerable<IHoverTip> CardHoverTips =>
-        [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new PowerVar<WeakPower>(1m),
-        new PowerVar<VulnerablePower>(3m),
-    ];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(2m)];
 
-    public TargetTheWeakSpot() : base(0, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)
-    {
-    }
+    public TargetTheWeakSpot() : base(0, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var enemies = CombatState!.HittableEnemies;
-        await PowerCmd.Apply<WeakPower>(
-            choiceContext, enemies, DynamicVars.Weak.BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<VulnerablePower>(
-            choiceContext, enemies, DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        if (!cardPlay.Target.HasPower<InterferencePower>())
+            return;
+
+        await PowerCmd.Apply<FirepowerPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars[nameof(FirepowerPower)].BaseValue,
+            Owner.Creature,
+            this);
     }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Weak.UpgradeValueBy(1m);
-        DynamicVars.Vulnerable.UpgradeValueBy(1m);
-    }
+    protected override void OnUpgrade() => DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
 }

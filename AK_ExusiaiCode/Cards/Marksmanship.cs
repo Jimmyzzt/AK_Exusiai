@@ -19,7 +19,7 @@ public sealed class Marksmanship : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(9m, ValueProp.Move),
-        new DynamicVar(AmmoKey, 2m),
+        new DynamicVar(AmmoKey, 3m),
     ];
 
     public Marksmanship() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -40,7 +40,7 @@ public sealed class Marksmanship : ExusiaiCardTemplate
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
         DynamicVars[AmmoKey].UpgradeValueBy(1m);
     }
 }

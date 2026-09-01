@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class RockNGospel : ExusiaiCardTemplate
 {
+    protected override bool ShowAngelHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RockNGospelPower>(1m)];
     public RockNGospel() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 

@@ -144,25 +144,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "Ascension": {
-      "source": "references/official/asset/ScreenShot_2026-08-25_004604_900.png",
-      "zoom": 1.467,
-      "offset": [
-        -0.0089,
-        -0.1778
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "penguin_night",
-      "gradient_mode": "vertical",
-      "texture": "streaks",
-      "top_color": "182330",
-      "bottom_color": "677485",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "BarrageSkyShattering": {
       "source": "references/official/asset/Avg_61_i20.png",
       "zoom": 1.166,
@@ -239,25 +220,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "BoostedRound": {
-      "source": "references/free/asset/增压弹.png",
-      "zoom": 1.0,
-      "offset": [
-        0.0325,
-        -0.025
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
-    },
     "ChargingMode": {
       "source": "references/official/art/技能_冲锋模式.png",
       "zoom": 0.5,
@@ -276,25 +238,6 @@
       "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
-    },
-    "Childhood": {
-      "source": "references/official/asset/EjtEBoyUwAEEfOR.jpg",
-      "zoom": 1.0,
-      "offset": [
-        0.0289,
-        -0.0068
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false,
-      "gradient_mode": "vertical",
-      "texture": "streaks"
     },
     "Confession": {
       "source": "references/official/asset/Avg_61_i03_6.png",
@@ -372,25 +315,6 @@
       "gradient_mode": "vertical",
       "texture": "streaks"
     },
-    "DelayedBlast": {
-      "source": "references/official/asset/ScreenShot_2026-08-25_180833_299.png",
-      "zoom": 1.084,
-      "offset": [
-        0.0,
-        -0.016
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "gradient_mode": "vertical",
-      "texture": "rays",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "burst",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "DessertTime": {
       "source": "references/official/asset/ScreenShot_2026-08-25_050734_963_upscayl_4x_digital-art-4x.png",
       "zoom": 0.74,
@@ -403,25 +327,6 @@
       "background": "laterano_sunset",
       "gradient_mode": "diagonal",
       "texture": "grain",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
-    "Disruption": {
-      "source": "references/official/asset/ScreenShot_2026-08-25_014904_196_edited.png",
-      "zoom": 1.0,
-      "offset": [
-        -0.0462,
-        -0.0517
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "gradient_mode": "vertical",
-      "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
@@ -885,44 +790,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "HolyCityProtection": {
-      "source": "references/official/asset/character/立绘_信仰搅拌机_2.png",
-      "zoom": 1.0,
-      "offset": [
-        0.0088,
-        0.0032
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "penguin_night",
-      "gradient_mode": "vertical",
-      "texture": "rays",
-      "top_color": "182330",
-      "bottom_color": "677485",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
-    "HolyCityEternal": {
-      "source": "references/official/asset/Avg_26_i02.png",
-      "zoom": 1.0,
-      "offset": [
-        0.0,
-        0.0
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "gradient_mode": "vertical",
-      "texture": "streaks",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "GuaranteedSuccess": {
       "source": "references/official/art/技能_使命必达！.png",
       "zoom": 0.501,
@@ -1012,25 +879,6 @@
       "gradient_mode": "vertical",
       "texture": "streaks",
       "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
-    "SecureDelivery": {
-      "source": "references/official/asset/ChatGPT Image 2026年8月25日 17_02_59.png",
-      "zoom": 0.738,
-      "offset": [
-        -0.0116,
-        -0.0414
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "custom",
-      "gradient_mode": "solid",
-      "texture": "grain",
-      "top_color": "0b1016",
       "bottom_color": "ee9558",
       "motif": "auto",
       "rotation": 0.0,
@@ -1474,63 +1322,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "FrozenTreat": {
-      "source": "references/free/art/冰镇甜品.svg",
-      "zoom": 0.46,
-      "offset": [
-        0.0,
-        0.0
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "custom",
-      "gradient_mode": "radial",
-      "texture": "rays",
-      "top_color": "8c96a0",
-      "bottom_color": "3b889f",
-      "motif": "auto",
-      "rotation": 0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
-    "FullSalvo": {
-      "source": "references/official/asset/ScreenShot_2026-08-28_172906_367.png",
-      "zoom": 1.36,
-      "offset": [
-        -0.0097,
-        -0.01
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "gradient_mode": "vertical",
-      "texture": "streaks",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
-    "HolyCitysEmbrace": {
-      "source": "references/official/art/rogue_4_relic_fight_5.png",
-      "zoom": 0.43,
-      "offset": [
-        0.0,
-        -0.001
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "custom",
-      "gradient_mode": "diagonal",
-      "texture": "grain",
-      "top_color": "989898",
-      "bottom_color": "d3c499",
-      "motif": "auto",
-      "rotation": 0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "RockNGospel": {
       "source": "references/free/art/福音摇滚.svg",
       "zoom": 0.54,
@@ -1816,25 +1607,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "PiercingStrike": {
-      "source": "references/official/asset/ScreenShot_2026-08-28_180413_398.png",
-      "zoom": 1.166,
-      "offset": [
-        -0.041,
-        -0.0412
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": false,
-      "background": "laterano_sunset",
-      "gradient_mode": "vertical",
-      "texture": "streaks",
-      "top_color": "3c2059",
-      "bottom_color": "ee9558",
-      "motif": "auto",
-      "rotation": 0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "QuickMag": {
       "source": "references/free/asset/ChatGPT Image 2026年8月28日 18_12_31.png",
       "zoom": 0.31,
@@ -1887,6 +1659,25 @@
       "texture": "streaks",
       "top_color": "3c2059",
       "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "HolyCityEmbrace": {
+      "source": "references/official/art/rogue_4_relic_fight_5.png",
+      "zoom": 0.43,
+      "offset": [
+        0.0,
+        -0.001
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "diagonal",
+      "texture": "grain",
+      "top_color": "989898",
+      "bottom_color": "d3c499",
       "motif": "auto",
       "rotation": 0,
       "flip_horizontal": false,

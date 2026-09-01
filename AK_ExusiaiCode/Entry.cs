@@ -32,7 +32,7 @@ public partial class Entry
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
-        _patcher.RegisterPatch<AngelEnergyCostPatch>();
+        _patcher.RegisterPatch<AngelFreeCostPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<RelicLogisticsHookPatch>();
         _patcher.RegisterPatch<RelicLogisticsLifecyclePatch>();
@@ -85,12 +85,12 @@ public partial class Entry
             $"{ResPath}/images/relics/BossMedalOutline.png",
             $"{ResPath}/images/relics/LordServer.png",
             $"{ResPath}/images/relics/LordServerOutline.png",
-            $"{ResPath}/images/relics/Confess47.png",
-            $"{ResPath}/images/relics/Confess47Outline.png",
+            $"{ResPath}/images/relics/PocketSlotMachine.png",
+            $"{ResPath}/images/relics/PocketSlotMachineOutline.png",
             $"{ResPath}/images/relics/FluorescentLight.png",
             $"{ResPath}/images/relics/FluorescentLightOutline.png",
-            $"{ResPath}/images/relics/FirepowerRadio.png",
-            $"{ResPath}/images/relics/FirepowerRadioOutline.png",
+            $"{ResPath}/images/relics/FirepowerFm.png",
+            $"{ResPath}/images/relics/FirepowerFmOutline.png",
             $"{ResPath}/images/potions/PotionShapedMag.png",
             $"{ResPath}/images/potions/PotionShapedMagOutline.png",
             $"{ResPath}/images/potions/EmperorsStash.png",

@@ -8,7 +8,7 @@ namespace AK_Exusiai.Patches;
 
 internal sealed class InterferencePatch : IPatchMethod
 {
-    public static string PatchId => "suppress-enemy-passive-powers";
+    public static string PatchId => "silence-enemy-passive-powers";
     public static string Description => "Temporarily omit positive enemy powers from combat hook dispatch";
 
     public static ModPatchTarget[] GetTargets() =>
@@ -26,8 +26,8 @@ internal sealed class InterferencePatch : IPatchMethod
         foreach (AbstractModel model in models)
         {
             if (model is PowerModel power &&
-                power is not InterferencePower &&
-                power.Owner.HasPower<InterferencePower>() &&
+                power is not SilencePower &&
+                power.Owner.HasPower<SilencePower>() &&
                 power.TypeForCurrentAmount == PowerType.Buff)
             {
                 continue;

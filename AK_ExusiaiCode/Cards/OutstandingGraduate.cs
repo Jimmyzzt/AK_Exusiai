@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -18,13 +19,21 @@ public sealed class OutstandingGraduate : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<InterferencePower>(
-            choiceContext,
-            CombatState!.HittableEnemies,
-            1m,
-            Owner.Creature,
-            this);
+        int multiplier = IsUpgraded ? 3 : 2;
+        foreach (var enemy in CombatState!.HittableEnemies.ToList())
+        {
+            int current = enemy.GetPower<InterferencePower>()?.Amount ?? 0;
+            if (current > 0)
+            {
+                await InterferenceCmd.Apply(
+                    choiceContext,
+                    enemy,
+                    current * (multiplier - 1),
+                    Owner.Creature,
+                    this);
+            }
+        }
     }
 
-    protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);
+    protected override void OnUpgrade() { }
 }

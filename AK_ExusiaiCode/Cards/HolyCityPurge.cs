@@ -17,7 +17,7 @@ public sealed class HolyCityPurge : ExusiaiCardTemplate
     private const string AmmoKey = "Ammo";
     protected override bool ShowAmmoHoverTip => true;
     protected override bool ShowAngelHoverTip => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

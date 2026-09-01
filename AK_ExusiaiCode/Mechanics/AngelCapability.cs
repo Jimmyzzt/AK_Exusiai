@@ -1,29 +1,35 @@
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Keywords;
 using STS2RitsuLib.Models.Capabilities;
-using AK_Exusiai.Cards;
 
 namespace AK_Exusiai.Mechanics;
 
 [RegisterModelCapability]
-[RegisterDefaultModelCapability(typeof(DivineJudgment))]
-[RegisterDefaultModelCapability(typeof(HolyCityPurge))]
-[RegisterDefaultModelCapability(typeof(HolyCityGuidance))]
-[RegisterDefaultModelCapability(typeof(HolyCityProtection))]
-[RegisterDefaultModelCapability(typeof(HolyCityEternal))]
-[RegisterDefaultModelCapability(typeof(HolyCityIceCream))]
-public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor,
-    ICardDescriptionContributor, ICardHoverTipContributor
+[RegisterDefaultModelCapability(typeof(Cards.HolyCityPurge))]
+[RegisterDefaultModelCapability(typeof(Cards.HolyCityGuidance))]
+[RegisterDefaultModelCapability(typeof(Cards.HolyCityIceCream))]
+[RegisterDefaultModelCapability(typeof(Cards.HolyCityRadiance))]
+[RegisterDefaultModelCapability(typeof(Cards.SwearOnThisGun))]
+[RegisterDefaultModelCapability(typeof(Cards.ApplePieWithCharSiu))]
+[RegisterDefaultModelCapability(typeof(Cards.HolyCityEmbrace))]
+public sealed class AngelCapability : CardCapability, ICardDescriptionContributor,
+    ICardHoverTipContributor
 {
-    private const int NoCombatMinimum = int.MaxValue;
+    private static readonly ConditionalWeakTable<CardPlay, AngelFreePlayMarker> FreePlays = new();
 
+    private bool _hasFreePlay = true;
     private bool _addedKeyword;
-    private int _lowestCombatCost = NoCombatMinimum;
+    private bool _addedRetain;
+
+    public bool HasFreePlay => _hasFreePlay;
 
     public IEnumerable<CardDescriptionFragment> GetDescriptionFragments(CardDescriptionContext context) =>
     [
@@ -35,60 +41,77 @@ public sealed class AngelCapability : CardCapability, ICardEnergyCostContributor
 
     public IEnumerable<IHoverTip> GetHoverTips(CardModel card) => [ExusiaiKeywords.AngelHoverTip];
 
-    public int ModifyEnergyCost(CardModel card, int currentCost, CostModifiers modifiers)
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (!ReferenceEquals(card, Owner))
-            return currentCost;
-
-        currentCost = Math.Min(currentCost, Math.Max(0, card.EnergyCost.Canonical));
-        return !IsInCombatPile(card) || _lowestCombatCost == NoCombatMinimum
-            ? currentCost
-            : Math.Min(currentCost, _lowestCombatCost);
-    }
-
-    protected override JsonNode SaveAdditionalState()
-    {
-        return new JsonObject
+        if (ReferenceEquals(cardPlay.Card, Owner) && _hasFreePlay)
         {
-            ["lowestCombatCost"] = _lowestCombatCost == NoCombatMinimum
-                ? -1
-                : _lowestCombatCost,
-        };
+            _hasFreePlay = false;
+            FreePlays.Add(cardPlay, new AngelFreePlayMarker());
+            MarkDirty();
+        }
+
+        return Task.CompletedTask;
     }
+
+    public void Refresh()
+    {
+        _hasFreePlay = true;
+        EnsurePresentation();
+        MarkDirty();
+    }
+
+    protected override JsonNode SaveAdditionalState() => new JsonObject
+    {
+        ["hasFreePlay"] = _hasFreePlay,
+        ["addedKeyword"] = _addedKeyword,
+        ["addedRetain"] = _addedRetain,
+    };
 
     protected override void LoadAdditionalState(JsonNode? state, int schemaVersion)
     {
-        int savedCost = (state as JsonObject)?["lowestCombatCost"]?.GetValue<int>() ?? -1;
-        _lowestCombatCost = savedCost >= 0 ? savedCost : NoCombatMinimum;
-    }
-
-    protected override void OnAttach(CardModel owner)
-    {
-        if (owner.HasModKeyword(ExusiaiKeywords.AngelKeyword))
+        if (state is not JsonObject obj)
             return;
 
-        owner.AddModKeyword(ExusiaiKeywords.AngelKeyword);
-        _addedKeyword = true;
+        _hasFreePlay = obj["hasFreePlay"]?.GetValue<bool>() ?? true;
+        _addedKeyword = obj["addedKeyword"]?.GetValue<bool>() ?? false;
+        _addedRetain = obj["addedRetain"]?.GetValue<bool>() ?? false;
     }
+
+    protected override void OnAttach(CardModel owner) => EnsurePresentation();
+
+    protected override void OnLoadedFromSave(CardModel owner) => EnsurePresentation();
 
     protected override void OnDetach(CardModel owner)
     {
+        if (_addedRetain)
+            owner.RemoveKeyword(CardKeyword.Retain);
         if (_addedKeyword)
             owner.RemoveModKeyword(ExusiaiKeywords.AngelKeyword);
     }
 
-    internal void RecordCombatMinimum(int currentCost)
+    private void EnsurePresentation()
     {
-        int previousMinimum = _lowestCombatCost;
-        _lowestCombatCost = Math.Min(_lowestCombatCost, Math.Max(0, currentCost));
-        if (_lowestCombatCost != previousMinimum)
-            MarkDirty();
+        CardModel? card = Owner;
+        if (card == null || card.IsCanonical)
+            return;
+
+        IReadOnlySet<CardKeyword> local = card.GetKeywordsWithSources(KeywordSources.Local);
+        if (!local.Contains(CardKeyword.Retain))
+        {
+            card.AddKeyword(CardKeyword.Retain);
+            _addedRetain = true;
+        }
+
+        if (!card.HasModKeyword(ExusiaiKeywords.AngelKeyword))
+        {
+            card.AddModKeyword(ExusiaiKeywords.AngelKeyword);
+            _addedKeyword = true;
+        }
     }
 
-    private static bool IsInCombatPile(CardModel card)
-    {
-        return card.Pile?.IsCombatPile == true;
-    }
+    internal static bool WasConsumedFor(CardPlay cardPlay) => FreePlays.TryGetValue(cardPlay, out _);
+
+    private sealed class AngelFreePlayMarker;
 }
 
 public static class AngelCmd
@@ -96,19 +119,18 @@ public static class AngelCmd
     public static bool IsAngel(CardModel card) =>
         card.Capabilities().Get<AngelCapability>() != null;
 
-    public static void Add(CardModel card)
-    {
-        card.Capabilities().GetOrCreate<AngelCapability>();
-        AscensionCmd.UpgradeIfNeeded(card);
-    }
+    public static bool HasFreePlay(CardModel card) =>
+        card.Capabilities().Get<AngelCapability>()?.HasFreePlay == true;
 
-    public static void RecordCurrentCombatCost(CardModel card)
-    {
-        AngelCapability? capability = card.Capabilities().Get<AngelCapability>();
-        if (capability == null || card.Pile?.IsCombatPile != true)
-            return;
+    public static bool WasFreePlay(CardPlay cardPlay) =>
+        AngelCapability.WasConsumedFor(cardPlay);
 
-        int localCost = card.EnergyCost.GetWithModifiers(CostModifiers.Local);
-        capability.RecordCombatMinimum(Math.Min(localCost, Math.Max(0, card.EnergyCost.Canonical)));
+    public static async Task Add(PlayerChoiceContext choiceContext, CardModel card)
+    {
+        AngelCapability capability = card.Capabilities().GetOrCreate<AngelCapability>();
+        capability.Refresh();
+
+        if (card.Type is CardType.Status or CardType.Curse && card.Pile?.IsCombatPile == true)
+            await CardCmd.Exhaust(choiceContext, card);
     }
 }

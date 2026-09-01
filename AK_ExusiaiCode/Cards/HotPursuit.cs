@@ -15,7 +15,7 @@ public sealed class HotPursuit : ExusiaiCardTemplate
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move),
+        new DamageVar(5m, ValueProp.Move),
         new EnergyVar(1),
         new CardsVar(1),
     ];

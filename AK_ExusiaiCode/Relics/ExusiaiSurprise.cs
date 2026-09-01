@@ -21,7 +21,7 @@ public sealed class ExusiaiSurprise : ExusiaiRelicTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar(AmmoKey, 8m),
-        new PowerVar<FirepowerPower>(1m),
+        new PowerVar<FirepowerPower>(3m),
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>

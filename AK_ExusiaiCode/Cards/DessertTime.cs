@@ -13,7 +13,7 @@ public sealed class DessertTime : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<HolyCityIceCream>()];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
     public DessertTime() : base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
@@ -29,5 +29,5 @@ public sealed class DessertTime : ExusiaiCardTemplate
         }
     }
 
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2m);
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
 }

@@ -8,27 +8,18 @@
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.title": "Firepower",
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.description": "Ammo deals [blue]{Amount}[/blue] additional damage.",
   "AK_EXUSIAI_POWER_FIREPOWER_POWER.smartDescription": "Ammo deals [blue]{Amount}[/blue] additional damage.",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.title": "Delayed Blast",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.description": "At the start of your next turn, deal [blue]{Damage:diff()}[/blue] damage to ALL enemies.",
-  "AK_EXUSIAI_POWER_DELAYED_BLAST_POWER.smartDescription": "At the start of your next turn, deal [blue]{Damage:diff()}[/blue] damage to ALL enemies.",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.title": "Temporary Confusion",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.description": "Non-X cards drawn later this turn have their costs randomized from [blue]0[/blue] to [blue]3[/blue].",
-  "AK_EXUSIAI_POWER_TEMPORARY_CONFUSION_POWER.smartDescription": "Non-X cards drawn later this turn have their costs randomized from [blue]0[/blue] to [blue]3[/blue].",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.title": "Childhood",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.description": "Cards that cost at least [blue]3[/blue] cost [blue]{Amount}[/blue] less. Applied after Confusion.",
-  "AK_EXUSIAI_POWER_CHILDHOOD_POWER.smartDescription": "Cards that cost at least [blue]3[/blue] cost [blue]{Amount}[/blue] less. Applied after Confusion.",
   "AK_EXUSIAI_POWER_INTERFERENCE_POWER.title": "Interference",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "For [blue]{Amount}[/blue] turn(s), passive abilities are disabled and Attack damage is reduced by [blue]10%[/blue].",
-  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "For [blue]{Amount}[/blue] turn(s), passive abilities are disabled and Attack damage is reduced by [blue]10%[/blue].",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.title": "Angel's Heart",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.description": "For the next [blue]{Amount}[/blue] turn(s), [gold]Angel[/gold] cards cost [blue]0[/blue].",
-  "AK_EXUSIAI_POWER_ANGEL_FREE_POWER.smartDescription": "For the next [blue]{Amount}[/blue] turn(s), [gold]Angel[/gold] cards cost [blue]0[/blue].",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.description": "Each stack reduces Attack damage by [blue]10%[/blue], up to [blue]50%[/blue]. Does not decrease on its own.",
+  "AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription": "Each stack reduces Attack damage by [blue]10%[/blue], up to [blue]50%[/blue]. Does not decrease on its own.",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.title": "Silence",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.description": "Passive abilities are disabled. At the end of the enemy turn, lose [blue]1[/blue] stack.",
+  "AK_EXUSIAI_POWER_SILENCE_POWER.smartDescription": "Passive abilities are disabled. At the end of the enemy turn, lose [blue]1[/blue] stack.",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.title": "Patron Firearm",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.description": "Whenever you cumulatively spend [blue]{Amount}[/blue] Ammo, draw [blue]1[/blue] card.",
   "AK_EXUSIAI_POWER_PATRON_FIREARM_POWER.smartDescription": "Whenever you cumulatively spend [blue]{Amount}[/blue] Ammo, draw [blue]1[/blue] card.",
   "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.title": "Explosive Ammo",
-  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "After an Attack spends Ammo, deal the Ammo-added damage from each hit to ALL enemies.",
-  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "After an Attack spends Ammo, deal the Ammo-added damage from each hit to ALL enemies.",
+  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.description": "After each of the next [blue]{Amount}[/blue] Attacks that spends Ammo, deal [blue]50%[/blue] of its total actual damage to ALL enemies once.",
+  "AK_EXUSIAI_POWER_AMMO_SPLASH_POWER.smartDescription": "After each of the next [blue]{Amount}[/blue] Attacks that spends Ammo, deal [blue]50%[/blue] of its total actual damage to ALL enemies once.",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.title": "The Lord's Forgiveness",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.description": "You may play otherwise Unplayable Curse cards for {Energy:energyIcons()}. Playing a Curse Exhausts it.",
   "AK_EXUSIAI_POWER_CURSE_RELEASE_POWER.smartDescription": "You may play otherwise Unplayable Curse cards for {Energy:energyIcons()}. Playing a Curse Exhausts it.",
@@ -51,57 +42,46 @@
   "AK_EXUSIAI_POWER_CARGO_IN_MOTION_TRANSIT_POWER.description": "Cargo in Motion can also trigger from Transit relics.",
   "AK_EXUSIAI_POWER_CARGO_IN_MOTION_TRANSIT_POWER.smartDescription": "Cargo in Motion can also trigger from Transit relics.",
   "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.title": "Empathy Form",
-  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description": "ALL cards gain Angel this combat. Whenever an Angel card is Exhausted, play it an additional time.",
-  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.smartDescription": "ALL cards gain Angel this combat. Whenever an Angel card is Exhausted, play it an additional time.",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.title": "Frozen Treat",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.description": "Unused Energy is retained between turns.",
-  "AK_EXUSIAI_POWER_FROZEN_TREAT_POWER.smartDescription": "Unused Energy is retained between turns.",
+  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description": "ALL cards gain Angel this combat. The first free play of each Angel card is played an additional time.",
+  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.smartDescription": "ALL cards gain Angel this combat. The first free play of each Angel card is played an additional time.",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.title": "Paganini Custom",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.description": "At the start of your turn, gain [blue]{Amount}[/blue] Ammo.",
   "AK_EXUSIAI_POWER_PAGANINI_CUSTOM_POWER.smartDescription": "At the start of your turn, gain [blue]{Amount}[/blue] Ammo.",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.title": "Holy City Protection",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.description": "Until the start of your next turn, your HP cannot be reduced below [blue]1[/blue].",
-  "AK_EXUSIAI_POWER_HOLY_CITY_PROTECTION_POWER.smartDescription": "Until the start of your next turn, your HP cannot be reduced below [blue]1[/blue]."
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.title": "Ammo Amplification"
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.description": "[gold]Ammo[/gold] damage is increased by [blue]{Amount}%[/blue]."
-  ,"AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "[gold]Ammo[/gold] damage is increased by [blue]{Amount}%[/blue]."
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.title": "Overload"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.description": "Attack damage is increased by [blue]50%[/blue]. [gold]Ammo[/gold] cannot be gained or spent."
-  ,"AK_EXUSIAI_POWER_OVERLOAD_POWER.smartDescription": "Attack damage is increased by [blue]50%[/blue]. [gold]Ammo[/gold] cannot be gained or spent."
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.title": "Overload Ammo Retention"
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "Retain your remaining [gold]Ammo[/gold] at the end of this turn."
-  ,"AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "Retain your remaining [gold]Ammo[/gold] at the end of this turn."
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.title": "Ascension"
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.description": "Upgrade ALL Angel cards this combat."
-  ,"AK_EXUSIAI_POWER_ASCENSION_POWER.smartDescription": "Upgrade ALL Angel cards this combat."
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.title": "Secure Delivery"
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.description": "Whenever a card's Delivery changes, gain [blue]{Amount}[/blue] Block per layer changed."
-  ,"AK_EXUSIAI_POWER_SECURE_DELIVERY_POWER.smartDescription": "Whenever a card's Delivery changes, gain [blue]{Amount}[/blue] Block per layer changed."
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "Expedite"
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "When a card's Delivery becomes [blue]1[/blue], play it automatically."
-  ,"AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "When a card's Delivery becomes [blue]1[/blue], play it automatically."
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.title": "Flash"
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.description": "For [blue]{Amount}[/blue] turn(s), [gold]Weak[/gold] is twice as effective."
-  ,"AK_EXUSIAI_POWER_FLASHBANG_POWER.smartDescription": "For [blue]{Amount}[/blue] turn(s), [gold]Weak[/gold] is twice as effective."
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.title": "Confession"
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.description": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s)."
-  ,"AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s)."
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "Flammable & Explosive"
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "While Overloaded, Attack damage is increased by an additional [blue]{Amount}%[/blue]."
-  ,"AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "While Overloaded, Attack damage is increased by an additional [blue]{Amount}%[/blue]."
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.title": "Holy City Calling"
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "Whenever you play an Angel card, gain {Energy:energyIcons()}per stack."
-  ,"AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "Whenever you play an Angel card, gain {Energy:energyIcons()}per stack."
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "Rock n' Gospel"
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "Attack cards can spend [blue]{Amount}[/blue] additional Ammo."
-  ,"AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "Attack cards can spend [blue]{Amount}[/blue] additional Ammo."
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "Angel's Blessings"
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand."
-  ,"AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand."
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.title": "Mostima"
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "After this turn, take [blue]{Amount}[/blue] extra turn(s)."
-  ,"AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "After this turn, take [blue]{Amount}[/blue] extra turn(s)."
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.title": "Slow"
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.description": "Whenever you play a card, this enemy receives [blue]10%[/blue] more damage from Attacks this turn."
-  ,"AK_EXUSIAI_POWER_TEMPORARY_SLOW_POWER.smartDescription": "Whenever you play a card, this enemy receives [blue]10%[/blue] more damage from Attacks this turn."
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.title": "Ammo Amplification",
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.description": "Damage granted by [gold]Ammo[/gold] is increased by [blue]{Amount}%[/blue].",
+  "AK_EXUSIAI_POWER_AMMO_DAMAGE_MULTIPLIER_POWER.smartDescription": "Damage granted by [gold]Ammo[/gold] is increased by [blue]{Amount}%[/blue].",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.title": "Overload",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.description": "Attack damage is increased by [blue]50%[/blue]. [gold]Ammo[/gold] cannot be gained; spending bonuses are calculated without deducting it.",
+  "AK_EXUSIAI_POWER_OVERLOAD_POWER.smartDescription": "Attack damage is increased by [blue]50%[/blue]. [gold]Ammo[/gold] cannot be gained; spending bonuses are calculated without deducting it.",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.title": "Overload Ammo Retention",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "Retain your remaining [gold]Ammo[/gold] at the end of this turn.",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "Retain your remaining [gold]Ammo[/gold] at the end of this turn.",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "Expedite",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "When a card's Delivery becomes [blue]1[/blue], play it automatically.",
+  "AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "When a card's Delivery becomes [blue]1[/blue], play it automatically.",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.title": "Confession",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.description": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s).",
+  "AK_EXUSIAI_POWER_CONFESSION_POWER.smartDescription": "Whenever you draw or Exhaust a Curse or Angel card, draw [blue]{Amount}[/blue] additional card(s).",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.title": "Flammable & Explosive",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.description": "While Overloaded, Attack damage is increased by an additional [blue]{Amount}%[/blue].",
+  "AK_EXUSIAI_POWER_FLAMMABLE_AND_EXPLOSIVE_POWER.smartDescription": "While Overloaded, Attack damage is increased by an additional [blue]{Amount}%[/blue].",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.title": "Holy City Calling",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.description": "Whenever you play an Angel card, gain {Energy:energyIcons()} per stack.",
+  "AK_EXUSIAI_POWER_HOLY_CITY_CALLING_POWER.smartDescription": "Whenever you play an Angel card, gain {Energy:energyIcons()} per stack.",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title": "Rock n' Gospel",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description": "At the start of your turn, choose [blue]{Amount}[/blue] card(s) in your hand to gain Angel. Existing Angel cards refresh their free play.",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription": "At the start of your turn, choose [blue]{Amount}[/blue] card(s) in your hand to gain Angel. Existing Angel cards refresh their free play.",
+  "AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt": "Choose cards to gain Angel.",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.title": "Angel's Blessings",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.description": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand.",
+  "AK_EXUSIAI_POWER_ANGELS_BLESSINGS_POWER.smartDescription": "At the start of your turn, add [blue]{Amount}[/blue] random Angel card(s) to your hand.",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.title": "Mostima",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.description": "After this turn, take [blue]{Amount}[/blue] extra turn(s).",
+  "AK_EXUSIAI_POWER_MOSTIMA_EXTRA_TURN_POWER.smartDescription": "After this turn, take [blue]{Amount}[/blue] extra turn(s).",
+  "AK_EXUSIAI_POWER_TALENT_POWER.title": "Talent",
+  "AK_EXUSIAI_POWER_TALENT_POWER.description": "Damage dealt by Exusiai to a target is increased by [blue]{Amount}%[/blue] per stack of its Interference.",
+  "AK_EXUSIAI_POWER_TALENT_POWER.smartDescription": "Damage dealt by Exusiai to a target is increased by [blue]{Amount}%[/blue] per stack of its Interference.",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.title": "Logistics Support",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.description": "At the start of your turn, gain [blue]{Amount}[/blue] Ammo.",
+  "AK_EXUSIAI_POWER_LOGISTICS_SUPPORT_POWER.smartDescription": "At the start of your turn, gain [blue]{Amount}[/blue] Ammo."
 }

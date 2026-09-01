@@ -10,8 +10,6 @@ public static class AngelCardCatalog
     [
         ModelDb.Card<HolyCityGuidance>(),
         ModelDb.Card<HolyCityPurge>(),
-        ModelDb.Card<HolyCityProtection>(),
-        ModelDb.Card<HolyCityEternal>(),
         ModelDb.Card<HolyCityIceCream>(),
     ];
 
@@ -19,7 +17,6 @@ public static class AngelCardCatalog
     {
         CardModel card = (owner.Creature.CombatState ?? throw new InvalidOperationException("Cannot create an Angel card outside combat."))
             .CreateCard(canonical, owner);
-        AscensionCmd.UpgradeIfNeeded(card);
         return card;
     }
 

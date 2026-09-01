@@ -25,6 +25,8 @@ public sealed class Shootoholic : ExusiaiCardTemplate
     {
         int ammo = Math.Min(5, SecondaryResourceCmd.Get(Owner, AmmoResource.Id));
         decimal damagePerAmmo = AK_Exusiai.Characters.Exusiai.GetAmmoDamagePerAmmo(Owner);
+        // Overload waives the resource payment, but this card still snapshots and
+        // grants the full five-Ammo prepaid bonus when five Ammo are available.
         if (ammo > 0 && !Owner.Creature.HasPower<OverloadPower>())
             await SecondaryResourceCmd.Spend(Owner, AmmoResource.Id, ammo, this, this);
 

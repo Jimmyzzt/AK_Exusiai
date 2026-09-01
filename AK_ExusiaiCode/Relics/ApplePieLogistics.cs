@@ -1,4 +1,3 @@
-using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Combat;
@@ -29,7 +28,7 @@ public sealed class ApplePieLogistics : ExusiaiRelicTemplate
             return;
 
         _usedThisTurn = true;
-        int spent = Exusiai.GetAmmoSpent(cardPlay);
+        int spent = cardPlay.Resources.EnergySpent;
         Flash();
         if (spent > 0)
             await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, spent, this);

@@ -17,7 +17,9 @@ public sealed class ExplosiveAmmo : ExusiaiCardTemplate
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(AmmoKey, 4m)];
 
-    public ExplosiveAmmo() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
+    public ExplosiveAmmo() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
     }
 
@@ -28,5 +30,5 @@ public sealed class ExplosiveAmmo : ExusiaiCardTemplate
             choiceContext, Owner.Creature, 1m, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[AmmoKey].UpgradeValueBy(2m);
+    protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);
 }

@@ -1,5 +1,5 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "Ammo",
-  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "Each actual damage hit of an Attack spends 1 Ammo and gains bonus damage based on the Ammo count before the card was played (+1 per 5 Ammo, minimum +2). Ammo is capped at 30; reaching the cap enters Overload. During Overload, Ammo cannot be gained or spent and Attack damage is increased by 50%. At end of turn, lose all Ammo and exit Overload.",
+  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "Each actual damage hit of an Attack spends 1 Ammo and gains bonus damage based on the Ammo count before the card was played (+1 per 5 Ammo, minimum +2). Ammo is capped at 30; reaching the cap enters [gold]Overload[/gold].",
   "AK_EXUSIAI_FIREPOWER_GENERIC.description": "Ammo deals additional damage."
 }

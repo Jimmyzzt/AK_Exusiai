@@ -1,9 +1,7 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -15,12 +13,11 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class SwearOnThisGun : ExusiaiCardTemplate
 {
-    protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowAngelHoverTip => true;
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(30m, ValueProp.Move),
-        new CardsVar(3),
-        new DynamicVar("Delivery", 3m),
     ];
     public SwearOnThisGun() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
@@ -30,20 +27,12 @@ public sealed class SwearOnThisGun : ExusiaiCardTemplate
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay)
             .Targeting(cardPlay.Target).WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
 
-        List<CardModel> options = PileType.Draw.GetPile(Owner).Cards.ToList()
-            .StableShuffle(Owner.RunState.Rng.CombatCardSelection)
-            .Take(DynamicVars.Cards.IntValue).ToList();
-        CardModel? selected = (await CardSelectCmd.FromCombatPile(
-            choiceContext,
-            PileType.Draw.GetPile(Owner),
-            Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 1),
-            options.Contains)).FirstOrDefault();
-        if (selected == null)
-            return;
-        await CardPileCmd.Add(selected, PileType.Hand);
-        await DeliveryCmd.Add(choiceContext, selected, DynamicVars["Delivery"].IntValue);
+        HolyCityPurge generated = CombatState!.CreateCard<HolyCityPurge>(Owner);
+        if (IsUpgraded)
+            CardCmd.Upgrade(generated);
+        CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
+            generated, PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(10m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(5m);
 }

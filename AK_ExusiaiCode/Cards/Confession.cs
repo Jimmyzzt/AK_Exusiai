@@ -16,5 +16,5 @@ public sealed class Confession : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         await PowerCmd.Apply<ConfessionPower>(choiceContext, Owner.Creature, 1m, Owner.Creature, this);
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

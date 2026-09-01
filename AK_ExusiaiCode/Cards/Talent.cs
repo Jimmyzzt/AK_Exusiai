@@ -11,15 +11,17 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Talent : ExusiaiCardTemplate
 {
-    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> CardHoverTips =>
-        [MegaCrit.Sts2.Core.HoverTips.HoverTipFactory.FromPower<FirepowerPower>(
-            DynamicVars[nameof(FirepowerPower)].IntValue)];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TalentPower>(15m)];
+
     public Talent() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        await PowerCmd.Apply<FirepowerPower>(choiceContext, Owner.Creature,
-            DynamicVars[nameof(FirepowerPower)].BaseValue, Owner.Creature, this);
+        await PowerCmd.Apply<TalentPower>(
+            choiceContext,
+            Owner.Creature,
+            DynamicVars[nameof(TalentPower)].BaseValue,
+            Owner.Creature,
+            this);
 
-    protected override void OnUpgrade() => DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars[nameof(TalentPower)].UpgradeValueBy(10m);
 }

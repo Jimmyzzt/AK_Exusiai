@@ -18,7 +18,7 @@ public sealed class JungleStyle : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar(AmmoKey, 3m),
+        new DynamicVar(AmmoKey, 4m),
     ];
 
     public JungleStyle() : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)

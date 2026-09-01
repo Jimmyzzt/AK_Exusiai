@@ -17,35 +17,28 @@ public sealed class PartyTime : ExusiaiCardTemplate
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<PoorSleep>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(1m, ValueProp.Move),
+        new DamageVar(3m, ValueProp.Move),
         new DynamicVar(HitCountKey, 25m),
     ];
 
-    public PartyTime() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
+    public PartyTime() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        for (int i = 0; i < DynamicVars[HitCountKey].IntValue; i++)
-        {
-            var targets = CombatState!.HittableEnemies;
-            if (targets.Count == 0)
-                break;
-            var target = Owner.RunState.Rng.CombatTargets.NextItem(targets);
-            if (target == null)
-                break;
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this, cardPlay)
-                .Targeting(target)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
-        }
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            .WithHitCount(DynamicVars[HitCountKey].IntValue)
+            .FromCard(this, cardPlay)
+            .Targeting(cardPlay.Target)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
 
         PoorSleep curse = CombatState!.CreateCard<PoorSleep>(Owner);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
             curse, PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars[HitCountKey].UpgradeValueBy(5m);
+    protected override void OnUpgrade() { }
 }
