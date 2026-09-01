@@ -10,10 +10,10 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoDamageMultiplier
+public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoDamageMultiplier, IAmmoSpendAllAttack
 {
     private const string AmmoMultiplierKey = "AmmoMultiplier";
-    public int AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
+    public decimal AmmoDamageMultiplier => DynamicVars[AmmoMultiplierKey].IntValue;
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

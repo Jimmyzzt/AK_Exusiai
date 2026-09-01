@@ -11,28 +11,18 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class FlammableAndExplosive : ExusiaiCardTemplate
 {
-    private const string AmmoKey = "Ammo";
-    protected override bool ShowDeliveryHoverTip => true;
+    private const string OverloadBonusKey = "OverloadBonus";
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new PowerVar<FlammableAndExplosivePower>(5m),
-        new DynamicVar(AmmoKey, 1m),
+        new DynamicVar(OverloadBonusKey, 50m),
     ];
     public FlammableAndExplosive() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<FlammableAndExplosivePower>(choiceContext, Owner.Creature,
-            DynamicVars[nameof(FlammableAndExplosivePower)].BaseValue, Owner.Creature, this);
-        await PowerCmd.Apply<FlammableAndExplosiveStacksPower>(
-            choiceContext, Owner.Creature, DynamicVars[AmmoKey].BaseValue, Owner.Creature, this);
-
-        FlammableAndExplosivePower? power = Owner.Creature.GetPower<FlammableAndExplosivePower>();
-        FlammableAndExplosiveStacksPower? stacks =
-            Owner.Creature.GetPower<FlammableAndExplosiveStacksPower>();
-        if (power != null && stacks != null)
-            power.SetAmmoPerTrigger(stacks.Amount);
+            DynamicVars[OverloadBonusKey].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[AmmoKey].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars[OverloadBonusKey].UpgradeValueBy(25m);
 }

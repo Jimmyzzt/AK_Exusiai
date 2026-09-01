@@ -12,9 +12,8 @@ using STS2RitsuLib.Interop.AutoRegistration;
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class ForgetMeNot : ExusiaiCardTemplate, IMultiAmmoAttack
+public sealed class ForgetMeNot : ExusiaiCardTemplate, IAmmoSpendAllAttack
 {
-    public int MaxAmmoSpend => int.MaxValue;
     protected override bool ShowAmmoHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>

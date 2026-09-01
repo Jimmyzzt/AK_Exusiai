@@ -1,6 +1,7 @@
 using AK_Exusiai.Characters;
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
+using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -23,7 +24,8 @@ public sealed class Shootoholic : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         int ammo = Math.Min(5, SecondaryResourceCmd.Get(Owner, AmmoResource.Id));
-        if (ammo > 0)
+        decimal damagePerAmmo = AK_Exusiai.Characters.Exusiai.GetAmmoDamagePerAmmo(Owner);
+        if (ammo > 0 && !Owner.Creature.HasPower<OverloadPower>())
             await SecondaryResourceCmd.Spend(Owner, AmmoResource.Id, ammo, this, this);
 
         List<CardModel> attacks = CardPile.GetCards(Owner, PileType.Draw, PileType.Discard)
@@ -39,7 +41,7 @@ public sealed class Shootoholic : ExusiaiCardTemplate
             selected.Add(card);
         }
 
-        using IDisposable scope = AK_Exusiai.Characters.Exusiai.BeginPrepaidAmmo(Owner, ammo);
+        using IDisposable scope = AK_Exusiai.Characters.Exusiai.BeginPrepaidAmmo(Owner, ammo, damagePerAmmo);
         foreach (CardModel attack in selected)
             await CardCmd.AutoPlay(choiceContext, attack, null, AutoPlayType.Default);
     }
