@@ -45,4 +45,6 @@ public sealed class Shootoholic : ExusiaiCardTemplate
         foreach (CardModel attack in selected)
             await CardCmd.AutoPlay(choiceContext, attack, null, AutoPlayType.Default);
     }
+
+    protected override void OnUpgrade() => AddKeyword(CardKeyword.Retain);
 }
