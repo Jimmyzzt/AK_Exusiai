@@ -6,7 +6,9 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.DevConsole;
 using MegaCrit.Sts2.Core.DevConsole.ConsoleCommands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Combat.SecondaryResources;
 
@@ -240,10 +242,28 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         IReadOnlyList<CardModel> canonicals,
         bool upgraded)
     {
+        HookPlayerChoiceContext choiceContext = new(
+            player,
+            player.NetId,
+            GameActionType.Combat);
+        Task setupTask = SetupLogicWithContextAsync(
+            choiceContext,
+            player,
+            canonicals,
+            upgraded);
+        await choiceContext.AssignTaskAndWaitForPauseOrCompletion(setupTask);
+    }
+
+    private static async Task SetupLogicWithContextAsync(
+        HookPlayerChoiceContext choiceContext,
+        Player player,
+        IReadOnlyList<CardModel> canonicals,
+        bool upgraded)
+    {
         await PlayerCmd.SetEnergy(TestEnergy, player);
 
         CardPile hand = player.PlayerCombatState!.Hand;
-        await CardPileCmd.RemoveFromCombat(hand.Cards.ToList());
+        await CardCmd.Discard(choiceContext, hand.Cards.ToList());
 
         List<CardModel> cards = canonicals
             .Select(canonical => player.Creature.CombatState!.CreateCard(canonical, player))
