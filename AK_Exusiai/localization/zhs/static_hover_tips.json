@@ -1,5 +1,5 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "弹药",
-  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "拥有弹药时打出攻击牌会消耗 1 发弹药，使该牌的每段伤害额外造成 2 点伤害。若一张攻击牌消耗多发弹药，每发都会使其每段伤害获得一次增伤。",
+  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "攻击牌的每个实际伤害段消耗 1 发弹药，并按出牌前的弹药数量使该段伤害额外提高（每 5 发 +1，至少 +2）。弹药上限为 30；达到上限时进入过载。过载期间不能获得或消耗弹药，攻击伤害提高 50%；回合结束时失去所有弹药并退出过载。",
   "AK_EXUSIAI_FIREPOWER_GENERIC.description": "弹药额外增加伤害。"
 }
