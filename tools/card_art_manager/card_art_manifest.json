@@ -547,8 +547,8 @@
       "source": "references/official/asset/5c5a29dae10fb026ddf002bca59d8374161775300.jpg",
       "zoom": 0.8,
       "offset": [
-        -0.0586,
-        0.0398
+        -0.065,
+        0.0326
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1318,7 +1318,7 @@
       "top_color": "10273f",
       "bottom_color": "52b8d6",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1337,7 +1337,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1356,7 +1356,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1375,7 +1375,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1394,7 +1394,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1413,7 +1413,7 @@
       "top_color": "2d2338",
       "bottom_color": "6a8ab1",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1432,7 +1432,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1451,7 +1451,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1470,7 +1470,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1489,7 +1489,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1508,7 +1508,7 @@
       "top_color": "aa833d",
       "bottom_color": "9b928a",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1527,7 +1527,7 @@
       "top_color": "ff5147",
       "bottom_color": "1c1c1c",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1546,7 +1546,7 @@
       "top_color": "10273f",
       "bottom_color": "3d8ca3",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": true,
       "flip_vertical": false
     },
@@ -1565,7 +1565,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1584,7 +1584,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1603,7 +1603,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1622,7 +1622,7 @@
       "top_color": "3f3f42",
       "bottom_color": "777f58",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1641,7 +1641,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1660,7 +1660,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1678,6 +1678,158 @@
       "texture": "grain",
       "top_color": "989898",
       "bottom_color": "d3c499",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Brawl": {
+      "source": "references/official/asset/Avg_ac5_7.png",
+      "zoom": 1.001,
+      "offset": [
+        -0.0891,
+        -0.057
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "CargoInMotion": {
+      "source": "references/free/asset/容器-2.svg",
+      "zoom": 0.63,
+      "offset": [
+        -0.0169,
+        -0.0436
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "diagonal",
+      "texture": "grid",
+      "top_color": "597095",
+      "bottom_color": "e68b4c",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "CovenantOfBullets": {
+      "source": "references/official/asset/ChatGPT Image 2026年9月2日 22_38_44.png",
+      "zoom": 1.588,
+      "offset": [
+        -0.1266,
+        -0.003
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "DisruptiveStrike": {
+      "source": "references/free/asset/增压弹.png",
+      "zoom": 1.08,
+      "offset": [
+        0.0211,
+        -0.0392
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "LogisticsSupport": {
+      "source": "references/official/asset/ChatGPT Image 2026年8月25日 17_02_59.png",
+      "zoom": 0.86,
+      "offset": [
+        -0.0043,
+        -0.0211
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "solid",
+      "texture": "grain",
+      "top_color": "030608",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "PenguinTransitHub": {
+      "source": "references/free/asset/周转 turnover.svg",
+      "zoom": 0.691,
+      "offset": [
+        0.0,
+        -0.031
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "radial",
+      "texture": "grid",
+      "top_color": "3c2059",
+      "bottom_color": "7b49b2",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "RockNRoll": {
+      "source": "references/official/asset/微信图片_2026-09-03_005150_777.png",
+      "zoom": 0.93,
+      "offset": [
+        -0.0039,
+        -0.0577
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "solid",
+      "texture": "none",
+      "top_color": "191919",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Star": {
+      "source": "references/official/asset/6e950a0af9dd59a15788c11a0903a6eb161775300.png",
+      "zoom": 1.02,
+      "offset": [
+        0.031,
+        0.2809
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
       "motif": "auto",
       "rotation": 0,
       "flip_horizontal": false,
