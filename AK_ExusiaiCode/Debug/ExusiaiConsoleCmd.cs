@@ -33,6 +33,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "overload",
         "explosive",
         "angel",
+        "angel-x-empathy",
         "interference",
         "new-cards",
     ];
@@ -283,6 +284,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "  overload - 30 Ammo, Overload cards, and exactly five discard-pile attacks for Shootoholic.\n" +
         "  explosive - Three Explosive Ammo copies plus single-hit, multi-hit, and AOE attacks.\n" +
         "  angel - Confession/Empathy, Angel refresh, natural Angels, and curse exhaustion.\n" +
+        "  angel-x-empathy - X-cost Angel payment and the single Empathy replay recursion guard.\n" +
         "  interference - First enemy starts at I10/S0; add 6 to verify two crossed Silence thresholds.\n" +
         "  new-cards - The six cards introduced by the V1 card-list conversion.\n" +
         "Use: exusiai scenario <name> [base|upgraded]. Scenario setup replaces all combat-pile copies, never the run deck."
@@ -291,7 +293,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static CmdResult ScenarioUsage(string? prefix = null) => new(
         success: false,
         (prefix == null ? string.Empty : prefix + "\n") +
-        "Usage: exusiai scenario <ammo-partial|ammo-snapshot|ammo-multipliers|overload|explosive|angel|interference|new-cards> [base|upgraded]\n" +
+        "Usage: exusiai scenario <ammo-partial|ammo-snapshot|ammo-multipliers|overload|explosive|angel|angel-x-empathy|interference|new-cards> [base|upgraded]\n" +
         "Use 'exusiai scenario list' for expected checks.");
 
     private static ScenarioDefinition? CreateScenario(string name) => name switch
@@ -397,6 +399,19 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             0,
             ClearInitialSilence: false,
             "Rerun between paths. Confession then Empathy makes all combat cards Angel, exhausts Curse/Status cards, triggers draws, and repeats the first free play. Separately, give Strike Angel via Cross, play it, return it with Looking Back, then use 'exusiai angel <index>' to refresh its free play."),
+        "angel-x-empathy" => new ScenarioDefinition(
+            name,
+            0,
+            [
+                ModelDb.Card<EmpathyForm>(),
+                ModelDb.Card<LoadEmUp>(),
+                ModelDb.Card<ExusiaiStrike>(),
+            ],
+            [],
+            [],
+            0,
+            ClearInitialSilence: false,
+            "Play Empathy Form, then Load 'Em Up: the X-cost card must spend all remaining Energy, resolve normally, and not replay. Then play Strike: its Angel-free play must replay exactly once without looping."),
         "interference" => new ScenarioDefinition(
             name,
             10,

@@ -25,6 +25,7 @@ internal sealed class AngelFreeCostPatch : IPatchMethod
         CardModel card = CardOwner(__instance);
         if (!card.IsCanonical &&
             card.Pile?.IsCombatPile == true &&
+            !card.EnergyCost.CostsX &&
             AngelCmd.HasFreePlay(card))
         {
             __result = 0;

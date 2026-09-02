@@ -47,6 +47,7 @@ public sealed class EmpathyFormPower : ModPowerTemplate
 
         Flash();
         CardModel replay = cardPlay.Card.CreateDupe(cardPlay.Card.Owner);
+        AngelCmd.ConsumeFreePlay(replay);
         await CardCmd.AutoPlay(choiceContext, replay, cardPlay.Target, AutoPlayType.Default);
     }
 }

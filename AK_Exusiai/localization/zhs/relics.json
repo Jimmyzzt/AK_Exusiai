@@ -24,7 +24,7 @@
   "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "连接已建立。每一次祈祷都……不一定得到回应。",
 
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.title": "袖珍角子机",
-  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "每场战斗开始时，给予所有敌人 {InterferencePower:diff()} 层[gold]干扰[/gold]。",
+  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "每场战斗开始时，给予所有敌人 {Interference:diff()} 层[gold]干扰[/gold]。",
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.flavor": "小巧、便携，而且每一次转动都让空气里多一点火药味。",
 
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.title": "日光灯",

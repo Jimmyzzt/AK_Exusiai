@@ -21,7 +21,10 @@ public sealed class HolyCityMercy : ExusiaiCardTemplate
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
         foreach (var card in Owner.PlayerCombatState!.Hand.Cards.ToList())
-            await AngelCmd.Add(choiceContext, card);
+        {
+            if (!AngelCmd.IsAngel(card))
+                await AngelCmd.Add(choiceContext, card);
+        }
     }
 
     protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(4m);

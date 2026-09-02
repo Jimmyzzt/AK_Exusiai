@@ -2,6 +2,7 @@ using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -10,6 +11,8 @@ namespace AK_Exusiai.Cards;
 public sealed class Package : ExusiaiCardTemplate
 {
     protected override bool ShowTransitHoverTip => true;
+    protected override IEnumerable<IHoverTip> CardHoverTips =>
+        HoverTipFactory.FromRelic<Relics.ApplePieLogistics>();
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<MegaCrit.Sts2.Core.Localization.DynamicVars.DynamicVar> CanonicalVars =>
         [new("Transit", 2m)];

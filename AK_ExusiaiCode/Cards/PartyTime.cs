@@ -17,7 +17,7 @@ public sealed class PartyTime : ExusiaiCardTemplate
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<PoorSleep>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(3m, ValueProp.Move),
+        new DamageVar(2m, ValueProp.Move),
         new DynamicVar(HitCountKey, 25m),
     ];
 
@@ -40,5 +40,5 @@ public sealed class PartyTime : ExusiaiCardTemplate
             curse, PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() { }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(1m);
 }

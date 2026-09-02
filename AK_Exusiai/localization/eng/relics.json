@@ -24,7 +24,7 @@
   "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "Connection established. Not every prayer... necessarily receives an answer.",
 
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.title": "Pocket Slot Machine",
-  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "At the start of each combat, apply {InterferencePower:diff()} [gold]Interference[/gold] to ALL enemies.",
+  "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "At the start of each combat, apply {Interference:diff()} [gold]Interference[/gold] to ALL enemies.",
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.flavor": "Compact, portable, and every spin adds a little more gunpowder to the air.",
 
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.title": "Fluorescent Light",

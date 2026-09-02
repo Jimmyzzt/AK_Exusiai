@@ -1,7 +1,6 @@
 using AK_Exusiai.Mechanics;
 using Godot;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Relics;
 using MegaCrit.Sts2.addons.mega_text;
 using STS2RitsuLib.Models.Capabilities;
@@ -25,52 +24,90 @@ internal sealed class RelicLogisticsUiPatch : IPatchMethod
         AccessTools.FieldRefAccess<NRelicInventoryHolder, MegaLabel>("_amountLabel");
 
     public static string PatchId => "show-relic-logistics-counters";
-    public static string Description => "Show Delivery and Transit counts on relic icons";
+    public static string Description =>
+        "Show Delivery and Transit state on inventory and relic selection icons";
 
     public static ModPatchTarget[] GetTargets() =>
     [
         PatchTarget.Method<NRelicInventoryHolder>("RefreshAmount"),
         PatchTarget.Method<NRelicInventoryHolder>("RefreshStatus"),
+        PatchTarget.Method<NRelicBasicHolder>("_Ready"),
     ];
 
-    public static void Postfix(NRelicInventoryHolder __instance)
+    public static void Postfix(object __instance)
+    {
+        switch (__instance)
+        {
+            case NRelicInventoryHolder inventoryHolder:
+                Sync(inventoryHolder.Relic, AmountLabel(inventoryHolder));
+                break;
+            case NRelicBasicHolder basicHolder:
+                Sync(basicHolder.Relic, null);
+                break;
+        }
+    }
+
+    private static void Sync(NRelic relic, MegaLabel? amountLabel)
     {
         RelicLogisticsCapability? state =
-            __instance.Relic.Model.Capability<RelicLogisticsCapability>();
+            relic.Model.Capability<RelicLogisticsCapability>();
+        if (state?.HasVisibleState != true)
+        {
+            HideExistingLabel(relic, DeliveryLabelName);
+            HideExistingLabel(relic, TransitLabelName);
+            return;
+        }
+
         MegaLabel delivery = GetOrCreateLabel(
-            __instance,
+            relic,
+            amountLabel,
             DeliveryLabelName,
-            DeliveryTextColor,
             isRightAligned: false);
         MegaLabel transit = GetOrCreateLabel(
-            __instance,
+            relic,
+            amountLabel,
             TransitLabelName,
-            TransitTextColor,
             isRightAligned: true);
 
-        SyncLabel(delivery, state?.DeliveryRemaining ?? 0, showZero: false);
+        bool dimExpiredTransit = state?.IsExpiredTransit == true &&
+                                 state.DeliveryRemaining <= 0;
+        SyncLabel(
+            delivery,
+            state?.DeliveryRemaining ?? 0,
+            showZero: false,
+            DeliveryTextColor,
+            dimExpiredTransit);
         SyncLabel(
             transit,
             state?.TransitRemaining ?? 0,
-            showZero: state?.IsTransit == true);
-        SyncTint(__instance.Relic.Icon, state);
+            showZero: state?.IsTransit == true,
+            TransitTextColor,
+            dimExpiredTransit);
+        SyncTint(relic.Icon, state);
+    }
+
+    private static void HideExistingLabel(NRelic relic, string name)
+    {
+        if (relic.GetNodeOrNull<MegaLabel>(name) is { } label)
+            label.Visible = false;
     }
 
     private static MegaLabel GetOrCreateLabel(
-        NRelicInventoryHolder holder,
+        NRelic relic,
+        MegaLabel? source,
         string name,
-        Color textColor,
         bool isRightAligned)
     {
-        MegaLabel source = AmountLabel(holder);
-        MegaLabel? label = holder.Relic.GetNodeOrNull<MegaLabel>(name);
+        MegaLabel? label = relic.GetNodeOrNull<MegaLabel>(name);
         if (label != null)
         {
-            PositionLabel(holder, label, isRightAligned);
+            PositionLabel(relic, label, isRightAligned);
             return label;
         }
 
-        label = (MegaLabel)source.Duplicate();
+        label = source == null
+            ? new MegaLabel()
+            : (MegaLabel)source.Duplicate();
         label.Name = name;
         label.UniqueNameInOwner = false;
         label.AutoSizeEnabled = false;
@@ -79,35 +116,47 @@ internal sealed class RelicLogisticsUiPatch : IPatchMethod
         label.VerticalAlignment = VerticalAlignment.Center;
         label.Size = new Vector2(34f, 30f);
         label.Scale = Vector2.One;
-        label.ZIndex = source.ZIndex;
-        label.ZAsRelative = source.ZAsRelative;
+        label.ZIndex = source?.ZIndex ?? 1;
+        label.ZAsRelative = source?.ZAsRelative ?? true;
         label.AddThemeFontSizeOverride("font_size", 24);
         label.AddThemeConstantOverride("outline_size", 5);
-        label.AddThemeColorOverride("font_color", textColor);
         label.AddThemeColorOverride("font_outline_color", CounterOutlineColor);
         label.Visible = false;
-        holder.Relic.AddChild(label);
-        PositionLabel(holder, label, isRightAligned);
+        relic.AddChild(label);
+        PositionLabel(relic, label, isRightAligned);
         return label;
     }
 
     private static void PositionLabel(
-        NRelicInventoryHolder holder,
+        NRelic relic,
         MegaLabel label,
         bool isRightAligned)
     {
-        TextureRect icon = holder.Relic.Icon;
+        TextureRect icon = relic.Icon;
         float x = isRightAligned
             ? icon.Position.X + icon.Size.X - label.Size.X + 7f
             : icon.Position.X - 7f;
         label.Position = new Vector2(x, icon.Position.Y - 9f);
     }
 
-    private static void SyncLabel(MegaLabel label, int amount, bool showZero)
+    private static void SyncLabel(
+        MegaLabel label,
+        int amount,
+        bool showZero,
+        Color baseColor,
+        bool dimmed)
     {
         label.Visible = amount > 0 || showZero;
-        if (label.Visible)
-            label.SetTextAutoSize(amount.ToString());
+        if (!label.Visible)
+            return;
+
+        label.AddThemeColorOverride(
+            "font_color",
+            dimmed ? MultiplyRgb(baseColor, 0.55f) : baseColor);
+        label.AddThemeColorOverride(
+            "font_outline_color",
+            dimmed ? MultiplyRgb(CounterOutlineColor, 0.55f) : CounterOutlineColor);
+        label.SetTextAutoSize(amount.ToString());
     }
 
     private static void SyncTint(TextureRect icon, RelicLogisticsCapability? state)
@@ -122,7 +171,12 @@ internal sealed class RelicLogisticsUiPatch : IPatchMethod
             : hasDelivery
                 ? DeliveryTint
                 : TransitTint;
+        if (state?.IsExpiredTransit == true && !hasDelivery)
+            tint = MultiplyRgb(tint, 0.55f);
         tint.A = icon.Modulate.A;
         icon.Modulate = tint;
     }
+
+    private static Color MultiplyRgb(Color color, float factor) =>
+        new(color.R * factor, color.G * factor, color.B * factor, color.A);
 }

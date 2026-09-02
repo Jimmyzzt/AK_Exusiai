@@ -8,8 +8,7 @@
 
 1. `AGENTS.md`：开发约束、已验证机制经验与构建方式。
 2. `docs/PROGRESS.md`：当前完成状态和待测项。
-3. `docs/CARD_ART_HANDOFF.md`：卡图工作的素材、命名和接入流程。
-4. `docs/AK_Exusiai-Card_V1.csv`：V1 大修的当前只读卡牌设计；遗物/药水见 `docs/AK_Exusiai-Relic_Potion_V1.csv`，历史版本与平衡说明位于 `docs/archive/`。
+3. `docs/AK_Exusiai-Card_V1.csv`：V1 大修的当前只读卡牌设计；遗物/药水见 `docs/AK_Exusiai-Relic_Potion_V1.csv`，历史版本与平衡说明位于 `docs/archive/`。
 
 ## 当前状态
 
@@ -18,7 +17,6 @@
 - 20 张普通牌已完成游戏内回归。
 - 35 张罕见牌、25 张稀有牌和相关衍生牌已完成代码首版，等待集中回归。
 - 角色选择小图、4K 背景及现有能力图标已进入 PCK。
-- 卡图尚未正式制作：打击和防御暂用铁甲战士卡图，其余牌主要使用框架占位图。
 
 ## 本地构建
 

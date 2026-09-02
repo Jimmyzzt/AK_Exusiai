@@ -35,22 +35,14 @@ internal static class RelicLogisticsInventoryUi
     {
         List<NRelicInventoryHolder> nodes = RelicNodesField(inventory);
         Player? player = PlayerField(inventory);
-        NRelicInventoryHolder[] ordered = nodes
-            .Select((node, visualIndex) => new
-            {
-                Node = node,
-                VisualIndex = visualIndex,
-                State = node.Relic.Model.Capability<RelicLogisticsCapability>(),
-            })
-            .OrderBy(item => item.Node.Relic.Model is Circlet ? 1 : 0)
-            .ThenBy(item => item.State?.IsTransit == true ? 1 : 0)
-            .ThenBy(item => item.State?.DeliveryRemaining ?? 0)
-            .ThenByDescending(item => item.State?.IsTransit == true
-                ? item.State.TransitRemaining
-                : 0)
-            .ThenBy(item => player?.Relics.IndexOf(item.Node.Relic.Model) ?? item.VisualIndex)
-            .Select(item => item.Node)
-            .ToArray();
+        NRelicInventoryHolder[] ordered = player == null
+            ? nodes.ToArray()
+            : RelicLogisticsCmd.SortForDisplay(
+                    player,
+                    nodes.Select(node => node.Relic.Model))
+                .Select(model => nodes.First(node =>
+                    ReferenceEquals(node.Relic.Model, model)))
+                .ToArray();
 
         if (!nodes.SequenceEqual(ordered))
         {

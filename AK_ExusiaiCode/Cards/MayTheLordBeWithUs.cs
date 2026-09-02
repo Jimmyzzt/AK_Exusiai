@@ -2,6 +2,7 @@ using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 
@@ -11,6 +12,8 @@ namespace AK_Exusiai.Cards;
 public sealed class MayTheLordBeWithUs : ExusiaiCardTemplate
 {
     protected override bool ShowTransitHoverTip => true;
+    protected override IEnumerable<IHoverTip> CardHoverTips =>
+        HoverTipFactory.FromRelic<Relics.LordServer>();
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Transit", 1m)];
     public MayTheLordBeWithUs() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self) { }
 

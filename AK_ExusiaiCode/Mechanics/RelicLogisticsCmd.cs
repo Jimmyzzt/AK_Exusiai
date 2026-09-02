@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Runs;
@@ -29,14 +30,42 @@ public static class RelicLogisticsCmd
     public static bool IsOperational(RelicModel relic) =>
         relic.Capability<RelicLogisticsCapability>()?.IsOperational ?? true;
 
-    public static bool IsDeliveryTarget(RelicModel relic) =>
-        relic.Rarity != RelicRarity.Starter &&
-        !relic.IsMelted &&
-        relic.Status != RelicStatus.Disabled &&
-        IsOperational(relic);
+    public static bool IsDeliveryTarget(RelicModel relic)
+    {
+        RelicLogisticsCapability? state = relic.Capability<RelicLogisticsCapability>();
+        return relic.Rarity != RelicRarity.Starter &&
+               !relic.IsMelted &&
+               relic.Status != RelicStatus.Disabled &&
+               state?.IsExpiredTransit != true &&
+               (state?.IsOperational ?? true);
+    }
+
+    public static IReadOnlyList<RelicModel> SortForDisplay(
+        Player player,
+        IEnumerable<RelicModel> relics) =>
+        relics
+            .Select((relic, inputIndex) => new
+            {
+                Relic = relic,
+                InputIndex = inputIndex,
+                State = relic.Capability<RelicLogisticsCapability>(),
+                AcquisitionIndex = FindInstanceIndex(player.Relics, relic),
+            })
+            .OrderBy(item => item.Relic is Circlet ? 1 : 0)
+            .ThenBy(item => item.State?.IsTransit == true ? 1 : 0)
+            .ThenBy(item => item.State?.DeliveryRemaining ?? 0)
+            .ThenByDescending(item => item.State?.IsTransit == true
+                ? item.State.TransitRemaining
+                : 0)
+            .ThenBy(item => item.AcquisitionIndex >= 0
+                ? item.AcquisitionIndex
+                : int.MaxValue)
+            .ThenBy(item => item.InputIndex)
+            .Select(item => item.Relic)
+            .ToList();
 
     public static IReadOnlyList<RelicModel> GetDeliveryTargets(Player player) =>
-        player.Relics.Where(IsDeliveryTarget).ToList();
+        SortForDisplay(player, player.Relics.Where(IsDeliveryTarget));
 
     public static async Task<RelicModel?> ChooseDeliveryTarget(Player player)
     {
@@ -109,14 +138,16 @@ public static class RelicLogisticsCmd
     }
 
     public static IReadOnlyList<RelicModel> GetDeliveredRelics(Player player) =>
-        player.Relics
-            .Where(relic => relic.Capability<RelicLogisticsCapability>()?.DeliveryRemaining > 0)
-            .ToList();
+        SortForDisplay(
+            player,
+            player.Relics.Where(relic =>
+                relic.Capability<RelicLogisticsCapability>()?.DeliveryRemaining > 0));
 
     public static IReadOnlyList<RelicModel> GetTransitRelics(Player player) =>
-        player.Relics
-            .Where(relic => relic.Capability<RelicLogisticsCapability>()?.IsTransit == true)
-            .ToList();
+        SortForDisplay(
+            player,
+            player.Relics.Where(relic =>
+                relic.Capability<RelicLogisticsCapability>()?.IsTransit == true));
 
     public static void ReactivateDelivery(RelicModel relic) =>
         relic.Capability<RelicLogisticsCapability>()?.ReactivateDelivery();
@@ -267,5 +298,18 @@ public static class RelicLogisticsCmd
 
         await relic.AfterObtained();
         return relic;
+    }
+
+    private static int FindInstanceIndex(
+        IReadOnlyList<RelicModel> relics,
+        RelicModel target)
+    {
+        for (int i = 0; i < relics.Count; i++)
+        {
+            if (ReferenceEquals(relics[i], target))
+                return i;
+        }
+
+        return -1;
     }
 }

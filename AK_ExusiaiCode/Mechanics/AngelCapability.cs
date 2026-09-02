@@ -43,7 +43,9 @@ public sealed class AngelCapability : CardCapability, ICardDescriptionContributo
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (ReferenceEquals(cardPlay.Card, Owner) && _hasFreePlay)
+        if (ReferenceEquals(cardPlay.Card, Owner) &&
+            _hasFreePlay &&
+            !Owner.EnergyCost.CostsX)
         {
             _hasFreePlay = false;
             FreePlays.Add(cardPlay, new AngelFreePlayMarker());
@@ -57,6 +59,15 @@ public sealed class AngelCapability : CardCapability, ICardDescriptionContributo
     {
         _hasFreePlay = true;
         EnsurePresentation();
+        MarkDirty();
+    }
+
+    public void ConsumeFreePlay()
+    {
+        if (!_hasFreePlay)
+            return;
+
+        _hasFreePlay = false;
         MarkDirty();
     }
 
@@ -124,6 +135,9 @@ public static class AngelCmd
 
     public static bool WasFreePlay(CardPlay cardPlay) =>
         AngelCapability.WasConsumedFor(cardPlay);
+
+    public static void ConsumeFreePlay(CardModel card) =>
+        card.Capabilities().Get<AngelCapability>()?.ConsumeFreePlay();
 
     public static async Task Add(PlayerChoiceContext choiceContext, CardModel card)
     {
