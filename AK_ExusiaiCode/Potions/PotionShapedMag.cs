@@ -22,7 +22,10 @@ public sealed class PotionShapedMag : ExusiaiPotionTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Ammo", 6m)];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id)];
+    [
+        ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
+        ExusiaiKeywords.OverloadHoverTip,
+    ];
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {

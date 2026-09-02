@@ -23,7 +23,10 @@ public sealed class FirepowerFm : ExusiaiRelicTemplate
     ];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id)];
+    [
+        ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
+        ExusiaiKeywords.OverloadHoverTip,
+    ];
 
     public int DamageMultiplier => DynamicVars["Multiplier"].IntValue;
 

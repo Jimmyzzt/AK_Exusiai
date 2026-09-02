@@ -9,5 +9,6 @@ public sealed class AmmoDamageMultiplierPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom("AmmoDamagePower");
+    public override PowerAssetProfile AssetProfile =>
+        ExusiaiPowerAssets.Custom(nameof(AmmoDamageMultiplierPower));
 }

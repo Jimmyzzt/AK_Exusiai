@@ -76,7 +76,7 @@ public static partial class AmmoResource
             IconSize = new Vector2(52f, 52f),
             FontSize = 30,
             OutlineSize = 8,
-            AmountLabelOffset = new Vector2(18f, 18f),
+            AmountLabelOffset = new Vector2(34f, 18f),
         });
 
         counter.AnchorLeft = 0f;

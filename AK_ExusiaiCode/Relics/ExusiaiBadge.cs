@@ -26,6 +26,7 @@ public sealed class ExusiaiBadge : ExusiaiRelicTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
+        ExusiaiKeywords.OverloadHoverTip,
     ];
 
     public override async Task BeforeCombatStart()

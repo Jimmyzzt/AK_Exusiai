@@ -12,7 +12,7 @@
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.flavor": "Faith hangs ten centimeters above your heart; words flow into your blood, and bullets slide into your magazine.",
 
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.title": "Apple Pie Logistics",
-  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "The first time you play an Attack each turn, gain [gold]Ammo[/gold] equal to the Energy actually spent on it.",
+  "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "The first time you play an Attack each turn, gain [gold]Ammo[/gold] equal to the Ammo it spends.",
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "Delivered on time and best enjoyed warm. Ammunition, too.",
 
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "Boss's Medal",

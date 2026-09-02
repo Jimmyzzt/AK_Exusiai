@@ -13,7 +13,7 @@ namespace AK_Exusiai.Cards;
 public sealed class MayTheLordGuideUs : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
-        [HoverTipFactory.FromCard<HolyCityGuidance>()];
+        [HoverTipFactory.FromCard<HolyCityGuidance>(IsUpgraded)];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11m, ValueProp.Move)];
     public MayTheLordGuideUs() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 

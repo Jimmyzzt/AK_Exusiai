@@ -11,7 +11,7 @@ public sealed class OverloadPower : ModPowerTemplate, ISecondaryResourceHookList
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Ammo;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(OverloadPower));
 
     public bool ShouldGainSecondaryResource(SecondaryResourceContext context, decimal amount)
     {

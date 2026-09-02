@@ -14,9 +14,9 @@ public sealed class AngelsHeart : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
     [
-        HoverTipFactory.FromCard<HolyCityGuidance>(),
-        HoverTipFactory.FromCard<HolyCityPurge>(),
-        HoverTipFactory.FromCard<HolyCityIceCream>(),
+        HoverTipFactory.FromCard<HolyCityGuidance>(IsUpgraded),
+        HoverTipFactory.FromCard<HolyCityPurge>(IsUpgraded),
+        HoverTipFactory.FromCard<HolyCityIceCream>(IsUpgraded),
     ];
     protected override bool ShowAngelHoverTip => true;
     public AngelsHeart() : base(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)

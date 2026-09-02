@@ -6,6 +6,8 @@
 | `references/free/art/下回合弹药.svg` | SVG 图标 | 项目维护者提供 | “下回合弹药”能力的小图标与详情图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/AmmoNextTurnPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/苹果.svg` | SVG 图标 | 项目维护者提供 | 已弃用“童年”能力的历史源图 | 源文件未修改，当前不接入运行时 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/弹药增伤.svg` | SVG 图标 | 项目维护者提供 | “火力”能力图标 | 源文件未修改，复制为稳定资源别名 `AK_Exusiai/images/powers/AmmoDamagePower.svg`，由 `FirepowerPower` 使用 | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/弹药增幅.svg` | SVG 图标 | 项目维护者提供 | “弹药增幅”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/AmmoDamageMultiplierPower.svg` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/过载.svg` | SVG 图标 | 项目维护者提供 | “过载”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/OverloadPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/临时弹药增伤.svg` | SVG 图标 | 项目维护者提供 | “临时火力”能力图标 | 源文件未修改，复制为稳定资源别名 `AK_Exusiai/images/powers/TemporaryAmmoDamagePower.svg`，由 `TemporaryFirepowerPower` 使用 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/帕格尼尼.svg` | SVG 图标 | 项目维护者提供 | “帕格尼尼定制”的回合开始弹药能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/PaganiniCustomPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/沉默.svg` | SVG 图标 | 项目维护者提供（原文件名“干扰.svg”） | “沉默”敌人减益图标 | 仅按新机制改名，复制为 `AK_Exusiai/images/powers/SilencePower.svg` | 原始作者或授权链接尚待维护者补充 |
@@ -14,7 +16,6 @@
 | `references/free/art/守护铳_剪影.svg` | SVG 图标 | 项目维护者提供 | “守护铳”能力图标 | 复制为 `AK_Exusiai/images/powers/PatronFirearmPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/爆弹.svg` | SVG 图标 | 项目维护者提供 | “爆弹”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/AmmoSplashPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/冰镇甜品.svg` | SVG 图标 | 项目维护者提供 | 已弃用“冰镇甜品”能力的历史源图 | 源文件未修改，当前不接入运行时 | 原始作者或授权链接尚待维护者补充 |
-| `references/free/art/升华.svg` | SVG 图标 | 项目维护者提供 | 已弃用“升华”能力的历史源图 | 源文件未修改，当前不接入运行时 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/宽恕.svg` | SVG 图标 | 项目维护者提供 | “主的宽恕”能力图标 | 复制为 `AK_Exusiai/images/powers/CurseReleasePower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/感召.svg` | SVG 图标 | 项目维护者提供 | “主的感召”能力图标 | 复制为 `AK_Exusiai/images/powers/HolyCityCallingPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/双发.svg` | SVG 图标 | 项目维护者提供 | “双发套件”临时弹药增伤倍率图标 | 复制为稳定资源别名 `AK_Exusiai/images/powers/TemporaryExtraAmmoTriggerPower.svg`，由 `TemporaryAmmoDamageMultiplierPower` 使用 | 原始作者或授权链接尚待维护者补充 |

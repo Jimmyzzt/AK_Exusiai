@@ -45,7 +45,7 @@ public abstract class ExusiaiCardTemplate(
                 yield return ExusiaiKeywords.TransitHoverTip;
             if (ShowAngelHoverTip)
                 yield return ExusiaiKeywords.AngelHoverTip;
-            if (ShowOverloadHoverTip)
+            if (ShowAmmoHoverTip || ShowOverloadHoverTip)
                 yield return ExusiaiKeywords.OverloadHoverTip;
 
             foreach (IHoverTip hoverTip in CardHoverTips)

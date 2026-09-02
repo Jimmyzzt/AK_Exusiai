@@ -1,10 +1,10 @@
 {
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "快递",
-  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "获得快递 X 的遗物暂时失效；每场战斗结束时快递减少 1，归零后重新生效。无法选择初始遗物或已失效遗物。",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "被给予快递X的遗物会暂时失效，在X场战斗后重新生效（无法选中初始遗物和已失效的遗物）。给予快递的卡牌需要成功快递遗物才能生效后续效果。",
   "AK_EXUSIAI_KEYWORD_TRANSIT.title": "中转",
-  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "中转 X 的临时遗物在获得它的当前战斗结束时也会减少 1。中转归零后遗物保留但失效，并可再次增加中转。",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "中转X的遗物将在X场战斗后失效（包括本场战斗），失效后可以重新中转",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "天使",
-  "AK_EXUSIAI_KEYWORD_ANGEL.description": "获得保留。获得天使后首次打出时免费，且不受其他费用效果影响；再次获得天使会刷新免费资格。状态或诅咒牌获得天使后立即消耗。",
+  "AK_EXUSIAI_KEYWORD_ANGEL.description": "获得[gold]保留[/gold]。每次获得天使后首次打出免费。状态或诅咒牌获得天使后立即消耗。",
   "AK_EXUSIAI_KEYWORD_OVERLOAD.title": "过载",
-  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "攻击伤害提高 50%。过载期间不能获得弹药，也不会实际扣除弹药；按消耗量计算加成的效果仍按其可消耗上限结算。回合结束时失去所有弹药并退出过载。"
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "攻击伤害提高 50%。过载期间不再获得或扣除弹药。回合结束时失去所有弹药并退出过载。"
 }

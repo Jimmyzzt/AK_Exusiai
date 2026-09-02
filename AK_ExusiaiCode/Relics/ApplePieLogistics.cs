@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Characters;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -20,7 +21,10 @@ public sealed class ApplePieLogistics : ExusiaiRelicTemplate
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id)];
+    [
+        ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
+        ExusiaiKeywords.OverloadHoverTip,
+    ];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -28,7 +32,7 @@ public sealed class ApplePieLogistics : ExusiaiRelicTemplate
             return;
 
         _usedThisTurn = true;
-        int spent = cardPlay.Resources.EnergySpent;
+        int spent = Exusiai.GetAmmoSpent(cardPlay);
         Flash();
         if (spent > 0)
             await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, spent, this);

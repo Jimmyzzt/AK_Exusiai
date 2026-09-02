@@ -25,6 +25,7 @@ public sealed class LockedAndLoaded : ExusiaiCardTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ModSecondaryResourceRegistry.CreateHoverTip(AmmoResource.Id),
+        ExusiaiKeywords.OverloadHoverTip,
     ];
 
     public LockedAndLoaded()
