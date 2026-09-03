@@ -44,5 +44,6 @@ public sealed class PaganiniCustom : ExusiaiCardTemplate
     protected override void OnUpgrade()
     {
         DynamicVars[AmmoKey].UpgradeValueBy(1m);
+        DynamicVars[AmmoMultiplierKey].UpgradeValueBy(25m);
     }
 }

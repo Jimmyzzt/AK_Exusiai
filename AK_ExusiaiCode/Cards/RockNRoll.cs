@@ -15,22 +15,23 @@ public sealed class RockNRoll : ExusiaiCardTemplate
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Move),
+        new DamageVar(10m, ValueProp.Move),
         new DynamicVar("Interference", 1m),
     ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public RockNRoll() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        bool hadInterference = cardPlay.Target.HasPower<InterferencePower>();
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        if (!hadInterference && !cardPlay.Target.IsDead)
+        if (!cardPlay.Target.IsDead)
         {
             await InterferenceCmd.Apply(
                 choiceContext,

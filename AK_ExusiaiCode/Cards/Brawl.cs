@@ -11,7 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Brawl : ExusiaiCardTemplate
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Threshold", 3m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Interference", 1m)];
 
     public Brawl() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
@@ -19,17 +19,16 @@ public sealed class Brawl : ExusiaiCardTemplate
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         int interference = cardPlay.Target.GetPower<InterferencePower>()?.Amount ?? 0;
-        int amount = interference / DynamicVars["Threshold"].IntValue;
-        if (amount > 0)
+        if (interference > 0)
         {
             await InterferenceCmd.Apply(
                 choiceContext,
                 cardPlay.Target,
-                amount,
+                DynamicVars["Interference"].IntValue,
                 Owner.Creature,
                 this);
         }
     }
 
-    protected override void OnUpgrade() => DynamicVars["Threshold"].UpgradeValueBy(-1m);
+    protected override void OnUpgrade() => DynamicVars["Interference"].UpgradeValueBy(1m);
 }

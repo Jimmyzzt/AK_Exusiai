@@ -13,7 +13,7 @@ public sealed class TalentPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Debilitate;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(TalentPower));
 
     public override decimal ModifyDamageMultiplicative(
         Creature? target,

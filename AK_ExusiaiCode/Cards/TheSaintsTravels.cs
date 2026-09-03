@@ -14,6 +14,7 @@ namespace AK_Exusiai.Cards;
 [RegisterDustyTomeCard(typeof(AK_Exusiai.Characters.Exusiai))]
 public sealed class TheSaintsTravels : ExusiaiCardTemplate
 {
+    private const string PermanentIncreaseKey = "PermanentIncrease";
     private int _currentFirepower = 1;
     private int _increasedFirepower;
 
@@ -41,13 +42,16 @@ public sealed class TheSaintsTravels : ExusiaiCardTemplate
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [new PowerVar<FirepowerPower>(CurrentFirepower)];
+    [
+        new PowerVar<FirepowerPower>(CurrentFirepower),
+        new DynamicVar(PermanentIncreaseKey, 1m),
+    ];
 
     protected override IEnumerable<IHoverTip> CardHoverTips =>
         [HoverTipFactory.FromPower<FirepowerPower>(DynamicVars[nameof(FirepowerPower)].IntValue)];
 
     public TheSaintsTravels()
-        : base(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
+        : base(1, CardType.Power, CardRarity.Ancient, TargetType.Self)
     {
     }
 
@@ -60,11 +64,13 @@ public sealed class TheSaintsTravels : ExusiaiCardTemplate
             Owner.Creature,
             this);
 
-        BuffFromPlay(1);
-        (DeckVersion as TheSaintsTravels)?.BuffFromPlay(1);
+        int permanentIncrease = DynamicVars[PermanentIncreaseKey].IntValue;
+        BuffFromPlay(permanentIncrease);
+        (DeckVersion as TheSaintsTravels)?.BuffFromPlay(permanentIncrease);
     }
 
-    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
+    protected override void OnUpgrade() =>
+        DynamicVars[PermanentIncreaseKey].UpgradeValueBy(1m);
 
     protected override void AfterDowngraded() => UpdateFirepower();
 

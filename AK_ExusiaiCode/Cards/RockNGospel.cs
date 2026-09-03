@@ -13,7 +13,7 @@ public sealed class RockNGospel : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RockNGospelPower>(1m)];
-    public RockNGospel() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
+    public RockNGospel() : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -21,5 +21,5 @@ public sealed class RockNGospel : ExusiaiCardTemplate
             DynamicVars[nameof(RockNGospelPower)].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[nameof(RockNGospelPower)].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }
