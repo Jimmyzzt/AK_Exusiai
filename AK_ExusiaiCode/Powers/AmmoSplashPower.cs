@@ -48,8 +48,7 @@ public sealed class AmmoSplashPower : ModPowerTemplate
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         bool qualifiesForSplash = Exusiai.DidSpendAmmo(cardPlay) ||
-                                  (cardPlay.Player.Creature.HasPower<OverloadPower>() &&
-                                   Exusiai.HasAmmoBackedBonus(cardPlay));
+                                  Exusiai.UsedOverloadAmmoBonus(cardPlay);
         if (!_damageByCard.Remove(cardPlay.Card, out decimal totalDamage) ||
             cardPlay.Player.Creature != Owner ||
             !qualifiesForSplash)

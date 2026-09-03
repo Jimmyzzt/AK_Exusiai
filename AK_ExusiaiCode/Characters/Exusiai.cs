@@ -432,6 +432,14 @@ public sealed class Exusiai :
                info.TotalAmmoDamage > 0m;
     }
 
+    public static bool UsedOverloadAmmoBonus(CardPlay? cardPlay)
+    {
+        return cardPlay?.Player.Character is Exusiai exusiai &&
+               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info) &&
+               info.Mode == AmmoAttackMode.Overloaded &&
+               info.TotalAmmoDamage > 0m;
+    }
+
     public static decimal GetAmmoDamagePerAmmo(Player player, CardModel? cardSource = null)
     {
         return AmmoResource.GetCurrentDamageBreakdown(
