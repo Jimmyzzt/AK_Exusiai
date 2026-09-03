@@ -26,20 +26,28 @@ public sealed class EmpathyFormPower : ModPowerTemplate
             return;
 
         var context = new ThrowingPlayerChoiceContext();
-        foreach (CardModel card in state.AllCards.ToList())
+        foreach (CardModel card in state.AllCards.Where(IsAngelEligiblePile).ToList())
             await AngelCmd.Add(context, card);
     }
 
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
-        if (card.Owner.Creature == Owner && !_replaysInProgress.Contains(card))
+        if (card.Owner.Creature == Owner &&
+            IsAngelEligiblePile(card) &&
+            !_replaysInProgress.Contains(card))
+        {
             await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
+        }
     }
 
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
-        if (card.Owner.Creature == Owner && !_replaysInProgress.Contains(card))
+        if (card.Owner.Creature == Owner &&
+            IsAngelEligiblePile(card) &&
+            !_replaysInProgress.Contains(card))
+        {
             await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
+        }
     }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -64,4 +72,10 @@ public sealed class EmpathyFormPower : ModPowerTemplate
             _replaysInProgress.Remove(replay);
         }
     }
+
+    private static bool IsAngelEligiblePile(CardModel card) =>
+        card.Pile?.Type is PileType.Draw or
+            PileType.Hand or
+            PileType.Discard or
+            PileType.Exhaust;
 }
