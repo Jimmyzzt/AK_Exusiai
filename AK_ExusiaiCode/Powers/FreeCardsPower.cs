@@ -15,7 +15,8 @@ public sealed class FreeCardsPower : ModPowerTemplate
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Energy;
+    public override PowerAssetProfile AssetProfile =>
+        ExusiaiPowerAssets.Custom(nameof(FreeCardsPower), ".png");
 
     internal void IgnoreSourceCard(CardModel card)
     {

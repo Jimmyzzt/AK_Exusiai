@@ -11,7 +11,8 @@ public sealed class MostimaExtraTurnPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.ExtraTurn;
+    public override PowerAssetProfile AssetProfile =>
+        ExusiaiPowerAssets.Custom(nameof(MostimaExtraTurnPower), ".png");
 
     public override bool ShouldTakeExtraTurn(Player player) =>
         Amount > 0 && player == Owner.Player;

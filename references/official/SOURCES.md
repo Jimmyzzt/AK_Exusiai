@@ -17,6 +17,7 @@
 | `references/official/art/显圣吊坠.png` | PNG 图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `显圣吊坠.png` | “显圣吊坠”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/NecklaceOfThePresencePower.png` | 主维护者/2026-08-22 |
 | `references/official/art/企鹅物流logo.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `企鹅物流logo.png` | “物流外包”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/LogisticsOutsourcingPower.png` | 主维护者/2026-08-22 |
 | `references/official/art/Logo_拉特兰.png` | PNG 标志 | 《明日方舟》官方游戏素材（项目维护者提供） | `Logo_拉特兰.png` | “共感形态”能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/EmpathyFormPower.png` | 主维护者/2026-08-22 |
+| `references/official/art/技能_序时之匙.png` | PNG 技能图标 | 《明日方舟》官方游戏素材（项目维护者提供） | `技能_序时之匙.png` | “莫斯提马”额外回合能力图标 | 源文件未修改；复制为 `AK_Exusiai/images/powers/MostimaExtraTurnPower.png` | 主维护者/2026-09-03 |
 | `references/official/art/半身.jpg` | JPG 角色立绘 | 《明日方舟》官方美术（项目维护者提供） | `半身.jpg` | 角色选择界面小图 | 源文件未修改；复制为 `AK_Exusiai/images/character/exusiai_select_icon.jpg` | 主维护者/2026-08-23 |
 | `references/official/art/Exusiai.png` | PNG 角色背景 | 《明日方舟》官方美术（项目维护者提供） | `Exusiai.png` | 选择“能天使”时的角色选择背景 | 源文件未修改；复制为 `AK_Exusiai/images/character/appearance/Exusiai.png` | 主维护者/2026-08-29 |
 | `references/official/art/Exusiai_the_New_Covenant.png` | PNG 角色背景 | 《明日方舟》官方美术（项目维护者提供） | `Exusiai_the_New_Covenant.png` | 选择“新约能天使”时的角色选择背景 | 源文件未修改；复制为 `AK_Exusiai/images/character/appearance/Exusiai_the_New_Covenant.png` | 主维护者/2026-08-29 |

@@ -25,6 +25,8 @@
 | `references/free/art/福音摇滚.svg` | SVG 图标 | 项目维护者提供 | “福音摇滚”能力图标 | 复制为 `AK_Exusiai/images/powers/RockNGospelPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天使的祝福.svg` | SVG 图标 | 项目维护者提供 | “天使的祝福”能力图标 | 复制为 `AK_Exusiai/images/powers/AngelsBlessingsPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天赋.svg` | SVG 图标 | 项目维护者提供 | “天赋”能力图标 | 复制为 `AK_Exusiai/images/powers/TalentPower.svg` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/Covering_Fire_power.png` | PNG 图标 | 项目维护者提供 | “火力掩护”临时力量减益图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/CoveringFirePower.png` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/Free_delivery_power.png` | PNG 图标 | 项目维护者提供 | “免费派送”能力图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/FreeCardsPower.png` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/蚀刻子弹.png` | PNG 遗物图 | 项目维护者提供 | “蚀刻子弹”遗物图标 | 脚本裁切、等比缩放并生成 `EtchedRound.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/苹果派物流.png` | PNG 遗物图 | 项目维护者提供 | “苹果派物流”遗物图标 | 脚本裁切、等比缩放并生成 `ApplePieLogistics.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/老板奖章.png` | PNG 遗物图 | 项目维护者提供 | “老板奖章”遗物图标 | 脚本裁切、等比缩放并生成 `BossMedal.png` 与白色轮廓图 | 原始作者或授权链接尚待维护者补充 |

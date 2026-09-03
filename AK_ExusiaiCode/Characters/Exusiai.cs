@@ -341,34 +341,6 @@ public sealed class Exusiai :
         return 1m + bonus;
     }
 
-    public override async Task BeforeSideTurnEnd(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IEnumerable<Creature> participants)
-    {
-        if (side != CombatSide.Player)
-            return;
-
-        Player? player = participants
-            .Select(creature => creature.Player)
-            .FirstOrDefault(player => player?.Character == this);
-        if (player == null || !player.Creature.HasPower<OverloadPower>())
-            return;
-
-        AmmoData data = GetAmmoData();
-        bool retainAmmo = player.Creature.HasPower<OverloadAmmoRetentionPower>();
-        if (!retainAmmo)
-            await SecondaryResourceCmd.Set(player, AmmoResource.Id, 0, this);
-
-        if (player.Creature.GetPower<OverloadAmmoRetentionPower>() is { } retention)
-            await PowerCmd.Remove(retention);
-        if (player.Creature.GetPower<OverloadPower>() is { } overload)
-            await PowerCmd.Remove(overload);
-
-        data.AttackModes.Clear();
-        data.PrepaidAmmo.Clear();
-    }
-
     public override Task AfterCombatEnd(CombatRoom room)
     {
         GetAmmoData().AttackModes.Clear();
@@ -502,6 +474,16 @@ public sealed class Exusiai :
                 1m,
                 player.Creature,
                 source as CardModel);
+    }
+
+    internal static void ClearAmmoTransientState(Player player)
+    {
+        if (player.Character is not Exusiai exusiai)
+            return;
+
+        AmmoData data = exusiai.GetAmmoData();
+        data.AttackModes.Clear();
+        data.PrepaidAmmo.Clear();
     }
 
     private async Task ApplyAmmoForNextDamageInstance(AttackCommand command)
