@@ -25,7 +25,7 @@ public sealed class NecklaceOfThePresencePower : ModPowerTemplate, ISecondaryRes
         Flash();
         await CreatureCmd.GainBlock(
             Owner,
-            new BlockVar(Amount * context.Amount, ValueProp.Move),
+            new BlockVar(Amount * context.Amount, ValueProp.Unpowered),
             null);
     }
 }
