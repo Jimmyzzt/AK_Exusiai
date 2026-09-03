@@ -1175,7 +1175,7 @@
       "zoom": 0.5,
       "offset": [
         0.0,
-        -0.1133
+        -0.0423
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1185,7 +1185,7 @@
       "top_color": "949494",
       "bottom_color": "d83b33",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1755,7 +1755,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1774,7 +1774,7 @@
       "top_color": "030608",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1793,13 +1793,13 @@
       "top_color": "3c2059",
       "bottom_color": "7b49b2",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
     "RockNRoll": {
       "source": "references/official/asset/微信图片_2026-09-03_005150_777.png",
-      "zoom": 0.93,
+      "zoom": 0.46,
       "offset": [
         -0.0039,
         -0.0577
@@ -1807,10 +1807,10 @@
       "background_enabled": true,
       "placeholder_enabled": false,
       "background": "custom",
-      "gradient_mode": "solid",
-      "texture": "none",
-      "top_color": "191919",
-      "bottom_color": "ee9558",
+      "gradient_mode": "radial",
+      "texture": "grain",
+      "top_color": "ffcd89",
+      "bottom_color": "b44a3f",
       "motif": "auto",
       "rotation": 0,
       "flip_horizontal": false,
@@ -1831,7 +1831,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     }
