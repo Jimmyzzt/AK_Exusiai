@@ -18,7 +18,7 @@ public sealed class MoveOut : ExusiaiCardTemplate
         HoverTipFactory.FromRelic<MegaCrit.Sts2.Core.Models.Relics.HornCleat>();
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(4m, ValueProp.Move),
+        new DamageVar(5m, ValueProp.Move),
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
         [CardKeyword.Innate, CardKeyword.Exhaust];
@@ -34,5 +34,5 @@ public sealed class MoveOut : ExusiaiCardTemplate
         await RelicLogisticsCmd.AddNamedTransit<MegaCrit.Sts2.Core.Models.Relics.HornCleat>(Owner, 1);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4m);
 }

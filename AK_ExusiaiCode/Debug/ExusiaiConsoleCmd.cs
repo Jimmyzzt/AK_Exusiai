@@ -36,6 +36,8 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "angel-x-empathy",
         "interference",
         "new-cards",
+        "v1.1-core",
+        "v1.1-multiplayer",
     ];
 
     private static IReadOnlyList<CardModel> DeliveryTestCards =>
@@ -283,17 +285,19 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "  ammo-multipliers - Double-Shot Kit, Paganini, ancient multiplier, and spend-all attacks.\n" +
         "  overload - 30 Ammo, Overload cards, and exactly five discard-pile attacks for Shootoholic.\n" +
         "  explosive - Three Explosive Ammo copies plus single-hit, multi-hit, and AOE attacks.\n" +
-        "  angel - Confession/Empathy, Angel refresh, natural Angels, and curse exhaustion.\n" +
-        "  angel-x-empathy - X-cost Angel payment and the single Empathy replay recursion guard.\n" +
+        "  angel - Confession/Empathy, Angel refresh, natural Angels, and curse-only exhaustion.\n" +
+        "  angel-x-empathy - X-cost Angel payment and Empathy's no-replay behavior.\n" +
         "  interference - First enemy starts at I10/S0; add 6 to verify two crossed Silence thresholds.\n" +
         "  new-cards - The six cards introduced by the V1 card-list conversion.\n" +
+        "  v1.1-core - V1.1 single-player powers, Covenant queueing, and temporary Soar.\n" +
+        "  v1.1-multiplayer - V1.1 multiplayer cards and Compassion transfer behavior.\n" +
         "Use: exusiai scenario <name> [base|upgraded]. Scenario setup replaces all combat-pile copies, never the run deck."
     );
 
     private static CmdResult ScenarioUsage(string? prefix = null) => new(
         success: false,
         (prefix == null ? string.Empty : prefix + "\n") +
-        "Usage: exusiai scenario <ammo-partial|ammo-snapshot|ammo-multipliers|overload|explosive|angel|angel-x-empathy|interference|new-cards> [base|upgraded]\n" +
+        "Usage: exusiai scenario <ammo-partial|ammo-snapshot|ammo-multipliers|overload|explosive|angel|angel-x-empathy|interference|new-cards|v1.1-core|v1.1-multiplayer> [base|upgraded]\n" +
         "Use 'exusiai scenario list' for expected checks.");
 
     private static ScenarioDefinition? CreateScenario(string name) => name switch
@@ -398,7 +402,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             [],
             0,
             ClearInitialSilence: false,
-            "Rerun between paths. Confession then Empathy makes all combat cards Angel, exhausts Curse/Status cards, triggers draws, and repeats the first free play. Separately, give Strike Angel via Cross, play it, return it with Looking Back, then use 'exusiai angel <index>' to refresh its free play."),
+            "Rerun between paths. Confession then Empathy makes all combat cards Angel; only Curse cards exhaust, while Status cards remain retained. Empathy must not replay cards. Separately, give Strike Angel via Cross, play it, return it with Looking Back, then use 'exusiai angel <index>' to refresh its free play."),
         "angel-x-empathy" => new ScenarioDefinition(
             name,
             0,
@@ -411,7 +415,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             [],
             0,
             ClearInitialSilence: false,
-            "Play Empathy Form, then Load 'Em Up: the X-cost card must spend all remaining Energy, resolve normally, and not replay. Then play Strike: its Angel-free play must replay exactly once without looping."),
+            "Play Empathy Form, then Load 'Em Up: the X-cost card must spend all remaining Energy and resolve normally. Strike and every other Angel card must execute exactly once; Empathy no longer grants replay."),
         "interference" => new ScenarioDefinition(
             name,
             10,
@@ -445,6 +449,42 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             5,
             ClearInitialSilence: true,
             "Verify all six newly introduced V1 cards, including Star's hand upgrade, target-selected interference effects, Firepower gain, and next-turn Ammo."),
+        "v1.1-core" => new ScenarioDefinition(
+            name,
+            10,
+            [
+                ModelDb.Card<CovenantOfBullets>(),
+                ModelDb.Card<LogisticsSupport>(),
+                ModelDb.Card<PatronFirearm>(),
+                ModelDb.Card<TheLordsForgiveness>(),
+                ModelDb.Card<Blessing>(),
+                ModelDb.Card<RadiantWingStrike>(),
+                ModelDb.Card<LogisticsOutsourcing>(),
+                ModelDb.Card<HolyCityCalling>(),
+            ],
+            [],
+            [ModelDb.Card<ExusiaiStrike>(), ModelDb.Card<ExusiaiDefend>()],
+            0,
+            ClearInitialSilence: false,
+            "Test both upgrade states. Covenant must retrieve 1/2 discard cards, grant Angel, end the turn, and queue one hand-sized Ammo gain per replayed play. Logistics Support draws per 4/3 actual Ammo spent; Patron Firearm grants 2/3 unpowered Block per Ammo; Forgiveness grants 3/4 Block per retained Angel; Radiant Wing Strike gains temporary Soar after five paid or overload-backed hits."),
+        "v1.1-multiplayer" => new ScenarioDefinition(
+            name,
+            10,
+            [
+                ModelDb.Card<Karaoke>(),
+                ModelDb.Card<Unboxing>(),
+                ModelDb.Card<AngelsBlessings>(),
+                ModelDb.Card<YaneseCanFly>(),
+                ModelDb.Card<Compassion>(),
+                ModelDb.Card<Talent>(),
+                ModelDb.Card<LogisticsSupport>(),
+                ModelDb.Card<NecklaceOfThePresence>(),
+            ],
+            [],
+            [],
+            0,
+            ClearInitialSilence: false,
+            "Run in multiplayer. Random results must be rolled separately per player. Compassion must refresh existing Angels, allow any Angel Power card to target a teammate, charge/remove the caster's card and trigger caster play hooks, then make the recipient execute the full free clone exactly once with its replay, enchantment, and affliction effects."),
         _ => null,
     };
 
@@ -525,7 +565,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static async Task ClearScenarioPowers(Player player)
     {
         IEnumerable<Creature> participants =
-            [player.Creature, .. player.Creature.CombatState!.HittableEnemies];
+            [.. player.Creature.CombatState!.Players.Select(p => p.Creature), .. player.Creature.CombatState.HittableEnemies];
         foreach (Creature creature in participants)
         {
             List<PowerModel> powers = creature.Powers
@@ -791,7 +831,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         return new CmdResult(
             task,
             success: true,
-            $"Giving or refreshing Angel on '{card.Title}'. Status/Curse cards will exhaust immediately.");
+            $"Giving or refreshing Angel on '{card.Title}'. Curse cards will exhaust immediately.");
     }
 
     private static async Task AddAngelAsync(Player player, CardModel card)

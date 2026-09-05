@@ -11,9 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class NecklaceOfThePresence : ExusiaiCardTemplate
 {
-    private const string BlockKey = "Block";
-    protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(BlockKey, 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(3m)];
 
     public NecklaceOfThePresence() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
@@ -21,13 +19,13 @@ public sealed class NecklaceOfThePresence : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<NecklaceOfThePresencePower>(
+        await PowerCmd.Apply<FirepowerPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars[BlockKey].BaseValue,
+            DynamicVars[nameof(FirepowerPower)].BaseValue,
             Owner.Creature,
             this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[BlockKey].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
 }

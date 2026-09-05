@@ -9,11 +9,11 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class AngelsBlessingsPower : ModPowerTemplate
+public sealed class BlessingPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(AngelsBlessingsPower));
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(BlessingPower));
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {

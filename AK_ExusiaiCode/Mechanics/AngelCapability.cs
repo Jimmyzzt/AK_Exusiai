@@ -21,7 +21,7 @@ namespace AK_Exusiai.Mechanics;
 [RegisterDefaultModelCapability(typeof(Cards.ApplePieWithCharSiu))]
 [RegisterDefaultModelCapability(typeof(Cards.HolyCityEmbrace))]
 public sealed class AngelCapability : CardCapability, ICardDescriptionContributor,
-    ICardHoverTipContributor
+    ICardHoverTipContributor, ICardPropertyContributor
 {
     private static readonly ConditionalWeakTable<CardPlay, AngelFreePlayMarker> FreePlays = new();
 
@@ -40,6 +40,16 @@ public sealed class AngelCapability : CardCapability, ICardDescriptionContributo
     ];
 
     public IEnumerable<IHoverTip> GetHoverTips(CardModel card) => [ExusiaiKeywords.AngelHoverTip];
+
+    public TargetType? GetTargetType(CardModel card) =>
+        card.CombatState != null &&
+        card.Type == CardType.Power &&
+        card.Owner.Creature.HasPower<Powers.CompassionPower>()
+            ? TargetType.AnyPlayer
+            : null;
+
+    public override int ModifyCardPlayCount(CardModel card, MegaCrit.Sts2.Core.Entities.Creatures.Creature? target, int playCount) =>
+        CompassionTransferCmd.IsTransfer(card, target) ? 1 : playCount;
 
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
@@ -144,7 +154,7 @@ public static class AngelCmd
         AngelCapability capability = card.Capabilities().GetOrCreate<AngelCapability>();
         capability.Refresh();
 
-        if (card.Type is CardType.Status or CardType.Curse && card.Pile?.IsCombatPile == true)
+        if (card.Type == CardType.Curse && card.Pile?.IsCombatPile == true)
             await CardCmd.Exhaust(choiceContext, card);
     }
 }

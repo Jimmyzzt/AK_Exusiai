@@ -1,8 +1,6 @@
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
@@ -10,18 +8,32 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace AK_Exusiai.Powers;
 
 [RegisterPower]
-public sealed class LogisticsSupportPower : ModPowerTemplate
+public sealed class LogisticsSupportPower : ModPowerTemplate, ISecondaryResourceHookListener
 {
+    private int _spent;
+
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Ammo;
+    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
+    public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(LogisticsSupportPower));
+    public override int DisplayAmount => Math.Max(0, Amount - _spent);
 
-    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+    public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
-        if (player.Creature != Owner)
+        if (context.Player.Creature != Owner || context.Definition.Id != AmmoResource.Id)
+            return;
+
+        _spent += context.Amount;
+        int draws = _spent / Amount;
+        _spent %= Amount;
+        InvokeDisplayAmountChanged();
+        if (draws <= 0 || Owner.Player is not { } player)
             return;
 
         Flash();
-        await SecondaryResourceCmd.Gain(player, AmmoResource.Id, Amount, this);
+        await MegaCrit.Sts2.Core.Commands.CardPileCmd.Draw(
+            new MegaCrit.Sts2.Core.GameActions.Multiplayer.BlockingPlayerChoiceContext(),
+            draws,
+            player);
     }
 }

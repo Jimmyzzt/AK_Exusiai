@@ -3,7 +3,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -15,14 +14,22 @@ public sealed class HolyCityCallingPower : ModPowerTemplate
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(HolyCityCallingPower));
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    private int _angelsPlayed;
+
+    public override Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, MegaCrit.Sts2.Core.Entities.Players.Player player)
+    {
+        if (player.Creature == Owner)
+            _angelsPlayed = 0;
+        return Task.CompletedTask;
+    }
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Player.Creature == Owner && AngelCmd.IsAngel(cardPlay.Card))
+        if (cardPlay.Player.Creature == Owner && AngelCmd.IsAngel(cardPlay.Card) && ++_angelsPlayed == 5)
         {
             Flash();
-            await PlayerCmd.GainEnergy(Amount, cardPlay.Player);
+            await PowerCmd.Apply<TemporarySoarPower>(
+                choiceContext, Owner, 1m, Owner, cardPlay.Card);
         }
     }
 }

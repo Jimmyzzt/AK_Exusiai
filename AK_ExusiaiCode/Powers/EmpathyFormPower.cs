@@ -14,8 +14,6 @@ namespace AK_Exusiai.Powers;
 [RegisterPower]
 public sealed class EmpathyFormPower : ModPowerTemplate
 {
-    private readonly HashSet<CardModel> _replaysInProgress = [];
-
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Single;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(EmpathyFormPower), ".png");
@@ -33,8 +31,7 @@ public sealed class EmpathyFormPower : ModPowerTemplate
     public override async Task AfterCardEnteredCombat(CardModel card)
     {
         if (card.Owner.Creature == Owner &&
-            IsAngelEligiblePile(card) &&
-            !_replaysInProgress.Contains(card))
+            IsAngelEligiblePile(card))
         {
             await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
         }
@@ -43,33 +40,9 @@ public sealed class EmpathyFormPower : ModPowerTemplate
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {
         if (card.Owner.Creature == Owner &&
-            IsAngelEligiblePile(card) &&
-            !_replaysInProgress.Contains(card))
+            IsAngelEligiblePile(card))
         {
             await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
-        }
-    }
-
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        if (cardPlay.Player.Creature != Owner ||
-            _replaysInProgress.Contains(cardPlay.Card) ||
-            !AngelCmd.WasFreePlay(cardPlay))
-        {
-            return;
-        }
-
-        Flash();
-        CardModel replay = cardPlay.Card.CreateDupe(cardPlay.Card.Owner);
-        _replaysInProgress.Add(replay);
-        AngelCmd.ConsumeFreePlay(replay);
-        try
-        {
-            await CardCmd.AutoPlay(choiceContext, replay, cardPlay.Target, AutoPlayType.Default);
-        }
-        finally
-        {
-            _replaysInProgress.Remove(replay);
         }
     }
 

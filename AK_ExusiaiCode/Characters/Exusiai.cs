@@ -376,9 +376,20 @@ public sealed class Exusiai :
 
     public static bool DidSpendAmmo(CardPlay cardPlay)
     {
-        return cardPlay.Player.Character is Exusiai exusiai &&
-               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info) &&
-               info.AmmoSpent > 0;
+        return GetEffectiveAmmoSpent(cardPlay) > 0;
+    }
+
+    public static int GetEffectiveAmmoSpent(CardPlay? cardPlay)
+    {
+        if (cardPlay?.Player.Character is not Exusiai exusiai ||
+            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
+        {
+            return 0;
+        }
+
+        return info.Mode == AmmoAttackMode.Overloaded
+            ? info.AmmoBackedHitCount
+            : info.AmmoSpent;
     }
 
     public static decimal GetAmmoBonus(CardPlay? cardPlay)

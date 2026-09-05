@@ -33,6 +33,7 @@ public partial class Entry
 
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
         _patcher.RegisterPatch<AngelFreeCostPatch>();
+        _patcher.RegisterPatch<CompassionTransferPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<RelicLogisticsHookPatch>();
         _patcher.RegisterPatch<RelicLogisticsLifecyclePatch>();

@@ -12,7 +12,7 @@ namespace AK_Exusiai.Cards;
 public sealed class LogisticsSupport : ExusiaiCardTemplate
 {
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Ammo", 2m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Threshold", 4m)];
 
     public LogisticsSupport() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
@@ -20,9 +20,9 @@ public sealed class LogisticsSupport : ExusiaiCardTemplate
         await PowerCmd.Apply<LogisticsSupportPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars["Ammo"].BaseValue,
+            DynamicVars["Threshold"].BaseValue,
             Owner.Creature,
             this);
 
-    protected override void OnUpgrade() => DynamicVars["Ammo"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Threshold"].UpgradeValueBy(-1m);
 }

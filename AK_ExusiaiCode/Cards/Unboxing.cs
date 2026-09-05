@@ -2,27 +2,25 @@ using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
 [RegisterCard(typeof(ExusiaiCardPool))]
-public sealed class MayTheLordBeWithUs : ExusiaiCardTemplate
+public sealed class Unboxing : ExusiaiCardTemplate
 {
-    protected override bool ShowTransitHoverTip => true;
-    protected override IEnumerable<IHoverTip> CardHoverTips =>
-        HoverTipFactory.FromRelic<Relics.LordServer>();
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Transit", 1m)];
+    public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public MayTheLordBeWithUs() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
+    protected override bool ShowTransitHoverTip => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Transit", 1m)];
+
+    public Unboxing() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AllAllies) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await RelicLogisticsCmd.AddNamedTransit<Relics.LordServer>(
-            Owner,
-            DynamicVars["Transit"].IntValue);
+        foreach (var player in CombatState?.Players ?? [])
+            await RelicLogisticsCmd.AddRandomTransit(player, DynamicVars["Transit"].IntValue);
     }
 
     protected override void OnUpgrade() => DynamicVars["Transit"].UpgradeValueBy(1m);

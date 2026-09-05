@@ -15,7 +15,7 @@ public sealed class Loan : ExusiaiCardTemplate
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Debt>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(45)];
 
-    public Loan() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public Loan() : base(0, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
     }
 

@@ -1,9 +1,12 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -11,17 +14,35 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class CovenantOfBullets : ExusiaiCardTemplate
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(3m)];
+    protected override bool ShowAmmoHoverTip => true;
+    protected override bool ShowAngelHoverTip => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
-    public CovenantOfBullets() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
+    public CovenantOfBullets() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
-        await PowerCmd.Apply<FirepowerPower>(
-            choiceContext,
-            Owner.Creature,
-            DynamicVars[nameof(FirepowerPower)].BaseValue,
-            Owner.Creature,
-            this);
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
+        int handSlots = Math.Max(0, CardPile.MaxCardsInHand - PileType.Hand.GetPile(Owner).Cards.Count);
+        int count = Math.Min(
+            DynamicVars.Cards.IntValue,
+            Math.Min(PileType.Discard.GetPile(Owner).Cards.Count, handSlots));
+        if (count > 0)
+        {
+            IReadOnlyList<CardModel> selected = (await CardSelectCmd.FromCombatPile(
+                choiceContext,
+                PileType.Discard.GetPile(Owner),
+                Owner,
+                new CardSelectorPrefs(SelectionScreenPrompt, count))).ToList();
+            await CardPileCmd.Add(selected, PileType.Hand);
+            foreach (CardModel card in selected)
+                await AngelCmd.Add(choiceContext, card);
+        }
 
-    protected override void OnUpgrade() => DynamicVars[nameof(FirepowerPower)].UpgradeValueBy(1m);
+        await PowerCmd.Apply<CovenantOfBulletsPower>(
+            choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        if (cardPlay.IsLastInSeries)
+            PlayerCmd.EndTurn(Owner, false);
+    }
+
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
 }

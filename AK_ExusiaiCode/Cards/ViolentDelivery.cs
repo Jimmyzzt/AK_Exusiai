@@ -17,7 +17,7 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(45m, ValueProp.Move),
+        new DamageVar(40m, ValueProp.Move),
     ];
 
     public ViolentDelivery() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -38,5 +38,5 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
 
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(9m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(12m);
 }

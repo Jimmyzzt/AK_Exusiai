@@ -12,18 +12,18 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class TheLordsForgiveness : ExusiaiCardTemplate
 {
-    protected override IEnumerable<IHoverTip> CardHoverTips => [EnergyHoverTip];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    protected override bool ShowAngelHoverTip => true;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(3m, MegaCrit.Sts2.Core.ValueProps.ValueProp.Unpowered)];
 
-    public TheLordsForgiveness() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public TheLordsForgiveness() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PowerCmd.Apply<CurseReleasePower>(
-            choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        await PowerCmd.Apply<TheLordsForgivenessPower>(
+            choiceContext, Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => AddKeyword(CardKeyword.Innate);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(1m);
 }

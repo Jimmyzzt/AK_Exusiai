@@ -11,8 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class LogisticsOutsourcing : ExusiaiCardTemplate
 {
-    protected override bool ShowDeliveryHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Selections", 1m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Relics", 10m)];
 
     public LogisticsOutsourcing() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
@@ -21,17 +20,8 @@ public sealed class LogisticsOutsourcing : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<LogisticsOutsourcingPower>(
-            choiceContext, Owner.Creature, 1m, Owner.Creature, this);
-        if (DynamicVars["Selections"].IntValue > 1)
-        {
-            await PowerCmd.Apply<LogisticsOutsourcingSelectionPower>(
-                choiceContext,
-                Owner.Creature,
-                DynamicVars["Selections"].BaseValue - 1m,
-                Owner.Creature,
-                this);
-        }
+            choiceContext, Owner.Creature, DynamicVars["Relics"].BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars["Selections"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Relics"].UpgradeValueBy(-3m);
 }

@@ -22,6 +22,7 @@ internal static class ExusiaiPowerAssets
     public static PowerAssetProfile Slow => From<SlowPower>();
     public static PowerAssetProfile Debilitate => From<DebilitatePower>();
     public static PowerAssetProfile PiercingWail => From<PiercingWailPower>();
+    public static PowerAssetProfile Soar => From<SoarPower>();
 
     public static PowerAssetProfile Custom(string baseName, string extension = ".svg") => new(
         IconPath: $"{Entry.ResPath}/images/powers/{baseName}{extension}",

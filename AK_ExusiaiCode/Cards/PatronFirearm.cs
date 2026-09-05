@@ -11,9 +11,9 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class PatronFirearm : ExusiaiCardTemplate
 {
-    private const string ThresholdKey = "Threshold";
+    private const string BlockKey = "Block";
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar(ThresholdKey, 4m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, MegaCrit.Sts2.Core.ValueProps.ValueProp.Unpowered)];
 
     public PatronFirearm() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
@@ -24,10 +24,10 @@ public sealed class PatronFirearm : ExusiaiCardTemplate
         await PowerCmd.Apply<PatronFirearmPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars[ThresholdKey].BaseValue,
+            DynamicVars.Block.BaseValue,
             Owner.Creature,
             this);
     }
 
-    protected override void OnUpgrade() => DynamicVars[ThresholdKey].UpgradeValueBy(-1m);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(1m);
 }

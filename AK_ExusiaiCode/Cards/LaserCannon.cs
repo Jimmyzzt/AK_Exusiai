@@ -15,7 +15,7 @@ public sealed class LaserCannon : ExusiaiCardTemplate, IAmmoSpendAllAttack
     protected override bool ShowAmmoHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(20m, ValueProp.Move),
+        new DamageVar(18m, ValueProp.Move),
     ];
 
     public LaserCannon() : base(2, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)

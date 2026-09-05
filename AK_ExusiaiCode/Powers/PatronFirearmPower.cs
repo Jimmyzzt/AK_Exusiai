@@ -12,27 +12,21 @@ namespace AK_Exusiai.Powers;
 [RegisterPower]
 public sealed class PatronFirearmPower : ModPowerTemplate, ISecondaryResourceHookListener
 {
-    private int _spent;
-
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-    public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(PatronFirearmPower));
-    public override int DisplayAmount => Math.Max(0, Amount - _spent);
 
     public async Task AfterSecondaryResourceSpent(SecondaryResourceSpendContext context)
     {
         if (context.Player.Creature != Owner || context.Definition.Id != AmmoResource.Id)
             return;
 
-        _spent += context.Amount;
-        int draws = _spent / Amount;
-        _spent %= Amount;
-        InvokeDisplayAmountChanged();
-        if (draws <= 0 || Owner.Player is not { } player)
-            return;
-
         Flash();
-        await CardPileCmd.Draw(new BlockingPlayerChoiceContext(), draws, player);
+        await CreatureCmd.GainBlock(
+            Owner,
+            new MegaCrit.Sts2.Core.Localization.DynamicVars.BlockVar(
+                Amount * context.Amount,
+                MegaCrit.Sts2.Core.ValueProps.ValueProp.Unpowered),
+            null);
     }
 }
