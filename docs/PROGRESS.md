@@ -3,6 +3,13 @@
 最后更新：2026-09-02
 工作分支：`mechanic/v1-overhaul`
 
+## 卡牌特效管理器（2026-09-06）
+
+- 从 `balance/v1.1` 创建 `mechanic/card-effect-manager`，认领效果目录、运行时配置/试播桥接和独立 Godot 管理器，依据 `CARD_EFFECT_MANAGER_PLAN.md` 分阶段提交推送。
+- 开工时已有两份 cards 本地化及 `FreeDelivery.cs`、`SteadfastHeart.cs` 未提交修改，保持原样，不纳入本任务提交。
+- 第一阶段已完成：可重建的原版攻击来源/资源目录、JSON 配置、24 类专用位置工厂及通用场景/音频适配、原角色 Hook 接入、单人 `exusiaifx on/off/status` 试播桥接。未配置卡牌沿用现有表现。
+- 快速构建通过：0 警告、0 错误。目录状态 `adapted` 仅表示代码已接入，游戏内视觉和音频验证尚未完成；下一阶段实现管理窗口并逐项验证。
+
 ## V1 大修协调
 
 - 当前设计源为 `AK_Exusiai-Card_V1.csv` 与 `AK_Exusiai-Relic_Potion_V1.csv`；旧版已移入 `docs/archive/`。
