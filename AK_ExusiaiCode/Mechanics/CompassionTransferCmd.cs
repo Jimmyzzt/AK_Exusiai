@@ -3,14 +3,12 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib.Cards;
 
 namespace AK_Exusiai.Mechanics;
 
 public static class CompassionTransferCmd
 {
-    private static readonly System.Reflection.MethodInfo CardOnPlay = HarmonyLib.AccessTools.DeclaredMethod(
-        typeof(CardModel), "OnPlay", [typeof(PlayerChoiceContext), typeof(CardPlay)]);
-
     public static bool IsTransfer(CardModel card, Creature? target) =>
         target?.Player is { } recipient &&
         recipient != card.Owner &&
@@ -25,7 +23,7 @@ public static class CompassionTransferCmd
     {
         if (!IsTransfer(card, cardPlay.Target) || cardPlay.Target?.Player is not { } recipient)
         {
-            await (Task)CardOnPlay.Invoke(card, [choiceContext, cardPlay])!;
+            await CardOnPlayHook.RunCardOnPlayHooks(card, choiceContext, cardPlay);
             return;
         }
 
