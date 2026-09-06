@@ -56,6 +56,7 @@ internal static class CardEffectRuntime
             Launch = Visual(command._attackerVfx), Hit = Visual(command.HitVfx),
             LaunchSound = Audio(command._attackerSfx, command._tmpAttackerSfx), HitSound = Audio(command.HitSfx, command.TmpHitSfx),
             Animation = command._shouldPlayAnimation ? command._attackerAnimName ?? "" : "",
+            AnimationDelay = command._attackerAnimDelay,
         };
         EffectRecipe recipe = CardEffectPlayer.Resolve(state.Config, fallback);
         // Capture the actual target chosen by AttackCommand, including random targeting.

@@ -1,5 +1,7 @@
 using System.Text.Json;
+using System.Security.Cryptography;
 using Godot;
+using MegaCrit.Sts2.Core.Models;
 
 namespace AK_Exusiai.Effects;
 
@@ -28,8 +30,16 @@ public sealed class EffectRecipe
     public string HitSound { get; set; } = "";
     public string Animation { get; set; } = "Attack";
     public float Delay { get; set; }
+    public float AnimationDelay { get; set; } = -1;
     public bool PreAnimation { get; set; }
     public bool EmbeddedAudio { get; set; }
+    public bool LaunchOnTargets { get; set; }
+    public bool Ground { get; set; }
+    public string Tint { get; set; } = "ffffff";
+    public string VfxColor { get; set; } = "Red";
+    public float Scale { get; set; } = 1;
+    public string[] LaunchExtras { get; set; } = [];
+    public string[] HitExtras { get; set; } = [];
 }
 
 public sealed class EffectEntry
@@ -69,15 +79,23 @@ internal static class CardEffectStore
     internal const string BridgeDirectory = "user://AK_Exusiai/card_effect_manager";
     internal static Dictionary<string, EffectEntry> Entries { get; private set; } = [];
     internal static string GameHash { get; private set; } = "";
+    internal static bool CatalogMatchesGame { get; private set; }
     private static EffectDocument _packaged = new();
     internal static EffectDocument? Override { get; set; }
 
-    internal static void Initialize()
+    internal static void Initialize(string? gameAssemblyPath = null)
     {
         EffectCatalog catalog = Read<EffectCatalog>($"{Entry.ResPath}/config/card_effect_catalog.json");
         if (catalog.Schema != 1) throw new InvalidDataException("Unknown effect catalog schema.");
         Entries = catalog.Entries.ToDictionary(x => x.Id);
-        GameHash = catalog.GameSha256;
+        string assemblyPath = gameAssemblyPath ?? typeof(CardModel).Assembly.Location;
+        // A standalone Godot editor can load references from memory. Unknown builds
+        // retain native card visuals rather than breaking the character's initialization.
+        GameHash = "";
+        if (System.IO.File.Exists(assemblyPath))
+            using (var assembly = System.IO.File.OpenRead(assemblyPath))
+                GameHash = Convert.ToHexString(SHA256.HashData(assembly)).ToLowerInvariant();
+        CatalogMatchesGame = GameHash == catalog.GameSha256;
         _packaged = Read<EffectDocument>($"{Entry.ResPath}/config/card_effects.json");
         Validate(_packaged);
     }
@@ -86,7 +104,7 @@ internal static class CardEffectStore
         ?? throw new InvalidDataException($"Empty effect document: {path}");
 
     internal static EffectBinding? Find(string id, bool singlePlayer) =>
-        (singlePlayer && Override != null ? Override : _packaged).Cards.GetValueOrDefault(id);
+        CatalogMatchesGame ? (singlePlayer && Override != null ? Override : _packaged).Cards.GetValueOrDefault(id) : null;
 
     internal static void Validate(EffectDocument doc)
     {

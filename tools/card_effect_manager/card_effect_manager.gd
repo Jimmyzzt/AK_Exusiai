@@ -657,6 +657,7 @@ func _smoke_test() -> void:
 	if _valid({"offset": [1]}).is_empty(): failures.append("Invalid offset accepted")
 	if not _valid({"preset": "card:GrandFinale", "offset": [20, -10]}).is_empty(): failures.append("Valid config rejected")
 	var original := _manifest.duplicate(true)
+	if not _write("res://tmp/effect_manager_contract.json", {"schema": 1, "cards": {"AK_EXUSIAI_CARD_LASER_CANNON": {"base": {"preset": "card:Hyperbeam", "offset": [25, -12]}, "upgrade": {"preset": "card:GrandFinale"}}}}): failures.append("JSON contract fixture failed")
 	_selected = "card:GrandFinale"; _apply_entry()
 	if _config().get("preset", "") != _selected: failures.append("Binding failed")
 	_undo_change()

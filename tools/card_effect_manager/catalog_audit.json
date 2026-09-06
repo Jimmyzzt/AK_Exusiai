@@ -9,9 +9,9 @@
   ],
   "counts": {
     "sources": 300,
-    "mapped": 164,
-    "entries": 931,
-    "adapted": 636
+    "mapped": 195,
+    "entries": 948,
+    "adapted": 650
   },
   "sources": [
     {
@@ -32,7 +32,8 @@
       "effects": [
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "AllForOne",
@@ -84,7 +85,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "AstralPulse",
@@ -107,7 +109,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "AxeRubyRaider",
@@ -117,7 +120,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Backstab",
@@ -237,7 +241,7 @@
         "scene:vfx/cards/bolas_vfx",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Bombardment",
@@ -250,7 +254,7 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_large_magic_missile"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "BoneShards",
@@ -273,7 +277,8 @@
         "event:event:/sfx/enemy/enemy_attacks/workbug_egg/workbug_egg_die",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "BowlbugNectar",
@@ -285,7 +290,8 @@
         "event:event:/sfx/enemy/enemy_attacks/workbug_goop/workbug_goop_spit",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "BowlbugRock",
@@ -298,7 +304,8 @@
         "event:event:/sfx/enemy/enemy_attacks/workbug_rock/workbug_rock_stun",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "BowlbugSilk",
@@ -310,7 +317,8 @@
         "event:event:/sfx/enemy/enemy_attacks/workbug_silk/workbug_silk_spit",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Break",
@@ -333,7 +341,7 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_bloody_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "BruteRubyRaider",
@@ -343,7 +351,8 @@
       "effects": [
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Bully",
@@ -375,7 +384,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Byrdonis",
@@ -387,7 +397,8 @@
         "event:event:/sfx/enemy/enemy_attacks/byrdonis/byrdonis_hurt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "ByrdSwoop",
@@ -411,7 +422,8 @@
         "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_die_calcified",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "CelestialMight",
@@ -435,6 +447,8 @@
         "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_plow_end",
         "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_shrill",
         "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_stun",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
         "factory:NHorizontalLinesVfx",
         "factory:NSpikeSplashVfx",
         "scene:vfx/spike_splash_vfx",
@@ -444,7 +458,8 @@
         "scene:vfx/vfx_scream",
         "scene:vfx/whole_screen/horizontal_lines_vfx"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Chomper",
@@ -455,7 +470,8 @@
         "event:event:/sfx/enemy/enemy_attacks/chomper/chomper_hurt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Cinder",
@@ -466,7 +482,7 @@
         "factory:NFireBurstVfx",
         "scene:vfx/vfx_fire_burst"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Clash",
@@ -487,7 +503,7 @@
         "factory:NScratchVfx",
         "scene:vfx/vfx_scratch_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "ColdSnap",
@@ -519,7 +535,7 @@
         "factory:NSmallMagicMissileVfx",
         "scene:vfx/vfx_small_magic_missile"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "CompileDriver",
@@ -543,7 +559,7 @@
         "scene:vfx/fires/vfx_ground_fire",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "CorpseSlug",
@@ -558,7 +574,8 @@
         "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_ravenous_up_double",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "CrashLanding",
@@ -590,7 +607,8 @@
         "event:event:/sfx/enemy/enemy_attacks/crossbow_ruby_raider/crossbow_ruby_raider_reload",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Crusher",
@@ -610,7 +628,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_heavy_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "CrushUnder",
@@ -619,11 +638,13 @@
       "origin": "card",
       "effects": [
         "audio:blunt_attack.mp3",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
         "factory:NSpikeSplashVfx",
         "scene:vfx/spike_splash_vfx",
         "scene:vfx/vfx_heavy_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "CubexConstruct",
@@ -636,7 +657,8 @@
         "event:event:/sfx/enemy/enemy_attacks/cubex_construct/cubex_construct_charge_attack",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "DaggerSpray",
@@ -650,7 +672,7 @@
         "scene:vfx/vfx_dagger_spray_flurry",
         "scene:vfx/vfx_dagger_spray_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "DaggerThrow",
@@ -663,7 +685,7 @@
         "scene:vfx/vfx_dagger_spray_flurry",
         "scene:vfx/vfx_dagger_spray_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "DampCultist",
@@ -676,7 +698,8 @@
         "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_die_damp",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Dash",
@@ -722,7 +745,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_decimillipede_rocks"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Defile",
@@ -754,7 +778,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_scream"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Dismantle",
@@ -786,7 +811,7 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_dramatic_entrance_fullscreen"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "DyingStar",
@@ -797,7 +822,7 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_starry_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "EchoingSlash",
@@ -805,7 +830,8 @@
       "english": "Echoing Slash",
       "origin": "card",
       "effects": [],
-      "status": "needs_investigation"
+      "status": "no_independent_effect",
+      "reason": "当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。"
     },
     {
       "id": "Entomancer",
@@ -817,7 +843,8 @@
         "event:event:/sfx/enemy/enemy_attacks/entomancer/entomancer_die",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Eradicate",
@@ -842,7 +869,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Exterminate",
@@ -863,7 +891,8 @@
         "event:event:/sfx/enemy/enemy_attacks/fabricator/fabricator_hurt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FakeMerchantMonster",
@@ -875,7 +904,8 @@
         "event:event:/sfx/npcs/reverse_merchant/reverse_merchant_hurt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FallingStar",
@@ -930,7 +960,7 @@
         "factory:NGroundFireVfx",
         "scene:vfx/fires/vfx_ground_fire"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "FightMe",
@@ -949,9 +979,10 @@
       "english": "Finisher",
       "origin": "card",
       "effects": [
-        "audio:blunt_attack.mp3"
+        "audio:blunt_attack.mp3",
+        "factory:NStabVfx"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Fisticuffs",
@@ -974,7 +1005,8 @@
         "event:event:/sfx/enemy/enemy_attacks/flail_knight/flail_knight_war_chant",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FlakCannon",
@@ -992,8 +1024,10 @@
       "name": "亮剑",
       "english": "Flash of Steel",
       "origin": "card",
-      "effects": [],
-      "status": "needs_investigation"
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
     },
     {
       "id": "Flatten",
@@ -1037,7 +1071,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_spore_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FocusedStrike",
@@ -1058,7 +1093,8 @@
         "event:event:/sfx/enemy/enemy_attacks/fogmog/fogmog_summon",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FossilStalker",
@@ -1073,7 +1109,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "FrogKnight",
@@ -1087,7 +1124,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Ftl",
@@ -1107,7 +1145,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "GammaBlast",
@@ -1141,7 +1180,8 @@
         "factory:NGaseousImpactVfx",
         "scene:vfx/vfx_gaseous_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "GiantRock",
@@ -1166,7 +1206,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_lightning"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "GoForTheEyes",
@@ -1224,7 +1265,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_coin_explosion_regular"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "GuidingStar",
@@ -1236,7 +1278,7 @@
         "factory:NSmallMagicMissileVfx",
         "scene:vfx/vfx_small_magic_missile"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "GunkUp",
@@ -1248,7 +1290,7 @@
         "factory:NGoopyImpactVfx",
         "scene:vfx/vfx_goopy_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "HandOfGreed",
@@ -1260,7 +1302,7 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_coin_explosion_regular"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Hang",
@@ -1281,7 +1323,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_spooky_scream"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Headbutt",
@@ -1380,7 +1423,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Hyperbeam",
@@ -1419,7 +1463,8 @@
         "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_die",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Inklet",
@@ -1431,7 +1476,8 @@
         "event:event:/sfx/enemy/enemy_attacks/inklet/inklet_hurt",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "IronWave",
@@ -1467,7 +1513,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_kin_poof"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "KinglyKick",
@@ -1507,7 +1554,8 @@
         "scene:vfx/monsters/kin_priest_grenade_vfx",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Knockdown",
@@ -1542,7 +1590,8 @@
         "event:event:/sfx/enemy/enemy_attacks/knowledge_demon/knowledge_demon_slap",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LagavulinMatriarch",
@@ -1558,7 +1607,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_sleeping"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LeadingStrike",
@@ -1578,7 +1628,8 @@
       "effects": [
         "scene:vfx/vfx_slime_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LeafSlimeS",
@@ -1588,7 +1639,8 @@
       "effects": [
         "scene:vfx/vfx_slime_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LivingFog",
@@ -1603,7 +1655,8 @@
         "factory:NGaseousImpactVfx",
         "scene:vfx/vfx_gaseous_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LivingShield",
@@ -1613,7 +1666,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LouseProgenitor",
@@ -1628,7 +1682,8 @@
         "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_uncurl",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "LunarBlast",
@@ -1663,7 +1718,8 @@
         "event:event:/sfx/enemy/enemy_attacks/magi_knight/magi_knight_hurt",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "MakeItSo",
@@ -1695,7 +1751,7 @@
         "factory:NScratchVfx",
         "scene:vfx/vfx_scratch_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Mawler",
@@ -1705,7 +1761,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "MechaKnight",
@@ -1719,8 +1776,10 @@
         "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_flamethrower",
         "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_heavy_attack",
         "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_hurt",
+        "factory:NBgGroundSpikeVfx",
         "factory:NBigSlashImpactVfx",
         "factory:NBigSlashVfx",
+        "factory:NFgGroundSpikeVfx",
         "factory:NFireBurstVfx",
         "factory:NSpikeSplashVfx",
         "scene:vfx/spike_splash_vfx",
@@ -1728,7 +1787,8 @@
         "scene:vfx/vfx_big_slash_impact",
         "scene:vfx/vfx_fire_burst"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "MementoMori",
@@ -1761,7 +1821,7 @@
         "factory:NLargeMagicMissileVfx",
         "scene:vfx/vfx_large_magic_missile"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Midnight",
@@ -1793,7 +1853,7 @@
         "factory:NMinionDiveBombVfx",
         "scene:vfx/vfx_minion_dive_bomb"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "MinionStrike",
@@ -1824,7 +1884,7 @@
         "audio:blunt_attack.mp3",
         "scene:vfx/vfx_molten_fist"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "MomentumStrike",
@@ -1842,7 +1902,8 @@
       "english": "MultiAttackMoveMonster",
       "origin": "monster",
       "effects": [],
-      "status": "needs_investigation"
+      "status": "needs_investigation",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Murder",
@@ -1866,7 +1927,8 @@
         "event:event:/sfx/enemy/enemy_attacks/mite/mite_suck",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "NeowsFury",
@@ -1883,8 +1945,10 @@
       "name": "中和",
       "english": "Neutralize",
       "origin": "card",
-      "effects": [],
-      "status": "needs_investigation"
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
     },
     {
       "id": "Nibbit",
@@ -1895,7 +1959,8 @@
         "event:event:/sfx/enemy/enemy_attacks/nibbit/nibbit_die",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Null",
@@ -1913,7 +1978,8 @@
       "english": "Omnislice",
       "origin": "card",
       "effects": [],
-      "status": "needs_investigation"
+      "status": "no_independent_effect",
+      "reason": "当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。"
     },
     {
       "id": "Outrage",
@@ -1937,7 +2003,8 @@
         "event:event:/sfx/enemy/enemy_attacks/egg_layer/egg_layer_lay",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "OwlMagistrate",
@@ -1956,7 +2023,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_gaze"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "PactsEnd",
@@ -1980,7 +2048,8 @@
         "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_hologram_heal",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Peck",
@@ -2004,7 +2073,7 @@
         "scene:vfx/vfx_big_slash",
         "scene:vfx/vfx_big_slash_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "PhantasmalGardener",
@@ -2019,7 +2088,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "PhotonCut",
@@ -2041,7 +2111,8 @@
         "factory:NWormyImpactVfx",
         "scene:vfx/vfx_wormy_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Pillage",
@@ -2158,7 +2229,8 @@
         "event:event:/sfx/enemy/enemy_attacks/punch_construct/punch_construct_buff",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Queen",
@@ -2170,7 +2242,8 @@
         "event:event:/sfx/enemy/enemy_attacks/queen/queen_cast",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Radiate",
@@ -2285,7 +2358,7 @@
         "factory:NScratchVfx",
         "scene:vfx/vfx_scratch_impact"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Rocket",
@@ -2304,7 +2377,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_heavy_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "RocketPunch",
@@ -2349,7 +2423,8 @@
         "event:event:/sfx/enemy/enemy_attacks/scroll_of_biting/scroll_of_biting_die",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SculptingStrike",
@@ -2373,7 +2448,8 @@
         "event:event:/sfx/enemy/enemy_attacks/seapunk/seapunk_kick_multi",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SeekerStrike",
@@ -2425,7 +2501,8 @@
         "event:event:/sfx/enemy/enemy_attacks/sewer_clam/sewer_clam_buff",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Shatter",
@@ -2456,7 +2533,7 @@
         "factory:NShivThrowVfx",
         "scene:vfx/vfx_shiv_throw"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "ShrinkerBeetle",
@@ -2466,7 +2543,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SicEm",
@@ -2485,15 +2563,18 @@
       "english": "SingleAttackMoveMonster",
       "origin": "monster",
       "effects": [],
-      "status": "needs_investigation"
+      "status": "needs_investigation",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Skewer",
       "name": "串刺",
       "english": "Skewer",
       "origin": "card",
-      "effects": [],
-      "status": "needs_investigation"
+      "effects": [
+        "factory:NStabVfx"
+      ],
+      "status": "mapped"
     },
     {
       "id": "SkulkingColony",
@@ -2509,7 +2590,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Slice",
@@ -2518,9 +2600,10 @@
       "origin": "card",
       "effects": [
         "audio:slash_attack.mp3",
+        "factory:NThinSliceVfx",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "SlimedBerserker",
@@ -2531,7 +2614,8 @@
         "event:event:/sfx/enemy/enemy_attacks/slimed_berserker/slimed_berserker_buff",
         "event:event:/sfx/enemy/enemy_attacks/slimed_berserker/slimed_berserker_slime"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SlitheringStrangler",
@@ -2544,7 +2628,8 @@
         "event:event:/sfx/enemy/enemy_attacks/slithering_strangler/slithering_strangler_tail",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SludgeSpinner",
@@ -2556,7 +2641,8 @@
         "event:event:/sfx/enemy/enemy_attacks/sludge_spinner/sludge_spinner_attack_spin",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SlumberingBeetle",
@@ -2571,7 +2657,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_sleeping"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Snap",
@@ -2592,7 +2679,8 @@
       "effects": [
         "event:event:/sfx/enemy/enemy_attacks/orb_plant/orb_plant_idle_loop"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SneakyGremlin",
@@ -2604,7 +2692,8 @@
         "event:event:/sfx/enemy/enemy_attacks/gremlin_merc/sneaky_gremlin_die",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SolarStrike",
@@ -2630,7 +2719,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_spooky_scream"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SoulNexus",
@@ -2640,7 +2730,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SoulStorm",
@@ -2667,7 +2758,8 @@
         "scene:vfx/vfx_big_slash_impact",
         "scene:vfx/vfx_giant_horizontal_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "完整演出依赖已锻造君王之剑的持久节点与攻击状态；可单独选择巨型斩击及关联声音。"
     },
     {
       "id": "Sow",
@@ -2691,7 +2783,8 @@
         "event:event:/sfx/enemy/enemy_attacks/spectral_knight/spectral_knight_soul_slash",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "SpinyToad",
@@ -2705,7 +2798,8 @@
         "event:event:/sfx/enemy/enemy_attacks/spiny_toad/spiny_toad_protrude",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Spite",
@@ -2746,7 +2840,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Stardust",
@@ -2765,11 +2860,13 @@
       "origin": "card",
       "effects": [
         "audio:heavy_attack.mp3",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
         "factory:NSpikeSplashVfx",
         "scene:vfx/spike_splash_vfx",
         "scene:vfx/vfx_heavy_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Strangle",
@@ -2869,8 +2966,10 @@
       "name": "压制",
       "english": "Suppress",
       "origin": "card",
-      "effects": [],
-      "status": "needs_investigation"
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
     },
     {
       "id": "SweepingBeam",
@@ -2946,7 +3045,8 @@
         "scene:vfx/vfx_attack_slash",
         "scene:vfx/vfx_scream"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TeslaCoil",
@@ -2973,7 +3073,8 @@
         "scene:vfx/monsters/test_subject_burn_vfx",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheAdversaryMkOne",
@@ -2983,7 +3084,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheAdversaryMkThree",
@@ -2993,7 +3095,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheAdversaryMkTwo",
@@ -3003,7 +3106,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheBall",
@@ -3023,7 +3127,8 @@
       "effects": [
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheHunt",
@@ -3050,7 +3155,8 @@
         "scene:vfx/vfx_scratch",
         "scene:vfx/vfx_scream"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheLost",
@@ -3060,7 +3166,8 @@
       "effects": [
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheObscura",
@@ -3074,7 +3181,8 @@
         "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_summon",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TheScythe",
@@ -3104,7 +3212,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Thrash",
@@ -3156,7 +3265,8 @@
         "event:event:/sfx/enemy/enemy_attacks/toadpole/toadpole_attack_spin",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TorchHeadAmalgam",
@@ -3167,7 +3277,8 @@
         "event:event:/sfx/enemy/enemy_attacks/torch_head_amalgam/torch_head_amalgam_beam",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "ToughEgg",
@@ -3180,7 +3291,8 @@
         "event:event:/sfx/enemy/enemy_attacks/tough_egg/tough_egg_hatch",
         "scene:vfx/vfx_bite"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TrackerRubyRaider",
@@ -3190,7 +3302,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Tunneler",
@@ -3205,7 +3318,8 @@
         "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_hurt",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TurretOperator",
@@ -3217,7 +3331,8 @@
         "event:event:/sfx/enemy/enemy_attacks/turret_operator/turret_operator_hurt",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TwigSlimeM",
@@ -3227,7 +3342,8 @@
       "effects": [
         "scene:vfx/vfx_slime_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TwigSlimeS",
@@ -3237,7 +3353,8 @@
       "effects": [
         "scene:vfx/vfx_slime_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "TwinStrike",
@@ -3262,7 +3379,8 @@
         "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_summon",
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "UltimateStrike",
@@ -3331,7 +3449,8 @@
         "scene:vfx/vfx_attack_blunt",
         "scene:vfx/vfx_giant_horizontal_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Veilpiercer",
@@ -3356,7 +3475,8 @@
         "scene:vfx/vfx_bite",
         "scene:vfx/vfx_scratch"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Volley",
@@ -3381,7 +3501,8 @@
         "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_knockout",
         "scene:vfx/vfx_attack_blunt"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "Whirlwind",
@@ -3391,10 +3512,11 @@
       "effects": [
         "event:event:/sfx/characters/ironclad/ironclad_whirlwind",
         "factory:NHorizontalLinesVfx",
+        "factory:NSmokyVignetteVfx",
         "scene:vfx/vfx_giant_horizontal_slash",
         "scene:vfx/whole_screen/horizontal_lines_vfx"
       ],
-      "status": "needs_adapter"
+      "status": "mapped"
     },
     {
       "id": "Whistle",
@@ -3416,7 +3538,8 @@
         "scene:vfx/vfx_bite",
         "scene:vfx/vfx_wormy_impact"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     },
     {
       "id": "WroughtInWar",
@@ -3436,7 +3559,8 @@
       "effects": [
         "scene:vfx/vfx_attack_slash"
       ],
-      "status": "needs_adapter"
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
     }
   ]
 }

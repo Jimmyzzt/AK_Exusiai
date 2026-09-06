@@ -23,6 +23,8 @@ public partial class CardEffectBridge : Node
 
     internal static void Enable(Player player)
     {
+        if (!CardEffectStore.CatalogMatchesGame)
+            throw new InvalidOperationException("游戏已更新，请重建特效目录并重新构建 Mod 后试播。");
         if (player.Character is not Exusiai || player.RunState.Players.Count != 1 || NCombatRoom.Instance == null)
             throw new InvalidOperationException("请在能天使单人战斗中启用试播。");
         if (Instance != null && GodotObject.IsInstanceValid(Instance)) Instance.QueueFree();

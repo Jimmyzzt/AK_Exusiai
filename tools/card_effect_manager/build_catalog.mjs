@@ -62,10 +62,14 @@ const factories={
  NLineBurstVfx:['target','线状爆发'],NScreamVfx:['target','尖叫'],
  NLargeMagicMissileVfx:['ground_color','大型魔法飞弹'],NSmallMagicMissileVfx:['target_color','小型魔法飞弹'],
  NMinionDiveBombVfx:['source_ground','俯冲轰炸'],NSporeImpactVfx:['ground_color','孢子冲击'],
+ NBolasVfx:['creature_pair','流星锤 · 投射（使用原生发射点）'],
+ NGroundFireVfx:['creature_color','地面火焰'],NSpikeSplashVfx:['creature_color','地刺飞溅'],
+ NThinSliceVfx:['creature_color','细刃斩击'],NStabVfx:['creature_bool_color','穿刺'],
+ NHorizontalLinesVfx:['screen_color','旋风斩 · 速度线'],NSmokyVignetteVfx:['screen_color','旋风斩 · 屏幕晕影'],
 };
 for(const [name,code] of texts){
  if(!name.startsWith('N')||!name.endsWith('Vfx'))continue;
- const scene=code.match(/scenePath = SceneHelper.GetScenePath\("([^"]+)"\)/)?.[1];if(!scene)continue;
+ const scene=code.match(/scenePath = SceneHelper.GetScenePath\("([^"]+)"\)/)?.[1] || code.match(/(?:_path|_scenePath|scenePath) = "res:\/\/scenes\/([^"]+)\.tscn"/)?.[1];if(!scene)continue;
  const f=factories[name];
  entry('factory:'+name,'vfx',f?.[1]||name,{adapter:f?'factory':'',factory:name,signature:f?.[0]||'',resource:scene,resources:['res://scenes/'+scene+'.tscn'],status:f?'adapted':'candidate',reason:f?'位置工厂已接入；待游戏内验证':'依赖专用初始化；尚不能独立绑定',embedded_audio:quoted(code).filter(x=>x.startsWith('event:/')),shake:code.includes('ScreenShake(')});
 }
@@ -83,7 +87,57 @@ const knownPresets={
  Hyperbeam:{launch:'factory:NHyperbeamVfx',hit:'factory:NHyperbeamImpactVfx',delay:0.5,animation:'Cast',embedded_audio:true},
  GrandFinale:{launch:'factory:NGrandFinaleVfx',hit:'factory:NGrandFinaleImpactVfx',hit_sound:'audio:blunt_attack.mp3',delay:1.625,animation:'Attack',pre_animation:true},
  SweepingBeam:{launch:'factory:NSweepingBeamVfx',delay:0.5,animation:'Cast'},
+ Bolas:{launch:'factory:NBolasVfx',pre_animation:true,hit:'scene:vfx/vfx_attack_blunt',hit_sound:'audio:blunt_attack.mp3'},
+ Bombardment:{launch:'factory:NLargeMagicMissileVfx',launch_on_targets:true,pre_animation:true,tint:'50b598',delay:0.2,hit:'scene:vfx/vfx_attack_blunt',hit_sound:'audio:blunt_attack.mp3'},
+ MeteorStrike:{launch:'factory:NLargeMagicMissileVfx',launch_on_targets:true,pre_animation:true,tint:'50b598',delay:0.2,hit_sound:'audio:blunt_attack.mp3'},
+ Comet:{launch:'factory:NSmallMagicMissileVfx',launch_on_targets:true,tint:'50b598',delay:0.2,animation:'Cast'},
+ GuidingStar:{launch:'factory:NSmallMagicMissileVfx',launch_on_targets:true,tint:'50b598',delay:0.2,animation:'Cast',launch_sound:'event:event:/sfx/characters/regent/regent_guiding_star'},
+ Breakthrough:{launch:'scene:vfx/vfx_bloody_impact',pre_animation:true,hit:'scene:vfx/vfx_attack_blunt',hit_sound:'audio:heavy_attack.mp3'},
+ Cinder:{hit:'factory:NFireBurstVfx',scale:0.75},
+ Claw:{hit:'factory:NScratchVfx'},Maul:{hit:'factory:NScratchVfx'},RipAndTear:{hit:'factory:NScratchVfx'},
+ Conflagration:{launch:'factory:NGroundFireVfx',launch_on_targets:true,pre_animation:true,hit:'scene:vfx/vfx_attack_blunt',hit_sound:'audio:heavy_attack.mp3'},
+ CrushUnder:{launch:'factory:NSpikeSplashVfx',launch_on_targets:true,animation:'Cast',hit:'scene:vfx/vfx_heavy_blunt',ground:true,hit_sound:'audio:blunt_attack.mp3'},
+ Stomp:{launch:'factory:NSpikeSplashVfx',launch_on_targets:true,animation:'Cast',hit:'scene:vfx/vfx_heavy_blunt',ground:true,hit_sound:'audio:heavy_attack.mp3'},
+ DaggerSpray:{launch:'factory:NDaggerSprayFlurryVfx',hit:'factory:NDaggerSprayImpactVfx',tint:'b1ccca',launch_sound:'event:event:/sfx/characters/silent/silent_dagger_spray'},
+ DaggerThrow:{launch:'factory:NDaggerSprayFlurryVfx',hit:'factory:NDaggerSprayImpactVfx',tint:'b1ccca'},
+ FiendFire:{hit:'factory:NGroundFireVfx',hit_sound:'event:event:/sfx/characters/attack_fire'},
+ Finisher:{hit:'factory:NStabVfx',hit_sound:'audio:blunt_attack.mp3'},
+ FlashOfSteel:{launch:'factory:NThinSliceVfx',launch_on_targets:true,pre_animation:true,vfx_color:'Cyan'},
+ Neutralize:{launch:'factory:NThinSliceVfx',launch_on_targets:true,pre_animation:true,vfx_color:'Cyan'},
+ Suppress:{launch:'factory:NThinSliceVfx',launch_on_targets:true,pre_animation:true,vfx_color:'Cyan'},
+ Slice:{launch:'factory:NThinSliceVfx',launch_on_targets:true,pre_animation:true,vfx_color:'Red',hit:'scene:vfx/vfx_attack_slash',hit_sound:'audio:slash_attack.mp3'},
+ GunkUp:{hit:'factory:NGoopyImpactVfx',tint:'00ff00',hit_sound:'audio:blunt_attack.mp3'},
+ MinionDiveBomb:{launch:'factory:NMinionDiveBombVfx',launch_on_targets:true,animation:'Cast',delay:0.65},
+ PerfectedStrike:{hit:'factory:NBigSlashVfx',hit_extras:['factory:NBigSlashImpactVfx'],hit_sound:'audio:heavy_attack.mp3'},
+ Shiv:{hit:'factory:NShivThrowVfx',tint:'00ff00'},Skewer:{hit:'factory:NStabVfx',vfx_color:'Gold'},
+ Whirlwind:{launch:'factory:NHorizontalLinesVfx',launch_extras:['factory:NSmokyVignetteVfx'],pre_animation:true,tint:'ffffff80',launch_sound:'event:event:/sfx/characters/ironclad/ironclad_whirlwind',hit:'scene:vfx/vfx_giant_horizontal_slash'},
+ DramaticEntrance:{launch:'scene:vfx/vfx_dramatic_entrance_fullscreen',hit:'scene:vfx/vfx_attack_slash'},
+ DyingStar:{hit:'scene:vfx/vfx_starry_impact'},
+ HandOfGreed:{hit:'scene:vfx/vfx_attack_blunt',hit_sound:'audio:blunt_attack.mp3'},
 };
+const presetNotes={
+ Bolas:'原生工厂跟随角色默认发射点，暂不支持枪口偏移。',
+ FiendFire:'复用地面火焰和声音；不复制消耗手牌、随手牌数逐段放大的逻辑。',
+ Whirlwind:'速度线使用 2 秒视觉窗口；段数由能天使卡牌决定，建议出手仅一次。',
+ Shiv:'复用绿色投射物；不复制猎手专用动作及刀扇能力。',
+ CrushUnder:'使用能天使 Cast 动作，保留地刺和脚底重击。',
+ Stomp:'使用能天使 Cast 动作，保留地刺和脚底重击。',
+ Conflagration:'建议出手仅一次，命中随实际攻击段执行。',
+ DaggerSpray:'建议出手仅一次，避免群体音效逐段重叠。',
+ DyingStar:'复用攻击星光；不包含原卡施加减益后的额外斩击。',
+ HandOfGreed:'复用攻击钝击与声音；击杀后的金币奖励演出不作为无条件命中特效。',
+};
+const limitedSources={
+ SovereignBlade:'完整演出依赖已锻造君王之剑的持久节点与攻击状态；可单独选择巨型斩击及关联声音。',
+ DramaticEntrance:'全屏场景依赖独立屏幕坐标容器，尚未适配；可单独选择斩击。',
+ DyingStar:'攻击星光和施加减益后的斩击处于不同阶段，尚未合成为完整预设。',
+ HandOfGreed:'金币爆炸只在击杀后发生，不能作为每次命中的无条件预设。',
+};
+// This direct scene uses the same native WithHitFx path as the common scenes.
+entry('scene:vfx/vfx_molten_fist','vfx','熔融之拳',{status:'adapted',adapter:'scene',resource:'vfx/vfx_molten_fist',resources:['res://scenes/vfx/vfx_molten_fist.tscn'],reason:'原版 WithHitFx 场景；待游戏内验证'});
+Object.assign(allEntries.get('scene:vfx/vfx_molten_fist'),{status:'adapted',adapter:'scene'});
+Object.assign(allEntries.get('scene:vfx/vfx_dramatic_entrance_fullscreen'),{status:'adapted',adapter:'fullscreen',reason:'使用原版视口中心锚点；待游戏内验证'});
+knownPresets.MoltenFist={hit:'scene:vfx/vfx_molten_fist',hit_sound:'audio:blunt_attack.mp3'};
 function atom(s){s=s?.trim().replace(/^\w+:\s*/,'');if(!s||s==='null')return '';return s.startsWith('"')?s.slice(1,-1):constants.get(s)||'';}
 for(const filename of files){
  const name=path.basename(filename,'.cs'),code=texts.get(name);const isCard=filename.includes('Models.Cards'+path.sep),monster=filename.includes('Models.Monsters'+path.sep);
@@ -101,15 +155,28 @@ for(const filename of files){
   if((!v||allEntries.get('scene:'+v)?.status==='adapted')&&hitMatches[0][1].split(',').every(x=>/^\s*(?:\w+:\s*)?(?:"[^"]*"|null|VfxCmd\.\w+)\s*$/.test(x)))
    preset={hit:v?'scene:'+v:'',hit_sound:sound(s||t||'')?.id||'',animation:code.match(/WithAttackerAnim\("(\w+)"/)?.[1]||'Attack',delay:0};
  }
- if(preset){entry('card:'+name,'preset',sourceInfo.name,{...sourceInfo,id:'card:'+name,status:'adapted',reason:'演出映射已接入；待游戏内验证',adapter:'preset',recipe:preset,sources:[name],english:sourceInfo.english});sourceInfo.status='mapped';}
- else {entry('card:'+name,'preset',sourceInfo.name,{...sourceInfo,id:'card:'+name,status:'candidate',reason:monster?'怪物攻击需拆分具体招式及锚点':'专用演出或条件时序待适配；可从关联素材中选择已支持项',sources:[name]});sourceInfo.status=refs.length?'needs_adapter':'needs_investigation';}
+ if(preset?.animation && !['Attack','Cast'].includes(preset.animation)){
+  preset={...preset,animation:'Attack'};
+  presetNotes[name]=(presetNotes[name]||'')+'原角色专用动作映射为能天使已有 Attack 动作。';
+ }
+ if(preset){entry('card:'+name,'preset',sourceInfo.name,{...sourceInfo,id:'card:'+name,status:'adapted',reason:'演出映射已接入；待游戏内验证。'+(presetNotes[name]||''),adapter:'preset',recipe:preset,sources:[name],english:sourceInfo.english});sourceInfo.status='mapped';}
+ else {const noEffect=['EchoingSlash','Omnislice'].includes(name);const reason=noEffect?'当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。':limitedSources[name]||(monster?'怪物攻击需拆分具体招式及锚点':'专用演出或条件时序待适配；可从关联素材中选择已支持项');entry('card:'+name,'preset',sourceInfo.name,{...sourceInfo,id:'card:'+name,status:'candidate',reason,sources:[name]});sourceInfo.status=noEffect?'no_independent_effect':refs.length?'needs_adapter':'needs_investigation';sourceInfo.reason=reason;}
  audit.push(sourceInfo);
 }
 // Give resource searches the original localized source names without duplicating resources.
-for(const e of allEntries.values()){e.sources=unique(e.sources);e.aliases=unique(e.sources.flatMap(n=>[display(n).name,display(n).english,display(n,'monsters').name]));}
+for(const e of allEntries.values()){
+ e.sources=unique(e.sources);e.aliases=unique(e.sources.flatMap(n=>[display(n).name,display(n).english,display(n,'monsters').name]));
+ e.origins=unique([...(e.origin?[e.origin]:[]),...audit.filter(s=>s.effects.includes(e.id)).map(s=>s.origin)]);
+ if(e.adapter==='event'&&/\/characters\/|\/enemy\//.test(e.resource))e.origins.push('combat');
+ if(e.adapter==='audio')e.origins.push('combat');
+ if(!e.origins.length)e.origins=['other'];
+}
 const entries=[...allEntries.values()].sort((a,b)=>a.id.localeCompare(b.id));
-for(const e of entries.filter(e=>e.kind==='preset'&&e.status==='adapted'))for(const key of ['launch','hit','launch_sound','hit_sound'])
- if(e.recipe[key]&&allEntries.get(e.recipe[key])?.status!=='adapted')throw Error('Unsupported recipe dependency: '+e.id+' '+key+' '+e.recipe[key]);
+// Loop/ambient events cannot be owned or stopped through the one-shot API.
+const loopEvents=new Set([...texts.values()].flatMap(code=>[...code.matchAll(/(?:PlayLoop|StartSfxLoop)\([^;]*?"(event:\/[^"\r\n]+)"/g)].map(m=>m[1])));
+for(const e of entries)if(e.adapter==='event'&&(loopEvents.has(e.resource)||/loop|event:\/(?:music|ambience)\//i.test(e.resource))){e.status='candidate';e.reason='循环/环境音需要独立生命周期控制，暂不支持作为一次性卡牌声音。';}
+for(const e of entries.filter(e=>e.kind==='preset'&&e.status==='adapted'))for(const key of ['launch','hit','launch_sound','hit_sound','launch_extras','hit_extras'])
+ for(const id of [e.recipe[key]||[]].flat())if(allEntries.get(id)?.status!=='adapted')throw Error('Unsupported recipe dependency: '+e.id+' '+key+' '+id);
 const catalog={schema:1,game_sha256:dllHash,entries};
 const auditDoc={schema:1,game_sha256:dllHash,method:'C# source references + recursive text scene dependencies + PCK debug audio inventory',limitations:['动态资源名及间接助手仍需逐项复核','FMOD 事件来自代码/场景引用，未声称穷举音频 bank','adapted 表示已接入，游戏内逐项验证另行记录'],counts:{sources:audit.length,mapped:audit.filter(x=>x.status==='mapped').length,entries:entries.length,adapted:entries.filter(x=>x.status==='adapted').length},sources:audit.sort((a,b)=>a.id.localeCompare(b.id))};
 fs.mkdirSync(path.join(root,'AK_Exusiai/config'),{recursive:true});

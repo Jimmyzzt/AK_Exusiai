@@ -48,9 +48,14 @@ powershell -ExecutionPolicy Bypass -File .\tools\card_effect_manager\run_card_ef
 
 Windows 默认桥接位置为 `%APPDATA%/SlayTheSpire2/AK_Exusiai/card_effect_manager`。这是游戏的自定义用户目录，与 Godot 管理器自身的 `user://` 不同。自定义环境可直接启动场景并传 `-- --bridge-dir=<路径>`。开发覆盖只在手动启用后的单人战斗生效；联机使用正式发布配置。
 
+启动脚本也支持 `-BridgeDirectory <路径>`。运行时比对实际游戏 DLL 指纹；不匹配时保持原有卡牌表现并拒绝试播，重建目录和 Mod 后恢复。未配置卡牌无需迁移。
+
 ```powershell
 # 无窗口验证 UI、卡牌扫描、绑定、撤销和校验
 .\tools\card_effect_manager\run_card_effect_manager.ps1 -SmokeTest
+
+# 先完成一次 Debug 构建，再同时验证 Godot JSON 与真实 C# 配置读取
+.\tools\card_effect_manager\run_card_effect_manager.ps1 -ContractTest
 
 # 重新反编译当前安装程序集并重建目录；路径通过本机参数传入
 .\tools\card_effect_manager\rebuild_catalog.ps1 -IlspyExe <ilspycmd.exe路径>
