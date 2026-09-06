@@ -13,6 +13,11 @@ public interface IAmmoSpendAllAttack
 {
 }
 
+internal interface IOverloadAmmoSpendListener
+{
+    Task AfterOverloadAmmoSpent(int amount);
+}
+
 internal enum AmmoAttackMode
 {
     Paid,
@@ -32,6 +37,7 @@ internal sealed class AmmoAttackInfo(
     public decimal AmmoDamagePerHit { get; } = ammoDamagePerHit;
     public int SpendLimit { get; } = Math.Max(0, spendLimit);
     public decimal CurrentHitAmmoDamage { get; private set; }
+    public int CurrentHitLogicalAmmoSpent { get; private set; }
     public int AmmoSpent { get; private set; }
     public int AmmoBackedHitCount { get; private set; }
     public decimal TotalAmmoDamage { get; private set; }
@@ -42,6 +48,7 @@ internal sealed class AmmoAttackInfo(
     public void ClearCurrentHit()
     {
         CurrentHitAmmoDamage = 0m;
+        CurrentHitLogicalAmmoSpent = 0;
     }
 
     public bool TryApplyPrepaidHit()
@@ -61,10 +68,10 @@ internal sealed class AmmoAttackInfo(
     {
         if (Mode == AmmoAttackMode.Overloaded)
         {
-            if (AmmoDamagePerHit <= 0m)
+            if (AmmoDamagePerHit <= 0m || AmmoBackedHitCount >= SpendLimit)
                 return false;
 
-            SetCurrentHit(AmmoDamagePerHit, spend: false);
+            SetCurrentHit(AmmoDamagePerHit, spend: false, logicalSpent: 1);
             return true;
         }
 
@@ -110,7 +117,10 @@ internal sealed class AmmoAttackInfo(
             // Overload prevents the actual payment but preserves the full
             // spend-all damage calculation (30 Ammo at the normal cap).
             _spendAllAmmoDamage = AmmoDamagePerHit * SpendLimit;
-            SetCurrentHit(_spendAllAmmoDamage.Value, spend: false);
+            SetCurrentHit(
+                _spendAllAmmoDamage.Value,
+                spend: false,
+                logicalSpent: SpendLimit);
             return true;
         }
 
@@ -138,9 +148,14 @@ internal sealed class AmmoAttackInfo(
         return true;
     }
 
-    private void SetCurrentHit(decimal ammoDamage, bool spend, int spentAmount = 1)
+    private void SetCurrentHit(
+        decimal ammoDamage,
+        bool spend,
+        int spentAmount = 1,
+        int logicalSpent = 0)
     {
         CurrentHitAmmoDamage = ammoDamage;
+        CurrentHitLogicalAmmoSpent = Math.Max(0, logicalSpent);
         AmmoBackedHitCount++;
         TotalAmmoDamage += ammoDamage;
         HitAmmoDamage.Add(ammoDamage);

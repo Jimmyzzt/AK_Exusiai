@@ -528,6 +528,27 @@ public sealed class Exusiai :
             await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, this);
         else
             await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, this);
+
+        if (info.Mode == AmmoAttackMode.Overloaded &&
+            info.CurrentHitLogicalAmmoSpent > 0)
+        {
+            await NotifyOverloadAmmoSpent(
+                cardPlay.Player,
+                info.CurrentHitLogicalAmmoSpent);
+        }
+    }
+
+    internal static async Task NotifyOverloadAmmoSpent(Player player, int amount)
+    {
+        if (amount <= 0 || !player.Creature.HasPower<OverloadPower>())
+            return;
+
+        foreach (IOverloadAmmoSpendListener listener in player.Creature.Powers
+                     .OfType<IOverloadAmmoSpendListener>()
+                     .ToArray())
+        {
+            await listener.AfterOverloadAmmoSpent(amount);
+        }
     }
 
     private static decimal PreviewAmmoDamage(Player player, CardModel? cardSource)
