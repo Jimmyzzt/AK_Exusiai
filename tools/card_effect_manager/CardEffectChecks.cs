@@ -15,7 +15,10 @@ public partial class CardEffectChecks : Node
             CardEffectStore.Validate(document);
             var binding = document.Cards["AK_EXUSIAI_CARD_LASER_CANNON"];
             Check(binding.Base.Offset.SequenceEqual(new float[] { 25, -12 }), "Godot/C# coordinates");
-            Check(binding.Upgrade?.Preset == "card:GrandFinale", "Upgrade round trip");
+            Check(!JsonSerializer.Serialize(binding, CardEffectStore.Json).Contains("upgrade"), "Legacy upgrade is ignored");
+            Check(document.Cards["AK_EXUSIAI_CARD_TALENT"].Base.Delay == 0.5f && binding.Base.Delay == 0.5f, "Shared preset changes reach every exported card");
+            var request = CardEffectStore.Read<CardEffectBridge.Request>("res://tmp/effect_manager_preview_contract.json");
+            Check(request.Target == -2 && request.Hits == 2 && request.Config?.Delay == 0.5f, "Prepared F5 request round trip");
             var recipe = CardEffectPlayer.Resolve(binding.Base);
             Check(recipe.Launch == "factory:NHyperbeamVfx" && recipe.Hit == "factory:NHyperbeamImpactVfx", "Preset resolution");
             var suppressed = CardEffectPlayer.Resolve(new() { Preset = "card:PerfectedStrike", Hit = "none" });

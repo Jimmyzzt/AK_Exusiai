@@ -21515,6 +21515,111 @@
       ]
     },
     {
+      "id": "generic:Block",
+      "kind": "preset",
+      "name": "格挡通用 · 技能",
+      "english": "Block skill power",
+      "status": "adapted",
+      "reason": "通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。",
+      "sources": [],
+      "resources": [],
+      "adapter": "preset",
+      "origin": "combat",
+      "recipe": {
+        "launch": "scene:vfx/vfx_block",
+        "launch_sound": "event:event:/sfx/block_gain",
+        "animation": ""
+      },
+      "aliases": [],
+      "origins": [
+        "combat"
+      ]
+    },
+    {
+      "id": "generic:Buff",
+      "kind": "preset",
+      "name": "增益通用 · 技能 / 能力",
+      "english": "Buff skill power",
+      "status": "adapted",
+      "reason": "通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。",
+      "sources": [],
+      "resources": [],
+      "adapter": "preset",
+      "origin": "combat",
+      "recipe": {
+        "launch": "scene:vfx/vfx_starry_impact",
+        "launch_sound": "event:event:/sfx/buff",
+        "animation": ""
+      },
+      "aliases": [],
+      "origins": [
+        "combat"
+      ]
+    },
+    {
+      "id": "generic:Debuff",
+      "kind": "preset",
+      "name": "减益通用 · 技能",
+      "english": "Debuff skill power",
+      "status": "adapted",
+      "reason": "通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。",
+      "sources": [],
+      "resources": [],
+      "adapter": "preset",
+      "origin": "combat",
+      "recipe": {
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/debuff",
+        "animation": ""
+      },
+      "aliases": [],
+      "origins": [
+        "combat"
+      ]
+    },
+    {
+      "id": "generic:Heal",
+      "kind": "preset",
+      "name": "治疗通用 · 技能 / 能力",
+      "english": "Heal skill power",
+      "status": "adapted",
+      "reason": "通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。",
+      "sources": [],
+      "resources": [],
+      "adapter": "preset",
+      "origin": "combat",
+      "recipe": {
+        "launch": "scene:vfx/vfx_cross_heal",
+        "launch_sound": "event:event:/sfx/heal",
+        "animation": ""
+      },
+      "aliases": [],
+      "origins": [
+        "combat"
+      ]
+    },
+    {
+      "id": "generic:Power",
+      "kind": "preset",
+      "name": "能力启动通用 · 能力",
+      "english": "Power skill power",
+      "status": "adapted",
+      "reason": "通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。",
+      "sources": [],
+      "resources": [],
+      "adapter": "preset",
+      "origin": "combat",
+      "recipe": {
+        "launch": "scene:vfx/vfx_starry_impact",
+        "launch_sound": "event:event:/sfx/buff",
+        "animation": ""
+      },
+      "aliases": [],
+      "origins": [
+        "combat"
+      ]
+    },
+    {
       "id": "scene:vfx/additive_overlay_vfx",
       "kind": "vfx",
       "name": "additive_overlay_vfx",

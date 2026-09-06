@@ -57,7 +57,7 @@ public sealed class EffectEntry
 public sealed class EffectBinding
 {
     public CardEffectConfig Base { get; set; } = new();
-    public CardEffectConfig? Upgrade { get; set; }
+    // Legacy JSON's upgrade field is ignored: both versions share Base.
 }
 
 public sealed class EffectDocument
@@ -114,7 +114,6 @@ internal static class CardEffectStore
             if (!id.StartsWith("AK_EXUSIAI_CARD_", StringComparison.Ordinal) || binding?.Base == null)
                 throw new InvalidDataException($"Invalid card binding: {id}");
             Validate(binding.Base);
-            if (binding.Upgrade != null) Validate(binding.Upgrade);
         }
     }
 

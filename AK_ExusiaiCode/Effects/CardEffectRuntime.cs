@@ -21,7 +21,7 @@ internal static class CardEffectRuntime
         EffectBinding? binding = CardEffectStore.Find(play.Card.Id.Entry, play.Player.RunState.Players.Count == 1);
         if (binding == null) return;
         // Snapshot once per CardPlay; hot reload never mutates an in-flight play.
-        var config = play.Card.IsUpgraded ? binding.Upgrade ?? binding.Base : binding.Base;
+        var config = binding.Base;
         States.Remove(play);
         var state = new PlayState(config);
         States.Add(play, state);

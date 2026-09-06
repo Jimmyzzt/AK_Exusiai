@@ -163,6 +163,14 @@ for(const filename of files){
  else {const noEffect=['EchoingSlash','Omnislice'].includes(name);const reason=noEffect?'当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。':limitedSources[name]||(monster?'怪物攻击需拆分具体招式及锚点':'专用演出或条件时序待适配；可从关联素材中选择已支持项');entry('card:'+name,'preset',sourceInfo.name,{...sourceInfo,id:'card:'+name,status:'candidate',reason,sources:[name]});sourceInfo.status=noEffect?'no_independent_effect':refs.length?'needs_adapter':'needs_investigation';sourceInfo.reason=reason;}
  audit.push(sourceInfo);
 }
+// Generic skill/power recipes use the same native one-shot assets as combat commands.
+for (const [id,name,recipe] of [
+ ['Buff','增益通用 · 技能 / 能力',{launch:'scene:vfx/vfx_starry_impact',launch_sound:'event:event:/sfx/buff'}],
+ ['Block','格挡通用 · 技能',{launch:'scene:vfx/vfx_block',launch_sound:'event:event:/sfx/block_gain'}],
+ ['Heal','治疗通用 · 技能 / 能力',{launch:'scene:vfx/vfx_cross_heal',launch_sound:'event:event:/sfx/heal'}],
+ ['Debuff','减益通用 · 技能',{hit:'scene:vfx/vfx_starry_impact',hit_sound:'event:event:/sfx/debuff'}],
+ ['Power','能力启动通用 · 能力',{launch:'scene:vfx/vfx_starry_impact',launch_sound:'event:event:/sfx/buff'}],
+]) entry('generic:'+id,'preset',name,{status:'adapted',adapter:'preset',origin:'combat',recipe:{...recipe,animation:''},english:id+' skill power',reason:'通用技能 / 能力组合，复用原版素材；不改变卡牌结算。增益、格挡、治疗作用于自身，减益显示于试播目标；待游戏内验证。',sources:[]});
 // Give resource searches the original localized source names without duplicating resources.
 for(const e of allEntries.values()){
  e.sources=unique(e.sources);e.aliases=unique(e.sources.flatMap(n=>[display(n).name,display(n).english,display(n,'monsters').name]));

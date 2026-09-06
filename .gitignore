@@ -41,3 +41,4 @@ game/
 game_files/
 full_game_dump/
 bulk_extracts/
+tools/card_effect_manager/*.v1.bak

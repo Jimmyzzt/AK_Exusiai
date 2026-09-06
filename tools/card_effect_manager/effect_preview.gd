@@ -25,7 +25,6 @@ func _draw() -> void:
 	draw_string(font, origin + Vector2(-24, 60), "能天使", HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
 	draw_string(font, target + Vector2(-15, 60), "目标", HORIZONTAL_ALIGNMENT_LEFT, -1, 14)
 	draw_string(font, Vector2(12, 24), "位置示意 · 拖动蓝点调整发射偏移", HORIZONTAL_ALIGNMENT_LEFT, size.x - 24, 13, Color("c2ccdc"))
-	draw_string(font, Vector2(12, size.y - 16), "实际特效与声音在游戏内试播", HORIZONTAL_ALIGNMENT_LEFT, size.x - 24, 13, Color("c2ccdc"))
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

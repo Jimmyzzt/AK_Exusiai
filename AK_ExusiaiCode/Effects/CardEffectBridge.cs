@@ -15,6 +15,7 @@ public partial class CardEffectBridge : Node
     internal static CardEffectBridge? Instance { get; private set; }
     private Player _player = null!;
     private string _lastRequest = "";
+    private string _lastFileRequest = "";
     private string _message = "等待管理器请求";
     private string _state = "idle";
     private string _overrideText = "";
@@ -40,7 +41,7 @@ public partial class CardEffectBridge : Node
         string request = CardEffectStore.BridgeDirectory + "/request.json";
         if (Godot.FileAccess.FileExists(request))
         {
-            try { _lastRequest = CardEffectStore.Read<Request>(request).Id; } catch { /* stale/incomplete request */ }
+            try { _lastFileRequest = _lastRequest = CardEffectStore.Read<Request>(request).Id; } catch { /* stale/incomplete request */ }
         }
         WriteStatus();
     }
@@ -62,9 +63,9 @@ public partial class CardEffectBridge : Node
             if (Godot.FileAccess.FileExists(path))
             {
                 Request request = CardEffectStore.Read<Request>(path);
-                if (request.Id.Length > 0 && request.Id != _lastRequest)
+                if (request.Id.Length > 0 && request.Id != _lastFileRequest)
                 {
-                    _lastRequest = request.Id;
+                    _lastFileRequest = _lastRequest = request.Id;
                     if (request.Action == "stop") Stop();
                     else if (request.Action == "audit") AuditResources();
                     else if (request.Action == "play") TaskHelper.RunSafely(Play(request));
@@ -74,6 +75,26 @@ public partial class CardEffectBridge : Node
         }
         catch (Exception e) { _state = "error"; _message = e.Message; }
         WriteStatus();
+    }
+
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is not InputEventKey { Pressed: true, Echo: false, Keycode: Key.F5 }) return;
+        if (_player.RunState.Players.Count != 1 || !CombatManager.Instance.IsInProgress) return;
+        GetViewport().SetInputAsHandled();
+        try
+        {
+            string path = CardEffectStore.BridgeDirectory + "/prepared_preview.json";
+            if (!Godot.FileAccess.FileExists(path)) throw new InvalidDataException("请先在管理器中选择卡牌和试播目标。");
+            Request request = CardEffectStore.Read<Request>(path);
+            if (request.Action != "play") throw new InvalidDataException("请先在管理器中选择有效卡牌配置。");
+            // Only the current card config can be triggered by the game shortcut.
+            request.Entry = "";
+            ReloadOverride();
+            _lastRequest = "f5-" + Guid.NewGuid().ToString("N");
+            TaskHelper.RunSafely(Play(request));
+        }
+        catch (Exception e) { _state = "error"; _message = e.Message; WriteStatus(); }
     }
 
     private void ReloadOverride()

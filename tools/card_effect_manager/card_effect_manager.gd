@@ -29,8 +29,7 @@ var _card_search: LineEdit
 var _card_picker: OptionButton
 var _filter: OptionButton
 var _origin: OptionButton
-var _version: OptionButton
-var _upgrade: CheckButton
+var _prepared_text := ""
 var _favorites: CheckButton
 var _candidate: CheckButton
 var _description: RichTextLabel
@@ -73,7 +72,7 @@ func _ready() -> void:
 	for entry in _catalog.get("entries", []):
 		_entries[entry.id] = entry
 	_manifest = _read(MANIFEST)
-	_load_error = FileAccess.file_exists(MANIFEST) and (_manifest.is_empty() or int(_manifest.get("schema", 0)) != 1 or not _manifest.get("cards", {}) is Dictionary)
+	_load_error = FileAccess.file_exists(MANIFEST) and (_manifest.is_empty() or int(_manifest.get("schema", 0)) not in [1, 2] or not _manifest.get("cards", {}) is Dictionary)
 	if _manifest.is_empty():
 		_manifest = {"schema": 1, "cards": {}, "favorites": [], "verified": {}, "presets": {}}
 	for key in ["cards", "verified", "presets"]:
@@ -86,6 +85,14 @@ func _ready() -> void:
 		if not binding is Dictionary or not binding.get("base", {}) is Dictionary or (binding.has("upgrade") and not binding.upgrade is Dictionary):
 			_load_error = true
 			_manifest.cards.erase(id)
+	if not _load_error: _migrate_manifest()
+	if not _load_error:
+		for ref in _manifest.presets:
+			var preset = _manifest.presets[ref]
+			if not preset is Dictionary or not preset.get("config") is Dictionary or not preset.get("name") is String: _load_error = true
+		for binding in _manifest.cards.values():
+			var ref: String = binding.get("preset_ref", "")
+			if not ref.is_empty() and not _manifest.presets.has(ref) and _entries.get(ref, {}).get("kind", "") != "preset": _load_error = true
 	_load_cards()
 	_build_ui()
 	_rebuild_assets()
@@ -102,7 +109,7 @@ func _ready() -> void:
 	elif _load_error:
 		_set_status("清单格式无效，已禁止保存和导出；请修复 card_effect_manifest.json 后重启。")
 	else:
-		_publish_override()
+		_save()
 
 func _read(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
@@ -170,6 +177,9 @@ func _options(parent: Node, values: Dictionary, callback: Callable) -> OptionBut
 	for key in values:
 		option.add_item(str(values[key]))
 		option.set_item_metadata(option.item_count - 1, key)
+	option.fit_to_longest_item = false
+	option.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	option.item_selected.connect(func(_index: int): callback.call())
 	parent.add_child(option)
 	return option
@@ -194,6 +204,7 @@ func _panel(parent: Node, width: float) -> VBoxContainer:
 	return box
 
 func _build_ui() -> void:
+	_install_theme()
 	var background := ColorRect.new()
 	background.color = Color("20232b")
 	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -210,6 +221,7 @@ func _build_ui() -> void:
 	var top := _row(root)
 	_label(top, "能天使 · 特效与音效管理器", 21).size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_scale_picker = _options(top, {1.0: "100%", 1.25: "125%", 1.5: "150%", 1.75: "175%", 2.0: "200%"}, func(): _apply_scale(float(_scale_picker.get_selected_metadata())))
+	_scale_picker.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN; _scale_picker.custom_minimum_size.x = 85
 	_button(top, "重新扫描", _refresh)
 	_button(top, "撤销", _undo_change)
 	_button(top, "重做", _redo_change)
@@ -251,39 +263,52 @@ func _build_ui() -> void:
 	_label(coords, "X"); _x = _spin(coords, -1500, 1500, 1, _offset_changed)
 	_label(coords, "Y"); _y = _spin(coords, -1500, 1500, 1, _offset_changed)
 	_label(middle, "出手  →  发射  →  命中  →  收尾", 16)
-	_target = _options(middle, {-1: "全部敌人", -2: "自身（技能 / 能力）"}, func(): pass)
+	_target = _options(middle, {-1: "全部敌人", -2: "自身（技能 / 能力）"}, _prepare_preview)
 	var test_row := _row(middle)
-	_label(test_row, "试播段数"); _hits = _spin(test_row, 1, 12, 1, func(): pass); _hits.value = 1
-	_trial = _button(middle, "游戏内试播当前卡牌效果", func(): _send_play(false))
+	_label(test_row, "试播段数"); _hits = _spin(test_row, 1, 12, 1, _prepare_preview); _hits.value = 1
+	_trial = _button(middle, "试播当前卡牌效果 · F5", func(): _send_play(false))
 	_trial_asset = _button(middle, "只试播左侧所选素材", func(): _send_play(true))
 	var bridge_row := _row(middle)
 	_button(bridge_row, "停止试播", func(): _send({"action": "stop"}))
 	_button(bridge_row, "检查游戏资源", func(): _send({"action": "audit"}))
-	_label(middle, "试播不结算伤害与弹药；实际出牌另行验证", 12)
-	var right_panel := _panel(_inner, 290)
+	var right_panel := _panel(_inner, 360)
 	var scroll := ScrollContainer.new(); scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL; right_panel.add_child(scroll)
 	var right := VBoxContainer.new(); right.size_flags_horizontal = Control.SIZE_EXPAND_FILL; right.add_theme_constant_override("separation", 8); scroll.add_child(right)
 	_label(right, "对应卡牌", 18)
 	_card_search = LineEdit.new(); _card_search.placeholder_text = "搜索能天使卡牌"; right.add_child(_card_search)
 	_card_search.text_changed.connect(func(_text: String): _rebuild_cards())
 	_filter = _options(right, {"all": "全部卡牌", "unconfigured": "未配置", "configured": "已配置", "Attack": "攻击牌", "Skill": "技能牌", "Power": "能力牌"}, _rebuild_cards)
-	_card_picker = OptionButton.new(); right.add_child(_card_picker); _card_picker.item_selected.connect(_select_card)
+	_card_picker = OptionButton.new(); _card_picker.fit_to_longest_item = false; _card_picker.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS; right.add_child(_card_picker); _card_picker.item_selected.connect(_select_card)
 	_portrait = TextureRect.new(); _portrait.custom_minimum_size = Vector2(120, 85); _portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE; _portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED; right.add_child(_portrait)
 	_summary = _label(right, ""); _summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_version = _options(right, {"base": "基础版", "upgrade": "升级版"}, _sync_form)
-	_upgrade = CheckButton.new(); _upgrade.text = "升级版独立配置"; right.add_child(_upgrade); _upgrade.toggled.connect(_toggle_upgrade)
-	for field in {"preset": "演出预设", "launch": "出手特效", "hit": "命中特效", "launch_sound": "出手音效", "hit_sound": "命中音效"}:
-		var captions := {"preset": "演出预设", "launch": "出手特效", "hit": "命中特效", "launch_sound": "出手音效", "hit_sound": "命中音效"}
-		_label(right, captions[field], 13)
-		_fields[field] = _options(right, {"inherit": "沿用当前 / 预设", "none": "无"}, _form_changed)
+	_label(right, "组合预设", 13)
+	_personal = _options(right, {"": "独立配置"}, _load_personal)
+	_personal_name = LineEdit.new(); _personal_name.placeholder_text = "预设名称"; right.add_child(_personal_name)
+	var preset_actions := _row(right)
+	_button(preset_actions, "修改名称", _rename_personal)
+	_button(preset_actions, "另存为预设", _save_personal)
+	_button(preset_actions, "解除关联", _detach_personal)
+	right.move_child(_summary, right.get_child_count() - 1)
+	for pair in [["launch", "launch_sound"], ["hit", "hit_sound"]]:
+		var paired := _row(right)
+		for field in pair:
+			var captions := {"launch": "出手特效", "hit": "命中特效", "launch_sound": "出手音效", "hit_sound": "命中音效"}
+			var column := _column(paired)
+			_label(column, captions[field], 13)
+			_fields[field] = _options(column, {"inherit": "沿用当前 / 预设", "none": "无"}, _form_changed)
+			for id in _entries:
+				var entry: Dictionary = _entries[id]
+				if entry.status == "adapted" and entry.kind == ("sfx" if str(field).ends_with("sound") else "vfx"):
+					_fields[field].add_item(entry.name); _fields[field].set_item_metadata(_fields[field].item_count - 1, id)
 	_label(right, "已有角色动作 / 重复策略", 13)
 	_fields.animation = _options(right, {"inherit": "沿用当前 / 预设动作", "Attack": "攻击", "Cast": "施法", "none": "无人物动作"}, _form_changed)
 	_fields.repeat = _options(right, {"per_hit": "每攻击段播放出手", "once": "每次打出仅一次出手"}, _form_changed)
 	_fields.phase = _options(right, {"start": "非攻击牌：出牌开始", "end": "非攻击牌：效果完成"}, _form_changed)
 	var timing := _row(right)
-	_label(timing, "发射后等待"); _fields.delay = _spin(timing, -1, 5, 0.025, _form_changed); _fields.delay.tooltip_text = "-1 沿用预设；单位：秒"; _fields.delay.value = -1
-	var audio_row := _row(right)
-	_label(audio_row, "独立音效音量"); _fields.volume = _spin(audio_row, 0, 2, 0.05, _form_changed); _fields.volume.value = 1
+	var delay_column := _column(timing); _label(delay_column, "延迟")
+	_fields.delay = _spin(delay_column, -1, 5, 0.025, _form_changed); _fields.delay.tooltip_text = "-1 沿用预设；单位：秒"; _fields.delay.value = -1
+	var volume_column := _column(timing); _label(volume_column, "独立音量")
+	_fields.volume = _spin(volume_column, 0, 2, 0.05, _form_changed); _fields.volume.value = 1
 	_label(right, "特效内置音效与震屏保留原版行为", 12)
 	_fields.ground = CheckButton.new(); _fields.ground.text = "通用命中特效放在脚底"; right.add_child(_fields.ground); _fields.ground.toggled.connect(func(_v: bool): _form_changed())
 	var copies := _row(right)
@@ -291,9 +316,6 @@ func _build_ui() -> void:
 	_button(copies, "粘贴", _paste)
 	_button(copies, "批量应用", _show_batch)
 	_button(right, "恢复此卡默认表现", _reset_card)
-	_personal_name = LineEdit.new(); _personal_name.placeholder_text = "个人配置名称"; right.add_child(_personal_name)
-	_button(right, "保存为个人配置", _save_personal)
-	_personal = _options(right, {"": "选择个人配置…"}, _load_personal)
 	_status = _label(root, "配置自动保存；导出后通过正常构建发布。", 13); _status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_timer = Timer.new(); _timer.one_shot = true; _timer.wait_time = 0.3; _timer.timeout.connect(_save); add_child(_timer)
 	_batch = ConfirmationDialog.new(); _batch.title = "批量覆盖卡牌配置"; _batch.min_size = Vector2i(440, 500); add_child(_batch)
@@ -368,7 +390,7 @@ func _rebuild_cards() -> void:
 		if filter_value == "configured" and not configured: continue
 		if filter_value == "unconfigured" and configured: continue
 		if filter_value in ["Attack", "Skill", "Power"] and c.type != filter_value: continue
-		_card_picker.add_item(("● " if configured else "○ ") + str(c.name))
+		_card_picker.add_item(("● " if configured else "○ ") + _card_label(c))
 		_card_picker.set_item_metadata(_card_picker.item_count - 1, c.id)
 		if c.id == _card: _card_picker.select(_card_picker.item_count - 1)
 	if _card_picker.item_count > 0: _select_card(_card_picker.selected if _card_picker.selected >= 0 else 0)
@@ -378,29 +400,69 @@ func _select_card(index: int) -> void:
 	_card = _card_picker.get_item_metadata(index)
 	_sync_form()
 
-func _config() -> Dictionary:
-	var binding: Dictionary = _manifest.cards.get(_card, {})
-	if _version != null and _meta(_version) == "upgrade":
-		return binding.get("upgrade", binding.get("base", {})).duplicate(true)
+func _preset_name(ref: String) -> String:
+	var preset = _manifest.presets.get(ref, {})
+	return str(preset.get("name", _entries.get(ref, {}).get("name", ref))) if preset is Dictionary else ref
+
+func _reference(id := "") -> String:
+	return str(_manifest.cards.get(_card if id.is_empty() else id, {}).get("preset_ref", ""))
+
+func _card_label(card: Dictionary) -> String:
+	var types := {"Attack": "攻击", "Skill": "技能", "Power": "能力", "Status": "状态", "Curse": "诅咒"}
+	var ref := _reference(str(card.id))
+	return str(card.name) + " · " + str(types.get(card.type, card.type)) + ("（" + _preset_name(ref) + "）" if not ref.is_empty() else "")
+
+func _resolved(id: String) -> Dictionary:
+	var binding: Dictionary = _manifest.cards.get(id, {})
+	var ref := _reference(id)
+	if not ref.is_empty():
+		if _manifest.presets.has(ref):
+			var preset = _manifest.presets[ref]
+			return preset.config.duplicate(true) if preset is Dictionary and preset.get("config") is Dictionary else {"preset": "invalid:" + ref}
+		return {"preset": ref}
 	return binding.get("base", {}).duplicate(true)
 
+func _config() -> Dictionary:
+	return _resolved(_card)
+
+func _migrate_manifest() -> void:
+	if int(_manifest.schema) == 2: return
+	# Keep the original on disk before converting legacy copies to references.
+	if not _smoke and not FileAccess.file_exists(MANIFEST + ".v1.bak"):
+		if not _write(MANIFEST + ".v1.bak", _manifest): _load_error = true; return
+	var previous: Dictionary = _manifest.presets.duplicate(true)
+	_manifest.presets = {}
+	for title in previous:
+		_manifest.presets["custom:" + str(title).sha256_text().substr(0, 16)] = {"name": title, "config": previous[title]}
+	for id in _manifest.cards:
+		var binding: Dictionary = _manifest.cards[id]
+		var config: Dictionary = binding.get("base", binding.get("upgrade", {}))
+		binding.erase("upgrade")
+		binding.base = config
+		var matches: Array[String] = []
+		for ref in _manifest.presets:
+			if config == _manifest.presets[ref].config: matches.append(ref)
+		if matches.size() == 1:
+			binding.preset_ref = matches[0]; binding.erase("base")
+		elif _entries.get(config.get("preset", ""), {}).get("kind", "") == "preset":
+			# Preserve customized native recipes as individually named shared presets.
+			var native: String = config.preset
+			var ref := native if config.size() == 1 else "custom:legacy-" + JSON.stringify(config).sha256_text().substr(0, 16)
+			if ref != native: _manifest.presets[ref] = {"name": str(_entries[native].name) + " · 已有配置", "config": config}
+			binding.preset_ref = ref; binding.erase("base")
+	_manifest.schema = 2
+
 func _sync_form() -> void:
-	if _card.is_empty() or _version == null: return
+	if _card.is_empty() or _personal == null: return
 	_syncing = true
 	var config := _config()
-	var upgraded := _meta(_version) == "upgrade"
-	_upgrade.visible = upgraded
-	_upgrade.button_pressed = _manifest.cards.get(_card, {}).has("upgrade")
-	for field in ["preset", "launch", "hit", "launch_sound", "hit_sound", "animation", "repeat", "phase"]:
+	_rebuild_personal()
+	_personal_name.text = _preset_name(_reference()) if not _reference().is_empty() else ""
+	for field in ["launch", "hit", "launch_sound", "hit_sound", "animation", "repeat", "phase"]:
 		var default_value := "per_hit" if field == "repeat" else "start" if field == "phase" else "inherit"
 		var value: String = config.get(field, default_value)
 		var option: OptionButton = _fields[field]
-		if field in ["preset", "launch", "hit", "launch_sound", "hit_sound"]:
-			while option.item_count > 2: option.remove_item(2)
-			if not value in ["inherit", "none"]:
-				option.add_item(_entries.get(value, {}).get("name", value)); option.set_item_metadata(2, value)
 		_select(option, value)
-		option.disabled = upgraded and not _upgrade.button_pressed
 	_fields.delay.value = config.get("delay", -1)
 	_fields.volume.value = config.get("volume", 1)
 	_fields.ground.button_pressed = config.get("ground", false)
@@ -411,11 +473,17 @@ func _sync_form() -> void:
 	_preview.offset = Vector2(offset[0], offset[1]); _preview.queue_redraw()
 	for c in _cards:
 		if c.id == _card:
-			_summary.text = str(c.name) + " · " + str(c.type) + ("\n升级版继承基础配置" if upgraded and not _upgrade.button_pressed else "")
+			_summary.text = _card_label(c)
+			if not _reference().is_empty():
+				var count := 0
+				for id in _manifest.cards:
+					if _reference(id) == _reference(): count += 1
+				_summary.text += "\n修改下方参数会同步到 %d 张关联卡牌" % count
 			var image_path: String = "res://AK_Exusiai/images/cards/" + str(c["class"]) + ".png"
 			_portrait.texture = load(image_path) if ResourceLoader.exists(image_path) else null
 	_export_current.disabled = false
 	_syncing = false
+	_prepare_preview()
 
 func _remember() -> void:
 	_undo.append(_manifest.duplicate(true))
@@ -425,20 +493,22 @@ func _remember() -> void:
 func _store(config: Dictionary) -> void:
 	if _card.is_empty(): return
 	_remember()
-	if not _manifest.cards.has(_card): _manifest.cards[_card] = {"base": {}}
-	_manifest.cards[_card][_meta(_version)] = config
-	if _meta(_version) == "upgrade": _upgrade.set_pressed_no_signal(true)
+	var ref := _reference()
+	if ref.is_empty(): _manifest.cards[_card] = {"base": config}
+	else: _manifest.presets[ref] = {"name": _preset_name(ref), "config": config}
 	if _timer != null: _timer.start()
+	_prepare_preview()
+
 
 func _form_changed() -> void:
-	if _syncing or _card.is_empty() or _version == null: return
+	if _syncing or _card.is_empty() or _personal == null: return
 	var config := _config()
-	for field in ["preset", "launch", "hit", "launch_sound", "hit_sound", "animation", "repeat", "phase"]: config[field] = _meta(_fields[field])
+	for field in ["launch", "hit", "launch_sound", "hit_sound", "animation", "repeat", "phase"]: config[field] = _meta(_fields[field])
 	config.delay = _fields.delay.value; config.volume = _fields.volume.value; config.ground = _fields.ground.button_pressed
 	_store(config)
 
 func _offset_changed() -> void:
-	if _syncing or _version == null: return
+	if _syncing or _personal == null: return
 	var config := _config()
 	var value := [_x.value, _y.value]
 	if _appearance_override.button_pressed:
@@ -460,28 +530,17 @@ func _toggle_appearance(on: bool) -> void:
 	else: config.appearance_offsets.erase(_meta(_appearance))
 	_store(config); _sync_form()
 
-func _toggle_upgrade(on: bool) -> void:
-	if _syncing: return
-	if on: _store(_config())
-	else:
-		_remember()
-		if _manifest.cards.has(_card): _manifest.cards[_card].erase("upgrade")
-		_timer.start()
-	_sync_form()
-
 func _apply_entry() -> void:
 	if not _entries.has(_selected) or _card.is_empty(): return
 	var e: Dictionary = _entries[_selected]
 	if e.status != "adapted": _set_status("此项尚待适配，可先选择关联的通用素材。"); return
 	var config := _config()
 	if e.kind == "preset":
-		config.preset = _selected
-		for key in ["launch", "hit", "launch_sound", "hit_sound", "animation"]: config[key] = "inherit"
-		config.delay = -1
+		_bind_preset(_selected)
 	else:
 		var slot := _meta(_fields.slot)
 		config[slot + ("_sound" if e.kind == "sfx" else "")] = _selected
-	_store(config); _sync_form()
+		_store(config); _sync_form()
 	_set_status("已应用：" + str(e.name) + "；请游戏内试播。")
 
 func _favorite() -> void:
@@ -519,33 +578,40 @@ func _valid(config: Dictionary) -> String:
 			if not (coordinate is float or coordinate is int) or not is_finite(float(coordinate)) or abs(float(coordinate)) > 1500: return "偏移超出范围"
 	return ""
 
-func _export(all_cards: bool) -> void:
+func _export(all_cards: bool, output_path := OUTPUT) -> void:
 	if _load_error: _set_status("清单无效，禁止导出。请修复文件后重启。"); return
-	var document := {"schema": 1, "cards": {}} if all_cards else _read(OUTPUT)
+	var document := {"schema": 1, "cards": {}} if all_cards else _read(output_path)
 	if document.is_empty(): document = {"schema": 1, "cards": {}}
+	if not document.get("cards") is Dictionary: _set_status("原导出文件格式无效，请修复后重试。"); return
 	var ids: Array = _manifest.cards.keys() if all_cards else [_card]
+	# Refresh already exported cards too, so editing any shared preset propagates.
+	for id in document.cards.keys():
+		if _manifest.cards.has(id) and not ids.has(id): ids.append(id)
+		# Preserve separately authored exports while removing the obsolete variant.
+		document.cards[id].erase("upgrade")
 	for id in ids:
 		if not _manifest.cards.has(id): document.cards.erase(id); continue
-		for config in _manifest.cards[id].values():
-			var error := _valid(config)
-			if not error.is_empty(): _set_status(str(id) + "：" + error); return
-		document.cards[id] = _manifest.cards[id]
-	if _write(OUTPUT, document): _set_status("已导出 %d 张配置；构建 Mod 后正式生效。" % document.cards.size())
+		var config := _resolved(id)
+		var error := _valid(config)
+		if not error.is_empty(): _set_status(str(id) + "：" + error); return
+		document.cards[id] = {"base": config}
+	if _write(output_path, document): _set_status("已导出 %d 张配置；构建 Mod 后正式生效。" % document.cards.size())
 
 func _save() -> void:
 	if _smoke or _load_error: return
 	if not _write(MANIFEST, _manifest): return
+	_rebuild_cards()
 	var valid := _publish_override()
+	_prepare_preview()
 	_set_status("清单已保存；连接游戏后在空闲时热重载。" if valid else "草稿已保存；无效条目未发送到游戏。")
 
 func _publish_override() -> bool:
-	var valid := true
-	for binding in _manifest.cards.values():
-		if not binding is Dictionary: return false
-		for config in binding.values():
-			if not config is Dictionary: return false
-			if not _valid(config).is_empty(): valid = false
-	return _write(_bridge_dir + "/override.json", {"schema": 1, "cards": _manifest.cards}) if valid else false
+	var cards := {}
+	for id in _manifest.cards:
+		var config := _resolved(id)
+		if not _valid(config).is_empty(): return false
+		cards[id] = {"base": config}
+	return _write(_bridge_dir + "/override.json", {"schema": 1, "cards": cards})
 
 func _paste() -> void:
 	var data = JSON.parse_string(DisplayServer.clipboard_get())
@@ -559,39 +625,68 @@ func _reset_card() -> void:
 
 func _undo_change() -> void:
 	if _undo.is_empty(): return
-	_redo.append(_manifest.duplicate(true)); _manifest = _undo.pop_back(); _timer.start(); _sync_form(); _rebuild_assets()
+	_redo.append(_manifest.duplicate(true)); _manifest = _undo.pop_back(); _timer.start(); _rebuild_cards(); _rebuild_assets()
 
 func _redo_change() -> void:
 	if _redo.is_empty(): return
-	_undo.append(_manifest.duplicate(true)); _manifest = _redo.pop_back(); _timer.start(); _sync_form(); _rebuild_assets()
+	_undo.append(_manifest.duplicate(true)); _manifest = _redo.pop_back(); _timer.start(); _rebuild_cards(); _rebuild_assets()
 
 func _show_batch() -> void:
 	_batch_list.clear()
 	for c in _cards:
-		_batch_list.add_item(c.name); _batch_list.set_item_metadata(_batch_list.item_count - 1, c.id)
-	_batch.title = "选择将被覆盖的卡牌 · " + ("升级版" if _meta(_version) == "upgrade" else "基础版")
+		_batch_list.add_item(_card_label(c)); _batch_list.set_item_metadata(_batch_list.item_count - 1, c.id)
+	_batch.title = "选择将使用同一配置的卡牌"
 	_batch.popup_centered()
 
 func _apply_batch() -> void:
-	var config := _config(); _remember()
+	var config := _config(); var ref := _reference(); _remember()
 	for index in _batch_list.get_selected_items():
 		var id: String = _batch_list.get_item_metadata(index)
-		if not _manifest.cards.has(id): _manifest.cards[id] = {"base": {}}
-		_manifest.cards[id][_meta(_version)] = config.duplicate(true)
+		_manifest.cards[id] = {"preset_ref": ref} if not ref.is_empty() else {"base": config.duplicate(true)}
+	_timer.start(); _rebuild_cards()
+
+func _bind_preset(ref: String) -> void:
+	if _card.is_empty(): return
+	_remember()
+	_manifest.cards[_card] = {"preset_ref": ref}
 	_timer.start(); _rebuild_cards()
 
 func _save_personal() -> void:
 	var title := _personal_name.text.strip_edges()
-	if title.is_empty(): return
-	_remember(); _manifest.presets[title] = _config(); _timer.start(); _rebuild_personal()
+	if title.is_empty() or _card.is_empty(): _set_status("请填写预设名称。"); return
+	var config := _config(); _remember()
+	var ref := "custom:" + str(Time.get_unix_time_from_system()) + "-" + str(Time.get_ticks_usec())
+	_manifest.presets[ref] = {"name": title, "config": config}
+	_manifest.cards[_card] = {"preset_ref": ref}
+	_timer.start(); _rebuild_cards()
+
+func _rename_personal() -> void:
+	var ref := _reference(); var title := _personal_name.text.strip_edges()
+	if ref.is_empty() or title.is_empty(): _set_status("请选择预设并填写名称。"); return
+	var config := _config(); _remember()
+	_manifest.presets[ref] = {"name": title, "config": config}
+	_timer.start(); _rebuild_cards()
+
+func _detach_personal() -> void:
+	if _card.is_empty() or _reference().is_empty(): return
+	var config := _config(); _remember()
+	_manifest.cards[_card] = {"base": config}
+	_timer.start(); _rebuild_cards()
 
 func _rebuild_personal() -> void:
-	_personal.clear(); _personal.add_item("选择个人配置…"); _personal.set_item_metadata(0, "")
-	for key in _manifest.get("presets", {}): _personal.add_item(key); _personal.set_item_metadata(_personal.item_count - 1, key)
+	_personal.clear(); _personal.add_item("独立配置（未关联预设）"); _personal.set_item_metadata(0, "")
+	var refs: Array = _manifest.presets.keys()
+	for id in _entries:
+		if _entries[id].kind == "preset" and _entries[id].status == "adapted" and not refs.has(id): refs.append(id)
+	for ref in refs:
+		_personal.add_item(_preset_name(ref)); _personal.set_item_metadata(_personal.item_count - 1, ref)
+	_select(_personal, _reference())
 
 func _load_personal() -> void:
-	var key := _meta(_personal)
-	if _manifest.presets.has(key): _store(_manifest.presets[key].duplicate(true)); _sync_form()
+	if _syncing: return
+	var ref := _meta(_personal)
+	if ref.is_empty(): _detach_personal()
+	else: _bind_preset(ref)
 
 func _refresh() -> void:
 	_catalog = _read(CATALOG); _entries.clear()
@@ -600,6 +695,7 @@ func _refresh() -> void:
 	_set_status("已重新读取本机目录和卡牌。游戏更新后请运行 rebuild_catalog.ps1 重建目录。")
 
 func _send_play(asset_only: bool) -> void:
+	if _card.is_empty() or _load_error: _set_status("请先选择有效卡牌。"); return
 	var config := _config()
 	if asset_only:
 		# An isolated asset trial must not inherit the selected card's replacement slots.
@@ -626,6 +722,7 @@ func _process(delta: float) -> void:
 	_poll += delta
 	if _poll < 0.35: return
 	_poll = 0
+	_prepare_preview()
 	_last_status = _read(_bridge_dir + "/status.json")
 	var online := _connected()
 	_trial.disabled = not online; _trial_asset.disabled = not online
@@ -639,6 +736,37 @@ func _process(delta: float) -> void:
 			_verified.disabled = _last_status.get("state", "") != "done" or _selected != _trial_entry or _last_status.get("game_sha256", "") != _catalog.game_sha256
 		if _last_status.get("game_sha256", "") != _catalog.get("game_sha256", ""):
 			_connection.text += " · 目录版本不同，请重建目录"
+
+func _preview_request() -> Dictionary:
+	return {"action": "play", "config": _config(), "target": int(_target.get_selected_metadata()), "hits": int(_hits.value)}
+
+func _prepare_preview() -> void:
+	if _smoke or _target == null or _hits == null: return
+	var request := {"action": "invalid"} if _load_error or _card.is_empty() else _preview_request()
+	if request.has("config") and not _valid(request.config).is_empty(): request = {"action": "invalid"}
+	var serialized := JSON.stringify(request)
+	if serialized != _prepared_text and _write(_bridge_dir + "/prepared_preview.json", request): _prepared_text = serialized
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F5:
+		_send_play(false); get_viewport().set_input_as_handled()
+
+func _column(parent: Node) -> VBoxContainer:
+	var column := VBoxContainer.new(); column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	parent.add_child(column)
+	return column
+
+func _install_theme() -> void:
+	theme = Theme.new()
+	for type in ["Button", "OptionButton", "CheckButton", "CheckBox", "MenuButton"]:
+		for state in ["normal", "hover", "pressed", "hover_pressed", "disabled", "focus"]:
+			var style := StyleBoxFlat.new()
+			style.bg_color = Color("343c4b") if state in ["hover", "pressed", "hover_pressed"] else Color("292f3b")
+			style.border_color = Color("a1c5ee") if state == "focus" else Color("7f8ea6") if state != "disabled" else Color("526079")
+			style.set_border_width_all(1); style.set_corner_radius_all(3)
+			style.content_margin_left = 8; style.content_margin_right = 8; style.content_margin_top = 5; style.content_margin_bottom = 5
+			if state == "focus": style.bg_color = Color.TRANSPARENT
+			theme.set_stylebox(state, type, style)
 
 func _set_status(message: String) -> void:
 	if _status != null: _status.text = message
@@ -657,12 +785,37 @@ func _smoke_test() -> void:
 	if _valid({"offset": [1]}).is_empty(): failures.append("Invalid offset accepted")
 	if not _valid({"preset": "card:GrandFinale", "offset": [20, -10]}).is_empty(): failures.append("Valid config rejected")
 	var original := _manifest.duplicate(true)
-	if not _write("res://tmp/effect_manager_contract.json", {"schema": 1, "cards": {"AK_EXUSIAI_CARD_LASER_CANNON": {"base": {"preset": "card:Hyperbeam", "offset": [25, -12]}, "upgrade": {"preset": "card:GrandFinale"}}}}): failures.append("JSON contract fixture failed")
 	_selected = "card:GrandFinale"; _apply_entry()
 	if _config().get("preset", "") != _selected: failures.append("Binding failed")
 	_undo_change()
 	if _manifest != original: failures.append("Undo failed")
 	_redo_change()
 	if _config().get("preset", "") != "card:GrandFinale": failures.append("Redo failed")
+	_manifest = {"schema": 1, "cards": {"AK_EXUSIAI_CARD_LASER_CANNON": {"base": {"preset": "card:Hyperbeam", "offset": [25, -12]}, "upgrade": {"preset": "card:GrandFinale"}}, "AK_EXUSIAI_CARD_TALENT": {"base": {"preset": "card:Hyperbeam", "offset": [25, -12]}}, "different": {"base": {"hit": "none"}}}, "presets": {"共享测试": {"preset": "card:Hyperbeam", "offset": [25, -12]}}, "favorites": [], "verified": {}}
+	_migrate_manifest()
+	_card = "AK_EXUSIAI_CARD_LASER_CANNON"
+	var shared_ref := _reference()
+	if shared_ref.is_empty() or shared_ref != _reference("AK_EXUSIAI_CARD_TALENT"): failures.append("Legacy matching copies not linked")
+	if _manifest.cards[_card].has("upgrade") or not _reference("different").is_empty(): failures.append("Migration lost independent config or kept upgrade")
+	var updated := _config(); updated.delay = 0.5; _store(updated)
+	_personal_name.text = "改名后的预设"; _rename_personal()
+	if _resolved("AK_EXUSIAI_CARD_TALENT").get("delay") != 0.5 or not _card_label({"id": "AK_EXUSIAI_CARD_TALENT", "name": "天赋", "type": "Power"}).contains("天赋 · 能力（改名后的预设）"): failures.append("Shared edit/rename did not propagate")
+	var export_path := "res://tmp/effect_manager_export_contract.json"
+	_write(export_path, {"schema": 1, "cards": {"AK_EXUSIAI_CARD_TALENT": {"base": {"delay": -1}, "upgrade": {}}, "external": {"base": {"hit": "none"}}}})
+	_export(false, export_path)
+	var exported := _read(export_path)
+	if exported.cards.size() != 3 or exported.cards.AK_EXUSIAI_CARD_TALENT.base.delay != 0.5 or exported.cards.AK_EXUSIAI_CARD_TALENT.has("upgrade") or exported.cards.external.base.hit != "none": failures.append("Partial export did not refresh shared cards/preserve separate exports")
+	var doc := {"schema": 1, "cards": {}}
+	for id in ["AK_EXUSIAI_CARD_LASER_CANNON", "AK_EXUSIAI_CARD_TALENT"]: doc.cards[id] = {"base": _resolved(id)}
+	# The runtime must ignore this legacy upgrade even when it differs from Base.
+	doc.cards.AK_EXUSIAI_CARD_LASER_CANNON.upgrade = {"preset": "card:GrandFinale"}
+	if not _write("res://tmp/effect_manager_contract.json", doc): failures.append("JSON contract fixture failed")
+	_card = "AK_EXUSIAI_CARD_TALENT"; _select(_target, -2); _hits.value = 2
+	if not _write("res://tmp/effect_manager_preview_contract.json", _preview_request()): failures.append("Prepared preview fixture failed")
+	_detach_personal(); _card = "AK_EXUSIAI_CARD_LASER_CANNON"; updated.delay = 1; _store(updated)
+	if _resolved("AK_EXUSIAI_CARD_TALENT").get("delay") != 0.5: failures.append("Detached card still changed")
+	for id in ["generic:Buff", "generic:Block", "generic:Heal", "generic:Debuff", "generic:Power"]:
+		if not _valid({"preset": id}).is_empty(): failures.append("Missing generic preset: " + id)
+	_manifest = original
 	print("EFFECT_MANAGER_SMOKE: ", "PASS" if failures.is_empty() else str(failures), " cards=", _cards.size(), " entries=", _entries.size())
 	get_tree().quit(0 if failures.is_empty() else 1)
