@@ -10144,6 +10144,26 @@
       "reason": "Mod 自定义一次性音效；音量由独立音量控制。"
     },
     {
+      "id": "custom:reload_1911",
+      "name": "换弹 · 柔和版",
+      "english": "reload.wav",
+      "kind": "sfx",
+      "status": "adapted",
+      "adapter": "audio",
+      "resource": "res://AK_Exusiai/audio/card_effects/reload.wav",
+      "origin": "custom",
+      "origins": [
+        "custom",
+        "combat"
+      ],
+      "sources": [],
+      "aliases": [
+        "自定义音效",
+        "换弹"
+      ],
+      "reason": "Mod 自定义一次性音效；音量由独立音量控制。"
+    },
+    {
       "id": "event:event:/music/act1_a1_v1",
       "kind": "sfx",
       "name": "act1 a1 v1",

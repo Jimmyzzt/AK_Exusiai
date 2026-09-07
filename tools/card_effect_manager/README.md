@@ -44,6 +44,8 @@ powershell -ExecutionPolicy Bypass -File .\tools\card_effect_manager\run_card_ef
 
 ### 自定义音效（目前需要登记目录）
 
+当前“换弹通用”使用 `custom:reload_1911`（换弹 · 柔和版），对应用户独立制作并授权随 Mod 和公开仓库分发的 `reload.wav`。保留原标识以兼容已有配置，旧 Pixabay MP3 已删除；`custom:mag_insert` 仍可选。组内成员以编辑清单为准，当前共 10 张（用户已加入铳弹协约）。路径及来源记录见 `custom_audio.json` 与资源目录 `SOURCES.md`。
+
 运行时可播放 Mod 内的 `AudioStream` 文件，但管理器尚无拖入文件或自动扫描外部音频功能。建议把短促换弹声剪去首尾静音，保存成不循环的 WAV；OGG 也可作为运行时音频。文件放在项目资源目录，例如 `AK_Exusiai/audio/card_effects/reload_rifle.wav`。
 
 在 `tools/card_effect_manager/custom_audio.json` 的 `entries` 中登记一次，示例：

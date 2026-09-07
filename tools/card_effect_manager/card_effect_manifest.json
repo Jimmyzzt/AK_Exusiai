@@ -1,56 +1,546 @@
 {
-  "schema": 2,
-  "cards": {
-    "AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_EXUSIAI": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_DOUBLE_SHOT_KIT": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_JUNGLE_STYLE": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_LOAD_EM_UP": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_LOCKED_AND_LOADED": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_LOOKING_BACK": {
-      "preset_ref": "custom:reload_common"
-    },
-    "AK_EXUSIAI_CARD_QUICK_MAG": {
-      "preset_ref": "custom:reload_common"
-    }
-  },
-  "favorites": [],
-  "verified": {},
-  "presets": {
-    "custom:reload_common": {
-      "name": "换弹通用",
-      "config": {
-        "preset": "inherit",
-        "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
-        "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
-        "ground": false,
-        "offset": [
-          0,
-          0
-        ]
-      }
-    }
-  }
+	"cards": {
+		"AK_EXUSIAI_CARD_ANGELS_BLESSINGS": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_ANGELS_HEART": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_APPLE_PIE": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_APPLE_PIE_WITH_CHAR_SIU": {
+			"preset_ref": "generic:Debuff"
+		},
+		"AK_EXUSIAI_CARD_ARMED_ESCORT": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_ARMOR_PIERCING_ROUND": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_BARRAGE_SKY_SHATTERING": {
+			"preset_ref": "card:GammaBlast"
+		},
+		"AK_EXUSIAI_CARD_BISON": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_BLESSING": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_BOTCHED_MODIFICATION": {
+			"preset_ref": "card:Whirlwind"
+		},
+		"AK_EXUSIAI_CARD_BRAWL": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NSporeImpactVfx",
+				"hit_sound": "event:event:/sfx/characters/regent/regent_refine",
+				"launch": "scene:vfx/vfx_scream",
+				"launch_sound": "audio:hey.mp3",
+				"phase": "start",
+				"repeat": "per_hit",
+				"volume": 0.1
+			}
+		},
+		"AK_EXUSIAI_CARD_CARGO_IN_MOTION": {
+			"base": {
+				"offset": [
+					48.0,
+					-13.0
+				]
+			}
+		},
+		"AK_EXUSIAI_CARD_CHAOTIC_RAMPAGE": {
+			"preset_ref": "generic:Debuff"
+		},
+		"AK_EXUSIAI_CARD_CHARGING_MODE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_COMPASSION": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_CONFESSION": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_COVENANT_OF_BULLETS": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_COVERING_FIRE": {
+			"preset_ref": "card:DaggerSpray"
+		},
+		"AK_EXUSIAI_CARD_CROISSANT": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_CROSS_OF_DEVOTION": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_DESSERT_TIME": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_DISRUPTIVE_STRIKE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_DIVINE_JUDGMENT": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_DIVINE_JUDGMENT_TRADITIONAL": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_DOUBLE_SHOT_KIT": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_EMBRACE_NEW_LIFE": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_EMPATHY_FORM": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_EMPEROR": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_EXPEDITE": {
+			"preset_ref": "custom:1788774928.261-4106301720"
+		},
+		"AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_EXUSIAI": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_EXUSIAI_STRIKE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_FIELD_MODIFICATION": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_FLASHBANG": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NSporeImpactVfx",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:Whirlwind",
+				"repeat": "per_hit",
+				"volume": 1.0
+			}
+		},
+		"AK_EXUSIAI_CARD_FORGET_ME_NOT": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NBigSlashImpactVfx",
+				"hit_sound": "inherit",
+				"launch": "factory:NSporeImpactVfx",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:AllForOne",
+				"repeat": "per_hit",
+				"volume": 0.5
+			}
+		},
+		"AK_EXUSIAI_CARD_FREE_DELIVERY": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_GROUP_PHOTO": {
+			"preset_ref": "generic:Power"
+		},
+		"AK_EXUSIAI_CARD_GUARANTEED_SUCCESS": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_CALLING": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_GUIDANCE": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_ICE_CREAM": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_MERCY": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_HOLY_CITY_RADIANCE": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NGrandFinaleImpactVfx",
+				"hit_sound": "inherit",
+				"launch": "factory:NSmallMagicMissileVfx",
+				"launch_sound": "inherit",
+				"offset": [
+					0.0,
+					4.0
+				],
+				"phase": "start",
+				"preset": "card:Bombardment",
+				"repeat": "per_hit",
+				"volume": 0.5
+			}
+		},
+		"AK_EXUSIAI_CARD_HOT_PURSUIT": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_JUNGLE_STYLE": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_KARAOKE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_LASER_CANNON": {
+			"preset_ref": "custom:legacy-0e54cb52b46b6016"
+		},
+		"AK_EXUSIAI_CARD_LOAD_EM_UP": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_LOCKED_AND_LOADED": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_LOOKING_BACK": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_MARKSMANSHIP": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_MAY_THE_LORD_BE_WITH_US": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_MAY_THE_LORD_GUIDE_US": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_MOSTIMA": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_MOVE_OUT": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_NECKLACE_OF_THE_PRESENCE": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_OUTSTANDING_GRADUATE": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NGrandFinaleImpactVfx",
+				"hit_sound": "event:event:/sfx/debuff",
+				"launch": "factory:NGrandFinaleVfx",
+				"launch_sound": "event:event:/sfx/buff",
+				"phase": "start",
+				"preset": "card:GrandFinale",
+				"repeat": "per_hit",
+				"volume": 1.0
+			}
+		},
+		"AK_EXUSIAI_CARD_PACKAGE": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_PARADISE_LOST": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_PARTY_TIME": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_PRECISION_STRIKE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_QUICK_MAG": {
+			"preset_ref": "custom:reload_common"
+		},
+		"AK_EXUSIAI_CARD_RADIANT_WING_STRIKE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_ROCK_N_ROLL": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_SHOOTING_MODE": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_SHOOTOHOLIC": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_SORA": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_STAR": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_SWEAR_ON_THIS_GUN": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_SWEEPING_THE_SKIES": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_TALENT": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_TEXAS": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NThinSliceVfx",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"repeat": "per_hit",
+				"volume": 1.0
+			}
+		},
+		"AK_EXUSIAI_CARD_THE_SAINTS_TRAVELS": {
+			"preset_ref": "custom:88d8a194a88237b5"
+		},
+		"AK_EXUSIAI_CARD_UNBOXING": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		},
+		"AK_EXUSIAI_CARD_VIOLENT_DELIVERY": {
+			"base": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": true,
+				"hit": "factory:NHeavyBluntVfx",
+				"hit_sound": "inherit",
+				"launch": "factory:NSpikeSplashVfx",
+				"launch_sound": "inherit",
+				"offset": [
+					20.0,
+					0.0
+				],
+				"phase": "start",
+				"preset": "card:Bludgeon",
+				"repeat": "per_hit",
+				"volume": 0.4
+			}
+		},
+		"AK_EXUSIAI_CARD_WELCOME_TO_LATERANO": {
+			"preset_ref": "card:MindBlast"
+		},
+		"AK_EXUSIAI_CARD_WHAT_LIES_AHEAD": {
+			"preset_ref": "card:Barrage"
+		},
+		"AK_EXUSIAI_CARD_YANESE_CAN_FLY": {
+			"preset_ref": "generic:Buff"
+		},
+		"AK_EXUSIAI_CARD_YLTH": {
+			"preset_ref": "custom:1788774517.606-3695646965"
+		}
+	},
+	"favorites": [
+		"event:event:/sfx/buff"
+	],
+	"presets": {
+		"card:AllForOne": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "factory:NBigSlashImpactVfx",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:AllForOne",
+				"repeat": "per_hit",
+				"volume": 0.5
+			},
+			"name": "万物一心"
+		},
+		"card:Barrage": {
+			"config": {
+				"offset": [
+					16.0,
+					-4.0
+				],
+				"preset": "card:Barrage"
+			},
+			"name": "弹幕齐射"
+		},
+		"card:Debilitate": {
+			"config": {
+				"offset": [
+					4.0,
+					8.0
+				],
+				"preset": "card:Debilitate"
+			},
+			"name": "摧残"
+		},
+		"card:FlakCannon": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:FlakCannon",
+				"repeat": "per_hit",
+				"volume": 0.25
+			},
+			"name": "散射炮"
+		},
+		"card:GrandFinale": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:GrandFinale",
+				"repeat": "per_hit",
+				"volume": 0.3
+			},
+			"name": "华丽收场"
+		},
+		"card:Whirlwind": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:Whirlwind",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "旋风斩"
+		},
+		"custom:1788774517.606-3695646965": {
+			"config": {
+				"animation": "Cast",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "event:event:/sfx/buff",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"offset": [
+					-4.0,
+					-24.0
+				],
+				"phase": "start",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "buff音效"
+		},
+		"custom:1788774928.261-4106301720": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_buff",
+				"launch": "factory:NFireBurstVfx",
+				"launch_sound": "inherit",
+				"offset": [
+					4.0,
+					0.0
+				],
+				"phase": "start",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "神秘的快递"
+		},
+		"custom:88d8a194a88237b5": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "scene:vfx/vfx_starry_impact",
+				"hit_sound": "event:event:/sfx/buff",
+				"launch": "none",
+				"launch_sound": "inherit",
+				"offset": [
+					22.0,
+					-15.0
+				],
+				"phase": "start",
+				"preset": "inherit",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "天使buff通用"
+		},
+		"custom:legacy-0e54cb52b46b6016": {
+			"config": {
+				"animation": "inherit",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:Hyperbeam",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "超能光束 · 已有配置"
+		},
+		"custom:reload_common": {
+			"config": {
+				"animation": "none",
+				"delay": 0.0,
+				"ground": false,
+				"hit": "none",
+				"hit_sound": "none",
+				"launch": "none",
+				"launch_sound": "custom:reload_1911",
+				"offset": [
+					0.0,
+					0.0
+				],
+				"phase": "start",
+				"preset": "inherit",
+				"repeat": "once",
+				"volume": 0.35
+			},
+			"name": "换弹通用"
+		},
+		"generic:Debuff": {
+			"config": {
+				"animation": "Cast",
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"offset": [
+					4.0,
+					0.0
+				],
+				"phase": "start",
+				"preset": "generic:Debuff",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "减益通用 · 技能"
+		}
+	},
+	"schema": 2,
+	"verified": {
+
+	}
 }

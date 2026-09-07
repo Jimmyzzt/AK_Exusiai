@@ -1,176 +1,1171 @@
 {
-  "schema": 1,
   "cards": {
-    "AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
+    "AK_EXUSIAI_CARD_ANGELS_BLESSINGS": {
       "base": {
-        "preset": "inherit",
-        "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
-        "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
+        "animation": "inherit",
+        "delay": -1,
         "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
         "offset": [
-          0,
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_ANGELS_HEART": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_APPLE_PIE": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_APPLE_PIE_WITH_CHAR_SIU": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          4,
           0
+        ],
+        "phase": "start",
+        "preset": "generic:Debuff",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_ARMED_ESCORT": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_ARMOR_PIERCING_ROUND": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_BARRAGE_SKY_SHATTERING": {
+      "base": {
+        "preset": "card:GammaBlast"
+      }
+    },
+    "AK_EXUSIAI_CARD_BISON": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_BLESSING": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_BOTCHED_MODIFICATION": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "phase": "start",
+        "preset": "card:Whirlwind",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_BRAWL": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NSporeImpactVfx",
+        "hit_sound": "event:event:/sfx/characters/regent/regent_refine",
+        "launch": "scene:vfx/vfx_scream",
+        "launch_sound": "audio:hey.mp3",
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 0.1
+      }
+    },
+    "AK_EXUSIAI_CARD_CARGO_IN_MOTION": {
+      "base": {
+        "offset": [
+          48,
+          -13
         ]
       }
     },
-    "AK_EXUSIAI_CARD_EXUSIAI": {
+    "AK_EXUSIAI_CARD_CHAOTIC_RAMPAGE": {
       "base": {
-        "preset": "inherit",
-        "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
-        "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
+        "animation": "Cast",
+        "delay": -1,
         "ground": false,
+        "hit": "inherit",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
         "offset": [
-          0,
+          4,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "generic:Debuff",
+        "repeat": "per_hit",
+        "volume": 1
       }
     },
-    "AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
+    "AK_EXUSIAI_CARD_CHARGING_MODE": {
       "base": {
-        "preset": "inherit",
-        "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
-        "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_COMPASSION": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
         "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_CONFESSION": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_COVENANT_OF_BULLETS": {
+      "base": {
+        "animation": "none",
+        "delay": 0,
+        "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_COVERING_FIRE": {
+      "base": {
+        "preset": "card:DaggerSpray"
+      }
+    },
+    "AK_EXUSIAI_CARD_CROISSANT": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_CROSS_OF_DEVOTION": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_DESSERT_TIME": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_DISRUPTIVE_STRIKE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_DIVINE_JUDGMENT": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_DIVINE_JUDGMENT_TRADITIONAL": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
       }
     },
     "AK_EXUSIAI_CARD_DOUBLE_SHOT_KIT": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EMBRACE_NEW_LIFE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EMPATHY_FORM": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EMPEROR": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EXPEDITE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_buff",
+        "launch": "factory:NFireBurstVfx",
+        "launch_sound": "inherit",
+        "offset": [
+          4,
+          0
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
+      "base": {
+        "animation": "none",
+        "delay": 0,
+        "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
+        "offset": [
+          0,
+          0
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EXUSIAI": {
+      "base": {
+        "animation": "none",
+        "delay": 0,
+        "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
+        "offset": [
+          0,
+          0
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_EXUSIAI_STRIKE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_FIELD_MODIFICATION": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_FLASHBANG": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NSporeImpactVfx",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "phase": "start",
+        "preset": "card:Whirlwind",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_FORGET_ME_NOT": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NBigSlashImpactVfx",
+        "hit_sound": "inherit",
+        "launch": "factory:NSporeImpactVfx",
+        "launch_sound": "inherit",
+        "phase": "start",
+        "preset": "card:AllForOne",
+        "repeat": "per_hit",
+        "volume": 0.5
+      }
+    },
+    "AK_EXUSIAI_CARD_FREE_DELIVERY": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_GROUP_PHOTO": {
+      "base": {
+        "preset": "generic:Power"
+      }
+    },
+    "AK_EXUSIAI_CARD_GUARANTEED_SUCCESS": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_CALLING": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_GUIDANCE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_ICE_CREAM": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_MERCY": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
+      "base": {
+        "animation": "none",
+        "delay": 0,
+        "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
+        "offset": [
+          0,
+          0
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_RADIANCE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NGrandFinaleImpactVfx",
+        "hit_sound": "inherit",
+        "launch": "factory:NSmallMagicMissileVfx",
+        "launch_sound": "inherit",
+        "offset": [
+          0,
+          4
+        ],
+        "phase": "start",
+        "preset": "card:Bombardment",
+        "repeat": "per_hit",
+        "volume": 0.5
+      }
+    },
+    "AK_EXUSIAI_CARD_HOT_PURSUIT": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
       }
     },
     "AK_EXUSIAI_CARD_JUNGLE_STYLE": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_KARAOKE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_LASER_CANNON": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "phase": "start",
+        "preset": "card:Hyperbeam",
+        "repeat": "per_hit",
+        "volume": 1
       }
     },
     "AK_EXUSIAI_CARD_LOAD_EM_UP": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
       }
     },
     "AK_EXUSIAI_CARD_LOCKED_AND_LOADED": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
       }
     },
     "AK_EXUSIAI_CARD_LOOKING_BACK": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_MARKSMANSHIP": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_MAY_THE_LORD_BE_WITH_US": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_MAY_THE_LORD_GUIDE_US": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_MOSTIMA": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_MOVE_OUT": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_NECKLACE_OF_THE_PRESENCE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_OUTSTANDING_GRADUATE": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NGrandFinaleImpactVfx",
+        "hit_sound": "event:event:/sfx/debuff",
+        "launch": "factory:NGrandFinaleVfx",
+        "launch_sound": "event:event:/sfx/buff",
+        "phase": "start",
+        "preset": "card:GrandFinale",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_PACKAGE": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_PARADISE_LOST": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_PARTY_TIME": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_PRECISION_STRIKE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
       }
     },
     "AK_EXUSIAI_CARD_QUICK_MAG": {
       "base": {
-        "preset": "inherit",
         "animation": "none",
-        "launch": "none",
-        "hit": "none",
-        "launch_sound": "custom:mag_insert",
-        "hit_sound": "none",
         "delay": 0,
-        "volume": 1,
-        "phase": "start",
-        "repeat": "once",
         "ground": false,
+        "hit": "none",
+        "hit_sound": "none",
+        "launch": "none",
+        "launch_sound": "custom:reload_1911",
         "offset": [
           0,
           0
-        ]
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "once",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_RADIANT_WING_STRIKE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_ROCK_N_ROLL": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_SHOOTING_MODE": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_SHOOTOHOLIC": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_SORA": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_STAR": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_SWEAR_ON_THIS_GUN": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_SWEEPING_THE_SKIES": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_TALENT": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_TEXAS": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "factory:NThinSliceVfx",
+        "hit_sound": "inherit",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_THE_SAINTS_TRAVELS": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": false,
+        "hit": "scene:vfx/vfx_starry_impact",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "none",
+        "launch_sound": "inherit",
+        "offset": [
+          22,
+          -15
+        ],
+        "phase": "start",
+        "preset": "inherit",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_UNBOXING": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
+      }
+    },
+    "AK_EXUSIAI_CARD_VIOLENT_DELIVERY": {
+      "base": {
+        "animation": "inherit",
+        "delay": -1,
+        "ground": true,
+        "hit": "factory:NHeavyBluntVfx",
+        "hit_sound": "inherit",
+        "launch": "factory:NSpikeSplashVfx",
+        "launch_sound": "inherit",
+        "offset": [
+          20,
+          0
+        ],
+        "phase": "start",
+        "preset": "card:Bludgeon",
+        "repeat": "per_hit",
+        "volume": 0.4
+      }
+    },
+    "AK_EXUSIAI_CARD_WELCOME_TO_LATERANO": {
+      "base": {
+        "preset": "card:MindBlast"
+      }
+    },
+    "AK_EXUSIAI_CARD_WHAT_LIES_AHEAD": {
+      "base": {
+        "offset": [
+          16,
+          -4
+        ],
+        "preset": "card:Barrage"
+      }
+    },
+    "AK_EXUSIAI_CARD_YANESE_CAN_FLY": {
+      "base": {
+        "preset": "generic:Buff"
+      }
+    },
+    "AK_EXUSIAI_CARD_YLTH": {
+      "base": {
+        "animation": "Cast",
+        "delay": -1,
+        "ground": false,
+        "hit": "inherit",
+        "hit_sound": "event:event:/sfx/buff",
+        "launch": "inherit",
+        "launch_sound": "inherit",
+        "offset": [
+          -4,
+          -24
+        ],
+        "phase": "start",
+        "repeat": "per_hit",
+        "volume": 1
       }
     }
-  }
+  },
+  "schema": 1
 }
