@@ -15,6 +15,13 @@ public partial class CardEffectChecks : Node
             Check(command.GetArgumentCompletions(null, ["fx", "of"]).CommonPrefix == "exusiai fx off ", "FX partial action completion");
             CardEffectStore.Initialize(ProjectSettings.GlobalizePath("res://.godot/mono/temp/bin/Debug/sts2.dll"));
             Check(CardEffectStore.CatalogMatchesGame, "Catalog matches the referenced game DLL");
+            foreach (var audio in CardEffectStore.Entries.Values.Where(e => e.Kind == "sfx" && e.Resource.StartsWith("res://AK_Exusiai/audio/card_effects/", StringComparison.Ordinal)))
+            {
+                CardEffectStore.Validate(new CardEffectConfig { LaunchSound = audio.Id });
+                var stream = ResourceLoader.Load<AudioStream>(audio.Resource);
+                Check(stream != null && stream.GetLength() > 0, "Custom audio imports and decodes: " + audio.Id);
+                GD.Print($"CUSTOM_AUDIO: {audio.Id} duration={stream!.GetLength():F3}s");
+            }
             // This fixture is written by Godot's JSON serializer in the UI smoke check.
             var document = CardEffectStore.Read<EffectDocument>("res://tmp/effect_manager_contract.json");
             CardEffectStore.Validate(document);

@@ -1,7 +1,56 @@
 {
-  "schema": 1,
-  "cards": {},
+  "schema": 2,
+  "cards": {
+    "AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_EXUSIAI": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_DOUBLE_SHOT_KIT": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_JUNGLE_STYLE": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_LOAD_EM_UP": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_LOCKED_AND_LOADED": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_LOOKING_BACK": {
+      "preset_ref": "custom:reload_common"
+    },
+    "AK_EXUSIAI_CARD_QUICK_MAG": {
+      "preset_ref": "custom:reload_common"
+    }
+  },
   "favorites": [],
   "verified": {},
-  "presets": {}
+  "presets": {
+    "custom:reload_common": {
+      "name": "换弹通用",
+      "config": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
 }

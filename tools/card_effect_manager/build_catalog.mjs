@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { loadCustomAudio } from './custom_audio.mjs';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../..');
 const args = Object.fromEntries(process.argv.slice(2).map((v,i,a)=>v.startsWith('--')?[v.slice(2),a[i+1]]:[]).filter(x=>x.length));
@@ -178,6 +179,10 @@ for(const e of allEntries.values()){
  if(e.adapter==='event'&&/\/characters\/|\/enemy\//.test(e.resource))e.origins.push('combat');
  if(e.adapter==='audio')e.origins.push('combat');
  if(!e.origins.length)e.origins=['other'];
+}
+for (const custom of loadCustomAudio(root)) {
+ if (allEntries.has(custom.id)) throw Error('Custom audio ID collision: ' + custom.id);
+ allEntries.set(custom.id, custom);
 }
 const entries=[...allEntries.values()].sort((a,b)=>a.id.localeCompare(b.id));
 // Loop/ambient events cannot be owned or stopped through the one-shot API.

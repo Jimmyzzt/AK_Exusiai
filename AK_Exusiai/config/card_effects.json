@@ -1,4 +1,176 @@
 {
   "schema": 1,
-  "cards": {}
+  "cards": {
+    "AK_EXUSIAI_CARD_EXPLOSIVE_AMMO": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_EXUSIAI": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_HOLY_CITY_PURGE": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_DOUBLE_SHOT_KIT": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_JUNGLE_STYLE": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_LOAD_EM_UP": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_LOCKED_AND_LOADED": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_LOOKING_BACK": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    },
+    "AK_EXUSIAI_CARD_QUICK_MAG": {
+      "base": {
+        "preset": "inherit",
+        "animation": "none",
+        "launch": "none",
+        "hit": "none",
+        "launch_sound": "custom:mag_insert",
+        "hit_sound": "none",
+        "delay": 0,
+        "volume": 1,
+        "phase": "start",
+        "repeat": "once",
+        "ground": false,
+        "offset": [
+          0,
+          0
+        ]
+      }
+    }
+  }
 }

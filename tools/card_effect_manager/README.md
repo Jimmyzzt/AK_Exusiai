@@ -46,23 +46,23 @@ powershell -ExecutionPolicy Bypass -File .\tools\card_effect_manager\run_card_ef
 
 运行时可播放 Mod 内的 `AudioStream` 文件，但管理器尚无拖入文件或自动扫描外部音频功能。建议把短促换弹声剪去首尾静音，保存成不循环的 WAV；OGG 也可作为运行时音频。文件放在项目资源目录，例如 `AK_Exusiai/audio/card_effects/reload_rifle.wav`。
 
-需要在效果目录的 `entries` 中登记一次，示例：
+在 `tools/card_effect_manager/custom_audio.json` 的 `entries` 中登记一次，示例：
 
 ```json
 {
   "id": "custom:reload_rifle",
   "name": "步枪换弹",
-  "kind": "sfx",
-  "status": "adapted",
-  "adapter": "audio",
-  "resource": "res://AK_Exusiai/audio/card_effects/reload_rifle.wav",
-  "origins": ["combat"]
+  "file": "AK_Exusiai/audio/card_effects/reload_rifle.wav"
 }
 ```
 
-目录文件为 `AK_Exusiai/config/card_effect_catalog.json`。这是生成文件：手动添加后运行 `rebuild_catalog.ps1` 会覆盖新增条目；长期接入应同时在 `build_catalog.mjs` 的条目生成阶段登记，或后续增加独立自定义目录导入功能。仅复制音频并点“重新扫描”不会自动登记。
+在项目根目录运行 `node tools/card_effect_manager/custom_audio.mjs`，将自定义登记同步到 `AK_Exusiai/config/card_effect_catalog.json`；不必重新反编译游戏。`rebuild_catalog.ps1` 也会读取这份独立清单，重建原版目录不会丢失自定义登记。仅复制文件并点“重新扫描”不会自动登记。支持 WAV、OGG、MP3；登记会校验路径、文件存在性和重复 ID。
 
 登记并完成 Godot 导入 / Mod 完整构建后，重启游戏和管理器，在“出手音效”选择该音效；换弹类技能可用“非攻击牌：出牌开始”。把它保存成共享“换弹通用”预设，再批量关联换弹卡即可。新文件首次加入需要构建进入 PCK；之后调音量和卡牌绑定可用开发热重载试播。保留作者、下载链接与许可记录，提交公开仓库前确认许可允许分发音频源文件。
+
+已登记 `custom:mag_insert`（换弹 · 插入弹匣），已建立“换弹通用”共享预设：双发套件、爆弹、能天使、圣城净化、并联弹匣、压满弹匣！、子弹上膛、回望来路、快速弹匣。出牌开始播放一次独立音效，音量 1，初始不加特效或人物动作，可在管理器中统一调整。按用户确认保留“勿忘我”的攻击配置；不加入后续触发补弹的子弹之约、帕格尼尼改装。这里只设置出牌演出，不额外监听实际弹药变化，因此 0 填弹量 / 过载阻止获得时仍可播放，延迟获得弹药也不会再次播放。
+
+该音频由 Gnarlyedits 创作，采用 CC BY-NC 4.0，署名与来源详见资源目录 `AK_Exusiai/audio/card_effects/SOURCES.md`；不能按项目代码许可证当作可自由商用音频。
 
 | 文件 | 用途 |
 | --- | --- |
