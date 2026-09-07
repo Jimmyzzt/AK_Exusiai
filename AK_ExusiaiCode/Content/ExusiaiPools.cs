@@ -1,14 +1,23 @@
 using Godot;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2RitsuLib.Utils;
 
 namespace AK_Exusiai.Content;
 
 public sealed class ExusiaiCardPool : TypeListCardPoolModel
 {
+    private static readonly Material? PoolFrameTintMaterial =
+        MaterialUtils.CreateHsvShaderMaterial(0.998f, 0.961f, 0.819f);
+
     public override string Title => "exusiai";
     public override string EnergyColorName => "ironclad";
+    public override string? TextEnergyIconPath =>
+        $"{Entry.ResPath}/images/ui/exusiai_energy.png";
+    public override string? BigEnergyIconPath =>
+        $"{Entry.ResPath}/images/ui/exusiai_energy_big.png";
     public override string CardFrameMaterialPath => "card_frame_red";
+    public override Material? PoolFrameMaterial => PoolFrameTintMaterial;
     public override Color DeckEntryCardColor => new("D73545");
     public override Color EnergyOutlineColor => new("7A1521");
     public override bool IsColorless => false;

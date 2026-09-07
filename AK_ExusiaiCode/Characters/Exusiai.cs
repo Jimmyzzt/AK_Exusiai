@@ -32,6 +32,9 @@ public sealed class Exusiai :
     ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelicPool, ExusiaiPotionPool>,
     ISecondaryResourceHookListener
 {
+    internal const string CustomCharacterSelectSfxToken =
+        "ak_exusiai:/sfx/character_select";
+
     private const string CharacterScenePath =
         $"{Entry.ResPath}/scenes/character/exusiai_visuals.tscn";
     private const string MerchantScenePath =
@@ -40,6 +43,8 @@ public sealed class Exusiai :
         $"{Entry.ResPath}/scenes/character/exusiai_rest_site.tscn";
     private const string CharacterSelectBgScenePath =
         $"{Entry.ResPath}/scenes/character/exusiai_character_select_bg.tscn";
+    private const string CharacterSelectTransitionMaterialPath =
+        $"{Entry.ResPath}/materials/transitions/exusiai_transition_mat.tres";
 
     private static readonly ConditionalWeakTable<Exusiai, AmmoData> AmmoDataByCharacter = new();
 
@@ -79,7 +84,10 @@ public sealed class Exusiai :
             IconPath: $"{Entry.ResPath}/images/character/exusiai_icon.png",
             CharacterSelectBgPath: CharacterSelectBgScenePath,
             CharacterSelectIconPath: $"{Entry.ResPath}/images/character/exusiai_select_icon.jpg",
+            CharacterSelectTransitionPath: CharacterSelectTransitionMaterialPath,
             MapMarkerPath: $"{Entry.ResPath}/images/character/exusiai_icon.png"),
+        Audio: new CharacterAudioAssetSet(
+            CharacterSelectSfx: CustomCharacterSelectSfxToken),
         Multiplayer: new CharacterMultiplayerAssetSet(
             ArmPointingTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_point.png",
             ArmRockTexturePath: $"{Entry.ResPath}/images/character/Exusiai_multiplayer_hand_rock.png",

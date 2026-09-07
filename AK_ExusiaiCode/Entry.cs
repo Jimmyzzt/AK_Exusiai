@@ -48,6 +48,8 @@ public partial class Entry
         _patcher.RegisterPatch<ExusiaiMerchantCharacterReadyPatch>();
         _patcher.RegisterPatch<ExusiaiMerchantCharacterPlayAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiRestSiteCharacterReadyPatch>();
+        _patcher.RegisterPatch<ExusiaiCharacterSelectSfxPatch>();
+        _patcher.RegisterPatch<ExusiaiCustomSfxTokenPatch>();
         if (!_patcher.PatchAll())
             throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");
 
@@ -75,6 +77,8 @@ public partial class Entry
             $"{ResPath}/images/character/exusiai_select_bg.png",
             $"{ResPath}/images/character/exusiai_select_icon.jpg",
             $"{ResPath}/images/character/exusiai_icon.png",
+            $"{ResPath}/images/character/Exusiai_transition.png",
+            $"{ResPath}/materials/transitions/exusiai_transition_mat.tres",
             $"{ResPath}/images/relics/ExusiaiBadge.png",
             $"{ResPath}/images/relics/ExusiaiBadgeOutline.png",
             $"{ResPath}/images/relics/ExusiaiSurprise.png",
@@ -100,6 +104,9 @@ public partial class Entry
             $"{ResPath}/images/potions/BottledHalo.png",
             $"{ResPath}/images/potions/BottledHaloOutline.png",
             $"{ResPath}/images/ui/ammo.svg",
+            $"{ResPath}/images/ui/exusiai_energy.png",
+            $"{ResPath}/images/ui/exusiai_energy_big.png",
+            $"{ResPath}/audio/exusiai_select.wav",
             $"{ResPath}/scenes/character/exusiai_visuals.tscn",
             $"{ResPath}/scenes/character/exusiai_merchant.tscn",
             $"{ResPath}/scenes/character/exusiai_rest_site.tscn",
