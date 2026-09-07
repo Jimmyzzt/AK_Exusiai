@@ -12,7 +12,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class FreeDelivery : ExusiaiCardTemplate
 {
-    protected override bool ShowDeliveryHoverTip => !IsUpgraded;
+    protected override bool ShowDeliveryHoverTip => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -25,11 +25,11 @@ public sealed class FreeDelivery : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (!IsUpgraded &&
-            !await RelicLogisticsCmd.AddRandomDelivery(choiceContext, Owner, 1))
-        {
+        bool deliverySucceeded = IsUpgraded
+            ? await RelicLogisticsCmd.ChooseAndAddDelivery(choiceContext, Owner, 1)
+            : await RelicLogisticsCmd.AddRandomDelivery(choiceContext, Owner, 1);
+        if (!deliverySucceeded)
             return;
-        }
 
         bool alreadyHadFreeCards = Owner.Creature.HasPower<FreeCardsPower>();
         await PowerCmd.Apply<FreeCardsPower>(

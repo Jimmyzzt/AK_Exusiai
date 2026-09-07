@@ -2,6 +2,7 @@ using AK_Exusiai.Content;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -12,6 +13,9 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class SteadfastHeart : ExusiaiCardTemplate
 {
+    protected override IEnumerable<IHoverTip> CardHoverTips =>
+        [HoverTipFactory.FromCard<Injury>()];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(15m, ValueProp.Move),

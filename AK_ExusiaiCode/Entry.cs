@@ -28,6 +28,7 @@ public partial class Entry
         Assembly assembly = Assembly.GetExecutingAssembly();
         RitsuLibFramework.EnsureGodotScriptsRegistered(assembly, Logger);
         ExusiaiAppearanceManager.Initialize();
+        Effects.CardEffectStore.Initialize();
         ExusiaiKeywords.Register();
         ModTypeDiscoveryHub.RegisterModAssembly(ModId, assembly);
 

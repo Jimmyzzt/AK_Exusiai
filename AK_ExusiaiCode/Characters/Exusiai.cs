@@ -213,7 +213,14 @@ public sealed class Exusiai :
             null);
     }
 
-    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    public override async Task BeforeCardPlayed(CardPlay cardPlay)
+    {
+        if (cardPlay.Player.Character != this) return;
+        await AK_Exusiai.Effects.CardEffectRuntime.BeforeCard(cardPlay);
+        await PrepareAmmoCard(cardPlay);
+    }
+
+    private Task PrepareAmmoCard(CardPlay cardPlay)
     {
         if (cardPlay.Player.Character is not Exusiai || cardPlay.Card.Type != CardType.Attack)
             return Task.CompletedTask;
@@ -284,13 +291,15 @@ public sealed class Exusiai :
         }
 
         command.BeforeDamage(() => ApplyAmmoForNextDamageInstance(command));
+        AK_Exusiai.Effects.CardEffectRuntime.Configure(command);
         return Task.CompletedTask;
     }
 
-    public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         GetAmmoData().AttackModes.Remove(cardPlay);
-        return Task.CompletedTask;
+        if (cardPlay.Player.Character == this)
+            await AK_Exusiai.Effects.CardEffectRuntime.AfterCard(cardPlay);
     }
 
     public override decimal ModifyDamageAdditive(
