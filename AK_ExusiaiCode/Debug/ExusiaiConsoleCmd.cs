@@ -67,6 +67,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static readonly string[] Subcommands =
     [
         "help",
+        "fx",
         "scenario",
         "state",
         "logic",
@@ -79,7 +80,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 
     public override string CmdName => "exusiai";
 
-    public override string Args => "<scenario|state|logic|hand|replay|ammo|angel|interference> [args]";
+    public override string Args => "<fx|scenario|state|logic|hand|replay|ammo|angel|interference> [args]";
 
     public override string Description =>
         "Runs AK_Exusiai combat test fixtures and card-state utilities.";
@@ -95,6 +96,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         string[] subArgs = args.Skip(1).ToArray();
         return subcommand switch
         {
+            "fx" => ExusiaiEffectConsoleCmd.Process(issuingPlayer, subArgs),
             "scenario" or "test" => SetupScenario(issuingPlayer, subArgs),
             "state" => ShowState(issuingPlayer, subArgs),
             "logic" or "logistics" => SetupLogic(issuingPlayer, subArgs),
@@ -120,6 +122,8 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         }
 
         string subcommand = args[0].ToLowerInvariant();
+        if (subcommand == "fx" && args.Length == 2)
+            return CompleteArgument(["on", "off", "status"], [args[0]], args[1]);
         if (subcommand is "scenario" or "test")
         {
             if (args.Length == 2)
@@ -223,6 +227,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static CmdResult Help() => new(
         success: true,
         "[gold]Exusiai test commands[/gold]\n" +
+        "  exusiai fx <on|off|status> - Control the single-player card effect preview bridge.\n" +
         "  exusiai scenario <name> [base|upgraded] - Build an isolated V1 combat fixture; use 'scenario list' for names.\n" +
         "  exusiai state - Show Ammo, relevant player powers, and indexed enemy Interference/Silence.\n" +
         "  exusiai logic [delivery|transit] [base|upgraded] - Replace the hand with new relic-logistics test cards and set energy to 100.\n" +

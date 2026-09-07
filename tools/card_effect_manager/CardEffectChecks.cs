@@ -8,6 +8,11 @@ public partial class CardEffectChecks : Node
     {
         try
         {
+            var command = new AK_Exusiai.Debug.ExusiaiConsoleCmd();
+            Check(command.GetArgumentCompletions(null, ["f"]).CommonPrefix == "exusiai fx ", "FX subcommand completion");
+            var actions = command.GetArgumentCompletions(null, ["fx", ""]);
+            Check(actions.CommandPrefix == "exusiai fx " && actions.Candidates.SequenceEqual(new[] { "on", "off", "status" }), "FX action completion");
+            Check(command.GetArgumentCompletions(null, ["fx", "of"]).CommonPrefix == "exusiai fx off ", "FX partial action completion");
             CardEffectStore.Initialize(ProjectSettings.GlobalizePath("res://.godot/mono/temp/bin/Debug/sts2.dll"));
             Check(CardEffectStore.CatalogMatchesGame, "Catalog matches the referenced game DLL");
             // This fixture is written by Godot's JSON serializer in the UI smoke check.

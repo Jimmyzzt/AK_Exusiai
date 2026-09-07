@@ -10,13 +10,13 @@
 powershell -ExecutionPolicy Bypass -File .\tools\card_effect_manager\run_card_effect_manager.ps1
 ```
 
-首次使用游戏内试播前，需要退出游戏并完整构建一次 Mod：`dotnet build .\AK_Exusiai.csproj`。随后启动游戏，在能天使的单人战斗中按反引号打开控制台，输入 `exusiaifx on`。管理器会显示连接状态和当前敌人列表。`exusiaifx off` 关闭开发覆盖；退出战斗也会自动关闭。
+首次使用游戏内试播前，需要退出游戏并完整构建一次 Mod：`dotnet build .\AK_Exusiai.csproj`。随后启动游戏，在能天使的单人战斗中按反引号打开控制台，输入 `exusiai fx on`。管理器会显示连接状态和当前敌人列表。`exusiai fx off` 关闭开发覆盖；退出战斗也会自动关闭。
 
 ## 常用操作
 
 1. 右侧选择能天使卡牌，名称显示类型与关联预设，例如 `天赋 · 能力（天使buff通用）`。普通版和升级版始终共用一套效果。
 2. 左侧按中文卡名（例如“超能光束”“华丽收场”）、英文卡名或资源名搜索。选择组合预设后点“应用所选”；单个特效或音效通过“命中位置 / 出手位置”选择覆盖位置。
-3. 点击“试播当前卡牌效果 · F5”，或在管理器 / 游戏窗口按 **F5**。管理器自动准备当前卡牌配置、目标和段数；切到游戏后按 F5 即可重复试播，不必切回管理器。游戏需先启用 `exusiaifx on`。可选择单个敌人、全部敌人或自身；试播不结算伤害、消耗弹药或执行原卡玩法。
+3. 点击“试播当前卡牌效果 · F5”，或在管理器 / 游戏窗口按 **F5**。管理器自动准备当前卡牌配置、目标和段数；切到游戏后按 F5 即可重复试播，不必切回管理器。游戏需先启用 `exusiai fx on`。可选择单个敌人、全部敌人或自身；试播不结算伤害、消耗弹药或执行原卡玩法。
 4. 在中央拖动蓝色发射点，或填写 X/Y；可为六套已有外观分别存偏移。外观下拉框选择的是正在编辑的配置，不切换游戏角色。原生 Creature 工厂的效果会在详情中注明偏移限制。
 5. 编辑会自动保存并向已启用的游戏发送开发覆盖。用真实卡牌确认伤害段数、目标和音画时序后，再“导出当前 / 全部”，按正常流程构建发布。
 
@@ -42,6 +42,28 @@ powershell -ExecutionPolicy Bypass -File .\tools\card_effect_manager\run_card_ef
 
 ## 文件与开发检查
 
+### 自定义音效（目前需要登记目录）
+
+运行时可播放 Mod 内的 `AudioStream` 文件，但管理器尚无拖入文件或自动扫描外部音频功能。建议把短促换弹声剪去首尾静音，保存成不循环的 WAV；OGG 也可作为运行时音频。文件放在项目资源目录，例如 `AK_Exusiai/audio/card_effects/reload_rifle.wav`。
+
+需要在效果目录的 `entries` 中登记一次，示例：
+
+```json
+{
+  "id": "custom:reload_rifle",
+  "name": "步枪换弹",
+  "kind": "sfx",
+  "status": "adapted",
+  "adapter": "audio",
+  "resource": "res://AK_Exusiai/audio/card_effects/reload_rifle.wav",
+  "origins": ["combat"]
+}
+```
+
+目录文件为 `AK_Exusiai/config/card_effect_catalog.json`。这是生成文件：手动添加后运行 `rebuild_catalog.ps1` 会覆盖新增条目；长期接入应同时在 `build_catalog.mjs` 的条目生成阶段登记，或后续增加独立自定义目录导入功能。仅复制音频并点“重新扫描”不会自动登记。
+
+登记并完成 Godot 导入 / Mod 完整构建后，重启游戏和管理器，在“出手音效”选择该音效；换弹类技能可用“非攻击牌：出牌开始”。把它保存成共享“换弹通用”预设，再批量关联换弹卡即可。新文件首次加入需要构建进入 PCK；之后调音量和卡牌绑定可用开发热重载试播。保留作者、下载链接与许可记录，提交公开仓库前确认许可允许分发音频源文件。
+
 | 文件 | 用途 |
 | --- | --- |
 | `card_effect_manifest.json` | schema 2 编辑清单、共享预设引用、收藏和本机试播确认 |
@@ -54,7 +76,7 @@ Windows 默认桥接位置为 `%APPDATA%/SlayTheSpire2/AK_Exusiai/card_effect_ma
 
 旧清单首次打开时备份为 `card_effect_manifest.json.v1.bak`，随后迁移：普通配置为准，移除升级区分；与旧个人预设完全一致且只有一个匹配的卡牌自动关联，其他独立配置保留。编辑清单通过 `preset_ref` 引用稳定 ID，`presets` 保存名称和参数。正式导出与热重载会展开为 schema 1 的 `base` 配置，运行时忽略旧 `upgrade` 字段。“导出当前”也刷新此前已导出的卡牌，使共享修改全部同步；其他未导出卡仍不发布。发布仍需正常构建。
 
-`prepared_preview.json` 保存最近选择，用于游戏 F5；`request.json` 为按钮请求。F5 不会重放上一次按钮命令，也不依赖操作系统全局热键。管理器关闭后保留最后准备的配置；关闭 `exusiaifx` 或退出战斗后 F5 不再触发本工具。
+`prepared_preview.json` 保存最近选择，用于游戏 F5；`request.json` 为按钮请求。F5 不会重放上一次按钮命令，也不依赖操作系统全局热键。管理器关闭后保留最后准备的配置；关闭 `exusiai fx` 或退出战斗后 F5 不再触发本工具。
 
 启动脚本也支持 `-BridgeDirectory <路径>`。运行时比对实际游戏 DLL 指纹；不匹配时保持原有卡牌表现并拒绝试播，重建目录和 Mod 后恢复。未配置卡牌无需迁移。
 

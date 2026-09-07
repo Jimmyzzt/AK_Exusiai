@@ -227,7 +227,7 @@ func _build_ui() -> void:
 	_button(top, "重做", _redo_change)
 	_export_current = _button(top, "导出当前", func(): _export(false))
 	_button(top, "导出全部", func(): _export(true))
-	_connection = _label(root, "未连接 · 在能天使单人战斗控制台运行 exusiaifx on")
+	_connection = _label(root, "未连接 · 在能天使单人战斗控制台运行 exusiai fx on")
 	_split = HSplitContainer.new(); _split.size_flags_vertical = Control.SIZE_EXPAND_FILL; root.add_child(_split)
 	var left := _panel(_split, 245)
 	_label(left, "原版效果库", 18)
@@ -707,7 +707,7 @@ func _send_play(asset_only: bool) -> void:
 	_send({"action": "play", "entry": _selected if asset_only else "", "slot": _meta(_fields.slot), "config": config, "target": int(_target.get_selected_metadata()), "hits": int(_hits.value)})
 
 func _send(request: Dictionary) -> void:
-	if not _connected(): _set_status("请先在能天使单人战斗中运行 exusiaifx on。"); return
+	if not _connected(): _set_status("请先在能天使单人战斗中运行 exusiai fx on。"); return
 	if request.get("action", "") != "play": _trial_entry = ""
 	_last_request = str(Time.get_unix_time_from_system()) + "-" + str(Time.get_ticks_usec())
 	request.id = _last_request
@@ -726,7 +726,7 @@ func _process(delta: float) -> void:
 	_last_status = _read(_bridge_dir + "/status.json")
 	var online := _connected()
 	_trial.disabled = not online; _trial_asset.disabled = not online
-	_connection.text = "游戏已连接 · " + str(_last_status.get("message", "")) if online else "未连接 · 在能天使单人战斗控制台运行 exusiaifx on"
+	_connection.text = "游戏已连接 · " + str(_last_status.get("message", "")) if online else "未连接 · 在能天使单人战斗控制台运行 exusiai fx on"
 	if online:
 		var old_target = _target.get_selected_metadata()
 		_target.clear(); _target.add_item("全部敌人"); _target.set_item_metadata(0, -1); _target.add_item("自身（技能 / 能力）"); _target.set_item_metadata(1, -2)
