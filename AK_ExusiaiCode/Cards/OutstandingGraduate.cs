@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class OutstandingGraduate : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     public OutstandingGraduate() : base(1, CardType.Skill, CardRarity.Rare, TargetType.AllEnemies)

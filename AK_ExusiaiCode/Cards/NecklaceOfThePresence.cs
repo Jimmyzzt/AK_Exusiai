@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class NecklaceOfThePresence : ExusiaiCardTemplate
 {
+    protected override bool ShowFirepowerHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(3m)];
 
     public NecklaceOfThePresence() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)

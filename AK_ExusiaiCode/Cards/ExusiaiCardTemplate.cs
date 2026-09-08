@@ -2,6 +2,7 @@ using AK_Exusiai.Mechanics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.HoverTips;
+using AK_Exusiai.Powers;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -31,6 +32,8 @@ public abstract class ExusiaiCardTemplate(
     protected virtual bool ShowTransitHoverTip => false;
     protected virtual bool ShowAngelHoverTip => false;
     protected virtual bool ShowOverloadHoverTip => false;
+    protected virtual bool ShowInterferenceHoverTip => false;
+    protected virtual bool ShowFirepowerHoverTip => false;
     protected virtual IEnumerable<IHoverTip> CardHoverTips => [];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips
@@ -47,6 +50,10 @@ public abstract class ExusiaiCardTemplate(
                 yield return ExusiaiKeywords.AngelHoverTip;
             if (ShowAmmoHoverTip || ShowOverloadHoverTip)
                 yield return ExusiaiKeywords.OverloadHoverTip;
+            if (ShowInterferenceHoverTip)
+                yield return HoverTipFactory.FromPower<InterferencePower>();
+            if (ShowFirepowerHoverTip)
+                yield return HoverTipFactory.FromPower<FirepowerPower>();
 
             foreach (IHoverTip hoverTip in CardHoverTips)
                 yield return hoverTip;

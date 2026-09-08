@@ -13,6 +13,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Flashbang : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

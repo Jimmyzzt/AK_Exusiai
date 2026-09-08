@@ -16,11 +16,19 @@ public sealed class HolyCityRadiance : ExusiaiCardTemplate
     private const string CalculatedHitsKey = "CalculatedHits";
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Move),
+        new DamageVar(7m, ValueProp.Move),
         new CalculationBaseVar(0m),
         new CalculationExtraVar(1m),
         new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) =>
-            card.Owner.PlayerCombatState?.AllCards.Count(AngelCmd.IsAngel) ?? 0),
+            card.Owner.PlayerCombatState == null
+                ? 0
+                : CardPile.GetCards(
+                        card.Owner,
+                        PileType.Draw,
+                        PileType.Hand,
+                        PileType.Discard,
+                        PileType.Play)
+                    .Count(AngelCmd.IsAngel)),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];

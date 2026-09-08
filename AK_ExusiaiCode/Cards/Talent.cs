@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Talent : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TalentPower>(15m)];
 
     public Talent() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }

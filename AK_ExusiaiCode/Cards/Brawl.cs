@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Brawl : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Interference", 1m)];
 
     public Brawl() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy) { }

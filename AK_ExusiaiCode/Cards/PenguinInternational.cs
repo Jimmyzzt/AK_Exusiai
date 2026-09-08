@@ -31,7 +31,7 @@ public sealed class PenguinInternational : ExusiaiCardTemplate
             return;
         }
 
-        RelicModel? transit = await RelicLogisticsCmd.ChooseTransitRelic(Owner);
+        RelicModel? transit = await RelicLogisticsCmd.ChooseTransitRelic(choiceContext, Owner);
         transit?.GetOrCreateCapability<RelicLogisticsCapability>()
             .StartOrExtendTransit(DynamicVars["Transit"].IntValue);
     }

@@ -11,6 +11,8 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class TargetTheWeakSpot : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
+    protected override bool ShowFirepowerHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<FirepowerPower>(2m)];
 
     public TargetTheWeakSpot() : base(0, CardType.Skill, CardRarity.Rare, TargetType.AnyEnemy) { }

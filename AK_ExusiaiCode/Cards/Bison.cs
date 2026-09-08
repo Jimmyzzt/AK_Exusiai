@@ -12,11 +12,11 @@ namespace AK_Exusiai.Cards;
 public sealed class Bison : ExusiaiCardTemplate
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(12m, ValueProp.Move)];
     public Bison() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(6m);
 }

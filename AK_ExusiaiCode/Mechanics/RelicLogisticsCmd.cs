@@ -4,6 +4,7 @@ using AK_Exusiai.Relics;
 using MegaCrit.Sts2.Core.Audio.Debug;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Context;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Extensions;
@@ -67,12 +68,14 @@ public static class RelicLogisticsCmd
     public static IReadOnlyList<RelicModel> GetDeliveryTargets(Player player) =>
         SortForDisplay(player, player.Relics.Where(IsDeliveryTarget));
 
-    public static async Task<RelicModel?> ChooseDeliveryTarget(Player player)
+    public static async Task<RelicModel?> ChooseDeliveryTarget(
+        PlayerChoiceContext choiceContext,
+        Player player)
     {
         IReadOnlyList<RelicModel> targets = GetDeliveryTargets(player);
         return targets.Count == 0
             ? null
-            : await RelicSelectCmd.FromChooseARelicScreen(player, targets);
+            : await SelectRelic(choiceContext, player, targets);
     }
 
     public static async Task<bool> ChooseAndAddDelivery(
@@ -80,7 +83,7 @@ public static class RelicLogisticsCmd
         Player player,
         int amount)
     {
-        RelicModel? relic = await ChooseDeliveryTarget(player);
+        RelicModel? relic = await ChooseDeliveryTarget(choiceContext, player);
         if (relic == null)
             return false;
 
@@ -152,15 +155,18 @@ public static class RelicLogisticsCmd
     public static void ReactivateDelivery(RelicModel relic) =>
         relic.Capability<RelicLogisticsCapability>()?.ReactivateDelivery();
 
-    public static async Task<RelicModel?> ChooseDeliveredRelic(Player player)
+    public static async Task<RelicModel?> ChooseDeliveredRelic(
+        PlayerChoiceContext choiceContext,
+        Player player)
     {
         IReadOnlyList<RelicModel> targets = GetDeliveredRelics(player);
         return targets.Count == 0
             ? null
-            : await RelicSelectCmd.FromChooseARelicScreen(player, targets);
+            : await SelectRelic(choiceContext, player, targets);
     }
 
     public static async Task<IReadOnlyList<RelicModel>> ChooseDeliveredRelics(
+        PlayerChoiceContext choiceContext,
         Player player,
         int maxCount)
     {
@@ -168,7 +174,7 @@ public static class RelicLogisticsCmd
         List<RelicModel> selected = [];
         while (available.Count > 0 && selected.Count < maxCount)
         {
-            RelicModel? relic = await RelicSelectCmd.FromChooseARelicScreen(player, available);
+            RelicModel? relic = await SelectRelic(choiceContext, player, available);
             if (relic == null)
                 break;
 
@@ -179,12 +185,14 @@ public static class RelicLogisticsCmd
         return selected;
     }
 
-    public static async Task<RelicModel?> ChooseTransitRelic(Player player)
+    public static async Task<RelicModel?> ChooseTransitRelic(
+        PlayerChoiceContext choiceContext,
+        Player player)
     {
         IReadOnlyList<RelicModel> targets = GetTransitRelics(player);
         return targets.Count == 0
             ? null
-            : await RelicSelectCmd.FromChooseARelicScreen(player, targets);
+            : await SelectRelic(choiceContext, player, targets);
     }
 
     public static async Task<RelicModel?> AddNamedTransit<T>(Player player, int amount)
@@ -311,5 +319,21 @@ public static class RelicLogisticsCmd
         }
 
         return -1;
+    }
+
+    private static async Task<RelicModel?> SelectRelic(
+        PlayerChoiceContext choiceContext,
+        Player player,
+        IReadOnlyList<RelicModel> relics)
+    {
+        await choiceContext.SignalPlayerChoiceBegun(player, PlayerChoiceOptions.None);
+        try
+        {
+            return await RelicSelectCmd.FromChooseARelicScreen(player, relics);
+        }
+        finally
+        {
+            await choiceContext.SignalPlayerChoiceEnded();
+        }
     }
 }

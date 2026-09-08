@@ -12,6 +12,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class DisruptiveStrike : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     private const string CalculatedHitsKey = "CalculatedHits";
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

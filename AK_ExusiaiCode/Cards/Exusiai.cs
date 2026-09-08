@@ -17,7 +17,7 @@ public sealed class Exusiai : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("Ammo", 3m),
-        new DynamicVar("Heal", 2m),
+        new DynamicVar("Heal", 5m),
     ];
     public Exusiai() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
 

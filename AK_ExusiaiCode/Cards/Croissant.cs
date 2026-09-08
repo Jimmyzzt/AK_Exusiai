@@ -14,8 +14,8 @@ public sealed class Croissant : ExusiaiCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(6m, ValueProp.Move),
-        new GoldVar(10),
+        new BlockVar(9m, ValueProp.Move),
+        new GoldVar(15),
     ];
     public Croissant() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
 
@@ -25,5 +25,5 @@ public sealed class Croissant : ExusiaiCardTemplate
         await PlayerCmd.GainGold(DynamicVars.Gold.BaseValue, Owner);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(4m);
 }

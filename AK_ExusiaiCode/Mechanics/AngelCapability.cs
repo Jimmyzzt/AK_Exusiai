@@ -84,8 +84,6 @@ public sealed class AngelCapability : CardCapability, ICardDescriptionContributo
     protected override JsonNode SaveAdditionalState() => new JsonObject
     {
         ["hasFreePlay"] = _hasFreePlay,
-        ["addedKeyword"] = _addedKeyword,
-        ["addedRetain"] = _addedRetain,
     };
 
     protected override void LoadAdditionalState(JsonNode? state, int schemaVersion)
@@ -94,8 +92,6 @@ public sealed class AngelCapability : CardCapability, ICardDescriptionContributo
             return;
 
         _hasFreePlay = obj["hasFreePlay"]?.GetValue<bool>() ?? true;
-        _addedKeyword = obj["addedKeyword"]?.GetValue<bool>() ?? false;
-        _addedRetain = obj["addedRetain"]?.GetValue<bool>() ?? false;
     }
 
     protected override void OnAttach(CardModel owner) => EnsurePresentation();

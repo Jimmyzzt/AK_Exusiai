@@ -36,7 +36,7 @@ public sealed class GuaranteedSuccess : ExusiaiCardTemplate
             .Execute(choiceContext);
 
         MegaCrit.Sts2.Core.Models.RelicModel? selected =
-            await RelicLogisticsCmd.ChooseDeliveredRelic(Owner);
+            await RelicLogisticsCmd.ChooseDeliveredRelic(choiceContext, Owner);
         if (selected != null)
             RelicLogisticsCmd.ReactivateDelivery(selected);
     }

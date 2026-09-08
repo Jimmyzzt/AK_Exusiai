@@ -13,6 +13,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class RockNRoll : ExusiaiCardTemplate
 {
+    protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(10m, ValueProp.Move),

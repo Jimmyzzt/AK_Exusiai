@@ -22,18 +22,16 @@ public sealed class CovenantOfBullets : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        int handSlots = Math.Max(0, CardPile.MaxCardsInHand - PileType.Hand.GetPile(Owner).Cards.Count);
         int count = Math.Min(
             DynamicVars.Cards.IntValue,
-            Math.Min(PileType.Discard.GetPile(Owner).Cards.Count, handSlots));
+            PileType.Hand.GetPile(Owner).Cards.Count);
         if (count > 0)
         {
             IReadOnlyList<CardModel> selected = (await CardSelectCmd.FromCombatPile(
                 choiceContext,
-                PileType.Discard.GetPile(Owner),
+                PileType.Hand.GetPile(Owner),
                 Owner,
                 new CardSelectorPrefs(SelectionScreenPrompt, count))).ToList();
-            await CardPileCmd.Add(selected, PileType.Hand);
             foreach (CardModel card in selected)
                 await AngelCmd.Add(choiceContext, card);
         }
