@@ -13,9 +13,9 @@ public sealed class ExusiaiCardPool : TypeListCardPoolModel
     public override string Title => "exusiai";
     public override string EnergyColorName => "ironclad";
     public override string? TextEnergyIconPath =>
-        $"{Entry.ResPath}/images/ui/exusiai_energy.png";
+        $"{Entry.ResPath}/images/ui/exusiai_energy_text.svg";
     public override string? BigEnergyIconPath =>
-        $"{Entry.ResPath}/images/ui/exusiai_energy_big.png";
+        $"{Entry.ResPath}/images/ui/exusiai_energy_big.svg";
     public override string CardFrameMaterialPath => "card_frame_red";
     public override Material? PoolFrameMaterial => PoolFrameTintMaterial;
     public override Color DeckEntryCardColor => new("D73545");

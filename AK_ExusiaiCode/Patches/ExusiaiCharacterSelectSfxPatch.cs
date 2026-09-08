@@ -9,7 +9,7 @@ namespace AK_Exusiai.Patches;
 internal sealed class ExusiaiCharacterSelectSfxPatch : IPatchMethod
 {
     private const string CharacterSelectStream = "exusiai_select.wav";
-    private const float CharacterSelectVolume = 0.3f;
+    private const float CharacterSelectVolume = 0.5f;
 
     public static string PatchId => "exusiai_character_select_sfx";
     public static string Description => "Play Exusiai's packaged character-select sound";
