@@ -1185,7 +1185,7 @@
       "top_color": "949494",
       "bottom_color": "d83b33",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1812,7 +1812,7 @@
       "top_color": "ffcd89",
       "bottom_color": "b44a3f",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1832,6 +1832,120 @@
       "bottom_color": "ee9558",
       "motif": "auto",
       "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Blessing": {
+      "source": "references/official/asset/Avg_26_i12.png",
+      "zoom": 1.0,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Compassion": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_145603_102.png",
+      "zoom": 1.166,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Karaoke": {
+      "source": "references/official/asset/微信图片_2026-09-08_220415_069_rembg.png",
+      "zoom": 0.4,
+      "offset": [
+        -0.0112,
+        -0.006
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "radial",
+      "texture": "rays",
+      "top_color": "ee9558",
+      "bottom_color": "540005",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "RadiantWingStrike": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_004604_900.png",
+      "zoom": 2.332,
+      "offset": [
+        0.0046,
+        -0.1858
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Unboxing": {
+      "source": "references/official/asset/微信图片_2026-09-08_221235_856.png",
+      "zoom": 0.54,
+      "offset": [
+        0.0,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "custom",
+      "gradient_mode": "vertical",
+      "texture": "none",
+      "top_color": "eec42d",
+      "bottom_color": "9d6037",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "YaneseCanFly": {
+      "source": "references/free/asset/ScreenShot_2026-09-08_222906_870.png",
+      "zoom": 2.0,
+      "offset": [
+        0.004,
+        0.1686
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     }

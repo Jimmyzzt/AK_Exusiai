@@ -37,6 +37,8 @@ public sealed class Exusiai :
 
     private const string CharacterScenePath =
         $"{Entry.ResPath}/scenes/character/exusiai_visuals.tscn";
+    private const string EnergyCounterScenePath =
+        $"{Entry.ResPath}/scenes/character/exusiai_energy_counter.tscn";
     private const string MerchantScenePath =
         $"{Entry.ResPath}/scenes/character/exusiai_merchant.tscn";
     private const string RestSiteScenePath =
@@ -76,6 +78,7 @@ public sealed class Exusiai :
     public override CharacterAssetProfile AssetProfile => new(
         Scenes: new CharacterSceneAssetSet(
             VisualsPath: CharacterScenePath,
+            EnergyCounterPath: EnergyCounterScenePath,
             MerchantAnimPath: MerchantScenePath,
             RestSiteAnimPath: RestSiteScenePath),
         Ui: new CharacterUiAssetSet(
