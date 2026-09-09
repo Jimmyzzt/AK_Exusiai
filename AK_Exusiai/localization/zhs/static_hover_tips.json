@@ -1,5 +1,5 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "弹药",
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "打出攻击牌时，其每段伤害消耗 1 发弹药且伤害+2；若打出前弹药超过10，每多出 5 发使增伤额外 +1。弹药上限 30；达到上限时进入[gold]过载[/gold]。",
-  "AK_EXUSIAI_FIREPOWER_GENERIC.description": "弹药额外增加伤害。"
+  "AK_EXUSIAI_FIREPOWER_GENERIC.description": "火力会使弹药额外增加伤害。"
 }

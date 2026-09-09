@@ -51,9 +51,12 @@ public abstract class ExusiaiCardTemplate(
             if (ShowAmmoHoverTip || ShowOverloadHoverTip)
                 yield return ExusiaiKeywords.OverloadHoverTip;
             if (ShowInterferenceHoverTip)
+            {
                 yield return HoverTipFactory.FromPower<InterferencePower>();
+                yield return HoverTipFactory.FromPower<SilencePower>(1);
+            }
             if (ShowFirepowerHoverTip)
-                yield return HoverTipFactory.FromPower<FirepowerPower>();
+                yield return FirepowerPower.CreateGenericHoverTip();
 
             foreach (IHoverTip hoverTip in CardHoverTips)
                 yield return hoverTip;

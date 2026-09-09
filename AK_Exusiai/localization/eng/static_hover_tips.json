@@ -1,5 +1,5 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "Ammo",
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "When you play an Attack, each hit spends 1 Ammo and deals 2 more damage. If you had more than 10 Ammo before playing it, every 5 additional Ammo increases this bonus by 1. Maximum 30 Ammo; reaching the maximum enters [gold]Overload[/gold].",
-  "AK_EXUSIAI_FIREPOWER_GENERIC.description": "Ammo deals additional damage."
+  "AK_EXUSIAI_FIREPOWER_GENERIC.description": "Firepower causes Ammo to deal additional damage."
 }
