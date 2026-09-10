@@ -27,7 +27,7 @@ public sealed class Texas : ExusiaiCardTemplate, IAmmoFreeAttack
         new PowerVar<WeakPower>(1m),
     ];
 
-    public Texas() : base(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies, false)
+    public Texas() : base(0, CardType.Attack, CardRarity.Token, TargetType.AllEnemies)
     {
     }
 

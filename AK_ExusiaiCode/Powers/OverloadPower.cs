@@ -40,15 +40,17 @@ public sealed class OverloadPower : ModPowerTemplate, ISecondaryResourceHookList
             return;
         }
 
-        bool retainAmmo = Owner.HasPower<OverloadAmmoRetentionPower>();
+        bool retainHalfAmmo = Owner.HasPower<OverloadAmmoRetentionPower>();
+        int retainedAmmo = retainHalfAmmo
+            ? SecondaryResourceCmd.Get(player, AmmoResource.Id) / 2
+            : 0;
         if (Owner.GetPower<OverloadAmmoRetentionPower>() is { } retention)
             await PowerCmd.Remove(retention);
 
         // Remove Overload before resetting Ammo: while this power is active its
         // resource hook intentionally rejects all Ammo changes.
         await PowerCmd.Remove(this);
-        if (!retainAmmo)
-            await SecondaryResourceCmd.Set(player, AmmoResource.Id, 0, this);
+        await SecondaryResourceCmd.Set(player, AmmoResource.Id, retainedAmmo, this);
 
         Exusiai.ClearAmmoTransientState(player);
     }

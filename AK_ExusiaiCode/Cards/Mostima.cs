@@ -11,7 +11,7 @@ namespace AK_Exusiai.Cards;
 public sealed class Mostima : ExusiaiCardTemplate
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public Mostima() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
+    public Mostima() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

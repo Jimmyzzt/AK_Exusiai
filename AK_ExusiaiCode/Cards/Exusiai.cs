@@ -19,7 +19,7 @@ public sealed class Exusiai : ExusiaiCardTemplate
         new DynamicVar("Ammo", 3m),
         new DynamicVar("Heal", 5m),
     ];
-    public Exusiai() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
+    public Exusiai() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

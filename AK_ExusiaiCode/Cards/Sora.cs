@@ -20,7 +20,7 @@ public sealed class Sora : ExusiaiCardTemplate
         new PowerVar<StrengthPower>(1m),
         new PowerVar<WeakPower>(2m),
     ];
-    public Sora() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
+    public Sora() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

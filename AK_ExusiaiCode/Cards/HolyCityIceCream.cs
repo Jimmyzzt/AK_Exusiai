@@ -17,7 +17,7 @@ public sealed class HolyCityIceCream : ExusiaiCardTemplate
         [CardKeyword.Retain, CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-    public HolyCityIceCream() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public HolyCityIceCream() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
     }
 

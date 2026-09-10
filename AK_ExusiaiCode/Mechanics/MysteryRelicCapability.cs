@@ -1,5 +1,6 @@
 using System.Text.Json.Nodes;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models.Capabilities;
@@ -7,8 +8,9 @@ using STS2RitsuLib.Models.Capabilities;
 namespace AK_Exusiai.Mechanics;
 
 /// <summary>
-/// Stores Free Delivery's player-specific mystery relic on one of that
-/// player's relics so the result and reveal state survive save/load.
+/// Stores Free Delivery's player-specific mystery relic redundantly on that
+/// player's relics and Free Delivery deck copies, so replacing a starter relic
+/// cannot discard the state.
 /// </summary>
 [RegisterModelCapability]
 public sealed class MysteryRelicCapability : ModelCapability
@@ -40,7 +42,8 @@ public sealed class MysteryRelicCapability : ModelCapability
 
     protected override void OnAttach(AbstractModel owner)
     {
-        if (owner is not RelicModel)
-            throw new InvalidOperationException("Mystery relic state must be attached to a relic.");
+        if (owner is not RelicModel and not CardModel)
+            throw new InvalidOperationException(
+                "Mystery relic state must be attached to a relic or deck card.");
     }
 }

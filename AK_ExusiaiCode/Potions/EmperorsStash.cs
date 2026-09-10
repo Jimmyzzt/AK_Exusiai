@@ -22,7 +22,7 @@ public sealed class EmperorsStash : ExusiaiPotionTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        LogisticsCardCatalog.CreateTextHoverTips(upgraded: false);
+        LogisticsCardCatalog.CreateHoverTips(upgraded: false);
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {

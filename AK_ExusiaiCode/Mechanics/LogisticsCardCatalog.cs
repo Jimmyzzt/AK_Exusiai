@@ -21,8 +21,17 @@ public static class LogisticsCardCatalog
         ModelDb.Card<Mostima>(),
     ];
 
-    public static IEnumerable<IHoverTip> CreateTextHoverTips(bool upgraded)
+    public static IEnumerable<IHoverTip> CreateHoverTips(bool upgraded)
     {
+        yield return HoverTipFactory.FromCard<Emperor>(upgraded);
+        yield return HoverTipFactory.FromCard<Texas>(upgraded);
+        yield return HoverTipFactory.FromCard<Exusiai>(upgraded);
+        yield return HoverTipFactory.FromCard<Croissant>(upgraded);
+        yield return HoverTipFactory.FromCard<Sora>(upgraded);
+        yield return HoverTipFactory.FromCard<Bison>(upgraded);
+        yield return HoverTipFactory.FromCard<Ylth>(upgraded);
+        yield return HoverTipFactory.FromCard<Mostima>(upgraded);
+
         yield return new HoverTip(
             new LocString("static_hover_tips", upgraded
                 ? "AK_EXUSIAI_UPGRADED_LOGISTICS_CARD.title"
@@ -30,23 +39,6 @@ public static class LogisticsCardCatalog
             new LocString("static_hover_tips", upgraded
                 ? "AK_EXUSIAI_UPGRADED_LOGISTICS_CARD.description"
                 : "AK_EXUSIAI_LOGISTICS_CARD.description"));
-
-        foreach (CardModel canonical in CanonicalCards)
-        {
-            CardModel card = canonical;
-            if (upgraded)
-            {
-                card = canonical.ToMutable();
-                card.UpgradeInternal();
-                card.FinalizeUpgradeInternal();
-            }
-
-            string suffix = upgraded ? "_UPGRADED" : string.Empty;
-            string shortId = canonical.Id.Entry.Replace("AK_EXUSIAI_CARD_", string.Empty);
-            yield return new HoverTip(
-                new LocString("static_hover_tips", $"AK_EXUSIAI_LOGISTICS_{shortId}{suffix}.title"),
-                card.GetDescriptionForPile(PileType.None));
-        }
     }
 
     private static IReadOnlyList<CardModel> WeightedCards =>

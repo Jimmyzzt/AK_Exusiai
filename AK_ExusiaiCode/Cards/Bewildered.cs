@@ -5,21 +5,21 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
-[RegisterCard(typeof(ExusiaiCardPool))]
+[RegisterCard(typeof(CurseCardPool))]
 public sealed class Bewildered : ExusiaiCardTemplate
 {
     private int _cardsInHand;
 
     public override int MaxUpgradeLevel => 0;
     public override bool HasTurnEndInHandEffect => true;
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-        [CardKeyword.Retain, CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Regret>()];
 
     public Bewildered() : base(1, CardType.Curse, CardRarity.Curse, TargetType.Self) { }

@@ -1,12 +1,12 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
+using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -37,8 +37,14 @@ public sealed class CovenantOfBullets : ExusiaiCardTemplate
             }
         }
 
-        int ammo = PileType.Hand.GetPile(Owner).Cards.Count + DynamicVars["AmmoBonus"].IntValue;
-        await SecondaryResourceCmd.Gain(Owner, AmmoResource.Id, ammo, this);
+        await PowerCmd.Apply<CovenantOfBulletsPower>(
+            choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        if (DynamicVars["AmmoBonus"].IntValue > 0)
+        {
+            await PowerCmd.Apply<CovenantOfBulletsBonusPower>(
+                choiceContext, Owner.Creature, 1m, Owner.Creature, this);
+        }
+
         if (cardPlay.IsLastInSeries)
             PlayerCmd.EndTurn(Owner, false);
     }

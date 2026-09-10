@@ -24,6 +24,19 @@ function Card-Loc([hashtable]$Target, [string]$Id, [string]$Title, [string]$Desc
     if ($Prompt) { $Target["AK_EXUSIAI_CARD_$Id.selectionScreenPrompt"] = $Prompt }
 }
 
+function Remove-BlueMarkupFromCardDescriptions([string]$Path) {
+    $json = Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($property in $json.PSObject.Properties) {
+        if ($property.Name -match '\.(description|smartDescription)$') {
+            $property.Value = [regex]::Replace(
+                [string]$property.Value,
+                '\[blue\](.*?)\[/blue\]',
+                '$1')
+        }
+    }
+    $json | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $Path -Encoding utf8NoBOM
+}
+
 $zhs = @{}
 Card-Loc $zhs 'STAR' '★' '造成{Damage:diff()}点伤害。若本次攻击消耗[gold]弹药[/gold]，升级你手牌中的{IfUpgraded:show:所有|[blue]1[/blue]张}牌。' '选择一张牌升级。'
 Card-Loc $zhs 'ARMED_ESCORT' '武装护送' '造成{Damage:diff()}点伤害。获得[gold]中转[blue]1[/blue][/gold]开心小花。'
@@ -51,7 +64,8 @@ Card-Loc $zhs 'PENGUIN_STANDARD' '企鹅标快' '选择一个遗物获得[gold]�
 Card-Loc $zhs 'PENGUIN_INTERNATIONAL' '企鹅跨境' '选择一个遗物获得[gold]快递{Delivery:diff()}[/gold]。使{TransitCount:diff()}个中转遗物获得[gold]中转{Transit:diff()}[/gold]。'
 Card-Loc $zhs 'ROCK_N_GOSPEL' '福音摇滚！' '给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]和{Interference:diff()}层[gold]干扰[/gold]。'
 Card-Loc $zhs 'GROUP_PHOTO' '大合照！' '将一张随机{IfUpgraded:show:升级的|}[gold]物流卡[/gold]加入你的手牌。'
-Card-Loc $zhs 'COVENANT_OF_BULLETS' '铳弹协约' '将弃牌堆中的[blue]1[/blue]张牌加入你的手牌并使其获得[gold]天使[/gold]。获得等于手牌数{IfUpgraded:show:加[blue]2[/blue]|}的[gold]弹药[/gold]。\n结束你的回合。' '选择一张牌加入手牌并添加天使。'
+Card-Loc $zhs 'COVENANT_OF_BULLETS' '铳弹协约' '使弃牌堆中1张牌获得[gold]天使[/gold]并加入手牌。\n结束你的回合。\n下回合开始时，获得等于你手牌数{IfUpgraded:show:加2|}的[gold]弹药[/gold]。' '选择一张牌加入手牌并添加天使。'
+Card-Loc $zhs 'OVERLOADING_MODE' '过载模式' '进入[gold]过载[/gold]。本回合结束时，保留一半的[gold]弹药[/gold]。'
 Card-Loc $zhs 'PIETY' '虔诚' '使抽牌堆中的一张牌获得[gold]天使[/gold]。抽{Cards:diff()}张牌。' '选择一张牌添加天使。'
 Card-Loc $zhs 'PENGUIN_FREIGHT' '企鹅大件' '选择一个遗物获得[gold]快递{Delivery:diff()}[/gold]。获得{Block:diff()}点[gold]格挡[/gold]。你的下一回合开始时格挡不会消失。'
 Card-Loc $zhs 'HOLY_CITY_EMBRACE' '圣城之拥' '每拥有[blue]1[/blue]张[gold]天使[/gold]牌，此牌使你获得{Block:diff()}点[gold]格挡[/gold][blue]1[/blue]次。{InCombat:\n（获得{CalculatedBlocks:diff()}次）|}'
@@ -62,7 +76,7 @@ Card-Loc $zhs 'THE_SAINTS_TRAVELS' '圣徒行记' '获得[blue]1[/blue]点[gold]
 Card-Loc $zhs 'BRAWL' '喧闹' '给予{Interference:diff()}层[gold]干扰[/gold]。敌人身上每有[blue]2[/blue]层干扰，额外给予[blue]1[/blue]层干扰。'
 Card-Loc $zhs 'DISRUPTIVE_STRIKE' '干扰打击' '造成{Damage:diff()}点伤害。敌人每有[blue]1[/blue]层[gold]干扰[/gold]，这张牌就额外攻击一次。{InCombat:\n（命中{CalculatedHits:diff()}次）|}'
 Card-Loc $zhs 'BEWILDERED' '茫然' '[gold]悔恨[/gold]。'
-Card-Loc $zhs 'WAYWARD' '歧途' '无法被打出。被消耗或在战斗中变化时，使你减少[blue]1[/blue]点[gold]力量[/gold]与[gold]敏捷[/gold]。'
+Card-Loc $zhs 'WAYWARD' '歧途' '被消耗或在战斗中变化时，使你减少1点[gold]力量[/gold]与[gold]敏捷[/gold]。'
 
 $eng = @{}
 Card-Loc $eng 'STAR' '★' 'Deal {Damage:diff()} damage. If this Attack spends [gold]Ammo[/gold], Upgrade {IfUpgraded:show:ALL cards|[blue]1[/blue] card} in your hand.' 'Choose a card to Upgrade.'
@@ -91,7 +105,8 @@ Card-Loc $eng 'PENGUIN_STANDARD' 'Penguin Standard' 'Choose a relic to gain [gol
 Card-Loc $eng 'PENGUIN_INTERNATIONAL' 'Penguin International' 'Choose a relic to gain [gold]Delivery {Delivery:diff()}[/gold]. Give {TransitCount:diff()} Transit relics [gold]Transit {Transit:diff()}[/gold].'
 Card-Loc $eng 'ROCK_N_GOSPEL' "Rock n' Gospel!" 'Apply {WeakPower:diff()} [gold]Weak[/gold] and {Interference:diff()} [gold]Interference[/gold] to ALL enemies.'
 Card-Loc $eng 'GROUP_PHOTO' 'Group Photo!' 'Add a random {IfUpgraded:show:Upgraded |}[gold]Logistics Card[/gold] to your hand.'
-Card-Loc $eng 'COVENANT_OF_BULLETS' 'Covenant of Bullets' 'Return [blue]1[/blue] card from your discard pile to your hand and give it [gold]Angel[/gold]. Gain [gold]Ammo[/gold] equal to your hand size{IfUpgraded:show: plus [blue]2[/blue]|}.\nEnd your turn.' 'Choose a card to return and give Angel.'
+Card-Loc $eng 'COVENANT_OF_BULLETS' 'Covenant of Bullets' 'Give 1 card in your discard pile [gold]Angel[/gold] and return it to your hand.\nEnd your turn.\nAt the start of your next turn, gain [gold]Ammo[/gold] equal to your hand size{IfUpgraded:show: plus 2|}.' 'Choose a card to return and give Angel.'
+Card-Loc $eng 'OVERLOADING_MODE' 'Overloading Mode' 'Enter [gold]Overload[/gold]. At the end of this turn, retain half your [gold]Ammo[/gold].'
 Card-Loc $eng 'PIETY' 'Piety' 'Give a card in your draw pile [gold]Angel[/gold]. Draw {Cards:diff()} cards.' 'Choose a card to gain Angel.'
 Card-Loc $eng 'PENGUIN_FREIGHT' 'Penguin Freight' 'Choose a relic to gain [gold]Delivery {Delivery:diff()}[/gold]. Gain {Block:diff()} [gold]Block[/gold]. At the start of your next turn, Block is not removed.'
 Card-Loc $eng 'HOLY_CITY_EMBRACE' 'Holy City Embrace' 'For each [gold]Angel[/gold] card you have, gain {Block:diff()} [gold]Block[/gold] [blue]1[/blue] time. {InCombat:\n(Gain Block {CalculatedBlocks:diff()} times)|}'
@@ -102,15 +117,25 @@ Card-Loc $eng 'THE_SAINTS_TRAVELS' "The Saints' Travels" 'Gain [blue]1[/blue] [g
 Card-Loc $eng 'BRAWL' 'Brawl' 'Apply {Interference:diff()} [gold]Interference[/gold], plus [blue]1[/blue] for every [blue]2[/blue] Interference the enemy already has.'
 Card-Loc $eng 'DISRUPTIVE_STRIKE' 'Disruptive Strike' 'Deal {Damage:diff()} damage. Attack once more for each [blue]1[/blue] [gold]Interference[/gold] the enemy has. {InCombat:\n(Hits {CalculatedHits:diff()} times)|}'
 Card-Loc $eng 'BEWILDERED' 'Bewildered' '[gold]Regret[/gold].'
-Card-Loc $eng 'WAYWARD' 'Wayward' 'Unplayable. When Exhausted or transformed during combat, lose [blue]1[/blue] [gold]Strength[/gold] and [gold]Dexterity[/gold].'
+Card-Loc $eng 'WAYWARD' 'Wayward' 'When Exhausted or transformed during combat, lose 1 [gold]Strength[/gold] and [gold]Dexterity[/gold].'
 
 $zhsCards = Join-Path $Root 'AK_Exusiai/localization/zhs/cards.json'
 $engCards = Join-Path $Root 'AK_Exusiai/localization/eng/cards.json'
 $flash = @('AK_EXUSIAI_CARD_FLASHBANG.title', 'AK_EXUSIAI_CARD_FLASHBANG.description', 'AK_EXUSIAI_CARD_FLASHBANG.smartDescription')
 Update-LocFile $zhsCards $zhs $flash
 Update-LocFile $engCards $eng $flash
+Remove-BlueMarkupFromCardDescriptions $zhsCards
+Remove-BlueMarkupFromCardDescriptions $engCards
 
 $zhsPowers = @{
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.title' = '铳弹协约'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.description' = '下回合开始时，获得等于手牌数的弹药。剩余[blue]{Amount}[/blue]次。'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription' = '下回合开始时，获得等于手牌数的弹药。剩余[blue]{Amount}[/blue]次。'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title' = '铳弹协约升级加成'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.description' = '铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.smartDescription' = '铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。'
+    'AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description' = '本回合结束时，保留一半的[gold]弹药[/gold]。'
+    'AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription' = '本回合结束时，保留一半的[gold]弹药[/gold]。'
     'AK_EXUSIAI_POWER_INTERFERENCE_POWER.description' = '每层使攻击造成的伤害降低[blue]5%[/blue]，最多降低[blue]50%[/blue]。获得干扰时及每额外获得[blue]5[/blue]层干扰后，获得[gold]沉默[/gold]。'
     'AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription' = '每层使攻击造成的伤害降低[blue]5%[/blue]，最多降低[blue]50%[/blue]。获得干扰时及每额外获得[blue]5[/blue]层干扰后，获得[gold]沉默[/gold]。'
     'AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description' = '在回合开始时，选择[blue]{Amount}[/blue]张手牌获得天使。每打出一张天使牌，抽[blue]{Amount}[/blue]张牌。'
@@ -118,6 +143,14 @@ $zhsPowers = @{
     'AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.selectionScreenPrompt' = '选择一张手牌添加天使。'
 }
 $engPowers = @{
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.title' = 'Covenant of Bullets'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.description' = 'At the start of your next turn, gain Ammo equal to your hand size. [blue]{Amount}[/blue] trigger(s) remaining.'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription' = 'At the start of your next turn, gain Ammo equal to your hand size. [blue]{Amount}[/blue] trigger(s) remaining.'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title' = 'Covenant of Bullets Upgrade Bonus'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.description' = '[blue]{Amount}[/blue] upgraded Covenant of Bullets trigger(s) remaining.'
+    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.smartDescription' = '[blue]{Amount}[/blue] upgraded Covenant of Bullets trigger(s) remaining.'
+    'AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description' = 'At the end of this turn, retain half your [gold]Ammo[/gold].'
+    'AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription' = 'At the end of this turn, retain half your [gold]Ammo[/gold].'
     'AK_EXUSIAI_POWER_INTERFERENCE_POWER.description' = 'Each stack reduces Attack damage dealt by [blue]5%[/blue], up to [blue]50%[/blue]. Gain [gold]Silence[/gold] when Interference is first gained and for every [blue]5[/blue] additional stacks.'
     'AK_EXUSIAI_POWER_INTERFERENCE_POWER.smartDescription' = 'Each stack reduces Attack damage dealt by [blue]5%[/blue], up to [blue]50%[/blue]. Gain [gold]Silence[/gold] when Interference is first gained and for every [blue]5[/blue] additional stacks.'
     'AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.description' = 'At the start of your turn, choose [blue]{Amount}[/blue] cards in your hand to gain Angel. Whenever you play an Angel card, draw [blue]{Amount}[/blue] cards.'
@@ -125,8 +158,7 @@ $engPowers = @{
     'AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.selectionScreenPrompt' = 'Choose a card in your hand to gain Angel.'
 }
 $oldPowerKeys = @(
-    'AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt',
-    'AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.title','AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.description','AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription'
+    'AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.title','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.description','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.smartDescription','AK_EXUSIAI_POWER_ROCK_N_GOSPEL_POWER.selectionScreenPrompt'
 )
 Update-LocFile (Join-Path $Root 'AK_Exusiai/localization/zhs/powers.json') $zhsPowers $oldPowerKeys
 Update-LocFile (Join-Path $Root 'AK_Exusiai/localization/eng/powers.json') $engPowers $oldPowerKeys
@@ -172,7 +204,8 @@ function Add-BlueNumericMarkup([string]$Value) {
     return $valueWithoutTokens
 }
 
-Get-ChildItem (Join-Path $Root 'AK_Exusiai/localization/zhs') -Filter '*.json' | ForEach-Object {
+Get-ChildItem (Join-Path $Root 'AK_Exusiai/localization/zhs') -Filter '*.json' |
+    Where-Object { $_.Name -ne 'cards.json' } | ForEach-Object {
     $json = Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     foreach ($property in $json.PSObject.Properties) {
         if ($property.Name -match '\.(description|smartDescription)$') {

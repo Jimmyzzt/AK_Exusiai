@@ -12,12 +12,7 @@ namespace AK_Exusiai.Cards;
 public sealed class GroupPhoto : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
-        new IHoverTip[]
-        {
-            HoverTipFactory.FromCard<Emperor>(IsUpgraded),
-            HoverTipFactory.FromCard<Texas>(IsUpgraded),
-            HoverTipFactory.FromCard<Exusiai>(IsUpgraded),
-        }.Concat(LogisticsCardCatalog.CreateTextHoverTips(IsUpgraded));
+        LogisticsCardCatalog.CreateHoverTips(IsUpgraded);
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public GroupPhoto() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 

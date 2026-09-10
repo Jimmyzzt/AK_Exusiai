@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Random;
@@ -43,19 +44,37 @@ public static class MysteryRelicCmd
         new Rng(player.RunState.Rng.Seed, RngName).Shuffle(candidates);
         int playerSlot = Math.Max(0, player.RunState.GetPlayerSlotIndex(player));
         RelicModel selected = candidates[playerSlot % candidates.Count];
-        state.Reveal(selected.Id);
+        PersistReveal(player, selected.Id);
         return selected;
     }
 
     private static MysteryRelicCapability? GetState(Player player, bool create)
     {
-        RelicModel? carrier = player.Relics.FirstOrDefault(relic => relic.Rarity == RelicRarity.Starter)
-            ?? player.Relics.FirstOrDefault();
+        IEnumerable<AbstractModel> carriers = GetCarriers(player);
+        MysteryRelicCapability? existing = carriers
+            .Select(carrier => carrier.Capability<MysteryRelicCapability>())
+            .FirstOrDefault(candidate => candidate?.IsRevealed == true);
+        if (existing != null || !create)
+            return existing;
+
+        AbstractModel? carrier = carriers.FirstOrDefault();
         if (carrier == null)
             return null;
 
-        return create
-            ? carrier.GetOrCreateCapability<MysteryRelicCapability>()
-            : carrier.Capability<MysteryRelicCapability>();
+        return carrier.GetOrCreateCapability<MysteryRelicCapability>();
+    }
+
+    private static void PersistReveal(Player player, ModelId relicId)
+    {
+        foreach (AbstractModel carrier in GetCarriers(player))
+            carrier.GetOrCreateCapability<MysteryRelicCapability>().Reveal(relicId);
+    }
+
+    private static IEnumerable<AbstractModel> GetCarriers(Player player)
+    {
+        foreach (RelicModel relic in player.Relics)
+            yield return relic;
+        foreach (CardModel card in player.Deck.Cards.OfType<AK_Exusiai.Cards.FreeDelivery>())
+            yield return card;
     }
 }

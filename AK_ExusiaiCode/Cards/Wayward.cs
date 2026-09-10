@@ -5,12 +5,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
 
-[RegisterCard(typeof(ExusiaiCardPool))]
+[RegisterCard(typeof(CurseCardPool))]
 public sealed class Wayward : ExusiaiCardTemplate
 {
     public override int MaxUpgradeLevel => 0;

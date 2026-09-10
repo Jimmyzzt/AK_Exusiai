@@ -14,7 +14,7 @@ public sealed class Ylth : ExusiaiCardTemplate
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
-    public Ylth() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
+    public Ylth() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

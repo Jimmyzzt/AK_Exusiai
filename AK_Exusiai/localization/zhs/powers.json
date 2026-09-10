@@ -45,8 +45,8 @@
   "AK_EXUSIAI_POWER_OVERLOAD_POWER.description": "攻击伤害提高[blue]50%[/blue]。过载期间不再获得或扣除[gold]弹药[/gold]。回合结束时失去所有弹药并退出过载。",
   "AK_EXUSIAI_POWER_OVERLOAD_POWER.smartDescription": "攻击伤害提高[blue]50%[/blue]。过载期间不再获得或扣除[gold]弹药[/gold]。回合结束时失去所有弹药并退出过载。",
   "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.title": "过载弹药保留",
-  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "本回合结束时保留剩余[gold]弹药[/gold]。",
-  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "本回合结束时保留剩余[gold]弹药[/gold]。",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.description": "本回合结束时，保留一半的[gold]弹药[/gold]。",
+  "AK_EXUSIAI_POWER_OVERLOAD_AMMO_RETENTION_POWER.smartDescription": "本回合结束时，保留一半的[gold]弹药[/gold]。",
   "AK_EXUSIAI_POWER_EXPEDITE_POWER.title": "加急",
   "AK_EXUSIAI_POWER_EXPEDITE_POWER.description": "快递层数变为[blue]1[/blue]时立即自动打出。",
   "AK_EXUSIAI_POWER_EXPEDITE_POWER.smartDescription": "快递层数变为[blue]1[/blue]时立即自动打出。",
@@ -80,5 +80,11 @@
   "AK_EXUSIAI_POWER_COMPASSION_POWER.title": "共情",
   "AK_EXUSIAI_POWER_COMPASSION_POWER.description": "回合开始时，随机[blue]{Amount}[/blue]张手牌获得天使，且天使能力牌可以对队友使用。",
   "AK_EXUSIAI_POWER_COMPASSION_POWER.smartDescription": "回合开始时，随机[blue]{Amount}[/blue]张手牌获得天使，且天使能力牌可以对队友使用。",
-  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.selectionScreenPrompt": "选择一张手牌添加天使。"
+  "AK_EXUSIAI_POWER_EMPATHY_FORM_POWER.selectionScreenPrompt": "选择一张手牌添加天使。",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.description": "下回合开始时，获得等于手牌数的弹药。剩余[blue]{Amount}[/blue]次。",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.title": "铳弹协约",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription": "下回合开始时，获得等于手牌数的弹药。剩余[blue]{Amount}[/blue]次。",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.smartDescription": "铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.description": "铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。",
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title": "铳弹协约升级加成"
 }

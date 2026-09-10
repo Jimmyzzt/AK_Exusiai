@@ -20,7 +20,7 @@ public sealed class Emperor : ExusiaiCardTemplate
         HoverTipFactory.FromCard<Croissant>(),
     ];
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    public Emperor() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false) { }
+    public Emperor() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

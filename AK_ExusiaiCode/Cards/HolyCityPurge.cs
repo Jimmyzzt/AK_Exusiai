@@ -25,7 +25,7 @@ public sealed class HolyCityPurge : ExusiaiCardTemplate
         new DynamicVar(AmmoKey, 3m),
     ];
 
-    public HolyCityPurge() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self, false)
+    public HolyCityPurge() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
     }
 

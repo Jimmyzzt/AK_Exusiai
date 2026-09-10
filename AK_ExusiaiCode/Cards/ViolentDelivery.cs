@@ -19,6 +19,7 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(40m, ValueProp.Move),
+        new DynamicVar("Delivery", 2m),
     ];
 
     public ViolentDelivery() : base(3, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -28,7 +29,8 @@ public sealed class ViolentDelivery : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        if (!await RelicLogisticsCmd.AddRandomDelivery(choiceContext, Owner, 2))
+        if (!await RelicLogisticsCmd.AddRandomDelivery(
+                choiceContext, Owner, DynamicVars["Delivery"].IntValue))
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
