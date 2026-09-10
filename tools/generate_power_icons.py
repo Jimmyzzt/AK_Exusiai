@@ -17,8 +17,21 @@ for source in POWER_DIR.iterdir():
         destination = source.with_name(f"{source.stem}_{size}{source.suffix.lower()}")
         if source.suffix.lower() == ".svg":
             text = source.read_text(encoding="utf-8")
-            text = re.sub(r'width="[^"]+"', f'width="{size}"', text, count=1)
-            text = re.sub(r'height="[^"]+"', f'height="{size}"', text, count=1)
+            svg_tag_match = re.search(r"<svg\b[^>]*>", text)
+            if svg_tag_match is None:
+                raise ValueError(f"Missing <svg> root in {source}")
+
+            svg_tag = svg_tag_match.group(0)
+            if re.search(r'\bwidth="[^"]+"', svg_tag):
+                svg_tag = re.sub(r'\bwidth="[^"]+"', f'width="{size}"', svg_tag, count=1)
+            else:
+                svg_tag = svg_tag.replace("<svg", f'<svg width="{size}"', 1)
+            if re.search(r'\bheight="[^"]+"', svg_tag):
+                svg_tag = re.sub(r'\bheight="[^"]+"', f'height="{size}"', svg_tag, count=1)
+            else:
+                svg_tag = svg_tag.replace("<svg", f'<svg height="{size}"', 1)
+
+            text = text[:svg_tag_match.start()] + svg_tag + text[svg_tag_match.end():]
             destination.write_text(text, encoding="utf-8", newline="\n")
         else:
             with Image.open(source) as image:

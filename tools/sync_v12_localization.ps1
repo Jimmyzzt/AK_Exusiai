@@ -39,6 +39,7 @@ function Remove-BlueMarkupFromCardDescriptions([string]$Path) {
 
 $zhs = @{}
 Card-Loc $zhs 'STAR' '★' '造成{Damage:diff()}点伤害。若本次攻击消耗[gold]弹药[/gold]，升级你手牌中的{IfUpgraded:show:所有|[blue]1[/blue]张}牌。' '选择一张牌升级。'
+Card-Loc $zhs 'ARMOR_PIERCING_ROUND' '穿甲弹' '使敌人失去所有[gold]格挡[/gold]。造成{Damage:diff()}点伤害。若本次攻击消耗[gold]弹药[/gold]，给予{VulnerablePower:diff()}层[gold]易伤[/gold]。'
 Card-Loc $zhs 'ARMED_ESCORT' '武装护送' '造成{Damage:diff()}点伤害。获得[gold]中转[blue]1[/blue][/gold]开心小花。'
 Card-Loc $zhs 'ROCK_N_ROLL' '摇滚！' '造成{Damage:diff()}点伤害。给予{Interference:diff()}层[gold]干扰[/gold]。'
 Card-Loc $zhs 'MARKSMANSHIP' '射击技巧' '造成{Damage:diff()}点伤害。若本次攻击消耗[gold]弹药[/gold]，对随机敌人额外造成一次等量的伤害。'
@@ -64,7 +65,7 @@ Card-Loc $zhs 'PENGUIN_STANDARD' '企鹅标快' '选择一个遗物获得[gold]�
 Card-Loc $zhs 'PENGUIN_INTERNATIONAL' '企鹅跨境' '选择一个遗物获得[gold]快递{Delivery:diff()}[/gold]。使{TransitCount:diff()}个中转遗物获得[gold]中转{Transit:diff()}[/gold]。'
 Card-Loc $zhs 'ROCK_N_GOSPEL' '福音摇滚！' '给予所有敌人{WeakPower:diff()}层[gold]虚弱[/gold]和{Interference:diff()}层[gold]干扰[/gold]。'
 Card-Loc $zhs 'GROUP_PHOTO' '大合照！' '将一张随机{IfUpgraded:show:升级的|}[gold]物流卡[/gold]加入你的手牌。'
-Card-Loc $zhs 'COVENANT_OF_BULLETS' '铳弹协约' '使弃牌堆中1张牌获得[gold]天使[/gold]并加入手牌。\n结束你的回合。\n下回合开始时，获得等于你手牌数{IfUpgraded:show:加2|}的[gold]弹药[/gold]。' '选择一张牌加入手牌并添加天使。'
+Card-Loc $zhs 'COVENANT_OF_BULLETS' '铳弹协约' '使弃牌堆中1张牌获得[gold]天使[/gold]并加入手牌。\n结束你的回合。\n下回合开始时，获得等于你手牌数{IfUpgraded:show:+2|}的[gold]弹药[/gold]。' '选择一张牌加入手牌并添加天使。'
 Card-Loc $zhs 'OVERLOADING_MODE' '过载模式' '进入[gold]过载[/gold]。本回合结束时，保留一半的[gold]弹药[/gold]。'
 Card-Loc $zhs 'PIETY' '虔诚' '使抽牌堆中的一张牌获得[gold]天使[/gold]。抽{Cards:diff()}张牌。' '选择一张牌添加天使。'
 Card-Loc $zhs 'PENGUIN_FREIGHT' '企鹅大件' '选择一个遗物获得[gold]快递{Delivery:diff()}[/gold]。获得{Block:diff()}点[gold]格挡[/gold]。你的下一回合开始时格挡不会消失。'
@@ -80,6 +81,7 @@ Card-Loc $zhs 'WAYWARD' '歧途' '被消耗或在战斗中变化时，使你减�
 
 $eng = @{}
 Card-Loc $eng 'STAR' '★' 'Deal {Damage:diff()} damage. If this Attack spends [gold]Ammo[/gold], Upgrade {IfUpgraded:show:ALL cards|[blue]1[/blue] card} in your hand.' 'Choose a card to Upgrade.'
+Card-Loc $eng 'ARMOR_PIERCING_ROUND' 'Armor-Piercing Round' 'Remove all [gold]Block[/gold] from the enemy. Deal {Damage:diff()} damage. If this Attack spends [gold]Ammo[/gold], apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].'
 Card-Loc $eng 'ARMED_ESCORT' 'Armed Escort' 'Deal {Damage:diff()} damage. Obtain a Happy Flower with [gold]Transit [blue]1[/blue][/gold].'
 Card-Loc $eng 'ROCK_N_ROLL' "Rock n' Roll!" 'Deal {Damage:diff()} damage. Apply {Interference:diff()} [gold]Interference[/gold].'
 Card-Loc $eng 'MARKSMANSHIP' 'Marksmanship' 'Deal {Damage:diff()} damage. If this Attack spends [gold]Ammo[/gold], deal that much damage once more to a random enemy.'

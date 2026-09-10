@@ -1,6 +1,6 @@
 {
   "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.title": "Ammo",
-  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "When you play an Attack, each hit spends [blue]1[/blue] Ammo and gains damage based on the Ammo held before playing it ([blue]+1[/blue] per [blue]5[/blue] Ammo, at least [blue]+2[/blue]). Maximum [blue]30[/blue] Ammo; reaching the maximum enters [gold]Overload[/gold].",
+  "AK_EXUSIAI_SECONDARY_RESOURCE_AMMO.description": "When you play an Attack, each hit spends [blue]1[/blue] Ammo and gains extra damage based on your Ammo when the Attack is played ([blue]+1[/blue] per [blue]5[/blue] Ammo, at least [blue]+2[/blue]). Maximum [blue]30[/blue] Ammo; reaching the maximum enters [gold]Overload[/gold].",
   "AK_EXUSIAI_MYSTERY_RELIC.title": "Mystery Relic",
   "AK_EXUSIAI_MYSTERY_RELIC.description": "A relic determined by the run seed. It is revealed the first time you play [gold]Free Delivery[/gold].",
   "AK_EXUSIAI_FIREPOWER_GENERIC.description": "Firepower causes Ammo to deal additional damage.",

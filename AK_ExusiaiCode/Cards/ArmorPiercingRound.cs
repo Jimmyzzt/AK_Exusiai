@@ -40,8 +40,9 @@ public sealed class ArmorPiercingRound : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target,
-            DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
+        if (AK_Exusiai.Characters.Exusiai.DidSpendAmmo(cardPlay))
+            await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target,
+                DynamicVars.Vulnerable.BaseValue, Owner.Creature, this);
     }
 
     protected override void OnUpgrade()
