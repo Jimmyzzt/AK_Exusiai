@@ -569,6 +569,14 @@ public sealed class Exusiai :
         {
             await listener.AfterOverloadAmmoSpent(amount);
         }
+
+        foreach (IOverloadAmmoSpendListener listener in player.Relics
+                     .Where(RelicLogisticsCmd.IsOperational)
+                     .OfType<IOverloadAmmoSpendListener>()
+                     .ToArray())
+        {
+            await listener.AfterOverloadAmmoSpent(amount);
+        }
     }
 
     private static decimal PreviewAmmoDamage(Player player, CardModel? cardSource)

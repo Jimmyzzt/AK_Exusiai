@@ -13,6 +13,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class DoubleShotKit : ExusiaiCardTemplate
 {
+    protected override bool PlaysOwnNonAttackAnimation => true;
     private const string AmmoKey = "Ammo";
     private const string AmmoMultiplierKey = "AmmoMultiplier";
     protected override bool ShowAmmoHoverTip => true;

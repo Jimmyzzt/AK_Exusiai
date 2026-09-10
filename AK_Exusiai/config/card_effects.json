@@ -493,21 +493,6 @@
 				"volume": 1.0
 			}
 		},
-		"AK_EXUSIAI_CARD_FLASHBANG": {
-			"base": {
-				"animation": "inherit",
-				"delay": -1.0,
-				"ground": false,
-				"hit": "factory:NSporeImpactVfx",
-				"hit_sound": "inherit",
-				"launch": "inherit",
-				"launch_sound": "inherit",
-				"phase": "start",
-				"preset": "card:Whirlwind",
-				"repeat": "per_hit",
-				"volume": 1.0
-			}
-		},
 		"AK_EXUSIAI_CARD_FORGET_ME_NOT": {
 			"base": {
 				"animation": "inherit",

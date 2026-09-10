@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.HoverTips;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Potions;
@@ -20,6 +21,8 @@ public sealed class EmperorsStash : ExusiaiPotionTemplate
     public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        LogisticsCardCatalog.CreateTextHoverTips(upgraded: false);
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {

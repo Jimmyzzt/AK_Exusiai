@@ -195,6 +195,31 @@ public static class RelicLogisticsCmd
             : await SelectRelic(choiceContext, player, targets);
     }
 
+    public static async Task<IReadOnlyList<RelicModel>> ChooseTransitRelics(
+        PlayerChoiceContext choiceContext,
+        Player player,
+        int maxCount)
+    {
+        List<RelicModel> available = GetTransitRelics(player).ToList();
+        if (maxCount <= 0 || available.Count == 0)
+            return [];
+        if (available.Count <= maxCount)
+            return available;
+
+        List<RelicModel> selected = [];
+        while (selected.Count < maxCount)
+        {
+            RelicModel? relic = await SelectRelic(choiceContext, player, available);
+            if (relic == null)
+                break;
+
+            selected.Add(relic);
+            available.Remove(relic);
+        }
+
+        return selected;
+    }
+
     public static async Task<RelicModel?> AddNamedTransit<T>(Player player, int amount)
         where T : RelicModel
     {

@@ -33,6 +33,8 @@ public sealed class OutstandingGraduate : ExusiaiCardTemplate
                     Owner.Creature,
                     this);
             }
+            await InterferenceCmd.Apply(
+                choiceContext, enemy, 1, Owner.Creature, this);
         }
     }
 

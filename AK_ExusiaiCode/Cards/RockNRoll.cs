@@ -16,7 +16,7 @@ public sealed class RockNRoll : ExusiaiCardTemplate
     protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(8m, ValueProp.Move),
         new DynamicVar("Interference", 1m),
     ];
 
@@ -43,5 +43,9 @@ public sealed class RockNRoll : ExusiaiCardTemplate
         }
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4m);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars["Interference"].UpgradeValueBy(1m);
+    }
 }

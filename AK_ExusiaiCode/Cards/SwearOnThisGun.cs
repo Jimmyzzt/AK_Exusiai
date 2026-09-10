@@ -20,7 +20,7 @@ public sealed class SwearOnThisGun : ExusiaiCardTemplate
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(30m, ValueProp.Move),
+        new DamageVar(20m, ValueProp.Move),
     ];
     public SwearOnThisGun() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 

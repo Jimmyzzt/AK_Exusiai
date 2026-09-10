@@ -20,7 +20,7 @@ public sealed class HolyCityEmbrace : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move),
+        new BlockVar(6m, ValueProp.Move),
         new CalculationBaseVar(0m),
         new CalculationExtraVar(1m),
         new CalculatedVar(CalculatedBlocksKey).WithMultiplier((card, _) =>

@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using STS2RitsuLib;
 using STS2RitsuLib.Keywords;
+using MegaCrit.Sts2.Core.Localization;
 
 namespace AK_Exusiai.Mechanics;
 
@@ -37,4 +38,7 @@ public static class ExusiaiKeywords
     public static IHoverTip TransitHoverTip => ModKeywordRegistry.CreateHoverTip(TransitId);
     public static IHoverTip AngelHoverTip => ModKeywordRegistry.CreateHoverTip(AngelId);
     public static IHoverTip OverloadHoverTip => ModKeywordRegistry.CreateHoverTip(OverloadId);
+    public static IHoverTip DeliveryTransitInteractionHoverTip => new HoverTip(
+        new LocString("static_hover_tips", "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.title"),
+        new LocString("static_hover_tips", "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.description"));
 }

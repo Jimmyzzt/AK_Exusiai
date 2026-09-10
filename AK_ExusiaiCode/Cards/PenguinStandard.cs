@@ -12,9 +12,10 @@ public sealed class PenguinStandard : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
     protected override bool ShowTransitHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("Delivery", 7m),
+        new DynamicVar("Delivery", 5m),
         new DynamicVar("Transit", 1m),
     ];
     public PenguinStandard() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }

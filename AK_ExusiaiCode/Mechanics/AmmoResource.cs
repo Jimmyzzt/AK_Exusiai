@@ -1,5 +1,4 @@
 using AK_Exusiai.Characters;
-using AK_Exusiai.Relics;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Players;
 using STS2RitsuLib;
@@ -56,16 +55,13 @@ public static partial class AmmoResource
         decimal commonMultiplier = 1m + player.Creature.Powers
             .OfType<AK_Exusiai.Powers.AmmoDamageMultiplierPower>()
             .Sum(power => power.Amount / 100m);
-        FirepowerFm? radio = player.Relics.OfType<FirepowerFm>().FirstOrDefault();
-        decimal radioMultiplier = radio?.DamageMultiplier ?? 1m;
         return new AmmoDamageBreakdown(
             ammo,
             firepower,
             baseDamage,
             commonMultiplier,
-            radioMultiplier,
             cardMultiplier,
-            baseDamage * commonMultiplier * radioMultiplier * cardMultiplier);
+            baseDamage * commonMultiplier * cardMultiplier);
     }
 
     private static NSecondaryResourceCounter CreateCounter()
@@ -113,7 +109,6 @@ public static partial class AmmoResource
         int Firepower,
         decimal BaseDamage,
         decimal CommonMultiplier,
-        decimal FirepowerFmMultiplier,
         decimal CardMultiplier,
         decimal DamagePerAmmo);
 

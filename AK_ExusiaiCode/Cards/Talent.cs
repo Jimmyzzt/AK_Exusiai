@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -12,11 +13,16 @@ namespace AK_Exusiai.Cards;
 public sealed class Talent : ExusiaiCardTemplate
 {
     protected override bool ShowInterferenceHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<TalentPower>(15m)];
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new PowerVar<TalentPower>(10m),
+        new DynamicVar("Interference", 1m),
+    ];
 
     public Talent() : base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay) =>
+    protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+    {
         await PowerCmd.Apply<TalentPower>(
             choiceContext,
             Owner.Creature,
@@ -24,5 +30,12 @@ public sealed class Talent : ExusiaiCardTemplate
             Owner.Creature,
             this);
 
-    protected override void OnUpgrade() => DynamicVars[nameof(TalentPower)].UpgradeValueBy(10m);
+        if (!IsUpgraded)
+            return;
+        foreach (var enemy in CombatState!.HittableEnemies.ToList())
+            await InterferenceCmd.Apply(
+                choiceContext, enemy, DynamicVars["Interference"].IntValue, Owner.Creature, this);
+    }
+
+    protected override void OnUpgrade() { }
 }

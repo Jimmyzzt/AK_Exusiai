@@ -2,36 +2,28 @@
   "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.title": "Exusiai's Badge",
   "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.description": "At the start of each combat, gain {Ammo} [gold]Ammo[/gold].",
   "AK_EXUSIAI_RELIC_EXUSIAI_BADGE.flavor": "A Rhodes Island badge. Smiles, good luck, and plenty of ammunition.",
-
   "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.title": "Exusiai's Surprise",
   "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.description": "At the start of each combat, gain {Ammo} [gold]Ammo[/gold] and {FirepowerPower:diff()} [gold]Firepower[/gold].",
   "AK_EXUSIAI_RELIC_EXUSIAI_SURPRISE.flavor": "The warmest blessing deserves the loudest surprise. BOOM!!!!!!!!!!!",
-
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.title": "Etched Round",
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.description": "At the start of each combat, gain {FirepowerPower:diff()} [gold]Firepower[/gold].",
   "AK_EXUSIAI_RELIC_ETCHED_ROUND.flavor": "Faith hangs ten centimeters above your heart; words flow into your blood, and bullets slide into your magazine.",
-
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.title": "Apple Pie Logistics",
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.description": "The first time you play an Attack each turn, gain [gold]Ammo[/gold] equal to the Ammo it spends.",
   "AK_EXUSIAI_RELIC_APPLE_PIE_LOGISTICS.flavor": "Delivered on time and best enjoyed warm. Ammunition, too.",
-
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.title": "Boss's Medal",
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.description": "The first time you give a relic [gold]Delivery[/gold] each turn, gain {Block:diff()} [gold]Block[/gold].",
   "AK_EXUSIAI_RELIC_BOSS_MEDAL.flavor": "Best Boss Medal. Super Boss Medal. Invincible, peerless Boss Medal.",
-
   "AK_EXUSIAI_RELIC_LORD_SERVER.title": "Lord-Server",
   "AK_EXUSIAI_RELIC_LORD_SERVER.description": "Whenever you obtain a Curse during combat, gain {Energy:energyIcons()}.",
   "AK_EXUSIAI_RELIC_LORD_SERVER.flavor": "Connection established. Not every prayer... necessarily receives an answer.",
-
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.title": "Pocket Slot Machine",
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.description": "At the start of each combat, apply {Interference:diff()} [gold]Interference[/gold] to ALL enemies.",
   "AK_EXUSIAI_RELIC_POCKET_SLOT_MACHINE.flavor": "Compact, portable, and every spin adds a little more gunpowder to the air.",
-
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.title": "Fluorescent Light",
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.description": "Whenever you play an [gold]Angel[/gold] card, gain {TemporaryFirepowerPower:diff()} [gold]Firepower[/gold] this turn.",
   "AK_EXUSIAI_RELIC_FLUORESCENT_LIGHT.flavor": "Laterano's light sometimes comes from a humming tube.",
-
   "AK_EXUSIAI_RELIC_FIREPOWER_FM.title": "Firepower FM",
-  "AK_EXUSIAI_RELIC_FIREPOWER_FM.description": "Damage granted by [gold]Ammo[/gold] is multiplied by {Multiplier}. At the start of your turn, lose {Ammo} Ammo.",
+  "AK_EXUSIAI_RELIC_FIREPOWER_FM.description": "Whenever you spend [blue]4[/blue] [gold]Ammo[/gold] in one turn, gain [blue]1[/blue] [gold]Firepower[/gold].",
   "AK_EXUSIAI_RELIC_FIREPOWER_FM.flavor": "Channel clear. Coordinates confirmed. Explosions inbound."
 }

@@ -14,21 +14,15 @@ public sealed class Brawl : ExusiaiCardTemplate
     protected override bool ShowInterferenceHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Interference", 1m)];
 
-    public Brawl() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy) { }
+    public Brawl() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyEnemy) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        int interference = cardPlay.Target.GetPower<InterferencePower>()?.Amount ?? 0;
-        if (interference > 0)
-        {
-            await InterferenceCmd.Apply(
-                choiceContext,
-                cardPlay.Target,
-                DynamicVars["Interference"].IntValue,
-                Owner.Creature,
-                this);
-        }
+        int existing = cardPlay.Target.GetPower<InterferencePower>()?.Amount ?? 0;
+        int amount = DynamicVars["Interference"].IntValue + existing / 2;
+        await InterferenceCmd.Apply(
+            choiceContext, cardPlay.Target, amount, Owner.Creature, this);
     }
 
     protected override void OnUpgrade() => DynamicVars["Interference"].UpgradeValueBy(1m);

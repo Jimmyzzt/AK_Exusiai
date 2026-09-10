@@ -11,7 +11,7 @@ public sealed class ExusiaiCardPool : TypeListCardPoolModel
         MaterialUtils.CreateHsvShaderMaterial(0.998f, 0.961f, 0.819f);
 
     public override string Title => "exusiai";
-    public override string EnergyColorName => "ironclad";
+    public override string EnergyColorName => "exusiai";
     public override string? TextEnergyIconPath =>
         $"{Entry.ResPath}/images/ui/exusiai_energy_text.svg";
     public override string? BigEnergyIconPath =>
@@ -25,12 +25,12 @@ public sealed class ExusiaiCardPool : TypeListCardPoolModel
 
 public sealed class ExusiaiRelicPool : TypeListRelicPoolModel
 {
-    public override string EnergyColorName => "ironclad";
+    public override string EnergyColorName => "exusiai";
     public override Color LabOutlineColor => new("D73545");
 }
 
 public sealed class ExusiaiPotionPool : TypeListPotionPoolModel
 {
-    public override string EnergyColorName => "ironclad";
+    public override string EnergyColorName => "exusiai";
     public override Color LabOutlineColor => new("D73545");
 }

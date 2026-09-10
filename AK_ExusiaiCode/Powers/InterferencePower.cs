@@ -30,6 +30,6 @@ public sealed class InterferencePower : ModPowerTemplate
         if (dealer != Owner || !props.IsPoweredAttack())
             return 1m;
 
-        return 1m - Math.Min(5, Amount) * 0.1m;
+        return 1m - Math.Min(10, Amount) * 0.05m;
     }
 }

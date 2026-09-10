@@ -1284,25 +1284,6 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "Flashbang": {
-      "source": "references/free/art/日光灯.png",
-      "zoom": 0.43,
-      "offset": [
-        0.0,
-        0.0
-      ],
-      "background_enabled": true,
-      "placeholder_enabled": true,
-      "background": "custom",
-      "gradient_mode": "radial",
-      "texture": "rays",
-      "top_color": "99c9ff",
-      "bottom_color": "677485",
-      "motif": "auto",
-      "rotation": 0.0,
-      "flip_horizontal": false,
-      "flip_vertical": false
-    },
     "FreeDelivery": {
       "source": "references/free/asset/货物清单-2.svg",
       "zoom": 0.58,

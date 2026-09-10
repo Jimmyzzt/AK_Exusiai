@@ -58,8 +58,16 @@ public sealed class RelicLogisticsCapability : ModelCapability
         if (amount <= 0)
             return;
 
+        if (_isTransit && _deliveryRemaining > 0)
+        {
+            int deliveryReduction = Math.Min(_deliveryRemaining, amount);
+            _deliveryRemaining -= deliveryReduction;
+            amount -= deliveryReduction;
+        }
+
         _isTransit = true;
-        _transitRemaining += amount;
+        if (amount > 0)
+            _transitRemaining += amount;
         StateChanged();
     }
 

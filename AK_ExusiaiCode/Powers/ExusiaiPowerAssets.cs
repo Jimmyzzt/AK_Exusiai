@@ -8,8 +8,8 @@ internal static class ExusiaiPowerAssets
 {
     public static PowerAssetProfile Bomb => From<TheBombPower>();
     public static PowerAssetProfile Ammo => new(
-        IconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower.svg",
-        BigIconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower.svg");
+        IconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower_64.svg",
+        BigIconPath: $"{Entry.ResPath}/images/powers/AmmoNextTurnPower_256.svg");
     public static PowerAssetProfile Modification => From<StrengthPower>();
     public static PowerAssetProfile Confusion => From<ConfusedPower>();
     public static PowerAssetProfile Weak => From<WeakPower>();
@@ -25,8 +25,8 @@ internal static class ExusiaiPowerAssets
     public static PowerAssetProfile Soar => From<SoarPower>();
 
     public static PowerAssetProfile Custom(string baseName, string extension = ".svg") => new(
-        IconPath: $"{Entry.ResPath}/images/powers/{baseName}{extension}",
-        BigIconPath: $"{Entry.ResPath}/images/powers/{baseName}{extension}");
+        IconPath: $"{Entry.ResPath}/images/powers/{baseName}_64{extension}",
+        BigIconPath: $"{Entry.ResPath}/images/powers/{baseName}_256{extension}");
 
     private static PowerAssetProfile From<TPower>() where TPower : PowerModel
     {

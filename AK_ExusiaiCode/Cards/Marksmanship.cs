@@ -26,13 +26,26 @@ public sealed class Marksmanship : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+        var attack = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
-        if (Characters.Exusiai.GetEffectiveAmmoSpent(cardPlay) > 0)
-            await CardPileCmd.Draw(choiceContext, 2, Owner);
+        if (Characters.Exusiai.GetEffectiveAmmoSpent(cardPlay) <= 0)
+            return;
+
+        decimal repeatedDamage = attack.Results
+            .SelectMany(hit => hit)
+            .Sum(result => result.TotalDamage + result.OverkillDamage);
+        if (repeatedDamage <= 0)
+            return;
+
+        await DamageCmd.Attack(repeatedDamage)
+            .Unpowered()
+            .FromCard(this, cardPlay)
+            .TargetingRandomOpponents(CombatState!)
+            .WithHitFx("vfx/vfx_attack_slash")
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

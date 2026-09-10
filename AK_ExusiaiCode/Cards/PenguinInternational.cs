@@ -14,10 +14,12 @@ public sealed class PenguinInternational : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
     protected override bool ShowTransitHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("Delivery", 5m),
+        new DynamicVar("Delivery", 4m),
         new DynamicVar("Transit", 3m),
+        new DynamicVar("TransitCount", 1m),
     ];
     public PenguinInternational() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
@@ -31,10 +33,12 @@ public sealed class PenguinInternational : ExusiaiCardTemplate
             return;
         }
 
-        RelicModel? transit = await RelicLogisticsCmd.ChooseTransitRelic(choiceContext, Owner);
-        transit?.GetOrCreateCapability<RelicLogisticsCapability>()
-            .StartOrExtendTransit(DynamicVars["Transit"].IntValue);
+        IReadOnlyList<RelicModel> transitRelics = await RelicLogisticsCmd.ChooseTransitRelics(
+            choiceContext, Owner, DynamicVars["TransitCount"].IntValue);
+        foreach (RelicModel transit in transitRelics)
+            transit.GetOrCreateCapability<RelicLogisticsCapability>()
+                .StartOrExtendTransit(DynamicVars["Transit"].IntValue);
     }
 
-    protected override void OnUpgrade() => DynamicVars["Transit"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["TransitCount"].UpgradeValueBy(1m);
 }

@@ -1,10 +1,10 @@
 {
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "Delivery",
-  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A relic given Delivery X becomes inactive and reactivates after X combats. Starter and inactive relics cannot be selected. A card that gives Delivery only performs its subsequent effects if it successfully gives Delivery to a relic.",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A relic given Delivery [blue]X[/blue] becomes inactive and reactivates after [blue]X[/blue] combats. Starter and inactive relics cannot be selected. A card that gives Delivery only performs its subsequent effects if it successfully gives Delivery to a relic.",
   "AK_EXUSIAI_KEYWORD_TRANSIT.title": "Transit",
-  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "A relic with Transit X becomes inactive after X combats (including the current combat). Once inactive, it can gain Transit again.",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "A relic with Transit [blue]X[/blue] becomes inactive after [blue]X[/blue] combats (including the current combat). Once inactive, it can gain Transit again.",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "Angel",
   "AK_EXUSIAI_KEYWORD_ANGEL.description": "Gain [gold]Retain[/gold]. The first time this card is played after each gain of Angel, it is free. Curse cards are Exhausted immediately when they gain Angel.",
   "AK_EXUSIAI_KEYWORD_OVERLOAD.title": "Overload",
-  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "Attack damage is increased by 50%. While Overloaded, Ammo is no longer gained or deducted. At the end of your turn, lose all Ammo and exit Overload."
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "Attack damage is increased by [blue]50%[/blue]. While Overloaded, Ammo is no longer gained or deducted. At the end of your turn, lose all Ammo and exit Overload."
 }

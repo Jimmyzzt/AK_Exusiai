@@ -15,6 +15,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCharacterStarterCard(typeof(AK_Exusiai.Characters.Exusiai), Order = 40)]
 public sealed class LockedAndLoaded : ExusiaiCardTemplate
 {
+    protected override bool PlaysOwnNonAttackAnimation => true;
     private const string AmmoKey = "Ammo";
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

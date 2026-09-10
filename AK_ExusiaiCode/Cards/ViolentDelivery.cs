@@ -13,6 +13,7 @@ namespace AK_Exusiai.Cards;
 public sealed class ViolentDelivery : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

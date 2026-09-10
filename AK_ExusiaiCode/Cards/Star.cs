@@ -15,7 +15,7 @@ namespace AK_Exusiai.Cards;
 public sealed class Star : ExusiaiCardTemplate
 {
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move)];
 
     public Star() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy) { }
 
@@ -51,5 +51,5 @@ public sealed class Star : ExusiaiCardTemplate
             CardCmd.Upgrade(selected);
     }
 
-    protected override void OnUpgrade() { }
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

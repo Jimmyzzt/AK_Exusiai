@@ -51,7 +51,7 @@ public sealed class TheSaintsTravels : ExusiaiCardTemplate
         [HoverTipFactory.FromPower<FirepowerPower>(DynamicVars[nameof(FirepowerPower)].IntValue)];
 
     public TheSaintsTravels()
-        : base(1, CardType.Power, CardRarity.Ancient, TargetType.Self)
+        : base(2, CardType.Power, CardRarity.Ancient, TargetType.Self)
     {
     }
 
@@ -69,8 +69,7 @@ public sealed class TheSaintsTravels : ExusiaiCardTemplate
         (DeckVersion as TheSaintsTravels)?.BuffFromPlay(permanentIncrease);
     }
 
-    protected override void OnUpgrade() =>
-        DynamicVars[PermanentIncreaseKey].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 
     protected override void AfterDowngraded() => UpdateFirepower();
 

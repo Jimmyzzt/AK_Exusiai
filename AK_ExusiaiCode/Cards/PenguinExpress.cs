@@ -12,6 +12,7 @@ namespace AK_Exusiai.Cards;
 public sealed class PenguinExpress : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delivery", 4m)];
     public PenguinExpress() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 

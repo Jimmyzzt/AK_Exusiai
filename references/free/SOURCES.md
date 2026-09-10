@@ -22,7 +22,7 @@
 | `references/free/art/物流安保.svg` | SVG 图标 | 项目维护者提供 | 已弃用“物流安保”能力的历史源图 | 源文件未修改，当前不接入运行时 | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/主的仁慈.svg` | SVG 图标 | 项目维护者提供 | “告解”能力图标（原名“主的仁慈”） | 复制为 `AK_Exusiai/images/powers/ConfessionPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/易燃易爆炸.svg` | SVG 图标 | 项目维护者提供 | “易燃易爆”能力图标 | 复制为 `AK_Exusiai/images/powers/FlammableAndExplosivePower.svg` | 原始作者或授权链接尚待维护者补充 |
-| `references/free/art/福音摇滚.svg` | SVG 图标 | 项目维护者提供 | “福音摇滚”能力图标 | 复制为 `AK_Exusiai/images/powers/RockNGospelPower.svg` | 原始作者或授权链接尚待维护者补充 |
+| `references/free/art/福音摇滚.svg` | SVG 图标 | 项目维护者提供 | “福音摇滚！”卡图素材 | 由卡图工具生成 `AK_Exusiai/images/cards/RockNGospel.png` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天使的祝福.svg` | SVG 图标 | 项目维护者提供 | “天使的祝福”能力图标 | 复制为 `AK_Exusiai/images/powers/AngelsBlessingsPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/天赋.svg` | SVG 图标 | 项目维护者提供 | “天赋”能力图标 | 复制为 `AK_Exusiai/images/powers/TalentPower.svg` | 原始作者或授权链接尚待维护者补充 |
 | `references/free/art/Covering_Fire_power.png` | PNG 图标 | 项目维护者提供 | “火力掩护”临时力量减益图标 | 源文件未修改，复制为 `AK_Exusiai/images/powers/CoveringFirePower.png` | 原始作者或授权链接尚待维护者补充 |

@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 using AK_Exusiai.Powers;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Scaffolding.Content;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace AK_Exusiai.Cards;
 
@@ -34,6 +36,8 @@ public abstract class ExusiaiCardTemplate(
     protected virtual bool ShowOverloadHoverTip => false;
     protected virtual bool ShowInterferenceHoverTip => false;
     protected virtual bool ShowFirepowerHoverTip => false;
+    protected virtual bool ShowDeliveryTransitInteractionHoverTip => false;
+    protected virtual bool PlaysOwnNonAttackAnimation => false;
     protected virtual IEnumerable<IHoverTip> CardHoverTips => [];
 
     protected override IEnumerable<IHoverTip> AdditionalHoverTips
@@ -57,9 +61,23 @@ public abstract class ExusiaiCardTemplate(
             }
             if (ShowFirepowerHoverTip)
                 yield return FirepowerPower.CreateGenericHoverTip();
+            if (ShowDeliveryTransitInteractionHoverTip)
+                yield return ExusiaiKeywords.DeliveryTransitInteractionHoverTip;
 
             foreach (IHoverTip hoverTip in CardHoverTips)
                 yield return hoverTip;
         }
+    }
+
+    public override Task OnEnqueuePlayVfx(Creature? target)
+    {
+        if (Owner.Character is AK_Exusiai.Characters.Exusiai || PlaysOwnNonAttackAnimation || Type == CardType.Attack)
+            return Task.CompletedTask;
+
+        string animation = Type == CardType.Power ? "PowerUp" : "Cast";
+        float delay = Type == CardType.Power
+            ? Owner.Character.PowerUpAnimDelay
+            : Owner.Character.CastAnimDelay;
+        return CreatureCmd.TriggerAnim(Owner.Creature, animation, delay);
     }
 }

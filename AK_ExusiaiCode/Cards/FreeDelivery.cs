@@ -4,7 +4,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using AK_Exusiai.Powers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Relics;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -12,11 +13,14 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class FreeDelivery : ExusiaiCardTemplate
 {
-    protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowTransitHoverTip => true;
+    protected override IEnumerable<IHoverTip> CardHoverTips => HoverTipFactory.FromRelic<Circlet>();
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("FreeCards", 1m),
+        new CardsVar(1),
+        new DynamicVar("Transit", 1m),
     ];
 
     public FreeDelivery() : base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
@@ -25,22 +29,9 @@ public sealed class FreeDelivery : ExusiaiCardTemplate
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        bool deliverySucceeded = IsUpgraded
-            ? await RelicLogisticsCmd.ChooseAndAddDelivery(choiceContext, Owner, 1)
-            : await RelicLogisticsCmd.AddRandomDelivery(choiceContext, Owner, 1);
-        if (!deliverySucceeded)
-            return;
-
-        bool alreadyHadFreeCards = Owner.Creature.HasPower<FreeCardsPower>();
-        await PowerCmd.Apply<FreeCardsPower>(
-            choiceContext,
-            Owner.Creature,
-            DynamicVars["FreeCards"].BaseValue,
-            Owner.Creature,
-            this);
-        if (!alreadyHadFreeCards)
-            Owner.Creature.GetPower<FreeCardsPower>()?.IgnoreSourceCard(this);
+        await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        await RelicLogisticsCmd.AddNamedTransit<Circlet>(Owner, DynamicVars["Transit"].IntValue);
     }
 
-    protected override void OnUpgrade() { }
+    protected override void OnUpgrade() => DynamicVars["Transit"].UpgradeValueBy(1m);
 }

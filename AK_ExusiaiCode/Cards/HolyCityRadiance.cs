@@ -20,15 +20,7 @@ public sealed class HolyCityRadiance : ExusiaiCardTemplate
         new CalculationBaseVar(0m),
         new CalculationExtraVar(1m),
         new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) =>
-            card.Owner.PlayerCombatState == null
-                ? 0
-                : CardPile.GetCards(
-                        card.Owner,
-                        PileType.Draw,
-                        PileType.Hand,
-                        PileType.Discard,
-                        PileType.Play)
-                    .Count(AngelCmd.IsAngel)),
+            card.Owner.PlayerCombatState?.AllCards.Count(AngelCmd.IsAngel) ?? 0),
     ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];

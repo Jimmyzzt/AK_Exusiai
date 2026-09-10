@@ -24,7 +24,7 @@ public sealed class Loan : ExusiaiCardTemplate
         await PlayerCmd.GainGold(DynamicVars.Gold.BaseValue, Owner);
         Debt curse = CombatState!.CreateCard<Debt>(Owner);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
-            curse, PileType.Discard, Owner));
+            curse, PileType.Draw, Owner));
     }
 
     protected override void OnUpgrade() => DynamicVars.Gold.UpgradeValueBy(15m);

@@ -20,7 +20,7 @@ public sealed class CrossOfDevotion : ExusiaiCardTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(9m, ValueProp.Move),
+        new DamageVar(6m, ValueProp.Move),
         new DynamicVar(HitCountKey, 2m),
     ];
 

@@ -1,5 +1,11 @@
 # Item asset generation
 
+Generate exact 64×64 and 256×256 runtime variants for every custom power icon:
+
+```powershell
+python .\tools\generate_power_icons.py
+```
+
 Run from the repository root after replacing a relic, potion, character icon, or its source image:
 
 ```powershell

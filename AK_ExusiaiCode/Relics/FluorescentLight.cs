@@ -22,7 +22,7 @@ public sealed class FluorescentLight : ExusiaiRelicTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         ExusiaiKeywords.AngelHoverTip,
-        HoverTipFactory.FromPower<TemporaryFirepowerPower>(
+        HoverTipFactory.FromPower<FirepowerPower>(
             DynamicVars[nameof(TemporaryFirepowerPower)].IntValue),
     ];
 

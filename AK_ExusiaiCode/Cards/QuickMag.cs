@@ -33,6 +33,6 @@ public sealed class QuickMag : ExusiaiCardTemplate
 
     protected override void OnUpgrade()
     {
-        DynamicVars[AmmoKey].UpgradeValueBy(1m);
+        DynamicVars[AmmoKey].UpgradeValueBy(2m);
     }
 }

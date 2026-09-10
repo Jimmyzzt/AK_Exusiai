@@ -14,8 +14,8 @@ namespace AK_Exusiai.Cards;
 public sealed class HolyCityMercy : ExusiaiCardTemplate
 {
     protected override bool ShowAngelHoverTip => true;
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10m, ValueProp.Move)];
-    public HolyCityMercy() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8m, ValueProp.Move)];
+    public HolyCityMercy() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -27,5 +27,5 @@ public sealed class HolyCityMercy : ExusiaiCardTemplate
         }
     }
 
-    protected override void OnUpgrade() => DynamicVars.Block.UpgradeValueBy(4m);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

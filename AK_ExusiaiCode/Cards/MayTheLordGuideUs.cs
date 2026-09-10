@@ -29,5 +29,5 @@ public sealed class MayTheLordGuideUs : ExusiaiCardTemplate
             generated, PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4m);
 }

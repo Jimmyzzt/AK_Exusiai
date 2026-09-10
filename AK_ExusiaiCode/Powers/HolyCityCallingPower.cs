@@ -25,7 +25,7 @@ public sealed class HolyCityCallingPower : ModPowerTemplate
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Player.Creature == Owner && AngelCmd.IsAngel(cardPlay.Card) && ++_angelsPlayed == 5)
+        if (cardPlay.Player.Creature == Owner && AngelCmd.IsAngel(cardPlay.Card) && ++_angelsPlayed == 3)
         {
             Flash();
             await PowerCmd.Apply<TemporarySoarPower>(

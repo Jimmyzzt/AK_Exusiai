@@ -13,10 +13,10 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class BotchedModification : ExusiaiCardTemplate
 {
-    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Clumsy>()];
+    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Regret>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12m, ValueProp.Move),
+        new DamageVar(9m, ValueProp.Move),
         new DynamicVar("HitCount", 2m),
     ];
     public BotchedModification() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies) { }
@@ -28,8 +28,8 @@ public sealed class BotchedModification : ExusiaiCardTemplate
             .FromCard(this, cardPlay).TargetingAllOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_blunt").Execute(choiceContext);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
-            CombatState!.CreateCard<Clumsy>(Owner), PileType.Discard, Owner));
+            CombatState!.CreateCard<Regret>(Owner), PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

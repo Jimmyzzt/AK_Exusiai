@@ -14,10 +14,10 @@ namespace AK_Exusiai.Cards;
 public sealed class WhatLiesAhead : ExusiaiCardTemplate
 {
     protected override bool ShowAmmoHoverTip => true;
-    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Doubt>()];
+    protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Bewildered>()];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12m, ValueProp.Move),
+        new DamageVar(8m, ValueProp.Move),
         new DynamicVar("HitCount", 3m),
     ];
     public WhatLiesAhead() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
@@ -30,8 +30,8 @@ public sealed class WhatLiesAhead : ExusiaiCardTemplate
             .FromCard(this, cardPlay).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
-            CombatState!.CreateCard<Doubt>(Owner), PileType.Hand, Owner));
+            CombatState!.CreateCard<Bewildered>(Owner), PileType.Hand, Owner));
     }
 
-    protected override void OnUpgrade() => DynamicVars["HitCount"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2m);
 }

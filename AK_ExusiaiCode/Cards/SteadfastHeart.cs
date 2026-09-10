@@ -35,7 +35,7 @@ public sealed class SteadfastHeart : ExusiaiCardTemplate
             Injury generated = CombatState!.CreateCard<Injury>(Owner);
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
                 generated,
-                PileType.Discard,
+                PileType.Hand,
                 Owner));
         }
     }

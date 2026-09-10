@@ -22,6 +22,7 @@ public sealed class SweepingTheSkies : ExusiaiCardTemplate
     {
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars["HitCount"].IntValue)
+            .OnlyPlayAnimOnce()
             .FromCard(this, cardPlay).TargetingRandomOpponents(CombatState!)
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }

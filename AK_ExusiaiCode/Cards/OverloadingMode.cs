@@ -11,6 +11,7 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class OverloadingMode : ExusiaiCardTemplate
 {
+    protected override bool PlaysOwnNonAttackAnimation => true;
     protected override bool ShowAmmoHoverTip => true;
     protected override bool ShowOverloadHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal, CardKeyword.Exhaust];

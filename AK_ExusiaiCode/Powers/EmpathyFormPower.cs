@@ -1,4 +1,5 @@
 using AK_Exusiai.Mechanics;
+using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -15,40 +16,33 @@ namespace AK_Exusiai.Powers;
 public sealed class EmpathyFormPower : ModPowerTemplate
 {
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
     public override PowerAssetProfile AssetProfile => ExusiaiPowerAssets.Custom(nameof(EmpathyFormPower), ".png");
 
-    public override async Task AfterApplied(Creature? applier, CardModel? cardSource)
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (Owner.Player?.PlayerCombatState is not { } state)
+        if (player.Creature != Owner || player.PlayerCombatState is not { })
             return;
 
-        var context = new ThrowingPlayerChoiceContext();
-        foreach (CardModel card in state.AllCards.Where(IsAngelEligiblePile).ToList())
-            await AngelCmd.Add(context, card);
-    }
-
-    public override async Task AfterCardEnteredCombat(CardModel card)
-    {
-        if (card.Owner.Creature == Owner &&
-            IsAngelEligiblePile(card))
+        CardPile hand = PileType.Hand.GetPile(player);
+        for (int i = 0; i < Amount && hand.Cards.Count > 0; i++)
         {
-            await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
+            CardModel? selected = (await CardSelectCmd.FromCombatPile(
+                choiceContext,
+                hand,
+                player,
+                new CardSelectorPrefs(SelectionScreenPrompt, 1))).FirstOrDefault();
+            if (selected != null)
+                await AngelCmd.Add(choiceContext, selected);
         }
     }
 
-    public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (card.Owner.Creature == Owner &&
-            IsAngelEligiblePile(card))
-        {
-            await AngelCmd.Add(new ThrowingPlayerChoiceContext(), card);
-        }
-    }
+        if (cardPlay.Player.Creature != Owner || !AngelCmd.IsAngel(cardPlay.Card))
+            return;
 
-    private static bool IsAngelEligiblePile(CardModel card) =>
-        card.Pile?.Type is PileType.Draw or
-            PileType.Hand or
-            PileType.Discard or
-            PileType.Exhaust;
+        Flash();
+        await CardPileCmd.Draw(choiceContext, Amount, cardPlay.Player);
+    }
 }

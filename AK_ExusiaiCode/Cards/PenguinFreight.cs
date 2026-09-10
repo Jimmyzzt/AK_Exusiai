@@ -14,6 +14,7 @@ namespace AK_Exusiai.Cards;
 public sealed class PenguinFreight : ExusiaiCardTemplate
 {
     protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     public override bool GainsBlock => true;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

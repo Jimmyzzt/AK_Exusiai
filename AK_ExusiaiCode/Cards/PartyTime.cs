@@ -18,7 +18,7 @@ public sealed class PartyTime : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(2m, ValueProp.Move),
-        new DynamicVar(HitCountKey, 25m),
+        new DynamicVar(HitCountKey, 15m),
     ];
 
     public PartyTime() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
@@ -30,6 +30,8 @@ public sealed class PartyTime : ExusiaiCardTemplate
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars[HitCountKey].IntValue)
+            .OnlyPlayAnimOnce()
+            .WithWaitBeforeHit(0.025f, 0.055f)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
