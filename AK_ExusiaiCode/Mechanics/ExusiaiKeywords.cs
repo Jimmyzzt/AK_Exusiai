@@ -38,6 +38,11 @@ public static class ExusiaiKeywords
     public static IHoverTip TransitHoverTip => ModKeywordRegistry.CreateHoverTip(TransitId);
     public static IHoverTip AngelHoverTip => ModKeywordRegistry.CreateHoverTip(AngelId);
     public static IHoverTip OverloadHoverTip => ModKeywordRegistry.CreateHoverTip(OverloadId);
+    public static IHoverTip MysteryRelicHoverTip => new HoverTip(
+        new LocString("static_hover_tips", "AK_EXUSIAI_MYSTERY_RELIC.title"),
+        new LocString("static_hover_tips", "AK_EXUSIAI_MYSTERY_RELIC.description"));
+    public static string MysteryRelicName =>
+        new LocString("static_hover_tips", "AK_EXUSIAI_MYSTERY_RELIC.title").GetFormattedText();
     public static IHoverTip DeliveryTransitInteractionHoverTip => new HoverTip(
         new LocString("static_hover_tips", "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.title"),
         new LocString("static_hover_tips", "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.description"));

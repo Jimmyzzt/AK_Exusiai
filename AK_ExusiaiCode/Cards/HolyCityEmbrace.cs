@@ -27,7 +27,7 @@ public sealed class HolyCityEmbrace : ExusiaiCardTemplate
             card.Owner.PlayerCombatState?.AllCards.Count(AngelCmd.IsAngel) ?? 0),
     ];
 
-    public HolyCityEmbrace() : base(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
+    public HolyCityEmbrace() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

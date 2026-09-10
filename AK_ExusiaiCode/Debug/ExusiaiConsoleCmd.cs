@@ -456,7 +456,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             [],
             5,
             ClearInitialSilence: true,
-            "Verify the V1.2 cards and reworks: Star hand upgrades, Interference scaling, Covenant discard retrieval plus immediate Ammo, Piety draw-pile Angel, Chaotic Rampage's Wayward/Spore Mind upgrade split, and Wayward penalties only on exhaust or in-combat transform."),
+            "Verify the V1.2 cards and reworks: Star hand upgrades, Interference scaling, Covenant discard retrieval plus immediate Ammo, Piety draw-pile Angel, Chaotic Rampage drawing 2/3 then adding Wayward to discard, and Wayward penalties only on exhaust or in-combat transform."),
         "v1.1-core" => new ScenarioDefinition(
             name,
             10,

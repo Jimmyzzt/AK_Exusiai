@@ -14,21 +14,19 @@ namespace AK_Exusiai.Cards;
 public sealed class ChaoticRampage : ExusiaiCardTemplate
 {
     protected override IEnumerable<IHoverTip> CardHoverTips =>
-        [IsUpgraded ? HoverTipFactory.FromCard<SporeMind>() : HoverTipFactory.FromCard<Wayward>()];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+        [HoverTipFactory.FromCard<Wayward>()];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
     public ChaoticRampage() : base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        CardModel generated = IsUpgraded
-            ? CombatState!.CreateCard<SporeMind>(Owner)
-            : CombatState!.CreateCard<Wayward>(Owner);
+        CardModel generated = CombatState!.CreateCard<Wayward>(Owner);
         CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
             generated,
-            PileType.Hand,
+            PileType.Discard,
             Owner));
     }
 
-    protected override void OnUpgrade() { }
+    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(1m);
 }
