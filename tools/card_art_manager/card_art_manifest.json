@@ -1831,7 +1831,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1850,7 +1850,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1869,7 +1869,7 @@
       "top_color": "ee9558",
       "bottom_color": "540005",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1888,7 +1888,7 @@
       "top_color": "3c2059",
       "bottom_color": "ee9558",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1907,7 +1907,7 @@
       "top_color": "eec42d",
       "bottom_color": "9d6037",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1917,6 +1917,63 @@
       "offset": [
         0.004,
         0.1686
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0.0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Bewildered": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_144545_945.png",
+      "zoom": 1.469,
+      "offset": [
+        -0.0056,
+        -0.0379
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Wayward": {
+      "source": "references/official/asset/Avg_61_i10.png",
+      "zoom": 1.0,
+      "offset": [
+        -0.1536,
+        -0.003
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Piety": {
+      "source": "references/official/asset/Avg_39_i09.png",
+      "zoom": 1.166,
+      "offset": [
+        0.0,
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
