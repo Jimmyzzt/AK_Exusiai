@@ -1,6 +1,6 @@
 {
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "快递",
-  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "被给予快递[blue]X[/blue]的遗物会暂时失效，在[blue]X[/blue]场战斗后重新生效（无法选中初始遗物和已失效的遗物）。给予快递的卡牌需要成功快递遗物才能生效后续效果。",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "使遗物暂时失效，在[blue]X[/blue]场战斗后恢复。不可选择初始遗物和已失效遗物。\\n给予[gold]快递[/gold]的卡牌需要成功[gold]快递[/gold]才能生效后续效果。",
   "AK_EXUSIAI_KEYWORD_TRANSIT.title": "中转",
   "AK_EXUSIAI_KEYWORD_TRANSIT.description": "中转[blue]X[/blue]的遗物将在[blue]X[/blue]场战斗后失效（包括本场战斗），失效后可以重新中转。",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "天使",

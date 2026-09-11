@@ -13,7 +13,7 @@ public sealed class ShootingMode : ExusiaiCardTemplate
 {
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(11m, ValueProp.Move),
         new DynamicVar("HitCount", 4m),
     ];
     public ShootingMode() : base(4, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy) { }
@@ -27,5 +27,5 @@ public sealed class ShootingMode : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash").Execute(choiceContext);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(4m);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(3m);
 }

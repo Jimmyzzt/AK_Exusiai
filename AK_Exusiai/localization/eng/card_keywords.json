@@ -1,6 +1,6 @@
 {
   "AK_EXUSIAI_KEYWORD_DELIVERY.title": "Delivery",
-  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "A relic given Delivery [blue]X[/blue] becomes inactive and reactivates after [blue]X[/blue] combats. Starter and inactive relics cannot be selected. A card that gives Delivery only performs its subsequent effects if it successfully gives Delivery to a relic.",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "Temporarily disables a relic. It recovers after [blue]X[/blue] combats. Starter and already disabled relics cannot be selected.\\nCards that grant [gold]Delivery[/gold] only perform their subsequent effects after successfully granting [gold]Delivery[/gold].",
   "AK_EXUSIAI_KEYWORD_TRANSIT.title": "Transit",
   "AK_EXUSIAI_KEYWORD_TRANSIT.description": "A relic with Transit [blue]X[/blue] becomes inactive after [blue]X[/blue] combats (including the current combat). Once inactive, it can gain Transit again.",
   "AK_EXUSIAI_KEYWORD_ANGEL.title": "Angel",

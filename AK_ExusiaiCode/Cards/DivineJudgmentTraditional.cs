@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2RitsuLib;
 using STS2RitsuLib.Interop.AutoRegistration;
 
 namespace AK_Exusiai.Cards;
@@ -13,7 +14,7 @@ public sealed class DivineJudgmentTraditional : ExusiaiCardTemplate
 {
     private const string HitCountKey = "HitCount";
     protected override bool IsPlayable =>
-        Owner.PlayerCombatState?.Hand.Cards.Count >= CardPile.MaxCardsInHand;
+        Owner.PlayerCombatState?.Hand.Cards.Count >= RitsuLibFramework.GetMaxHandSize(Owner);
     protected override bool ShouldGlowGoldInternal => IsPlayable;
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
