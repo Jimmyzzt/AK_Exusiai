@@ -1,6 +1,19 @@
-# Item asset generation
+# 制作工具 / Authoring tools
+
+项目构建与本机路径配置见 [开发说明](../docs/DEVELOPMENT.md)。下列命令均从仓库根目录执行。需要 `$GodotExe` 的脚本可先从本机配置读取路径：
+
+```powershell
+[xml]$exusiaiLocalProps = Get-Content -LiteralPath .\local.props -Raw
+$GodotExe = [string]$exusiaiLocalProps.Project.PropertyGroup.GodotExe
+```
+
+常用入口：[卡图管理器](card_art_manager/README.md)、[卡牌特效与音效管理器](card_effect_manager/README.md)。工具与原始参考素材不随 PCK 发布，工具导出的正式资源才进入游戏。
+
+## Item asset generation
 
 Generate exact 64×64 and 256×256 runtime variants for every custom power icon:
+
+Requires Python 3 and Pillow. SVG dimensions are rewritten directly; PNG variants are resized by Pillow.
 
 ```powershell
 python .\tools\generate_power_icons.py
@@ -57,3 +70,11 @@ Run the local Godot card-art GUI from the repository root:
 ```
 
 It scans and groups the tracked reference folders, provides scalable UI, file metadata in list view, resizable sidebars, type-aware card-frame guides, independent gradient/texture backgrounds, a unified background/material/placeholder compositor, pan/zoom/rotate/flip controls, bounded thumbnail caching with manual cleanup, and responsive batch-export progress. Export resolution is selectable from 1× to 4× while preserving the official aspect ratios, with 500×380 normal and 500×702 Ancient portraits as the default. See `tools/card_art_manager/README.md` for the workflow and cache locations.
+
+## Card effect and audio manager
+
+```powershell
+.\tools\card_effect_manager\run_card_effect_manager.ps1
+```
+
+Edit shared visual/audio presets in the standalone Godot window and preview them in a single-player test battle with `exusiai fx on`. Export the approved configuration to `AK_Exusiai/config/card_effects.json`, then build the PCK. Full instructions, dependencies and validation commands are in [the manager README](card_effect_manager/README.md); its initial design is retained only as [historical background](../docs/archive/CARD_EFFECT_MANAGER_PLAN.md).
