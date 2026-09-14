@@ -1,6 +1,6 @@
 # 制作工具 / Authoring tools
 
-项目构建与本机路径配置见 [开发说明](../docs/DEVELOPMENT.md)。下列命令均从仓库根目录执行。需要 `$GodotExe` 的脚本可先从本机配置读取路径：
+项目构建与本机路径配置见 [开发说明](../docs/archive/DEVELOPMENT.md)。下列命令均从仓库根目录执行。需要 `$GodotExe` 的脚本可先从本机配置读取路径：
 
 ```powershell
 [xml]$exusiaiLocalProps = Get-Content -LiteralPath .\local.props -Raw
@@ -77,4 +77,4 @@ It scans and groups the tracked reference folders, provides scalable UI, file me
 .\tools\card_effect_manager\run_card_effect_manager.ps1
 ```
 
-Edit shared visual/audio presets in the standalone Godot window and preview them in a single-player test battle with `exusiai fx on`. Export the approved configuration to `AK_Exusiai/config/card_effects.json`, then build the PCK. Full instructions, dependencies and validation commands are in [the manager README](card_effect_manager/README.md); its initial design is retained only as [historical background](../docs/archive/CARD_EFFECT_MANAGER_PLAN.md).
+Edit shared visual/audio presets in the standalone Godot window and preview them in a single-player test battle with `exusiai fx on`. Export the approved configuration to `AK_Exusiai/config/card_effects.json`, then build the PCK. Full instructions, dependencies and validation commands are in [the manager README](card_effect_manager/README.md).

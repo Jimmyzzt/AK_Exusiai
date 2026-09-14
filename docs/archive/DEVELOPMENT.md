@@ -1,6 +1,6 @@
 # 开发说明
 
-本项目是《Slay the Spire 2》的能天使角色 Mod，源码与资源分别位于 `AK_ExusiaiCode/` 和 `AK_Exusiai/`。当前游戏与依赖依据见 [框架基线](FRAMEWORK_AUDIT.md)，实现约定见 [AGENTS](../AGENTS.md)。
+本项目是《Slay the Spire 2》的能天使角色 Mod，源码与资源分别位于 `AK_ExusiaiCode/` 和 `AK_Exusiai/`。当前游戏与依赖依据见 [框架基线](FRAMEWORK_AUDIT.md)，实现约定见 [AGENTS](../../AGENTS.md)。
 
 ## 搭建环境
 
@@ -8,7 +8,7 @@
 2. 安装 .NET 9 SDK 与 Godot 4.5.1 **Mono/.NET** 版。
 3. 将仓库的 `local.props.template` 复制为 `local.props`，填写 `Sts2Dir`、`Sts2DataDir` 和 `GodotExe`。该文件不提交，其他共享文件使用相对路径。
 4. 单独安装与项目相符的 RitsuLib 运行时。NuGet 会还原编译包，**不会自动把它安装到游戏**；模板中的 `RitsuLibDeployDir` 为旧配置，当前构建文件没有消费它。
-5. 完整 Godot 导入需要适用于 Godot 4.5.1 的 Windows Spine 编辑器扩展。按 [Spine 资源说明](../tools/README.md#spine-character-assets) 放入被忽略的 `SpineGodotExtension4.5.1/`。游戏自带 Spine 运行时，编辑器扩展不随 Mod 发布。
+5. 完整 Godot 导入需要适用于 Godot 4.5.1 的 Windows Spine 编辑器扩展。按 [Spine 资源说明](../../tools/README.md#spine-character-assets) 放入被忽略的 `SpineGodotExtension4.5.1/`。游戏自带 Spine 运行时，编辑器扩展不随 Mod 发布。
 
 游戏 DLL 从本机安装读取，仓库不提供游戏 DLL、PCK、FMOD bank 或完整游戏资源。仅检查 C# 时不需要运行 Godot 资源导出。
 
@@ -58,7 +58,7 @@ dotnet build .\AK_Exusiai.csproj -c Release /p:ModOutputDir=release/AK_Exusiai/ 
 | `tools/` | 卡图/特效管理器、图标生成和资源验证脚本 |
 | `docs/` | 当前说明、设计表和历史归档 |
 
-替换能力图标后，使用 Python 3 与 Pillow 运行 `tools/generate_power_icons.py`，生成 64×64/256×256 两套资源，再让 Godot 重新导入。卡图与音效制作流程见 [工具总览](../tools/README.md)。
+替换能力图标后，使用 Python 3 与 Pillow 运行 `tools/generate_power_icons.py`，生成 64×64/256×256 两套资源，再让 Godot 重新导入。卡图与音效制作流程见 [工具总览](../../tools/README.md)。
 
 当前导出预设排除了源码、文档、参考素材、制作工具和 Spine 编辑器扩展；自定义音效的 `SOURCES.md` 会被包含。发布时仍需核对实际 PCK 内容。
 
@@ -68,4 +68,4 @@ dotnet build .\AK_Exusiai.csproj -c Release /p:ModOutputDir=release/AK_Exusiai/ 
 
 不提交本机路径、构建产物、凭据、日志、缓存或整套游戏资源。新增源素材补充对应 `SOURCES.md`；仓库公开与为源码选择许可证是两件事，当前没有统一代码许可证。
 
-工坊上传与源码提交分开操作，发布流程见 [工坊准备](WORKSHOP_RELEASE.md)。
+工坊上传与源码提交分开操作，发布流程见 [工坊准备](../WORKSHOP_RELEASE.md)。

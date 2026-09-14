@@ -1,6 +1,6 @@
 # AK_Exusiai 协作开发指南
 
-本文件适用于 AK_Exusiai 仓库内全部任务。它是独立项目，不使用父工作区中 DpxVanillaExpansion 的命名、卡表或依赖版本。新 agent 先读本页，再按任务查阅 `docs/PROGRESS.md`、设计 CSV 和相关源码；具体游戏 API 以开发者当前安装的 `sts2.dll` 为准。README 面向玩家和仓库访客，文档入口为 `docs/README.md`，构建说明为 `docs/DEVELOPMENT.md`。
+本文件适用于 AK_Exusiai 仓库内全部任务。它是独立项目，不使用父工作区中 DpxVanillaExpansion 的命名、卡表或依赖版本。新 agent 先读本页，再按任务查阅 `docs/PROGRESS.md`、设计 CSV 和相关源码；具体游戏 API 以开发者当前安装的 `sts2.dll` 为准。README 面向玩家和仓库访客；详细构建、测试与框架说明现归档在 `docs/archive/`。
 
 ## 1. 项目速览
 
@@ -21,7 +21,7 @@
 - RitsuLib：`STS2.RitsuLib` 0.5.20，以 `AK_Exusiai.csproj` 为编译依赖依据；运行时依赖另见 `AK_Exusiai.json`。
 - 各自通过未跟踪的 `local.props` 配置游戏、Godot 和部署目录；模板见 `local.props.template`。共享文件不得包含绝对路径。
 
-游戏、NuGet 编译包和游戏中部署的 RitsuLib 运行时必须匹配。不要仅因线上出现新版本就升级；先核对游戏 API、NuGet 包和运行时，再单独升级并回归。审计记录见 `docs/FRAMEWORK_AUDIT.md`。
+游戏、NuGet 编译包和游戏中部署的 RitsuLib 运行时必须匹配。不要仅因线上出现新版本就升级；先核对游戏 API、NuGet 包和运行时，再单独升级并回归。审计记录见 `docs/archive/FRAMEWORK_AUDIT.md`。
 
 游戏可能锁定 Mod DLL，完整构建前先退出游戏：
 
@@ -171,7 +171,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - 保留用户和协作者已有改动；不提交 `bin/`、`obj/`、`.godot/`、日志、部署产物、游戏 DLL/PCK、凭据和本机路径。
 - 实现所需的官方/授权源素材及最终资源都要进入 Git，不能只存在某台电脑。来源和用途记入对应 `SOURCES.md`。
 - 不提交整套游戏资源、无关批量提取结果或其他 Mod 的自制素材。大文件需要 Git LFS 时先单独启用并验证。
-- 公共仓库介绍只介绍 Mod，不自行填写维护者与合作者的分工。素材来源集中于 `docs/CREDITS.md` 及各 `SOURCES.md`；`free` 目录名不代表已确认任意用途的许可，不擅自为全部素材或共同代码选择许可证。
+- 公共仓库介绍只介绍 Mod，不自行填写维护者与合作者的分工。素材来源集中于 `docs/archive/CREDITS.md` 及各 `SOURCES.md`；`free` 目录名不代表已确认任意用途的许可，不擅自为全部素材或共同代码选择许可证。
 - 工坊物料、共同作者邀请及发布步骤见 `docs/WORKSHOP_RELEASE.md`。上传包仅使用本 Mod 的 DLL/PCK/JSON；工坊依赖 ID、Mod ID、Git tag 是不同字段。正式发布时统一清单版本和更新记录，保留现有标签与工坊条目 ID。
 
 ## 8. 参考资料优先级

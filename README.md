@@ -1,57 +1,56 @@
 # 能天使 · Exusiai
 
-将《明日方舟》的能天使带入《Slay the Spire 2》：装填弹药、倾泻火力，借助天使的祝福与企鹅物流的支援攀登高塔。
+> 子弹上膛，准备万全★
 
-本项目为非官方、非盈利同人角色 Mod，包含简体中文与英文本地化。目前处于 V1.2 版本线，正在准备 Steam 创意工坊发布。
+企鹅物流资深员工、苹果派物流老板能天使，前来《Slay the Spire 2》的高塔拓展业务（真的吗）。这是一个包含简体中文与英文的非官方、非盈利角色 Mod。
 
-![能天使角色选择背景](AK_Exusiai/images/character/appearance/Exusiai.png)
+![能天使 Mod 封面](references/free/preview/Exusiai.png)
 
-## 玩法特色
+## 内容与玩法
 
-- **弹药与过载**：攻击消耗弹药获得额外伤害；把弹药积攒到上限，进入过载，打出一轮猛烈的连续攻击。
-- **天使**：赋予卡牌保留与首次免费打出的机会，搭配圣城衍生牌组织连招。
-- **快递与中转**：暂时寄出遗物换取收益，再通过中转调度临时遗物，在眼前的爆发与后续战斗之间取舍。
-- **干扰与沉默**：压制敌人的攻击与被动能力，为队伍创造输出空间。
-- **企鹅物流支援**：大帝、德克萨斯、可颂等伙伴以物流卡登场；另有面向多人合作的卡牌。
+- **弹药与过载**：弹药为攻击提供额外伤害；弹药越多，增伤越高。达到上限后进入过载，攻击力提升且不再扣除弹药。
+- **天使**：赋予卡牌保留与一次免费打出，配合三张圣城衍生牌组织连招。
+- **企鹅物流**：通过快递暂时寄出遗物换取收益，再用中转调度临时遗物；八位企鹅物流成员会以物流卡登场。
+- **干扰与沉默**：降低敌人的攻击，并使其被动能力暂时失效。
 
-## 包含内容
+当前包含 104 张卡牌：91 张角色卡（含 5 张多人卡、初始牌和先古牌）、11 张衍生牌和 2 张诅咒；另有 9 件角色遗物、3 瓶药水，以及能天使与新约能天使两组角色骨骼、共 6 套时装。
 
-按当前源码统计，共 **104 种卡牌、9 件角色遗物、3 种角色药水**。卡牌包括 91 种角色卡池卡牌（含初始与先古牌）、11 种衍生牌和 2 种诅咒；并非 104 张都会进入普通卡牌奖励。
+| 角色与外观 | 战斗与卡牌 |
+| --- | --- |
+| ![角色选择界面](references/free/preview/ScreenShot_2026-09-14_014546_209.png) | ![卡牌百科](references/free/preview/ScreenShot_2026-09-14_014902_059.png) |
 
-角色提供能天使与新约能天使两组外观，共六套造型，配有战斗、休息、商店动画，以及自定义光环苹果能量指示器、转场和音效。两组外观使用同一套玩法。
+## 安装与兼容
 
-具体效果以游戏内卡牌为准。版本调整见 [V1.2 更新记录](docs/archive/changelog_v1.md)，设计表及开发资料见 [文档目录](docs/README.md)。
+本 Mod 目前面向游戏测试分支，发布时支持的具体版本以工坊页面为准。前置依赖为 [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。多人游戏请保持游戏、Mod、依赖版本以及内容 Mod 加载顺序一致。
 
-## 安装与版本
+工坊页面上线后将在这里补充订阅链接。GitHub 的 **Download ZIP 是源码，不是可直接安装的 Mod 包**。若使用维护者提供的手动安装包，请将 `AK_Exusiai.dll`、`AK_Exusiai.pck` 和 `AK_Exusiai.json` 放入游戏的 `mods/AK_Exusiai/`，并安装匹配版本的 RitsuLib。
 
-当前已验证的开发基线为 **游戏 public beta v0.111.0、RitsuLib 0.5.20、Windows**。这不是对所有后续游戏版本、正式分支或其他平台的兼容承诺；发布时会注明对应游戏版本。
+## 反馈
 
-工坊页面上线后将在这里补充订阅链接。前置依赖为 [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。
+请通过 [GitHub Issues](https://github.com/Jimmyzzt/AK_Exusiai/issues)、工坊 BUG 反馈帖或交流群说明游戏与 Mod 版本、相关卡牌及升级状态、单人/多人和复现步骤。交流群：QQ 1080295067。
 
-如果使用维护者提供的手动安装包，将 `AK_Exusiai.dll`、`AK_Exusiai.pck`、`AK_Exusiai.json` 放在游戏的 `mods/AK_Exusiai/` 目录，并安装匹配的 RitsuLib。GitHub 的 **Download ZIP 是源码**，不能直接作为游戏安装包。
+遇到异常时，请附发生问题那次运行的 `godot.log`；多人不同步请同时提供对应的 `ritsulib_state_divergence_*.zip`。游戏控制台输入 `open logs` 可以打开日志目录。
 
-多人游戏时，各方应使用相同的游戏版本、Mod 版本及依赖，并核对内容 Mod 的加载顺序。多人相关问题仍欢迎反馈。
+## 开发
 
-## 反馈问题
-
-请通过 [GitHub Issues](https://github.com/Jimmyzzt/AK_Exusiai/issues) 提交反馈，附上：游戏版本、Mod 与 RitsuLib 版本、单人或多人、涉及卡牌及升级状态、复现步骤，以及截图或日志。
-
-游戏内控制台输入 `open logs` 可打开日志目录。优先提供发生问题那次运行的 `godot.log`；如果后来又启动过游戏，需同时查看带日期的轮转日志。多人不同步时，请附上对应的 `ritsulib_state_divergence_*.zip`，尽量收集双方的记录。公开日志前可遮去不愿公开的用户名或本机路径。
-
-## 开发与贡献
-
-源码使用 C#、.NET 9 和 Godot 4.5.1 Mono，基于 RitsuLib。你可以阅读实现、提交问题或发起 Pull Request；较大的机制调整建议先讨论设计。
-
-准备好本机游戏与 Godot 后，复制 [local.props.template](local.props.template) 为 `local.props` 并填写路径。完整构建会编译、导出 PCK 并部署到本机游戏目录：
+项目使用 C#、.NET 9、Godot 4.5.1 Mono 与 RitsuLib。构建与本机环境说明保存在 [开发文档](docs/archive/DEVELOPMENT.md)，当前实现和发布前待办见 [进度记录](docs/PROGRESS.md)，卡图及卡牌特效工具见 [制作工具](tools/README.md)。较大的机制调整建议先讨论设计。
 
 ```powershell
 dotnet build .\AK_Exusiai.csproj
 ```
 
-完整构建前请退出游戏。首次搭建环境还需配置 Spine 编辑器扩展与 RitsuLib 运行时，步骤见 [开发说明](docs/DEVELOPMENT.md)。卡图和卡牌特效编辑器见 [制作工具](tools/README.md)。
+完整构建前请退出游戏。仓库目前没有统一代码许可证；源码公开不代表项目内全部代码和素材获得任意用途的授权。
 
-## 素材与致谢
+## 致谢
 
-感谢 Mega Crit、《明日方舟》的创作者、RitsuLib 和社区工具的维护者，以及参与测试和反馈的玩家。
+感谢 Mega Crit、《明日方舟》的创作者、PRTS、RitsuLib 与社区工具维护者，感谢妮芙 Mod 作者提供的参考和帮助，也感谢参与测试和反馈的玩家。
 
-角色、美术、音效与第三方工具各有其来源和权利归属，详见 [素材与致谢](docs/CREDITS.md)。仓库目前未设置统一代码许可证；素材也不因源码公开而自动获得新的使用许可。
+角色、美术、音效与第三方工具各有其来源和权利归属，详见 [素材与致谢](docs/archive/CREDITS.md)。
+
+---
+
+## English
+
+Exusiai of Penguin Logistics is bringing Ammo, Overload, angelic blessings, and a whole logistics crew to the Spire. The mod includes 104 cards, 9 character relics, 3 potions, six appearances across Exusiai and Exusiai the New Covenant, and both Simplified Chinese and English localization.
+
+RitsuLib is required. The mod currently targets the game's beta branch; consult the future Workshop page for the exact supported version. See the [English Workshop description](docs/workshop/description.en.md) for the full feature list and feedback instructions.
