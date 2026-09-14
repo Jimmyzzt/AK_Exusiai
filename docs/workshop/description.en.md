@@ -28,9 +28,7 @@ Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filede
 
 ## Credits and assets
 
-This is an unofficial, non-commercial fan work. Most card art uses official Arknights assets and illustrations by Exusiai's official artist, Huanxiang Heitu. Some art was drawn by community member @溯月雪樱; icons come from [Alibaba Iconfont](https://www.iconfont.cn/); a small number of assets come from other online sources; and a very small portion was made with AI assistance. (Finding a real photo of “char siu apple pie” proved impossible.) If any material presents a rights issue, please contact us so it can be changed promptly.
-
-Arknights characters and original assets belong to their respective rights holders. Some visual assets were made with AI assistance.
+This is an unofficial, non-commercial fan work. Most card art uses official Arknights assets and illustrations by Exusiai's official artist, Huanxiang Heitu. Some art was drawn by community member @雪樱; icons come from [Alibaba Iconfont](https://www.iconfont.cn/); a small number of assets come from other online sources; and a very small portion was made with AI assistance. (Finding a real photo of “char siu apple pie” proved impossible.) If any material presents a rights issue, please contact us so it can be changed promptly.
 
 Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools.Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for providing reference material and assistance! And to the STS2 modding community (QQ group 263898222) for testing.
 

@@ -18,7 +18,7 @@ using STS2RitsuLib.Combat.SecondaryResources;
 namespace AK_Exusiai.Debug;
 
 /// <summary>
-/// Extensible developer-console entry point for Exusiai combat test fixtures.
+/// Extensible developer-console entry point for Exusiai utilities and combat test fixtures.
 /// </summary>
 public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 {
@@ -67,6 +67,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
     private static readonly string[] Subcommands =
     [
         "help",
+        "save",
         "fx",
         "scenario",
         "state",
@@ -80,10 +81,10 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 
     public override string CmdName => "exusiai";
 
-    public override string Args => "<fx|scenario|state|logic|hand|replay|ammo|angel|interference> [args]";
+    public override string Args => "<save|fx|scenario|state|logic|hand|replay|ammo|angel|interference> [args]";
 
     public override string Description =>
-        "Runs AK_Exusiai combat test fixtures and card-state utilities.";
+        "Runs AK_Exusiai utilities and combat test fixtures.";
 
     public override bool IsNetworked => true;
 
@@ -96,6 +97,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         string[] subArgs = args.Skip(1).ToArray();
         return subcommand switch
         {
+            "save" => ExusiaiSaveConsoleCmd.Process(subArgs),
             "fx" => ExusiaiEffectConsoleCmd.Process(issuingPlayer, subArgs),
             "scenario" or "test" => SetupScenario(issuingPlayer, subArgs),
             "state" => ShowState(issuingPlayer, subArgs),
@@ -122,6 +124,25 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         }
 
         string subcommand = args[0].ToLowerInvariant();
+        if (subcommand == "save")
+        {
+            if (args.Length == 2)
+            {
+                return CompleteArgument(
+                    ["status", "import-vanilla"],
+                    [args[0]],
+                    args[1]);
+            }
+
+            if (args.Length == 3 && args[1].Equals("import-vanilla", StringComparison.OrdinalIgnoreCase))
+            {
+                return CompleteArgument(
+                    ["confirm"],
+                    [args[0], args[1]],
+                    args[2]);
+            }
+        }
+
         if (subcommand == "fx" && args.Length == 2)
             return CompleteArgument(["on", "off", "status"], [args[0]], args[1]);
         if (subcommand is "scenario" or "test")
@@ -226,7 +247,9 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 
     private static CmdResult Help() => new(
         success: true,
-        "[gold]Exusiai test commands[/gold]\n" +
+        "[gold]Exusiai commands[/gold]\n" +
+        "  exusiai save status - Compare Vanilla and Modded progress for the current profile slot.\n" +
+        "  exusiai save import-vanilla confirm - Back up and replace this slot's Modded progress with its Vanilla progress. Main menu only.\n" +
         "  exusiai fx <on|off|status> - Control the single-player card effect preview bridge.\n" +
         "  exusiai scenario <name> [base|upgraded] - Build an isolated V1 combat fixture; use 'scenario list' for names.\n" +
         "  exusiai state - Show Ammo, relevant player powers, and indexed enemy Interference/Silence.\n" +

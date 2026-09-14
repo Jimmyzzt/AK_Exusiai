@@ -164,6 +164,8 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 
 卡牌回归至少覆盖：0/1/大量弹药；单段、多段、AOE、随机目标与击杀中断；快递增减/归零/自动打出；天使费用升降、消耗和重放；抽牌堆、弃牌堆、消耗堆、满手牌；能力叠加、人工制品、战斗结束和存档恢复。
 
+`exusiai save` 的跨命名空间进度操作必须继续使用 RitsuLib 的 `RawProgressBridge.TargetedInstance`，只允许在主菜单并要求显式确认。不得退回直接文件复制，也不得在没有共同历史信息的情况下对累计统计做求和式“双向合并”。原版 → Modded 导入只处理 `progress.save`，保留目标 `unique_id`，不触碰设置、当前局和历史记录。
+
 ## 7. Git 与素材协作
 
 - `main` 保持可构建、可加载；新机制使用 `card/`、`mechanic/`、`relic/`、`potion/`、`art/`、`fix/`、`docs/` 分支。
