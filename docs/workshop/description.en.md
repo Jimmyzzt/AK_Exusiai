@@ -1,6 +1,6 @@
-# Magazine loaded, ready for anything★
+# Locked and loaded, ready for action★
 
-Penguin Logistics veteran—and self-proclaimed owner of Apple Pie Logistics—Exusiai is here to expand her business into the Spire. (Is she, really?)
+Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is here to expand her business into the Spire. (Really?)
 
 ## Supported version
 
@@ -9,17 +9,16 @@ Currently supports beta version 0.110 only.
 ## Content
 
 - 1 new character!
-- 2 character skeleton sets: Exusiai and Exusiai the New Covenant, using official assets from Arknights.
-- 2 appearance groups with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
+- 2 appearance sets with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
 - 104 cards: 91 character cards, including 5 multiplayer cards, starter cards, and Ancient cards; 11 token cards, comprising 8 Penguin Logistics cards and 3 Angel cards; and 2 Curses.
 - 9 character relics and 3 potions.
 
 ## Core mechanics
 
-- **Ammo** — From Exusiai's guns. Ammo adds damage to attacks, with more Ammo providing a larger bonus. Reach the limit to enter Overload: attacks become stronger and stop consuming Ammo, letting you fire away to your heart's content.
-- **Angel** — From Laterano. Three Angel token cards help keep your deck moving. Give a card Angel to grant it Retain and one free play.
-- **Penguin Logistics** — From the best friends around. Use Delivery to temporarily send relics away in exchange for benefits, then use Transit to deploy temporary relics. Emperor, Texas, Exusiai, Croissant, Sora, Bison, Ylth, and Mostima also arrive as Logistics cards.
-- **Communications Technology** — From her high-school major. Use Interference and Silence to suppress enemies. Each stack of Interference slightly reduces an enemy's attacks for the rest of combat; applying it for the first time also inflicts Silence, disabling that enemy's passive abilities for the turn. Passive abilities include effects such as Strength, the sandworm's Devour, the hourglass's Wither card, and the test subject's revival.
+- **Ammo** — From Exusiai's firearms. Ammo adds damage to attacks, with more Ammo providing a larger bonus. Reach the limit to enter Overload: attacks become stronger and stop consuming Ammo, letting you fire away to your heart's content.
+- **Angel** — From Laterano. Three Angel Token Cards help cycle your deck. Add Angel to a card to give it Retain and make it free to play once.
+- **Penguin Logistics** — From her best friends. Use Delivery to temporarily send Relics away in exchange for benefits, then use Transit to obtain temporary Relics. Emperor, Texas, Exusiai, Croissant, Sora, Bison, Yith, and Mostima also show up as Penguin Logistics cards to lend a hand.
+- **Communications Technology** — Inspired by her high-school studies. Use Interference and Silence to suppress enemies. Each stack of Interference slightly reduces the damage dealt by that enemy's attacks for the rest of combat. The first time an enemy gains Interference, it also gains Silence, disabling its passive abilities for the turn. Passive abilities include effects such as Strength, The Insatiable's Sandpit, Aeonglass's Withering Presence, and Test Subject's Adaptable.
 
 ## Installation and compatibility
 
@@ -33,9 +32,9 @@ This is an unofficial, non-commercial fan work. Most card art uses official Arkn
 
 Arknights characters and original assets belong to their respective rights holders. Some visual assets were made with AI assistance.
 
-Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools. Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for their references and help, and to the STS2 modding community (QQ group 263898222) for testing.
+Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools.Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for providing reference material and assistance! And to the STS2 modding community (QQ group 263898222) for testing.
 
-The mod supports Simplified Chinese and English. The English localization is machine-translated; reports of awkward text or display problems are especially welcome.
+The mod supports Simplified Chinese and English. The English localization was initially machine-translated, so reports of awkward wording or display issues are especially welcome.
 
 ## Bug reports
 
@@ -49,6 +48,6 @@ QQ group: 1080295067
 
 Come chat and share feedback!
 
-If you enjoy the mod, please consider leaving a like and adding it to your favorites. Thank you!
+If you enjoy the mod, please consider giving it a thumbs-up and adding it to your favorites. Thanks!
 
 Planned future additions include new Ancients, enemies, and boss encounters.
