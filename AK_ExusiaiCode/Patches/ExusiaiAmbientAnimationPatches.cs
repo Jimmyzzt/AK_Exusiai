@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.RestSite;
+using MegaCrit.Sts2.Core.Nodes.Events.Custom;
 using MegaCrit.Sts2.Core.Nodes.Screens.Shops;
 using STS2RitsuLib.Patching.Models;
 
@@ -35,7 +36,7 @@ internal static class ExusiaiAmbientAnimation
             animationState.Call("set_animation", animation, loop, 0));
     }
 
-    private static bool ContainsNodeNamed(Node node, string nodeName)
+    internal static bool ContainsNodeNamed(Node node, string nodeName)
     {
         if (node.Name.ToString() == nodeName)
             return true;
@@ -138,6 +139,45 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
                 loop: false);
         });
         return false;
+    }
+
+    internal static IEnumerable<Node2D> FindNodesNamed(Node node, string nodeName)
+    {
+        if (node is Node2D node2D && node.Name.ToString() == nodeName)
+            yield return node2D;
+
+        foreach (Node child in node.GetChildren())
+        {
+            foreach (Node2D match in FindNodesNamed(child, nodeName))
+                yield return match;
+        }
+    }
+}
+
+internal sealed class ExusiaiFakeMerchantScalePatch : IPatchMethod
+{
+    private const float FakeMerchantScale = 0.35f;
+
+    public static string PatchId => "exusiai_fake_merchant_scale";
+    public static string Description =>
+        "Match Exusiai's merchant skeleton to her combat scale in the Fake Merchant event";
+
+    public static ModPatchTarget[] GetTargets() =>
+    [
+        new(typeof(NFakeMerchant), "AfterRoomIsLoaded"),
+    ];
+
+    public static void Postfix(NFakeMerchant __instance)
+    {
+        // RitsuLib instantiates the custom merchant scene here, but Godot still
+        // reports its scene root as Node2D rather than NMerchantCharacter.
+        // Locate the authored root by name instead of filtering by CLR type.
+        foreach (Node2D merchantVisual in ExusiaiAmbientAnimation.FindNodesNamed(
+                     __instance,
+                     ExusiaiAmbientAnimation.MerchantSceneRootName))
+        {
+            merchantVisual.Scale = Vector2.One * FakeMerchantScale;
+        }
     }
 }
 

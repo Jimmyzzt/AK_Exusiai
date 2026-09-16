@@ -1,25 +1,15 @@
 using AK_Exusiai.Content;
 using AK_Exusiai.Mechanics;
-using System.Runtime.CompilerServices;
 using Godot;
 using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Characters;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.ValueProps;
-using AK_Exusiai.Powers;
-using AK_Exusiai.Relics;
-using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Scaffolding.Characters;
 using STS2RitsuLib.Scaffolding.Godot;
@@ -29,8 +19,7 @@ namespace AK_Exusiai.Characters;
 
 [RegisterCharacter]
 public sealed class Exusiai :
-    ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelicPool, ExusiaiPotionPool>,
-    ISecondaryResourceHookListener
+    ModCharacterTemplate<ExusiaiCardPool, ExusiaiRelicPool, ExusiaiPotionPool>
 {
     internal const string CustomCharacterSelectSfxToken =
         "ak_exusiai:/sfx/character_select";
@@ -48,23 +37,12 @@ public sealed class Exusiai :
     private const string CharacterSelectTransitionMaterialPath =
         $"{Entry.ResPath}/materials/transitions/exusiai_transition_mat.tres";
 
-    private static readonly ConditionalWeakTable<Exusiai, AmmoData> AmmoDataByCharacter = new();
-
-    private sealed class AmmoData
-    {
-        public Dictionary<CardPlay, AmmoAttackInfo> AttackModes { get; } = [];
-        public Stack<PrepaidAmmoInfo> PrepaidAmmo { get; } = [];
-    }
-
-    private readonly record struct PrepaidAmmoInfo(int AmmoSpent, decimal DamagePerAmmo);
-
     public override CharacterGender Gender => CharacterGender.Feminine;
     public override Color NameColor => new("F04B61");
     public override int StartingHp => 77;
     public override int StartingGold => 99;
     public override float AttackAnimDelay => 0.35f;
     public override float CastAnimDelay => 0.35f;
-    public override bool ShouldReceiveCombatHooks => true;
     public override bool RequiresEpochAndTimeline => false;
     public override string? PlaceholderCharacterId => "IRONCLAD";
 
@@ -190,450 +168,51 @@ public sealed class Exusiai :
             relaxedName: "Sit");
     }
 
-    public override Task BeforeCombatStart()
-    {
-        GetAmmoData().AttackModes.Clear();
-        GetAmmoData().PrepaidAmmo.Clear();
-        return Task.CompletedTask;
-    }
+    public static bool DidSpendAmmo(CardPlay cardPlay) =>
+        AmmoCombatHooks.DidSpendAmmo(cardPlay);
 
-    public override async Task BeforeSideTurnStart(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IReadOnlyList<Creature> participants,
-        ICombatState combatState)
-    {
-        if (side != CombatSide.Player)
-            return;
+    public static int GetEffectiveAmmoSpent(CardPlay? cardPlay) =>
+        AmmoCombatHooks.GetEffectiveAmmoSpent(cardPlay);
 
-        Player? player = participants
-            .Select(creature => creature.Player)
-            .FirstOrDefault(player => player?.Character == this);
-        if (player == null ||
-            player.Creature.HasPower<OverloadPower>() ||
-            SecondaryResourceCmd.Get(player, AmmoResource.Id) < AmmoResource.MaxAmount)
-        {
-            return;
-        }
+    public static decimal GetAmmoBonus(CardPlay? cardPlay) =>
+        AmmoCombatHooks.GetAmmoBonus(cardPlay);
 
-        await PowerCmd.Apply<OverloadPower>(
-            choiceContext,
-            player.Creature,
-            1m,
-            player.Creature,
-            null);
-    }
+    public static IReadOnlyList<decimal> GetAmmoHitBonuses(CardPlay? cardPlay) =>
+        AmmoCombatHooks.GetAmmoHitBonuses(cardPlay);
 
-    public override async Task BeforeCardPlayed(CardPlay cardPlay)
-    {
-        if (cardPlay.Player.Character != this) return;
-        await AK_Exusiai.Effects.CardEffectRuntime.BeforeCard(cardPlay);
-        await PrepareAmmoCard(cardPlay);
-    }
+    public static int GetAmmoMultiplier(CardPlay? cardPlay) =>
+        AmmoCombatHooks.GetAmmoMultiplier(cardPlay);
 
-    private Task PrepareAmmoCard(CardPlay cardPlay)
-    {
-        if (cardPlay.Player.Character is not Exusiai || cardPlay.Card.Type != CardType.Attack)
-            return Task.CompletedTask;
+    public static int GetAmmoSpent(CardPlay? cardPlay) =>
+        AmmoCombatHooks.GetAmmoSpent(cardPlay);
 
-        AmmoData data = GetAmmoData();
-        data.AttackModes.Remove(cardPlay);
-        if (data.PrepaidAmmo.TryPeek(out PrepaidAmmoInfo prepaid))
-        {
-            data.AttackModes[cardPlay] = new AmmoAttackInfo(
-                AmmoAttackMode.Prepaid,
-                prepaid.DamagePerAmmo * GetCardAmmoDamageMultiplier(cardPlay.Card) * prepaid.AmmoSpent,
-                spendLimit: 0);
-            return Task.CompletedTask;
-        }
+    public static bool HasAmmoBackedBonus(CardPlay? cardPlay) =>
+        AmmoCombatHooks.HasAmmoBackedBonus(cardPlay);
 
-        if (cardPlay.Card is IAmmoFreeAttack)
-        {
-            data.AttackModes[cardPlay] = new AmmoAttackInfo(AmmoAttackMode.Free, 0m, spendLimit: 0);
-            return Task.CompletedTask;
-        }
+    public static bool UsedOverloadAmmoBonus(CardPlay? cardPlay) =>
+        AmmoCombatHooks.UsedOverloadAmmoBonus(cardPlay);
 
-        if (cardPlay.Player.Creature.HasPower<OverloadPower>())
-        {
-            data.AttackModes[cardPlay] = new AmmoAttackInfo(
-                AmmoAttackMode.Overloaded,
-                GetAmmoDamagePerAmmo(cardPlay.Player, cardPlay.Card),
-                spendLimit: AmmoResource.MaxAmount);
-            return Task.CompletedTask;
-        }
+    public static decimal GetAmmoDamagePerAmmo(Player player, CardModel? cardSource = null) =>
+        AmmoCombatHooks.GetAmmoDamagePerAmmo(player, cardSource);
 
-        int availableAmmo = SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id);
-        if (availableAmmo > 0)
-            data.AttackModes[cardPlay] = new AmmoAttackInfo(
-                AmmoAttackMode.Paid,
-                GetAmmoDamagePerAmmo(cardPlay.Player, cardPlay.Card),
-                spendLimit: availableAmmo);
+    public static IDisposable BeginPrepaidAmmo(
+        Player player,
+        int ammoSpent,
+        decimal damagePerAmmo) =>
+        AmmoCombatHooks.BeginPrepaidAmmo(player, ammoSpent, damagePerAmmo);
 
-        return Task.CompletedTask;
-    }
-
-    public override Task BeforeAttack(AttackCommand command)
-    {
-        if (command.Attacker?.Player?.Character != this ||
-            command.CardPlay is not { Card.Type: CardType.Attack } cardPlay ||
-            !command.DamageProps.IsPoweredAttack())
-        {
-            return Task.CompletedTask;
-        }
-
-        if (!GetAmmoData().AttackModes.ContainsKey(cardPlay))
-        {
-            int availableAmmo = SecondaryResourceCmd.Get(cardPlay.Player, AmmoResource.Id);
-            if (cardPlay.Player.Creature.HasPower<OverloadPower>() &&
-                cardPlay.Card is not IAmmoFreeAttack)
-            {
-                GetAmmoData().AttackModes[cardPlay] = new AmmoAttackInfo(
-                    AmmoAttackMode.Overloaded,
-                    GetAmmoDamagePerAmmo(cardPlay.Player, cardPlay.Card),
-                    spendLimit: AmmoResource.MaxAmount);
-            }
-            else if (availableAmmo > 0 && cardPlay.Card is not IAmmoFreeAttack)
-            {
-                GetAmmoData().AttackModes[cardPlay] = new AmmoAttackInfo(
-                    AmmoAttackMode.Paid,
-                    GetAmmoDamagePerAmmo(cardPlay.Player, cardPlay.Card),
-                    spendLimit: availableAmmo);
-            }
-        }
-
-        command.BeforeDamage(() => ApplyAmmoForNextDamageInstance(command));
-        AK_Exusiai.Effects.CardEffectRuntime.Configure(command);
-        return Task.CompletedTask;
-    }
-
-    public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        GetAmmoData().AttackModes.Remove(cardPlay);
-        if (cardPlay.Player.Character == this)
-            await AK_Exusiai.Effects.CardEffectRuntime.AfterCard(cardPlay);
-    }
-
-    public override decimal ModifyDamageAdditive(
-        Creature? target,
-        decimal amount,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource,
-        CardPlay? cardPlay)
-    {
-        if (dealer?.Player?.Character is not Exusiai ||
-            cardSource?.Type != CardType.Attack ||
-            !props.IsPoweredAttack())
-        {
-            return 0m;
-        }
-
-        if (cardPlay != null)
-        {
-            if (!GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-                return 0m;
-
-            return info.CurrentHitAmmoDamage;
-        }
-
-        return PreviewAmmoDamage(dealer.Player, cardSource);
-    }
-
-    public override decimal ModifyDamageMultiplicative(
-        Creature? target,
-        decimal amount,
-        ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource,
-        CardPlay? cardPlay)
-    {
-        if (dealer?.Player?.Character != this ||
-            cardSource?.Type != CardType.Attack ||
-            !props.IsPoweredAttack() ||
-            !dealer.HasPower<OverloadPower>())
-        {
-            return 1m;
-        }
-
-        decimal bonus = 0.5m + dealer.Powers
-            .OfType<FlammableAndExplosivePower>()
-            .Sum(power => power.Amount / 100m);
-        return 1m + bonus;
-    }
-
-    public override Task AfterCombatEnd(CombatRoom room)
-    {
-        GetAmmoData().AttackModes.Clear();
-        GetAmmoData().PrepaidAmmo.Clear();
-        return Task.CompletedTask;
-    }
-
-    public bool ShouldGainSecondaryResource(SecondaryResourceContext context, decimal amount)
-    {
-        return context.Definition.Id != AmmoResource.Id ||
-               context.Player.Character != this ||
-               !context.Player.Creature.HasPower<OverloadPower>();
-    }
-
-    public async Task AfterSecondaryResourceChanged(SecondaryResourceChangeContext context)
-    {
-        if (context.Definition.Id != AmmoResource.Id ||
-            context.Player.Character != this ||
-            context.Delta <= 0 ||
-            context.NewAmount < AmmoResource.MaxAmount ||
-            context.Player.Creature.HasPower<OverloadPower>())
-        {
-            return;
-        }
-
-        await PowerCmd.Apply<OverloadPower>(
-            new BlockingPlayerChoiceContext(),
-            context.Player.Creature,
-            1m,
-            context.Player.Creature,
-            null);
-    }
-
-    public static bool DidSpendAmmo(CardPlay cardPlay)
-    {
-        return GetEffectiveAmmoSpent(cardPlay) > 0;
-    }
-
-    public static int GetEffectiveAmmoSpent(CardPlay? cardPlay)
-    {
-        if (cardPlay?.Player.Character is not Exusiai exusiai ||
-            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return 0;
-        }
-
-        return info.Mode == AmmoAttackMode.Overloaded
-            ? info.AmmoBackedHitCount
-            : info.AmmoSpent;
-    }
-
-    public static decimal GetAmmoBonus(CardPlay? cardPlay)
-    {
-        if (cardPlay?.Player.Character is not Exusiai exusiai ||
-            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return 0m;
-        }
-
-        return info.TotalAmmoDamage;
-    }
-
-    public static IReadOnlyList<decimal> GetAmmoHitBonuses(CardPlay? cardPlay)
-    {
-        if (cardPlay?.Player.Character is not Exusiai exusiai ||
-            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return [];
-        }
-
-        return info.HitAmmoDamage;
-    }
-
-    public static int GetAmmoMultiplier(CardPlay? cardPlay)
-    {
-        if (cardPlay?.Player.Character is not Exusiai exusiai ||
-            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return 0;
-        }
-
-        return info.AmmoSpent;
-    }
-
-    public static int GetAmmoSpent(CardPlay? cardPlay)
-    {
-        if (cardPlay?.Player.Character is not Exusiai exusiai ||
-            !exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return 0;
-        }
-
-        return info.AmmoSpent;
-    }
-
-    public static bool HasAmmoBackedBonus(CardPlay? cardPlay)
-    {
-        return cardPlay?.Player.Character is Exusiai exusiai &&
-               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info) &&
-               info.TotalAmmoDamage > 0m;
-    }
-
-    public static bool UsedOverloadAmmoBonus(CardPlay? cardPlay)
-    {
-        return cardPlay?.Player.Character is Exusiai exusiai &&
-               exusiai.GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info) &&
-               info.Mode == AmmoAttackMode.Overloaded &&
-               info.TotalAmmoDamage > 0m;
-    }
-
-    public static decimal GetAmmoDamagePerAmmo(Player player, CardModel? cardSource = null)
-    {
-        return AmmoResource.GetCurrentDamageBreakdown(
-            player,
-            GetCardAmmoDamageMultiplier(cardSource)).DamagePerAmmo;
-    }
-
-    public static IDisposable BeginPrepaidAmmo(Player player, int ammoSpent, decimal damagePerAmmo)
-    {
-        if (player.Character is not Exusiai exusiai)
-            return EmptyScope.Instance;
-
-        AmmoData data = exusiai.GetAmmoData();
-        data.PrepaidAmmo.Push(new PrepaidAmmoInfo(Math.Max(0, ammoSpent), Math.Max(0m, damagePerAmmo)));
-        return new PrepaidAmmoScope(data);
-    }
-
-    public static async Task EnterOverload(
+    public static Task EnterOverload(
         PlayerChoiceContext choiceContext,
         Player player,
         AbstractModel source,
-        bool retainAmmoAtTurnEnd = false)
-    {
-        await SecondaryResourceCmd.Set(player, AmmoResource.Id, AmmoResource.MaxAmount, source);
+        bool retainAmmoAtTurnEnd = false) =>
+        AmmoCombatHooks.EnterOverload(choiceContext, player, source, retainAmmoAtTurnEnd);
 
-        if (!player.Creature.HasPower<OverloadPower>())
-        {
-            await PowerCmd.Apply<OverloadPower>(
-                choiceContext,
-                player.Creature,
-                1m,
-                player.Creature,
-                source as CardModel);
-        }
+    internal static void ClearAmmoTransientState(Player player) =>
+        AmmoCombatHooks.ClearAmmoTransientState(player);
 
-        if (retainAmmoAtTurnEnd)
-            await PowerCmd.Apply<OverloadAmmoRetentionPower>(
-                choiceContext,
-                player.Creature,
-                1m,
-                player.Creature,
-                source as CardModel);
-    }
-
-    internal static void ClearAmmoTransientState(Player player)
-    {
-        if (player.Character is not Exusiai exusiai)
-            return;
-
-        AmmoData data = exusiai.GetAmmoData();
-        data.AttackModes.Clear();
-        data.PrepaidAmmo.Clear();
-    }
-
-    private async Task ApplyAmmoForNextDamageInstance(AttackCommand command)
-    {
-        CardPlay? cardPlay = command.CardPlay;
-        if (cardPlay == null ||
-            !GetAmmoData().AttackModes.TryGetValue(cardPlay, out AmmoAttackInfo? info))
-        {
-            return;
-        }
-
-        info.ClearCurrentHit();
-        if (info.Mode == AmmoAttackMode.Free)
-            return;
-
-        if (info.Mode == AmmoAttackMode.Prepaid)
-        {
-            info.TryApplyPrepaidHit();
-            return;
-        }
-
-        if (cardPlay.Card is IAmmoSpendAllAttack)
-            await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, this);
-        else
-            await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, this);
-
-        if (info.Mode == AmmoAttackMode.Overloaded &&
-            info.CurrentHitLogicalAmmoSpent > 0)
-        {
-            await NotifyOverloadAmmoSpent(
-                cardPlay.Player,
-                info.CurrentHitLogicalAmmoSpent);
-        }
-    }
-
-    internal static async Task NotifyOverloadAmmoSpent(Player player, int amount)
-    {
-        if (amount <= 0 || !player.Creature.HasPower<OverloadPower>())
-            return;
-
-        foreach (IOverloadAmmoSpendListener listener in player.Creature.Powers
-                     .OfType<IOverloadAmmoSpendListener>()
-                     .ToArray())
-        {
-            await listener.AfterOverloadAmmoSpent(amount);
-        }
-
-        foreach (IOverloadAmmoSpendListener listener in player.Relics
-                     .Where(RelicLogisticsCmd.IsOperational)
-                     .OfType<IOverloadAmmoSpendListener>()
-                     .ToArray())
-        {
-            await listener.AfterOverloadAmmoSpent(amount);
-        }
-    }
-
-    private static decimal PreviewAmmoDamage(Player player, CardModel? cardSource)
-    {
-        if (player.Character is Exusiai exusiai &&
-            exusiai.GetAmmoData().PrepaidAmmo.TryPeek(out PrepaidAmmoInfo prepaid))
-        {
-            return prepaid.DamagePerAmmo *
-                   GetCardAmmoDamageMultiplier(cardSource) *
-                   prepaid.AmmoSpent;
-        }
-
-        if (cardSource is IAmmoFreeAttack ||
-            SecondaryResourceCmd.Get(player, AmmoResource.Id) <= 0)
-        {
-            return 0m;
-        }
-
-        decimal perAmmo = GetAmmoDamagePerAmmo(player, cardSource);
-        return cardSource is IAmmoSpendAllAttack
-            ? perAmmo * SecondaryResourceCmd.Get(player, AmmoResource.Id)
-            : perAmmo;
-    }
-
-    private static decimal GetCardAmmoDamageMultiplier(CardModel? cardSource)
-    {
-        return cardSource is IAmmoDamageMultiplier cardBonus
-            ? Math.Max(0m, cardBonus.AmmoDamageMultiplier)
-            : 1m;
-    }
-
-    private AmmoData GetAmmoData()
-    {
-        return AmmoDataByCharacter.GetOrCreateValue(this);
-    }
-
-    private sealed class PrepaidAmmoScope(AmmoData data) : IDisposable
-    {
-        private bool _disposed;
-
-        public void Dispose()
-        {
-            if (_disposed)
-                return;
-            _disposed = true;
-            if (data.PrepaidAmmo.Count > 0)
-                data.PrepaidAmmo.Pop();
-        }
-    }
-
-    private sealed class EmptyScope : IDisposable
-    {
-        public static EmptyScope Instance { get; } = new();
-        public void Dispose()
-        {
-        }
-    }
+    internal static Task NotifyOverloadAmmoSpent(Player player, int amount) =>
+        AmmoCombatHooks.NotifyOverloadAmmoSpent(player, amount);
 
     public override List<string> GetArchitectAttackVfx()
     {

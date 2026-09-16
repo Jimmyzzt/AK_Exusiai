@@ -47,6 +47,7 @@ public partial class Entry
         _patcher.RegisterPatch<ExusiaiNewCovenantCombatAnimationPatch>();
         _patcher.RegisterPatch<ExusiaiMerchantCharacterReadyPatch>();
         _patcher.RegisterPatch<ExusiaiMerchantCharacterPlayAnimationPatch>();
+        _patcher.RegisterPatch<ExusiaiFakeMerchantScalePatch>();
         _patcher.RegisterPatch<ExusiaiRestSiteCharacterReadyPatch>();
         _patcher.RegisterPatch<ExusiaiCharacterSelectSfxPatch>();
         _patcher.RegisterPatch<ExusiaiCustomSfxTokenPatch>();
@@ -55,18 +56,15 @@ public partial class Entry
 
         ValidatePackagedAssets();
         ModHelper.SubscribeForCombatStateHooks(
-            $"{ModId}.CharacterCombatHooks",
-            GetCharacterCombatHookModels);
+            $"{ModId}.AmmoCombatHooks",
+            GetAmmoCombatHookModels);
         AmmoResource.Register();
         Logger.Info("AK_Exusiai initialized for Exusiai.");
     }
 
-    private static IEnumerable<AbstractModel> GetCharacterCombatHookModels(CombatState combatState)
+    private static IEnumerable<AbstractModel> GetAmmoCombatHookModels(CombatState combatState)
     {
-        return combatState.Players
-            .Select(player => player.Character)
-            .OfType<Exusiai>()
-            .Distinct();
+        return [ModelDb.Singleton<AmmoCombatHooks>()];
     }
 
     private static void ValidatePackagedAssets()
