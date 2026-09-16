@@ -50,6 +50,18 @@ internal static class ExusiaiAmbientAnimation
         return false;
     }
 
+    internal static IEnumerable<Node2D> FindNodesNamed(Node node, string nodeName)
+    {
+        if (node is Node2D node2D && node.Name.ToString() == nodeName)
+            yield return node2D;
+
+        foreach (Node child in node.GetChildren())
+        {
+            foreach (Node2D match in FindNodesNamed(child, nodeName))
+                yield return match;
+        }
+    }
+
     private static Node? FindSpineSpriteRecursive(Node node)
     {
         if (node.GetClass().ToString() == MegaSprite.spineClassName)
@@ -141,22 +153,11 @@ internal sealed class ExusiaiMerchantCharacterPlayAnimationPatch : IPatchMethod
         return false;
     }
 
-    internal static IEnumerable<Node2D> FindNodesNamed(Node node, string nodeName)
-    {
-        if (node is Node2D node2D && node.Name.ToString() == nodeName)
-            yield return node2D;
-
-        foreach (Node child in node.GetChildren())
-        {
-            foreach (Node2D match in FindNodesNamed(child, nodeName))
-                yield return match;
-        }
-    }
 }
 
 internal sealed class ExusiaiFakeMerchantScalePatch : IPatchMethod
 {
-    private const float FakeMerchantScale = 0.35f;
+    private const float FakeMerchantScale = 0.8f;
 
     public static string PatchId => "exusiai_fake_merchant_scale";
     public static string Description =>
