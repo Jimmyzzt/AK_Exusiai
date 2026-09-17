@@ -85,6 +85,7 @@ var _ui_scale_option: OptionButton
 var _outer_split: HSplitContainer
 var _inner_split: HSplitContainer
 var _preview: CardArtPreview
+var _card_search: LineEdit
 var _card_option: OptionButton
 var _resolution_option: OptionButton
 var _background_option: OptionButton
@@ -392,8 +393,15 @@ func _build_ui() -> void:
 	settings_title.add_theme_font_size_override("font_size", 18)
 	right.add_child(settings_title)
 
-	right.add_child(_make_field_label("对应卡牌"))
+	_card_search = LineEdit.new()
+	_card_search.placeholder_text = "搜索卡牌名 / 类名"
+	_card_search.clear_button_enabled = true
+	_card_search.tooltip_text = "可搜索中文卡名、C# 类名、攻击牌、技能牌、能力牌或先古卡"
+	_card_search.text_changed.connect(_on_card_search_changed)
+	right.add_child(_card_search)
 	_card_option = OptionButton.new()
+	_card_option.fit_to_longest_item = false
+	_card_option.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_card_option.item_selected.connect(_select_card_by_index)
 	right.add_child(_card_option)
 	_ancient_label = Label.new()
@@ -1198,7 +1206,17 @@ func _format_bytes(byte_count: int) -> String:
 func _rebuild_card_options() -> void:
 	_loading_ui = true
 	_card_option.clear()
+	var query := _card_search.text.strip_edges().to_lower() if _card_search != null else ""
+	var selected_index := -1
 	for card in _cards:
+		var search_text := "%s %s %s %s" % [
+			String(card.title),
+			String(card.class_name),
+			_card_type_label(String(card.card_type)),
+			"先古卡 先古" if bool(card.ancient) else "普通卡 普通",
+		]
+		if not query.is_empty() and not search_text.to_lower().contains(query):
+			continue
 		var marker := "○ "
 		if _manifest.cards.has(card.class_name):
 			var saved: Dictionary = _manifest.cards[card.class_name]
@@ -1208,8 +1226,28 @@ func _rebuild_card_options() -> void:
 		var index := _card_option.item_count
 		_card_option.add_item(label)
 		_card_option.set_item_metadata(index, card.class_name)
+		if String(card.class_name) == _current_card:
+			selected_index = index
+	if selected_index >= 0:
+		_card_option.select(selected_index)
+	_card_option.disabled = _card_option.item_count == 0
 	_loading_ui = false
 	_update_progress()
+
+
+func _on_card_search_changed(_text: String) -> void:
+	_rebuild_card_options()
+	if _card_option.item_count == 0:
+		_ancient_label.text = "没有匹配卡牌"
+		return
+	var selected_index := _card_option.selected
+	if selected_index < 0:
+		selected_index = 0
+	var selected_card := String(_card_option.get_item_metadata(selected_index))
+	if selected_card == _current_card:
+		_update_current_card_summary()
+		return
+	_select_card_by_index(selected_index)
 
 
 func _sync_resolution_option() -> void:
@@ -1996,6 +2034,7 @@ func _run_smoke_test() -> void:
 	var ancient_count := 0
 	var card_type_counts := {"attack": 0, "skill": 0, "power": 0}
 	var card_markers := {"○": false, "◇": false, "●": false}
+	var expected_card_markers := {"○": false, "◇": false, "●": false}
 	for option_index in _card_option.item_count:
 		var option_text := _card_option.get_item_text(option_index)
 		for marker in card_markers:
@@ -2006,6 +2045,39 @@ func _run_smoke_test() -> void:
 			ancient_count += 1
 		var card_type := String(card.card_type)
 		card_type_counts[card_type] = int(card_type_counts.get(card_type, 0)) + 1
+		if not _manifest.cards.has(card.class_name):
+			expected_card_markers["○"] = true
+		elif String((_manifest.cards[card.class_name] as Dictionary).get("source", "")).is_empty():
+			expected_card_markers["◇"] = true
+		else:
+			expected_card_markers["●"] = true
+	var card_markers_match := true
+	for marker in expected_card_markers:
+		if bool(expected_card_markers[marker]) and not bool(card_markers[marker]):
+			card_markers_match = false
+			break
+	var card_search_works := false
+	if not _cards.is_empty():
+		var initial_card_count := _card_option.item_count
+		var search_target := String(_cards[0].class_name)
+		_card_search.text = search_target
+		_on_card_search_changed(search_target)
+		var target_visible := false
+		for option_index in _card_option.item_count:
+			if String(_card_option.get_item_metadata(option_index)) == search_target:
+				target_visible = true
+				break
+		card_search_works = (
+			_card_option.item_count > 0
+			and _card_option.item_count < initial_card_count
+			and target_visible
+		)
+		_card_search.text = ""
+		_on_card_search_changed("")
+	if _card_search == null or not card_search_works:
+		push_error("Card art manager card search smoke test failed.")
+		get_tree().quit(1)
+		return
 	_export_progress_box.visible = true
 	_export_progress.value = 1
 	_export_progress_label.text = "Smoke"
@@ -2052,10 +2124,8 @@ func _run_smoke_test() -> void:
 		or _texture_option.get_item_text(1) != "斜纹"
 		or _progress_label.text.contains("标记：")
 		or _motif_controls == null
-		or not bool(card_markers["○"])
-		or not bool(card_markers["◇"])
-		or not bool(card_markers["●"])
-		or _cards.size() != 99
+		or not card_markers_match
+		or _cards.is_empty()
 		or ancient_count != 2
 		or card_type_counts.attack <= 0
 		or card_type_counts.skill <= 0

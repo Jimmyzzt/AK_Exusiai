@@ -221,11 +221,11 @@
       "flip_vertical": false
     },
     "ChargingMode": {
-      "source": "references/official/art/技能_冲锋模式.png",
-      "zoom": 0.5,
+      "source": "references/free/asset/GPT_冲锋.png",
+      "zoom": 0.998,
       "offset": [
         0.0,
-        -0.0868
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -791,11 +791,11 @@
       "flip_vertical": false
     },
     "GuaranteedSuccess": {
-      "source": "references/official/art/技能_使命必达！.png",
-      "zoom": 0.501,
+      "source": "references/free/asset/技能_使命必达！(1)_upscayl_5x_digital-art-4x.png",
+      "zoom": 1.0,
       "offset": [
-        0.0,
-        -0.0707
+        -0.0008,
+        -0.023
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -805,16 +805,16 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
     "Shootoholic": {
-      "source": "references/official/art/技能_开火成瘾症.png",
-      "zoom": 0.43,
+      "source": "references/free/asset/技能_开火成瘾症(1)_upscayl_5x_digital-art-4x.png",
+      "zoom": 1.0,
       "offset": [
         0.0,
-        -0.1101
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -824,16 +824,16 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
     "SweepingTheSkies": {
-      "source": "references/official/art/技能_天空大扫除.png",
-      "zoom": 0.46,
+      "source": "references/free/asset/技能_天空大扫除(1)_upscayl_5x_digital-art-4x.png",
+      "zoom": 1.0,
       "offset": [
         0.0,
-        -0.0987
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -843,7 +843,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0.0,
+      "rotation": 0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1171,11 +1171,11 @@
       "flip_vertical": false
     },
     "ShootingMode": {
-      "source": "references/official/art/技能_扫射模式.png",
-      "zoom": 0.5,
+      "source": "references/free/asset/GPT_扫射.png",
+      "zoom": 0.998,
       "offset": [
         0.0,
-        -0.0423
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1494,11 +1494,11 @@
       "flip_vertical": false
     },
     "OverloadingMode": {
-      "source": "references/official/art/技能_过载模式.png",
-      "zoom": 0.46,
+      "source": "references/free/asset/GPT_过载.png",
+      "zoom": 1.072,
       "offset": [
         0.0,
-        -0.03
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1774,7 +1774,7 @@
       "top_color": "3c2059",
       "bottom_color": "7b49b2",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
