@@ -2,10 +2,6 @@
 
 Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is here to expand her business into the Spire. (Really?)
 
-## Supported version
-
-Currently supports beta version 0.110 only.
-
 ## Content
 
 - 1 new character!
@@ -22,7 +18,7 @@ Currently supports beta version 0.110 only.
 
 ## Installation and compatibility
 
-> **Currently supports beta version 0.110 only.**
+> **Currently supports beta version 0.111 only.**
 
 Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295). In multiplayer, every player should use matching game, mod, and dependency versions, with content mods in the same load order.
 
