@@ -78,3 +78,14 @@ It scans and groups the tracked reference folders, provides scalable UI, file me
 ```
 
 Edit shared visual/audio presets in the standalone Godot window and preview them in a single-player test battle with `exusiai fx on`. Export the approved configuration to `AK_Exusiai/config/card_effects.json`, then build the PCK. Full instructions, dependencies and validation commands are in [the manager README](card_effect_manager/README.md).
+
+## Ancient dialogue validation
+
+Use PowerShell 7 to validate both dialogue tables, including contiguous indices, speakers, buttons, markup, matching locale keys, and Architect ending metadata:
+
+```powershell
+.\tools\validate_ancient_dialogue.ps1
+.\tools\validate_ancient_dialogue.ps1 -PckPath '<path to deployed AK_Exusiai.pck>'
+```
+
+The optional PCK check compares both packed dialogue tables with the source bytes. It does not launch the game or edit saves. Dialogue timing, sources and the in-game checklist are documented in [ANCIENT_DIALOGUE.md](../docs/ANCIENT_DIALOGUE.md).
