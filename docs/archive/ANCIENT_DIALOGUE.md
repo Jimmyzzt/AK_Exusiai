@@ -2,10 +2,10 @@
 
 ## 文案范围
 
-新增八位赐福先古之民及建筑师的角色专属对话，每位三组，中英各 27 组、92 句台词。完整台词以运行时文件为准：
+新增八位赐福先古之民及建筑师的角色专属对话，每位三组，中英各 27 组、89 句台词。完整台词以运行时文件为准：
 
-- [简体中文](../AK_Exusiai/localization/zhs/ancients.json)
-- [英文](../AK_Exusiai/localization/eng/ancients.json)
+- [简体中文](../../AK_Exusiai/localization/zhs/ancients.json)
+- [英文](../../AK_Exusiai/localization/eng/ancients.json)
 
 沿用现有角色介绍的时间背景：企鹅物流资深员工、苹果派物流老板。能天使和新约能天使的六套外观仍是同一角色，使用同一套对话，不读取本机外观配置决定剧情。
 

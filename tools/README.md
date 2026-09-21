@@ -88,4 +88,4 @@ Use PowerShell 7 to validate both dialogue tables, including contiguous indices,
 .\tools\validate_ancient_dialogue.ps1 -PckPath '<path to deployed AK_Exusiai.pck>'
 ```
 
-The optional PCK check compares both packed dialogue tables with the source bytes. It does not launch the game or edit saves. Dialogue timing, sources and the in-game checklist are documented in [ANCIENT_DIALOGUE.md](../docs/ANCIENT_DIALOGUE.md).
+The optional PCK check compares both packed dialogue tables with the source bytes. It does not launch the game or edit saves. Dialogue timing, sources and the in-game checklist are documented in [ANCIENT_DIALOGUE.md](../docs/archive/ANCIENT_DIALOGUE.md).
