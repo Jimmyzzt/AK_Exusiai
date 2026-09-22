@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using AK_Exusiai.Cards;
 using AK_Exusiai.Mechanics;
 using AK_Exusiai.Powers;
@@ -13,7 +14,10 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Modding;
+using STS2RitsuLib.Diagnostics.DevConsole;
 using STS2RitsuLib.Combat.SecondaryResources;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace AK_Exusiai.Debug;
 
@@ -24,6 +28,7 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
 {
     private const int TestEnergy = 100;
     private const int MaxSafeReplayCount = 100;
+    private static IReadOnlyDictionary<string, string>? _englishRelicTitles;
 
     private static readonly string[] ScenarioNames =
     [
@@ -77,11 +82,14 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "ammo",
         "angel",
         "interference",
+        "relics",
+        "transit",
+        "delivery",
     ];
 
     public override string CmdName => "exusiai";
 
-    public override string Args => "<save|fx|scenario|state|logic|hand|replay|ammo|angel|interference> [args]";
+    public override string Args => "<save|fx|scenario|state|logic|hand|replay|ammo|angel|interference|relics|transit|delivery> [args]";
 
     public override string Description =>
         "Runs AK_Exusiai utilities and combat test fixtures.";
@@ -107,6 +115,9 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             "ammo" => SetAmmo(issuingPlayer, subArgs),
             "angel" => AddAngel(issuingPlayer, subArgs),
             "interference" => AddInterference(issuingPlayer, subArgs),
+            "relics" or "relic" => ShowRelics(issuingPlayer, subArgs),
+            "transit" => AddTransitRelic(issuingPlayer, subArgs),
+            "delivery" => AddRelicDelivery(issuingPlayer, subArgs),
             _ => new CmdResult(
                 success: false,
                 $"Unknown Exusiai test command '{args[0]}'.\n{UsageSummary()}"),
@@ -238,6 +249,49 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
             }
         }
 
+        if (subcommand is "relics" or "relic" && args.Length == 2)
+        {
+            return CompleteArgument(
+                ["owned", "transit"],
+                [args[0]],
+                args[1]);
+        }
+
+        if (subcommand == "transit")
+        {
+            if (args.Length == 2)
+            {
+                return CompleteTransitRelicArgument(player, args[0], args[1]);
+            }
+
+            if (args.Length == 3)
+            {
+                return CompleteArgument(
+                    ["1", "2", "3", "5"],
+                    [args[0], args[1]],
+                    args[2]);
+            }
+        }
+
+        if (subcommand == "delivery")
+        {
+            if (args.Length == 2)
+            {
+                return CompleteArgument(
+                    GetOwnedRelicIndices(player),
+                    [args[0]],
+                    args[1]);
+            }
+
+            if (args.Length == 3)
+            {
+                return CompleteArgument(
+                    ["1", "2", "3", "5"],
+                    [args[0], args[1]],
+                    args[2]);
+            }
+        }
+
         return new CompletionResult
         {
             Type = CompletionType.Argument,
@@ -258,7 +312,10 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         "  exusiai replay <hand-index> <amount> - Add Replay to one card (maximum total: 100).\n" +
         "  exusiai ammo <amount> - Set ammunition (0-30).\n" +
         "  exusiai angel <hand-index> - Give or refresh Angel on one card.\n" +
-        "  exusiai interference <enemy-index> <amount> - Add Interference and resolve crossed Silence thresholds."
+        "  exusiai interference <enemy-index> <amount> - Add Interference and resolve crossed Silence thresholds.\n" +
+        "  exusiai relics [owned|transit] - List current relic indices or the deterministic Transit relic pool.\n" +
+        "  exusiai transit <relic-id|name|pool-index> [amount=1] - Obtain or refresh a specific Transit relic; press Tab to search by localized or English name.\n" +
+        "  exusiai delivery <relic-index> <amount> - Give Delivery to a current relic."
     );
 
     private static string UsageSummary() =>
@@ -919,6 +976,307 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         await choiceContext.AssignTaskAndWaitForPauseOrCompletion(task);
     }
 
+    private static CmdResult ShowRelics(Player? player, string[] args)
+    {
+        if (!TryGetCombatPlayer(player, out Player combatPlayer, out CmdResult error))
+            return error;
+        if (args.Length > 1 ||
+            args.Length == 1 &&
+            !args[0].Equals("owned", StringComparison.OrdinalIgnoreCase) &&
+            !args[0].Equals("transit", StringComparison.OrdinalIgnoreCase))
+        {
+            return new CmdResult(
+                success: false,
+                "Usage: exusiai relics [owned|transit]");
+        }
+
+        bool showOwned = args.Length == 0 ||
+                         args[0].Equals("owned", StringComparison.OrdinalIgnoreCase);
+        bool showTransitPool = args.Length == 0 ||
+                               args[0].Equals("transit", StringComparison.OrdinalIgnoreCase);
+        StringBuilder message = new();
+
+        if (showOwned)
+        {
+            IReadOnlyList<RelicModel> relics = GetIndexedOwnedRelics(combatPlayer);
+            message.AppendLine("[gold]Current relics (use with 'exusiai delivery')[/gold]");
+            if (relics.Count == 0)
+            {
+                message.AppendLine("  none");
+            }
+            else
+            {
+                for (int i = 0; i < relics.Count; i++)
+                {
+                    RelicModel relic = relics[i];
+                    RelicLogisticsCapability? logistics =
+                        relic.Capability<RelicLogisticsCapability>();
+                    message.Append($"  [{i}] {relic.Title} ({relic.Id.Entry})");
+                    if (logistics?.IsTransit == true)
+                    {
+                        message.Append(
+                            $" transit={logistics.TransitRemaining}{(logistics.IsExpiredTransit ? " expired" : string.Empty)}");
+                    }
+                    if (logistics?.DeliveryRemaining > 0)
+                        message.Append($" delivery={logistics.DeliveryRemaining}");
+                    if (!RelicLogisticsCmd.IsDeliveryTarget(relic))
+                        message.Append(" [not a valid Delivery target]");
+                    message.AppendLine();
+                }
+            }
+        }
+
+        if (showOwned && showTransitPool)
+            message.AppendLine();
+
+        if (showTransitPool)
+        {
+            IReadOnlyList<RelicModel> pool = GetIndexedTransitPool(combatPlayer);
+            message.AppendLine("[gold]Transit relic pool (use with 'exusiai transit')[/gold]");
+            for (int i = 0; i < pool.Count; i++)
+                message.AppendLine($"  [{i}] {pool[i].Title} ({pool[i].Id.Entry})");
+        }
+
+        return new CmdResult(success: true, message.ToString().TrimEnd());
+    }
+
+    private static CmdResult AddTransitRelic(Player? player, string[] args)
+    {
+        if (!TryGetCombatPlayer(player, out Player combatPlayer, out CmdResult error))
+            return error;
+        if (args.Length is < 1 or > 2 ||
+            args.Length == 2 && !int.TryParse(args[1], out _))
+        {
+            return new CmdResult(
+                success: false,
+                "Usage: exusiai transit <relic-id|name|pool-index> [amount:int=1]");
+        }
+
+        int amount = args.Length == 2 ? int.Parse(args[1]) : 1;
+        if (amount is < 1 or > 999)
+            return new CmdResult(success: false, "Transit amount must be between 1 and 999.");
+
+        IReadOnlyList<RelicModel> pool = GetIndexedTransitPool(combatPlayer);
+        if (!TryResolveTransitRelic(pool, args[0], out RelicModel relic, out int? poolIndex, out string resolveError))
+            return new CmdResult(success: false, resolveError);
+
+        Task task = RelicLogisticsCmd.AddNamedTransit(combatPlayer, relic, amount);
+        return new CmdResult(
+            task,
+            success: true,
+            $"Giving Transit {amount} for{(poolIndex.HasValue ? $" [{poolIndex}]" : string.Empty)} {relic.Title} ({relic.Id.Entry}).");
+    }
+
+    private CompletionResult CompleteTransitRelicArgument(
+        Player? player,
+        string subcommand,
+        string partial)
+    {
+        if (!CombatManager.Instance.IsInProgress || player?.PlayerCombatState == null)
+        {
+            return new CompletionResult
+            {
+                Type = CompletionType.Argument,
+                ArgumentContext = CmdName,
+            };
+        }
+
+        string[] entryIds = GetIndexedTransitPool(player)
+            .Select(relic => relic.Id.Entry)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+        IReadOnlyDictionary<string, string> englishTitles = GetEnglishRelicTitles();
+        Func<string, string, bool> idMatcher = (candidate, term) =>
+            candidate.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+            NormalizeRelicSearchText(candidate).Contains(
+                NormalizeRelicSearchText(term),
+                StringComparison.OrdinalIgnoreCase) ||
+            englishTitles.TryGetValue(candidate, out string? englishTitle) &&
+            (englishTitle.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+             NormalizeRelicSearchText(englishTitle).Contains(
+                 NormalizeRelicSearchText(term),
+                 StringComparison.OrdinalIgnoreCase));
+        Func<string, string, bool> matcher =
+            DevConsoleAutocompleteMatchExtensions.WithLocalizedModelTitleMatch(idMatcher);
+        CompletionResult result = CompleteArgument(
+            entryIds,
+            [subcommand],
+            partial,
+            CompletionType.Argument,
+            matcher);
+        DevConsoleAutocompleteMatchExtensions.ApplyLocalizedDisplayLabels(ref result);
+        return result;
+    }
+
+    private static bool TryResolveTransitRelic(
+        IReadOnlyList<RelicModel> pool,
+        string input,
+        out RelicModel relic,
+        out int? poolIndex,
+        out string error)
+    {
+        relic = null!;
+        poolIndex = null;
+        error = string.Empty;
+        if (pool.Count == 0)
+        {
+            error = "The Transit relic pool is empty.";
+            return false;
+        }
+
+        string token = DevConsoleAutocompleteDisplay.StripLocalizedSuffix(input).Trim();
+        if (int.TryParse(token, out int numericIndex))
+        {
+            if (numericIndex < 0 || numericIndex >= pool.Count)
+            {
+                error = $"Invalid Transit pool index {numericIndex}. Valid range: 0-{pool.Count - 1}.";
+                return false;
+            }
+
+            relic = pool[numericIndex];
+            poolIndex = numericIndex;
+            return true;
+        }
+
+        string normalizedToken = NormalizeRelicSearchText(token);
+        IReadOnlyDictionary<string, string> englishTitles = GetEnglishRelicTitles();
+        List<(RelicModel Relic, int Index)> exactMatches = pool
+            .Select((candidate, index) => (Relic: candidate, Index: index))
+            .Where(candidate =>
+                candidate.Relic.Id.Entry.Equals(token, StringComparison.OrdinalIgnoreCase) ||
+                candidate.Relic.Id.ToString().Equals(token, StringComparison.OrdinalIgnoreCase) ||
+                candidate.Relic.Title.GetFormattedText().Equals(token, StringComparison.CurrentCultureIgnoreCase) ||
+                englishTitles.TryGetValue(candidate.Relic.Id.Entry, out string? englishTitle) &&
+                englishTitle.Equals(token, StringComparison.OrdinalIgnoreCase) ||
+                NormalizeRelicSearchText(candidate.Relic.Id.Entry)
+                    .Equals(normalizedToken, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        if (exactMatches.Count == 1)
+        {
+            (relic, int index) = exactMatches[0];
+            poolIndex = index;
+            return true;
+        }
+
+        List<(RelicModel Relic, int Index)> partialMatches = pool
+            .Select((candidate, index) => (Relic: candidate, Index: index))
+            .Where(candidate =>
+                candidate.Relic.Id.Entry.Contains(token, StringComparison.OrdinalIgnoreCase) ||
+                candidate.Relic.Title.GetFormattedText().Contains(token, StringComparison.CurrentCultureIgnoreCase) ||
+                englishTitles.TryGetValue(candidate.Relic.Id.Entry, out string? englishTitle) &&
+                englishTitle.Contains(token, StringComparison.OrdinalIgnoreCase) ||
+                NormalizeRelicSearchText(candidate.Relic.Id.Entry)
+                    .Contains(normalizedToken, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        if (partialMatches.Count == 1)
+        {
+            (relic, int index) = partialMatches[0];
+            poolIndex = index;
+            return true;
+        }
+
+        error = partialMatches.Count == 0
+            ? $"No Transit relic matches '{input}'. Type part of its Chinese/localized title or English ID, then press Tab."
+            : $"'{input}' matches {partialMatches.Count} Transit relics. Type more characters and press Tab to choose one.";
+        return false;
+    }
+
+    private static string NormalizeRelicSearchText(string value) =>
+        value.Replace('_', ' ').Replace('-', ' ').Trim();
+
+    private static IReadOnlyDictionary<string, string> GetEnglishRelicTitles()
+    {
+        if (_englishRelicTitles != null)
+            return _englishRelicTitles;
+
+        Dictionary<string, string> titles = new(StringComparer.OrdinalIgnoreCase);
+        IEnumerable<string> paths = [
+            "res://localization/eng/relics.json",
+            .. ModManager.GetModdedLocTables("eng", "relics.json"),
+        ];
+        foreach (string path in paths.Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            using Godot.FileAccess? file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
+            if (file == null)
+                continue;
+            Dictionary<string, string>? entries =
+                JsonSerializer.Deserialize<Dictionary<string, string>>(file.GetAsText());
+            if (entries == null)
+                continue;
+
+            foreach ((string key, string title) in entries)
+            {
+                const string suffix = ".title";
+                if (key.EndsWith(suffix, StringComparison.OrdinalIgnoreCase) &&
+                    !string.IsNullOrWhiteSpace(title))
+                {
+                    titles.TryAdd(key[..^suffix.Length], title.Trim());
+                }
+            }
+        }
+
+        _englishRelicTitles = titles;
+        return titles;
+    }
+
+    private static CmdResult AddRelicDelivery(Player? player, string[] args)
+    {
+        if (!TryGetCombatPlayer(player, out Player combatPlayer, out CmdResult error))
+            return error;
+        if (args.Length != 2 ||
+            !int.TryParse(args[0], out int relicIndex) ||
+            !int.TryParse(args[1], out int amount))
+        {
+            return new CmdResult(
+                success: false,
+                "Usage: exusiai delivery <relic-index:int> <amount:int>");
+        }
+        if (amount is < 1 or > 999)
+            return new CmdResult(success: false, "Delivery amount must be between 1 and 999.");
+
+        IReadOnlyList<RelicModel> relics = GetIndexedOwnedRelics(combatPlayer);
+        if (relicIndex < 0 || relicIndex >= relics.Count)
+        {
+            return new CmdResult(
+                success: false,
+                relics.Count == 0
+                    ? "The player has no relics."
+                    : $"Invalid relic index {relicIndex}. Valid range: 0-{relics.Count - 1}.");
+        }
+
+        RelicModel relic = relics[relicIndex];
+        if (!RelicLogisticsCmd.IsDeliveryTarget(relic))
+        {
+            return new CmdResult(
+                success: false,
+                $"[{relicIndex}] {relic.Title} is not a valid Delivery target.");
+        }
+
+        Task task = AddRelicDeliveryAsync(combatPlayer, relic, amount);
+        return new CmdResult(
+            task,
+            success: true,
+            $"Giving Delivery {amount} to [{relicIndex}] {relic.Title} ({relic.Id.Entry}).");
+    }
+
+    private static async Task AddRelicDeliveryAsync(
+        Player player,
+        RelicModel relic,
+        int amount)
+    {
+        HookPlayerChoiceContext choiceContext = new(player, player.NetId, GameActionType.Combat);
+        Task task = RelicLogisticsCmd.AddDelivery(choiceContext, relic, amount);
+        await choiceContext.AssignTaskAndWaitForPauseOrCompletion(task);
+    }
+
+    private static IReadOnlyList<RelicModel> GetIndexedOwnedRelics(Player player) =>
+        player.Relics.ToList();
+
+    private static IReadOnlyList<RelicModel> GetIndexedTransitPool(Player player) =>
+        RelicLogisticsCmd.GetTransitPool(player)
+            .OrderBy(relic => relic.Id.ToString(), StringComparer.Ordinal)
+            .ToList();
+
     private static bool TryGetHandCard(
         Player? player,
         string[] args,
@@ -995,6 +1353,22 @@ public sealed class ExusiaiConsoleCmd : AbstractConsoleCmd
         if (!CombatManager.Instance.IsInProgress || player?.PlayerCombatState == null)
             return [];
         return Enumerable.Range(0, player.Creature.CombatState!.HittableEnemies.Count)
+            .Select(index => index.ToString());
+    }
+
+    private static IEnumerable<string> GetOwnedRelicIndices(Player? player)
+    {
+        if (!CombatManager.Instance.IsInProgress || player?.PlayerCombatState == null)
+            return [];
+        return Enumerable.Range(0, GetIndexedOwnedRelics(player).Count)
+            .Select(index => index.ToString());
+    }
+
+    private static IEnumerable<string> GetTransitRelicIndices(Player? player)
+    {
+        if (!CombatManager.Instance.IsInProgress || player?.PlayerCombatState == null)
+            return [];
+        return Enumerable.Range(0, GetIndexedTransitPool(player).Count)
             .Select(index => index.ToString());
     }
 }

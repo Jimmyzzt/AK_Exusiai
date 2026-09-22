@@ -239,12 +239,42 @@ public static class RelicLogisticsCmd
             relic.Capability<RelicLogisticsCapability>()?.IsTransit == true);
         if (existingTransit != null)
         {
+            if (existingTransit.Capability<RelicLogisticsCapability>()?.IsExpiredTransit == true)
+            {
+                existingTransit = RefreshExpiredTransit(player, existingTransit);
+            }
+
             existingTransit.GetOrCreateCapability<RelicLogisticsCapability>()
                 .StartOrExtendTransit(amount);
             return existingTransit;
         }
 
         return await AddNewTransit(player, canonical, amount);
+    }
+
+    /// <summary>
+    /// Replaces an expired Transit relic with a serialized clone before it is
+    /// reactivated.  The clone preserves all saved run state and capabilities,
+    /// but deliberately drops unsaved combat-only fields (for example,
+    /// Ornamental Fan's private attack counter).
+    ///
+    /// This is an inventory refresh, not another obtain: inventory events and
+    /// AfterRemoved/AfterObtained are deliberately not invoked. Upon-pickup
+    /// effects such as Old Coin therefore run only when the Transit relic is
+    /// first created.
+    /// </summary>
+    private static RelicModel RefreshExpiredTransit(Player player, RelicModel expired)
+    {
+        int index = FindInstanceIndex(player.Relics, expired);
+        if (index < 0)
+            throw new InvalidOperationException("Expired Transit relic is not in its owner's inventory.");
+
+        RelicModel refreshed = RelicModel.FromSerializable(expired.ToSerializable());
+        player.RemoveRelicInternal(expired, silent: true);
+        player.AddRelicInternal(refreshed, index, silent: true);
+        if (LocalContext.IsMe(player))
+            RelicLogisticsUi.ReplaceRelicModel(expired, refreshed, index);
+        return refreshed;
     }
 
     public static async Task<RelicModel?> AddRandomTransit(Player player, int amount)
