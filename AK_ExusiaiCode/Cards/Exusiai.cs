@@ -27,5 +27,5 @@ public sealed class Exusiai : ExusiaiCardTemplate
         await CreatureCmd.Heal(Owner.Creature, DynamicVars["Heal"].BaseValue);
     }
 
-    protected override void OnUpgrade() => DynamicVars["Ammo"].UpgradeValueBy(1m);
+    protected override void OnUpgrade() => DynamicVars["Ammo"].UpgradeValueBy(3m);
 }

@@ -16,7 +16,7 @@ public sealed class PenguinStandard : ExusiaiCardTemplate
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("Delivery", 5m),
-        new DynamicVar("Transit", 1m),
+        new DynamicVar("Transit", 2m),
     ];
     public PenguinStandard() : base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self) { }
 
@@ -25,7 +25,8 @@ public sealed class PenguinStandard : ExusiaiCardTemplate
         if (!await RelicLogisticsCmd.ChooseAndAddDelivery(
                 choiceContext,
                 Owner,
-                DynamicVars["Delivery"].IntValue))
+                DynamicVars["Delivery"].IntValue,
+                excludeTransit: true))
             return;
 
         await RelicLogisticsCmd.AddRandomTransit(Owner, DynamicVars["Transit"].IntValue);

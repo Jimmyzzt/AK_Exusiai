@@ -4,8 +4,10 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Models.Capabilities;
 
 namespace AK_Exusiai.Cards;
 
@@ -14,6 +16,8 @@ public sealed class GuaranteedSuccess : ExusiaiCardTemplate
 {
     private const string HitCountKey = "HitCount";
     protected override bool ShowDeliveryHoverTip => true;
+    protected override bool ShowTransitHoverTip => true;
+    protected override bool ShowDeliveryTransitInteractionHoverTip => true;
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -35,9 +39,15 @@ public sealed class GuaranteedSuccess : ExusiaiCardTemplate
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);
 
-        MegaCrit.Sts2.Core.Models.RelicModel? selected =
-            await RelicLogisticsCmd.ChooseDeliveredRelic(choiceContext, Owner);
-        if (selected != null)
+        RelicModel? selected =
+            await RelicLogisticsCmd.ChooseDeliveredOrTransitRelic(choiceContext, Owner);
+        if (selected == null)
+            return;
+
+        RelicLogisticsCapability? state = selected.Capability<RelicLogisticsCapability>();
+        if (state?.IsTransit == true)
+            state.StartOrExtendTransit(99);
+        else
             RelicLogisticsCmd.ReactivateDelivery(selected);
     }
 

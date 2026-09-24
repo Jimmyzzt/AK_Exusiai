@@ -25,24 +25,16 @@ public sealed class EmpathyFormPower : ModPowerTemplate
             return;
 
         CardPile hand = PileType.Hand.GetPile(player);
-        for (int i = 0; i < Amount && hand.Cards.Count > 0; i++)
-        {
-            CardModel? selected = (await CardSelectCmd.FromCombatPile(
-                choiceContext,
-                hand,
-                player,
-                new CardSelectorPrefs(SelectionScreenPrompt, 1))).FirstOrDefault();
-            if (selected != null)
-                await AngelCmd.Add(choiceContext, selected);
-        }
-    }
-
-    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-    {
-        if (cardPlay.Player.Creature != Owner || !AngelCmd.IsAngel(cardPlay.Card))
+        int count = Math.Min(Amount, hand.Cards.Count);
+        if (count <= 0)
             return;
 
-        Flash();
-        await CardPileCmd.Draw(choiceContext, Amount, cardPlay.Player);
+        IEnumerable<CardModel> selected = await CardSelectCmd.FromCombatPile(
+            choiceContext,
+            hand,
+            player,
+            new CardSelectorPrefs(SelectionScreenPrompt, count));
+        foreach (CardModel card in selected)
+            await AngelCmd.Add(choiceContext, card);
     }
 }

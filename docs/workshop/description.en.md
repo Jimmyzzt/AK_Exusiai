@@ -45,3 +45,32 @@ Come chat and share feedback!
 If you enjoy the mod, please consider giving it a thumbs-up and adding it to your favorites. Thanks!
 
 Planned future additions include new Ancients, enemies, and boss encounters.
+
+## V1.3 balance changes
+
+The previous effects are from V1.2. Values in parentheses are for the upgraded card. Both versions show each card's full effect.
+
+- **Penguin Standard** (1-cost Skill)
+  - Before: Choose a relic to gain Delivery 5. Obtain 2 random relics with Transit 1 (2).
+  - After: Choose a non-Transit relic to gain Delivery 5. Obtain 2 random relics with Transit 2 (3).
+- **Guaranteed Success!** (Attack)
+  - Before: Cost 3 (2). Deal 5 damage 5 times. Choose a Delivered relic to reactivate immediately. Exhaust.
+  - After: Cost 3 (2). Deal 5 damage 5 times. Choose a Delivered relic to reactivate immediately, or choose a Transit relic to give it Transit 99. If it has both, apply Transit. Exhaust.
+- **Expedite!** (1-cost Skill)
+  - Before: Reduce the Delivery of all Delivered relics by 1 (2). Exhaust.
+  - After: Reduce the Delivery of all Delivered relics by 1. When upgraded, give all Transit relics Transit 1. Exhaust.
+- **Empathy Form** (3-cost Power)
+  - Before: Ethereal (removed when upgraded). At the start of your turn, give 1 card in your hand Angel. Whenever you play an Angel card, draw 1 card.
+  - After: Ethereal. At the start of your turn, give 1 card in your hand Angel (2 cards when upgraded).
+- **Texas** (0-cost token Attack)
+  - Before: This attack does not spend Ammo. Deal 2 damage to all enemies 2 times and apply 1 (2) Weak to all enemies. Exhaust.
+  - After: This attack does not spend Ammo. Deal 2 (4) damage to all enemies 2 times and apply 1 (2) Weak to all enemies. Exhaust.
+- **Exusiai** (0-cost token Skill)
+  - Before: Gain 3 (4) Ammo. Heal 5 HP. Exhaust.
+  - After: Gain 3 (6) Ammo. Heal 5 HP. Exhaust.
+- **Croissant** (0-cost token Skill)
+  - Before: Gain 9 (13) Block and 15 Gold. Exhaust.
+  - After: Gain 9 (13) Block and 10 (15) Gold. Exhaust.
+- **Sora** (0-cost token Skill)
+  - Before: Gain 1 Strength. Apply 2 (3) Weak to all enemies. Exhaust.
+  - After: Gain 1 (2) Strength. Apply 2 (3) Weak to all enemies. Exhaust.

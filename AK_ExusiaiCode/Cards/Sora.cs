@@ -31,5 +31,9 @@ public sealed class Sora : ExusiaiCardTemplate
                 DynamicVars.Weak.BaseValue, Owner.Creature, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Weak.UpgradeValueBy(1m);
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Strength.UpgradeValueBy(1m);
+        DynamicVars.Weak.UpgradeValueBy(1m);
+    }
 }

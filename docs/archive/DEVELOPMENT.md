@@ -68,4 +68,4 @@ dotnet build .\AK_Exusiai.csproj -c Release /p:ModOutputDir=release/AK_Exusiai/ 
 
 不提交本机路径、构建产物、凭据、日志、缓存或整套游戏资源。新增源素材补充对应 `SOURCES.md`；仓库公开与为源码选择许可证是两件事，当前没有统一代码许可证。
 
-工坊上传与源码提交分开操作，发布流程见 [工坊准备](../WORKSHOP_RELEASE.md)。
+工坊上传与源码提交分开操作，发布流程见 [工坊准备](../workshop/WORKSHOP_RELEASE.md)。

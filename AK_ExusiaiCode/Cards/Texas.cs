@@ -47,6 +47,7 @@ public sealed class Texas : ExusiaiCardTemplate, IAmmoFreeAttack
 
     protected override void OnUpgrade()
     {
+        DynamicVars.Damage.UpgradeValueBy(2m);
         DynamicVars.Weak.UpgradeValueBy(1m);
     }
 }

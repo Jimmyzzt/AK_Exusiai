@@ -70,9 +70,13 @@ public static class RelicLogisticsCmd
 
     public static async Task<RelicModel?> ChooseDeliveryTarget(
         PlayerChoiceContext choiceContext,
-        Player player)
+        Player player,
+        bool excludeTransit = false)
     {
-        IReadOnlyList<RelicModel> targets = GetDeliveryTargets(player);
+        IReadOnlyList<RelicModel> targets = GetDeliveryTargets(player)
+            .Where(relic => !excludeTransit ||
+                relic.Capability<RelicLogisticsCapability>()?.IsTransit != true)
+            .ToList();
         return targets.Count == 0
             ? null
             : await SelectRelic(choiceContext, player, targets);
@@ -81,9 +85,10 @@ public static class RelicLogisticsCmd
     public static async Task<bool> ChooseAndAddDelivery(
         PlayerChoiceContext choiceContext,
         Player player,
-        int amount)
+        int amount,
+        bool excludeTransit = false)
     {
-        RelicModel? relic = await ChooseDeliveryTarget(choiceContext, player);
+        RelicModel? relic = await ChooseDeliveryTarget(choiceContext, player, excludeTransit);
         if (relic == null)
             return false;
 
@@ -151,6 +156,22 @@ public static class RelicLogisticsCmd
             player,
             player.Relics.Where(relic =>
                 relic.Capability<RelicLogisticsCapability>()?.IsTransit == true));
+
+    public static async Task<RelicModel?> ChooseDeliveredOrTransitRelic(
+        PlayerChoiceContext choiceContext,
+        Player player)
+    {
+        IReadOnlyList<RelicModel> targets = SortForDisplay(
+            player,
+            player.Relics.Where(relic =>
+            {
+                RelicLogisticsCapability? state = relic.Capability<RelicLogisticsCapability>();
+                return state?.DeliveryRemaining > 0 || state?.IsTransit == true;
+            }));
+        return targets.Count == 0
+            ? null
+            : await SelectRelic(choiceContext, player, targets);
+    }
 
     public static void ReactivateDelivery(RelicModel relic) =>
         relic.Capability<RelicLogisticsCapability>()?.ReactivateDelivery();
@@ -250,6 +271,16 @@ public static class RelicLogisticsCmd
         }
 
         return await AddNewTransit(player, canonical, amount);
+    }
+
+    public static void ExtendAllTransit(Player player, int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        foreach (RelicModel relic in GetTransitRelics(player))
+            relic.GetOrCreateCapability<RelicLogisticsCapability>()
+                .StartOrExtendTransit(amount);
     }
 
     /// <summary>
