@@ -6,5 +6,13 @@
   "AK_EXUSIAI_POTION_EMPERORS_STASH.description": "Add {Cards} random [gold]Logistics Cards[/gold] to your hand.",
 
   "AK_EXUSIAI_POTION_BOTTLED_HALO.title": "Bottled Halo",
-  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "Add {Cards} random [gold]Angel[/gold] cards to your hand."
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "Add {Cards} random [gold]Angel[/gold] cards to your hand.",
+  "AK_EXUSIAI_POTION_URSUS_BELUGA.title": "Ursus Beluga",
+  "AK_EXUSIAI_POTION_URSUS_BELUGA.description": "Gain [blue]30[/blue] [gold]Ammo[/gold] and enter [gold]Overload[/gold] this turn. Your single target Attacks target random enemies this turn.",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.title": "Gaul Chardonnay",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.description": "Discard any number of cards, then draw until your hand is full. You cannot draw more cards this turn.",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.selectionScreenPrompt": "Choose any number of cards to discard.",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.title": "Yan Fenjiu",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.description": "Choose any number of cards in your hand and transform them into random cards.",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.selectionScreenPrompt": "Choose any number of cards to transform."
 }

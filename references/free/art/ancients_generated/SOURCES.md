@@ -40,3 +40,12 @@ images; their original source notes remain in the adjacent research folder.
 
 Runtime icons and white outline silhouettes are built by the project's
 `tools/generate_item_assets.gd` manifest.
+
+`Graffiti_source.png` was generated on 2026-09-26 with the built-in image
+generation tool for the Spray Can relic's token card. Prompt: "A freshly
+spray-painted angelic wing and luminous halo graffiti on a weathered concrete
+wall in a dark tower, with two spray paint cans at the base and wet pigment
+still dripping; painterly dark fantasy card art, rich gold and cyan against
+charcoal stone, no frame, title, rules text, letters, logo, or watermark."
+The source image was center-cropped and resized to 500×380 as
+`AK_Exusiai/images/cards/Graffiti.png`.

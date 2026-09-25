@@ -86,5 +86,14 @@
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription": "下回合开始时，获得等于手牌数的弹药。剩余[blue]{Amount}[/blue]次。",
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.smartDescription": "铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。",
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.description": "铳弹协约的升级加成剩余[blue]{Amount}[/blue]次。",
-  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title": "铳弹协约升级加成"
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title": "铳弹协约升级加成",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.title": "强拍",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.description": "本回合造成的伤害提高[blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.smartDescription": "本回合造成的伤害提高[blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.title": "弱拍",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.description": "在你的下个回合开始前，受到的伤害减少[blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.smartDescription": "在你的下个回合开始前，受到的伤害减少[blue]{Amount}%[/blue]。",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.title": "白鲸醉意",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.description": "本回合你的单体攻击随机选择敌人。",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.smartDescription": "本回合你的单体攻击随机选择敌人。"
 }

@@ -362,11 +362,13 @@ public static class RelicLogisticsCmd
 
     public static void EndCombat(Player player)
     {
+        bool preserveTransit = player.Relics.OfType<IllGottenGains>()
+            .Any(relic => IsOperational(relic) && !relic.TookDamageThisCombat);
         foreach (RelicModel relic in player.Relics)
         {
             if (relic is BossMedal bossMedal)
                 bossMedal.ResetAfterCombat();
-            relic.Capability<RelicLogisticsCapability>()?.EndCombat();
+            relic.Capability<RelicLogisticsCapability>()?.EndCombat(preserveTransit);
         }
     }
 

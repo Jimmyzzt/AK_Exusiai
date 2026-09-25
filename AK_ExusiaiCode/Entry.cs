@@ -34,6 +34,10 @@ public partial class Entry
 
         _patcher = RitsuLibFramework.CreatePatcher(ModId, "gameplay");
         _patcher.RegisterPatch<AngelFreeCostPatch>();
+        _patcher.RegisterPatch<BelugaRandomTargetPatch>();
+        _patcher.RegisterPatch<BeaconMapVisualPatch>();
+        _patcher.RegisterPatch<BeaconMapPointIconPatch>();
+        _patcher.RegisterPatch<CompanyVanTravelPatch>();
         _patcher.RegisterPatch<CompassionTransferPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<RelicLogisticsHookPatch>();
@@ -129,7 +133,48 @@ public partial class Entry
             $"{ResPath}/images/character/spine/new_covenant/wingseekers_song/build_skeleton_data.tres",
         ];
 
-        string[] missing = requiredPaths.Where(path => !ResourceLoader.Exists(path)).ToArray();
+        string[] ancientRelics =
+        [
+            "PhotoWithTheLord", "EntryPermit", "StudyTourCertificate", "LordDrone", "SprayCan",
+            "CactusTart", "PrismaticWings", "Confess47", "BeaconOfNations", "TheLaw",
+            "PenguinLogisticsId", "AFewFineVintages", "BlackCard", "MasterTape", "IllGottenGains",
+            "CompanyVan", "ReturnToSender", "DjDeck", "PrizedRecord", "BossBusinessCard",
+        ];
+        string[] ancientPotions = ["UrsusBeluga", "GaulChardonnay", "YanFenjiu"];
+        IEnumerable<string> ancientAssets = ancientRelics.SelectMany(name => new[]
+            {
+                $"{ResPath}/images/relics/{name}.png",
+                $"{ResPath}/images/relics/{name}Outline.png",
+            })
+            .Concat(ancientPotions.SelectMany(name => new[]
+            {
+                $"{ResPath}/images/potions/{name}.png",
+                $"{ResPath}/images/potions/{name}Outline.png",
+            }))
+            .Concat(new[]
+            {
+                $"{ResPath}/scenes/ancients/laterano_background.tscn",
+                $"{ResPath}/scenes/ancients/emperor_background.tscn",
+                $"{ResPath}/scenes/ancients/confess47_pet.tscn",
+                $"{ResPath}/images/ancients/confess47/front/skeleton_data.tres",
+                $"{ResPath}/images/ancients/laterano/background.png",
+                $"{ResPath}/images/ancients/laterano/portrait.png",
+                $"{ResPath}/images/ancients/laterano/map_icon.png",
+                $"{ResPath}/images/ancients/laterano/map_iconOutline.png",
+                $"{ResPath}/images/ancients/emperor/background.png",
+                $"{ResPath}/images/ancients/emperor/portrait.png",
+                $"{ResPath}/images/ancients/emperor/map_icon.png",
+                $"{ResPath}/images/ancients/emperor/map_iconOutline.png",
+                $"{ResPath}/images/map/BeaconOfNations.svg",
+                $"{ResPath}/images/cards/Graffiti.png",
+                $"{ResPath}/images/enchantments/Ascension.svg",
+                $"{ResPath}/images/powers/StrongBeatPower_64.svg",
+                $"{ResPath}/images/powers/StrongBeatPower_256.svg",
+                $"{ResPath}/images/powers/WeakBeatPower_64.svg",
+                $"{ResPath}/images/powers/WeakBeatPower_256.svg",
+            });
+        string[] missing = requiredPaths.Concat(ancientAssets)
+            .Where(path => !ResourceLoader.Exists(path)).ToArray();
         if (missing.Length > 0)
         {
             throw new InvalidOperationException(

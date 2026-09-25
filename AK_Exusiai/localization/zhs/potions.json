@@ -4,5 +4,13 @@
   "AK_EXUSIAI_POTION_EMPERORS_STASH.title": "大帝的珍藏",
   "AK_EXUSIAI_POTION_EMPERORS_STASH.description": "将{Cards}张随机[gold]物流卡[/gold]加入你的手牌。",
   "AK_EXUSIAI_POTION_BOTTLED_HALO.title": "瓶装光环",
-  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "将{Cards}张随机[gold]天使[/gold]牌加入你的手牌。"
+  "AK_EXUSIAI_POTION_BOTTLED_HALO.description": "将{Cards}张随机[gold]天使[/gold]牌加入你的手牌。",
+  "AK_EXUSIAI_POTION_URSUS_BELUGA.title": "乌萨斯白鲸",
+  "AK_EXUSIAI_POTION_URSUS_BELUGA.description": "获得[blue]30[/blue]发[gold]弹药[/gold]，本回合进入[gold]过载[/gold]。本回合你的单体攻击随机选择敌人。",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.title": "高卢霞多丽",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.description": "弃掉任意张手牌，随后抽牌直到手牌达到上限。本回合不能再抽牌。",
+  "AK_EXUSIAI_POTION_GAUL_CHARDONNAY.selectionScreenPrompt": "选择任意张手牌弃掉。",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.title": "大炎汾酒",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.description": "选择任意张手牌，将它们变化为随机牌。",
+  "AK_EXUSIAI_POTION_YAN_FENJIU.selectionScreenPrompt": "选择任意张手牌变化。"
 }
