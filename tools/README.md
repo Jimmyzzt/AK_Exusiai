@@ -28,6 +28,7 @@ Run from the repository root after replacing a relic, potion, character icon, or
 The manifest in `generate_item_assets.gd` maps tracked source images to runtime assets. It crops transparent margins, preserves aspect ratio, places relics on a 256×256 canvas and potions on an 80×80 canvas, then creates a white filled silhouette with a small dilation as the outline image. The runtime character icon is generated at the base game's 85×85 size so the top panel and run-history layout do not expand around the source artwork.
 
 Relic code uses the generated 256×256 main image for both the small icon and large inspection image. Potion code uses one 80×80 main image and one 80×80 outline image, matching RitsuLib's current two-path potion asset profile.
+The two new Ancient map icons are generated from the selected logos at 85×85 with matching white outlines. Their map and run-history asset paths can reuse each pair when the events are registered.
 
 ## Spine character assets
 
@@ -49,6 +50,13 @@ PRTS source skeletons are Spine 3.8.99. Convert runtime copies to the game's Spi
 ```
 
 Original downloads and their hashes remain under `references/official/spine/`; only converted runtime copies belong under `AK_Exusiai/images/character/spine/`.
+
+CONFESS-47's front, back, and build sources can be fetched from its PRTS index and prepared with a local converter executable. The build texture is normalized to its atlas-declared size; the original stays unchanged under `references/official/spine/char_4188_confes/`.
+
+```powershell
+python .\tools\fetch_confess47_spine.py
+python .\tools\prepare_confess47_spine.py .\tmp\SpineSkeletonDataConverter.exe
+```
 
 PRTS `build` textures are stored at two-thirds of the pixel dimensions declared by their `.atlas` files. Copying one unchanged makes the runtime sample the wrong rectangles and displays the character as scattered fragments. Keep the downloaded PNG unchanged under `references/`, then normalize only the runtime copy to the atlas page size:
 

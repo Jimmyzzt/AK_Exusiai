@@ -1,0 +1,21 @@
+﻿老板的名片 / Boss's Business Card
+源表：Ancients!B25:F25
+状态：改制参考
+
+老板明确为企鹅物流大帝。提供大帝原立绘、空白名片与组织标志；名片成品需要后续合成或重绘。
+
+素材：
+大帝_企鹅物流老板_剧情立绘.png
+  性质：角色立绘原图
+  来源页：https://prts.wiki/w/剧情角色一览
+  原图/生成来源：https://media.prts.wiki/7/75/Avg_char_105_emper.png
+
+空白名片_藏品原图.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a45.png
+
+企鹅物流_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/泰拉大典:组织/企鹅物流
+  原图/生成来源：https://media.prts.wiki/2/2b/Logo_企鹅物流.png

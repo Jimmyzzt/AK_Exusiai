@@ -1,0 +1,16 @@
+﻿炫彩光翼 / Prismatic Wings
+源表：Ancients!B9:F9
+状态：改制参考
+
+以新约能天使原立绘的几何光翼为主参考；光环仅作发光质感辅助。未将角色立绘冒充独立光翼图标。
+
+素材：
+新约能天使_精英二立绘_光翼参考.png
+  性质：角色立绘原图
+  来源页：https://prts.wiki/w/文件:立绘_新约能天使_2.png
+  原图/生成来源：https://media.prts.wiki/0/07/立绘_新约能天使_2.png
+
+光环_萨卡兹肉鸽_指定图标.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴#光环
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_fight_17.png

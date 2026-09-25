@@ -1,0 +1,11 @@
+﻿母带 / Master Tape
+源表：Ancients!B19:F19
+状态：改制参考
+
+磁带外形素材；原物为精神治疗录像带，并非大帝的音乐母带。可用于重绘磁带母带，若要开盘式母带则需另画。
+
+素材：
+精神治疗录像带_磁带参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_n08.png

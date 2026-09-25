@@ -1,0 +1,16 @@
+﻿入境许可 / Entry Permit
+源表：Ancients!B4:F4
+状态：改制参考
+
+招聘许可提供凭证封套形态参考，不是拉特兰入境证。需移除罗德岛与通用道具标记，替换为拉特兰证件设计。
+
+素材：
+招聘许可_道具原图.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/招聘许可
+  原图/生成来源：https://torappu.prts.wiki/assets/item_icon/TKT_RECRUIT.png
+
+拉特兰_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/拉特兰
+  原图/生成来源：https://media.prts.wiki/e/e9/Logo_拉特兰.png

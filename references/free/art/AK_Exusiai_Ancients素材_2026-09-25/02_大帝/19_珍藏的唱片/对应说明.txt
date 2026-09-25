@@ -1,0 +1,16 @@
+﻿珍藏的唱片 / Prized Record
+源表：Ancients!B24:F24
+状态：用户指定图标
+
+首选傀影肉鸽黑夜呢喃；另外保留萨卡兹肉鸽同名图标作对照。未根据编号猜图，已按 PRTS 图片 alt 名称核对。
+
+素材：
+黑夜呢喃_傀影肉鸽_指定图标.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒#“黑夜呢喃”
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a09.png
+
+黑夜呢喃_萨卡兹肉鸽_同名版本.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴#“黑夜呢喃”
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_legacy_66.png

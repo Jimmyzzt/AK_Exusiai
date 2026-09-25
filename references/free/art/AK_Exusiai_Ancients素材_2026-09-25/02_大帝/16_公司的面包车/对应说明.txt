@@ -1,0 +1,21 @@
+﻿公司的面包车 / Company Van
+源表：Ancients!B21:F21
+状态：AI概念图及参考
+
+新增透明底企鹅物流面包车概念图，以官方标志为参考生成；车型为原创设计，标志经生成重绘，不是官方车型或精确商标矢量稿。另附第三方同人运输车场景（Pixiv ID 7661612），仅作涂装与气氛参考，未取得其再发布授权。
+
+素材：
+公司的面包车_AI概念图_非官方车型.png
+  性质：AI自制概念图_非官方
+  来源页：https://prts.wiki/w/泰拉大典:组织/企鹅物流
+  原图/生成来源：AI image_gen / 2026-09-25
+
+企鹅物流运输车_同人构图参考.jpg
+  性质：第三方同人参考_非官方_未取得再发布授权
+  来源页：https://www.zerochan.net/2573746
+  原图/生成来源：https://static.zerochan.net/Arknights.full.2573746.jpg
+
+企鹅物流_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/泰拉大典:组织/企鹅物流
+  原图/生成来源：https://media.prts.wiki/2/2b/Logo_企鹅物流.png

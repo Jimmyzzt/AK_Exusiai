@@ -1,0 +1,16 @@
+﻿打碟机 / DJ Deck
+源表：Ancients!B23:F23
+状态：改制参考
+
+首选极限混音设备：属于打碟混音家具，但原图含完整灯效、音箱及背景，需提取或重绘台面。旧式唱片机只是企鹅物流相关备用参考，不等同于 DJ 台。
+
+素材：
+极限混音设备_打碟台.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/“极限”混音设备
+  原图/生成来源：https://torappu.prts.wiki/assets/furniture/furni_obsidianFestival_DJBooth_01.png
+
+旧式唱片机_企鹅物流家具.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/旧式唱片机
+  原图/生成来源：https://torappu.prts.wiki/assets/furniture/furni_penguin_recordPlayer_01.png

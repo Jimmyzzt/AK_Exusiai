@@ -1,0 +1,11 @@
+﻿不义之财 / Ill-Gotten Gains
+源表：Ancients!B20:F20
+状态：图标候选
+
+爱丽舍钱袋提供装钱袋的现成图标；没有证据表明与大帝剧情存在直接联系。
+
+素材：
+爱丽舍钱袋_钱袋参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q11.png

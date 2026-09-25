@@ -1,0 +1,11 @@
+﻿喷漆罐 / Spray Can
+源表：Ancients!B7:F7
+状态：改制参考
+
+伊桑的超级喷漆套装原图，确实画有喷枪和多只漆罐；后续可截取单罐或重绘。它并非能天使专属物品。已排除只有通用徽章外观的蒂比信物图标。
+
+素材：
+伊桑_超级喷漆套装_漆罐参考.png
+  性质：模组原图_含漆罐
+  来源页：https://prts.wiki/w/伊桑#超级喷漆套装
+  原图/生成来源：https://torappu.prts.wiki/assets/uniequip_img/uniequip_002_ethan.png

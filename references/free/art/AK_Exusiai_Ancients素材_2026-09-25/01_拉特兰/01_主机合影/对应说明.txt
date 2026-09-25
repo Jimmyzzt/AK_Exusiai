@@ -1,0 +1,21 @@
+﻿主机合影 / Photo with the Lord
+源表：Ancients!B3:F3
+状态：改制参考
+
+主机已核对为拉特兰 PCS 系统主机。CG 本身没有能天使合影；残破合影只作相纸边框参考，后续需合成或重绘。
+
+素材：
+拉特兰_PCS主机_剧情背景.png
+  性质：剧情CG原图
+  来源页：https://prts.wiki/w/剧情角色一览#众生行记
+  原图/生成来源：https://media.prts.wiki/5/52/Avg_bg_61_g7_pcsserverroom.png
+
+残破合影_藏品原图.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a05.png
+
+新约能天使_精英二立绘_光翼参考.png
+  性质：角色立绘原图
+  来源页：https://prts.wiki/w/文件:立绘_新约能天使_2.png
+  原图/生成来源：https://media.prts.wiki/0/07/立绘_新约能天使_2.png

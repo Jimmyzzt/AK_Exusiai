@@ -1,0 +1,16 @@
+﻿企鹅物流工牌 / Penguin Logistics ID
+源表：Ancients!B16:F16
+状态：改制参考
+
+企鹅物流官方标志与游戏室管理员权限卡提供组合参考，不是现成员工工牌。需替换 GAME ROOM 等文字，重新设计工牌布局。
+
+素材：
+企鹅物流_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/泰拉大典:组织/企鹅物流
+  原图/生成来源：https://media.prts.wiki/2/2b/Logo_企鹅物流.png
+
+游戏室管理员权限卡_卡片参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_legacy_42.png

@@ -1,0 +1,16 @@
+﻿无人主机 / Lord Drone
+源表：Ancients!B6:F6
+状态：改制参考
+
+无人主机为表中原创物品。PCS 主机是身份基准；静音小队只提供悬浮无人机结构，不能把普通无人机当作主机成品。
+
+素材：
+拉特兰_PCS主机_剧情背景.png
+  性质：剧情CG原图
+  来源页：https://prts.wiki/w/剧情角色一览#众生行记
+  原图/生成来源：https://media.prts.wiki/5/52/Avg_bg_61_g7_pcsserverroom.png
+
+静音小队_无人机藏品.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a01.png

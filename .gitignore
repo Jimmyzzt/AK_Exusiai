@@ -42,3 +42,6 @@ game_files/
 full_game_dump/
 bulk_extracts/
 tools/card_effect_manager/*.v1.bak
+
+# Reference-only fan art without redistribution permission.
+**/企鹅物流运输车_同人构图参考.jpg
