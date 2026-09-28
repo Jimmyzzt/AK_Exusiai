@@ -17,10 +17,12 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Map;
+using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.Events;
+using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 using AK_Exusiai.Monsters;
 using MegaCrit.Sts2.Core.Rooms;
@@ -122,7 +124,8 @@ public sealed class LordDrone : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class SprayCan : ExusiaiAncientRelic
 {
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromCard<Graffiti>()];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [.. HoverTipFactory.FromCardWithCardHoverTips<Graffiti>(), ExusiaiKeywords.AngelHoverTip];
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature) || Owner.PlayerCombatState?.TurnNumber != 1)
@@ -172,6 +175,7 @@ public sealed class Confess47 : ExusiaiAncientRelic
 {
     private int _cooldown;
     private bool _entryFinished;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
     public override bool AddsPet => true;
     public override bool ShowCounter => _cooldown > 0;
     public override int DisplayAmount => _cooldown;
@@ -228,7 +232,7 @@ public sealed class Confess47 : ExusiaiAncientRelic
         SfxCmd.PlayDamage(target.Monster, 33);
         await CreatureCmd.TriggerAnim(target, "Hit", 0f);
         await CreatureCmd.Stun(target);
-        Cooldown = 4;
+        Cooldown = 3;
         await CreatureCmd.TriggerAnim(pet.Creature, "Sleep", 0.15f);
     }
 
@@ -277,17 +281,27 @@ public sealed class BeaconOfNations : ExusiaiAncientRelic
     public override Task AfterObtained()
     {
         MarkedActIndex = Owner.RunState.CurrentActIndex;
+        EnsureRoute();
+        Flash();
+        return Task.CompletedTask;
+    }
+
+    public void EnsureRoute()
+    {
+        if (MarkedActIndex != Owner.RunState.CurrentActIndex || GetPath().Count > 1)
+            return;
         ActMap map = Owner.RunState.Map;
-        MapPoint? cursor = Owner.RunState.CurrentMapPoint;
-        if (cursor is null)
-            return Task.CompletedTask;
+        MapPoint cursor = Owner.RunState.CurrentMapPoint ?? map.StartingMapPoint;
+        if (!cursor.BFS_FindPath(map.BossMapPoint).Any())
+            cursor = map.StartingMapPoint;
+        Rng routeRng = new(Owner, Id, (ulong)(MarkedActIndex + 1));
         List<MapPoint> route = [cursor];
         while (cursor != map.BossMapPoint && route.Count <= map.GetAllMapPoints().Count())
         {
             List<MapPoint> choices = cursor.Children
                 .Where(p => p == map.BossMapPoint || p.BFS_FindPath(map.BossMapPoint).Any())
                 .OrderBy(p => p.coord.row).ThenBy(p => p.coord.col).ToList();
-            MapPoint? next = Owner.RunState.Rng.Niche.NextItem(choices);
+            MapPoint? next = routeRng.NextItem(choices);
             if (next is null || next.coord.row <= cursor.coord.row)
                 break;
             route.Add(next);
@@ -295,12 +309,11 @@ public sealed class BeaconOfNations : ExusiaiAncientRelic
         }
         PathColumns = route.Select(p => p.coord.col).ToArray();
         PathRows = route.Select(p => p.coord.row).ToArray();
-        Flash();
-        return Task.CompletedTask;
     }
 
     public override bool TryModifyRewards(Player player, List<Reward> rewards, AbstractRoom? room)
     {
+        EnsureRoute();
         if (player != Owner || room is not CombatRoom combatRoom || MarkedActIndex != Owner.RunState.CurrentActIndex ||
             Owner.RunState.CurrentMapPoint is not { } point || point.PointType == MapPointType.Boss ||
             !GetPath().Contains(point.coord))
@@ -356,8 +369,10 @@ public sealed class TheLaw : ExusiaiAncientRelic
 {
     private int _charges = 3;
     public override bool HasUponPickupEffect => true;
-    public override bool ShowCounter => _charges > 0;
+    public override bool IsUsedUp => _charges <= 0;
+    public override bool ShowCounter => !IsUsedUp;
     public override int DisplayAmount => _charges;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Charges", 3m)];
 
     [SavedProperty]
     public int Charges
@@ -367,7 +382,10 @@ public sealed class TheLaw : ExusiaiAncientRelic
         {
             AssertMutable();
             _charges = Math.Max(0, value);
+            DynamicVars["Charges"].BaseValue = _charges;
             InvokeDisplayAmountChanged();
+            if (IsUsedUp)
+                Status = RelicStatus.Disabled;
         }
     }
 
@@ -522,6 +540,7 @@ public sealed class IllGottenGains : ExusiaiAncientRelic
 public sealed class CompanyVan : ExusiaiAncientRelic
 {
     private int _timesUsed;
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Rooms", 3m)];
     public override bool IsUsedUp => _timesUsed >= 3;
     public override bool ShowCounter => !IsUsedUp;
     public override int DisplayAmount => Math.Max(0, 3 - _timesUsed);
@@ -534,6 +553,7 @@ public sealed class CompanyVan : ExusiaiAncientRelic
         {
             AssertMutable();
             _timesUsed = Math.Clamp(value, 0, 3);
+            DynamicVars["Rooms"].BaseValue = 3 - _timesUsed;
             if (IsUsedUp)
                 Status = RelicStatus.Disabled;
             InvokeDisplayAmountChanged();
@@ -626,10 +646,13 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
     private RelicModel? PickOrdinary(HashSet<ModelId> offeredNonStackable)
     {
         RelicRarity[] rarities = [RelicRarity.Common, RelicRarity.Uncommon, RelicRarity.Rare, RelicRarity.Shop];
+        IEnumerable<RelicModel> available =
+            ModelDb.RelicPool<SharedRelicPool>().GetUnlockedRelics(Owner.UnlockState)
+                .Concat(Owner.Character.RelicPool.GetUnlockedRelics(Owner.UnlockState));
         List<(RelicRarity rarity, List<RelicModel> pool, float weight)> pools = [];
         foreach (RelicRarity rarity in rarities)
         {
-            List<RelicModel> candidates = ModelDb.AllRelics
+            List<RelicModel> candidates = available
                 .Where(r => r.Rarity == rarity && IsCandidate(r))
                 .Where(r => r.IsStackable || !offeredNonStackable.Contains(r.Id))
                 .GroupBy(r => r.Id).Select(g => g.First())

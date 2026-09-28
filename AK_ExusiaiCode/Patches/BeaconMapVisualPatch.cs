@@ -16,6 +16,8 @@ internal sealed class BeaconMapVisualPatch : IPatchMethod
         Dictionary<(MapCoord, MapCoord), IReadOnlyList<TextureRect>>> PathsRef =
         AccessTools.FieldRefAccess<NMapScreen,
             Dictionary<(MapCoord, MapCoord), IReadOnlyList<TextureRect>>>("_paths");
+    private static readonly AccessTools.FieldRef<NMapScreen, Dictionary<MapCoord, NMapPoint>> PointsRef =
+        AccessTools.FieldRefAccess<NMapScreen, Dictionary<MapCoord, NMapPoint>>("_mapPointDictionary");
 
     public static string PatchId => "show-beacon-route";
     public static string Description => "Tint Beacon route dots light gray when the map is drawn or opened";
@@ -31,11 +33,17 @@ internal sealed class BeaconMapVisualPatch : IPatchMethod
         if (run is null)
             return;
         var paths = PathsRef(__instance);
+        var points = PointsRef(__instance);
+        HashSet<MapCoord> markedCombats = [];
         foreach (BeaconOfNations beacon in run.Players.SelectMany(p => p.Relics).OfType<BeaconOfNations>())
         {
             if (beacon.MarkedActIndex != run.CurrentActIndex)
                 continue;
+            beacon.EnsureRoute();
             IReadOnlyList<MapCoord> route = beacon.GetPath();
+            foreach (MapCoord coord in route)
+                if (run.Map.GetPoint(coord) is { PointType: MapPointType.Monster or MapPointType.Elite })
+                    markedCombats.Add(coord);
             for (int i = 0; i + 1 < route.Count; i++)
             {
                 if (paths.TryGetValue((route[i], route[i + 1]), out var dots))
@@ -45,6 +53,9 @@ internal sealed class BeaconMapVisualPatch : IPatchMethod
                 }
             }
         }
+        foreach ((MapCoord coord, NMapPoint point) in points)
+            if (point is NNormalMapPoint normal)
+                BeaconMapPointIconPatch.SyncIcon(normal, markedCombats.Contains(coord));
     }
 }
 
@@ -65,15 +76,28 @@ internal sealed class BeaconMapPointIconPatch : IPatchMethod
         // our marker so Fur Coat and other mods retain their own quest overlays.
         foreach (BeaconOfNations oldMarker in __instance.Point.Quests.OfType<BeaconOfNations>().ToList())
             __instance.Point.RemoveQuest(oldMarker);
-        if (__instance.Point.PointType is not (MapPointType.Monster or MapPointType.Elite))
-            return;
         IRunState? run = PointRunRef(__instance);
-        if (run is null || !run.Players.SelectMany(p => p.Relics).OfType<BeaconOfNations>()
-                .Any(b => b.MarkedActIndex == run.CurrentActIndex && b.GetPath().Contains(__instance.Point.coord)))
+        bool marked = run is not null && __instance.Point.PointType is MapPointType.Monster or MapPointType.Elite &&
+            run.Players.SelectMany(p => p.Relics).OfType<BeaconOfNations>()
+                .Any(b => b.MarkedActIndex == run.CurrentActIndex && b.GetPath().Contains(__instance.Point.coord));
+        SyncIcon(__instance, marked);
+    }
+
+    public static void SyncIcon(NNormalMapPoint point, bool marked)
+    {
+        Control? container = point.GetNodeOrNull<Control>("%IconContainer");
+        if (container is null)
             return;
-        Control? container = __instance.GetNodeOrNull<Control>("%IconContainer");
-        TextureRect? roomIcon = __instance.GetNodeOrNull<TextureRect>("%Icon");
-        if (container is null || roomIcon is null || container.HasNode("BeaconIcon"))
+        TextureRect? existing = container.GetNodeOrNull<TextureRect>("BeaconIcon");
+        if (!marked)
+        {
+            existing?.QueueFree();
+            return;
+        }
+        if (existing is not null)
+            return;
+        TextureRect? roomIcon = point.GetNodeOrNull<TextureRect>("%Icon");
+        if (roomIcon is null)
             return;
         Texture2D? texture = ResourceLoader.Load<Texture2D>($"{Entry.ResPath}/images/map/BeaconOfNations.svg");
         if (texture is null)
