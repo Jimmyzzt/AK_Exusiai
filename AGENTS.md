@@ -6,7 +6,7 @@
 
 - Mod ID、程序集名、PCK 名：`AK_Exusiai`。
 - 角色：能天使 / Exusiai；初始最大生命 77，初始金币 99。
-- 当前卡牌设计：`docs/AK_Exusiai-Card_V1.3.csv`；V1.3 调整记录见 `docs/archive/CHANGELOG_V1.3.md`，V1.2 卡表与旧记录也位于 `docs/archive/`。
+- 当前卡牌设计：`docs/AK_Exusiai-Card_V1.3.csv`；V1.3 更新说明见 `docs/archive/CHANGELOG_V1.3.md`，V1.2 卡表与旧记录也位于 `docs/archive/`。
 - 遗物与药水设计：`docs/AK_Exusiai-Relic_Potion_V1.2.csv`。
 - 当前状态：Mod 已发布，V1.3 卡牌平衡改动已落实到源码，仍需在游戏中逐项回归；正式卡图、六套外观、能量 UI、转场与卡牌音效已接入。内容统计、构建证据和待验项目只维护在进度页，不把源码实现写成已在线发布。
 - 当前进度和待测项只维护在 `docs/PROGRESS.md`，不要在本页追加流水账。
