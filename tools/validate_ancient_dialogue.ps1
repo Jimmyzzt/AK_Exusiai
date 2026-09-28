@@ -63,10 +63,39 @@ foreach ($language in @('zhs', 'eng')) {
             }
         }
     }
+    foreach ($ancient in @('AK_EXUSIAI_EVENT_LATERANO', 'AK_EXUSIAI_EVENT_PENGUIN_LOGISTICS')) {
+        foreach ($suffix in @('title', 'epithet', 'pages.INITIAL.description', 'pages.DONE.description')) {
+            $key = "$ancient.$suffix"
+            Assert-Dialogue ($table.ContainsKey($key) -and -not [string]::IsNullOrWhiteSpace($table[$key])) "Missing event text: $key"
+            $null = $used.Add($key)
+        }
+        foreach ($speaker in @('firstVisitEver', 'ANY', $character)) {
+            $sequences = if ($speaker -eq 'firstVisitEver') { @(0) } else { @(0, 1, 2) }
+            foreach ($sequence in $sequences) {
+                $repeat = if ($sequence -eq 1) { 'r' } else { '' }
+                $prefix = "$ancient.talk.$speaker.$sequence-"
+                $lines = @($table.Keys | Where-Object { $_ -match "^$([regex]::Escape($prefix))\d+$repeat\.(ancient|char)$" })
+                Assert-Dialogue ($lines.Count -ge 2) "Missing dialogue: $prefix"
+                for ($line = 0; $line -lt $lines.Count; $line++) {
+                    $stem = "$prefix$line$repeat"
+                    $speakers = @('ancient', 'char' | Where-Object { $table.ContainsKey("$stem.$_") })
+                    Assert-Dialogue ($speakers.Count -eq 1) "Missing/ambiguous speaker: $stem"
+                    $key = "$stem.$($speakers[0])"
+                    Assert-Dialogue (-not [string]::IsNullOrWhiteSpace($table[$key])) "Empty text: $key"
+                    $null = $used.Add($key)
+                    if ($line -lt $lines.Count - 1) {
+                        Assert-Dialogue ($table.ContainsKey("$stem.next")) "Missing button: $stem"
+                        $null = $used.Add("$stem.next")
+                    }
+                    $lineCount++
+                }
+            }
+        }
+    }
     Assert-Dialogue ($used.Count -eq $table.Count) "Unexpected or unreachable keys in $language"
     $tables[$language] = $table
     $sourceBytes["AK_Exusiai/localization/$language/ancients.json"] = $bytes
-    Write-Output "PASS $language`: $($ancients.Count) events, 27 dialogues, $lineCount lines, $($table.Count) keys"
+    Write-Output "PASS $language`: $($ancients.Count + 2) events, $lineCount lines, $($table.Count) keys"
 }
 Assert-Dialogue ($tables.zhs.Count -eq $tables.eng.Count) 'Locale key counts differ'
 foreach ($key in $tables.zhs.Keys) {

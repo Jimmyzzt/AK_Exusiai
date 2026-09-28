@@ -166,7 +166,6 @@ public partial class Entry
                 $"{ResPath}/images/ancients/emperor/map_icon.png",
                 $"{ResPath}/images/ancients/emperor/map_iconOutline.png",
                 $"{ResPath}/images/map/BeaconOfNations.svg",
-                $"{ResPath}/images/cards/Graffiti.png",
                 $"{ResPath}/images/enchantments/Ascension.svg",
                 $"{ResPath}/images/powers/StrongBeatPower_64.svg",
                 $"{ResPath}/images/powers/StrongBeatPower_256.svg",

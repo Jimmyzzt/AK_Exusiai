@@ -2,7 +2,23 @@
 
 [ext_resource type="Texture2D" path="res://AK_Exusiai/images/ancients/emperor/background.png" id="1_background"]
 
-[node name="EmperorBackground" type="Node2D"]
+[node name="EmperorBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Backdrop" type="Sprite2D" parent="."]
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_background")
+expand_mode = 1
+stretch_mode = 6
