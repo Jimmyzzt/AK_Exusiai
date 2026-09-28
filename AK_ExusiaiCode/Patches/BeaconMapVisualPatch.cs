@@ -86,19 +86,31 @@ internal sealed class BeaconMapPointIconPatch : IPatchMethod
     public static void SyncIcon(NNormalMapPoint point, bool marked)
     {
         Control? container = point.GetNodeOrNull<Control>("%IconContainer");
-        if (container is null)
-            return;
-        TextureRect? existing = container.GetNodeOrNull<TextureRect>("BeaconIcon");
+        TextureRect? roomIcon = point.GetNodeOrNull<TextureRect>("%Icon");
+        TextureRect? existing = roomIcon?.GetNodeOrNull<TextureRect>("BeaconIcon");
+        TextureRect? oldSibling = container?.GetNodeOrNull<TextureRect>("BeaconIcon");
         if (!marked)
         {
             existing?.QueueFree();
+            oldSibling?.QueueFree();
             return;
         }
-        if (existing is not null)
-            return;
-        TextureRect? roomIcon = point.GetNodeOrNull<TextureRect>("%Icon");
         if (roomIcon is null)
             return;
+        // The vanilla map animates Icon itself on hover/press, while the
+        // container only pulses travelable rooms. Parent our left marker to
+        // Icon so it follows both motions; QuestIcon remains independent.
+        if (existing is null && oldSibling is not null)
+        {
+            oldSibling.Reparent(roomIcon, keepGlobalTransform: false);
+            existing = oldSibling;
+        }
+        if (existing is not null)
+        {
+            oldSibling?.QueueFree();
+            existing.Position = new Vector2(8, 8);
+            return;
+        }
         Texture2D? texture = ResourceLoader.Load<Texture2D>($"{Entry.ResPath}/images/map/BeaconOfNations.svg");
         if (texture is null)
             return;
@@ -109,9 +121,9 @@ internal sealed class BeaconMapPointIconPatch : IPatchMethod
             MouseFilter = Control.MouseFilterEnum.Ignore,
             ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
             StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-            Position = roomIcon.Position + new Vector2(-10, -10),
+            Position = new Vector2(8, 8),
             Size = new Vector2(24, 24),
         };
-        container.AddChild(marker);
+        roomIcon.AddChild(marker);
     }
 }
