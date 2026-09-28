@@ -263,6 +263,9 @@ func _build_ui() -> void:
 	asset_header.add_child(_asset_view_option)
 	_select_option_by_metadata(_asset_view_option, String(_ui_settings.asset_view))
 	_folder_option = OptionButton.new()
+	_folder_option.fit_to_longest_item = false
+	_folder_option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_folder_option.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_folder_option.tooltip_text = "按素材所在文件夹分类筛选"
 	_folder_option.item_selected.connect(_on_folder_selected)
 	left.add_child(_folder_option)
@@ -968,9 +971,14 @@ func _rebuild_folder_options() -> void:
 
 
 func _folder_display_name(folder: String) -> String:
-	if folder.is_absolute_path():
-		return folder.get_file()
-	return folder
+	var display_name := folder.get_file() if folder.is_absolute_path() else folder
+	const MAX_DISPLAY_LENGTH := 36
+	if display_name.length() > MAX_DISPLAY_LENGTH:
+		var visible_each_side := (MAX_DISPLAY_LENGTH - 1) / 2
+		display_name = display_name.substr(0, visible_each_side) + "…" + display_name.substr(
+			display_name.length() - visible_each_side
+		)
+	return display_name
 
 
 func _on_folder_selected(index: int) -> void:
