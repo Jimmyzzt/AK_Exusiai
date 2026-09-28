@@ -28,6 +28,8 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using STS2RitsuLib.Interop.AutoRegistration;
 using STS2RitsuLib.Models.Capabilities;
 
@@ -120,6 +122,7 @@ public sealed class LordDrone : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class SprayCan : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromCard<Graffiti>()];
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature) || Owner.PlayerCombatState?.TurnNumber != 1)
@@ -168,6 +171,7 @@ public sealed class PrismaticWings : ExusiaiAncientRelic
 public sealed class Confess47 : ExusiaiAncientRelic
 {
     private int _cooldown;
+    private bool _entryFinished;
     public override bool AddsPet => true;
     public override bool ShowCounter => _cooldown > 0;
     public override int DisplayAmount => _cooldown;
@@ -184,7 +188,11 @@ public sealed class Confess47 : ExusiaiAncientRelic
         }
     }
 
-    public override Task BeforeCombatStart() => PlayerCmd.AddPet<Confess47Pet>(Owner);
+    public override Task BeforeCombatStart()
+    {
+        _entryFinished = false;
+        return PlayerCmd.AddPet<Confess47Pet>(Owner);
+    }
 
     public override async Task AfterObtained()
     {
@@ -198,6 +206,7 @@ public sealed class Confess47 : ExusiaiAncientRelic
             return;
         if (Owner.PlayerCombatState?.GetPet<Confess47Pet>()?.Monster is not Confess47Pet pet)
             return;
+        await FinishEntryAnimation(pet);
         if (Cooldown > 0)
         {
             Cooldown--;
@@ -214,7 +223,10 @@ public sealed class Confess47 : ExusiaiAncientRelic
         Flash();
         await PlayerCmd.LoseGold(1, Owner, GoldLossType.Spent);
         await PlayerCmd.GainEnergy(2, Owner);
-        await CreatureCmd.TriggerAnim(pet.Creature, "Attack", 0.15f);
+        await CreatureCmd.TriggerAnim(pet.Creature, "Attack", 0.35f);
+        VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_slash");
+        SfxCmd.PlayDamage(target.Monster, 33);
+        await CreatureCmd.TriggerAnim(target, "Hit", 0f);
         await CreatureCmd.Stun(target);
         Cooldown = 4;
         await CreatureCmd.TriggerAnim(pet.Creature, "Sleep", 0.15f);
@@ -223,7 +235,26 @@ public sealed class Confess47 : ExusiaiAncientRelic
     public override Task AfterCombatEnd(CombatRoom room)
     {
         Cooldown = 0;
+        _entryFinished = false;
         return Task.CompletedTask;
+    }
+
+    private async Task FinishEntryAnimation(Confess47Pet pet)
+    {
+        if (_entryFinished)
+            return;
+        MegaSprite? sprite = pet.Creature.GetCreatureNode()?.Visuals.SpineBody;
+        if (sprite is not null)
+        {
+            using MegaTrackEntry? track = sprite.GetAnimationState().GetCurrent(0);
+            if (track is not null && track.GetAnimationName() == "Start")
+            {
+                float remaining = Math.Max(0f, track.GetAnimationEnd() - track.GetTrackTime());
+                if (remaining > 0f)
+                    await Cmd.CustomScaledWait(remaining, remaining);
+            }
+        }
+        _entryFinished = true;
     }
 }
 
@@ -264,34 +295,19 @@ public sealed class BeaconOfNations : ExusiaiAncientRelic
         }
         PathColumns = route.Select(p => p.coord.col).ToArray();
         PathRows = route.Select(p => p.coord.row).ToArray();
-        MarkMap(map);
         Flash();
         return Task.CompletedTask;
     }
 
-    public override ActMap ModifyGeneratedMapLate(MegaCrit.Sts2.Core.Runs.IRunState runState, ActMap map, int actIndex)
-    {
-        if (actIndex == MarkedActIndex)
-            MarkMap(map);
-        return map;
-    }
-
-    private void MarkMap(ActMap map)
-    {
-        foreach (MapCoord coord in GetPath())
-        {
-            MapPoint? point = map.GetPoint(coord);
-            if (point is not null && point.PointType is MapPointType.Monster or MapPointType.Elite &&
-                !point.Quests.Contains(this))
-                point.AddQuest(this);
-        }
-    }
-
     public override bool TryModifyRewards(Player player, List<Reward> rewards, AbstractRoom? room)
     {
-        if (player != Owner || room is not CombatRoom || MarkedActIndex != Owner.RunState.CurrentActIndex ||
+        if (player != Owner || room is not CombatRoom combatRoom || MarkedActIndex != Owner.RunState.CurrentActIndex ||
             Owner.RunState.CurrentMapPoint is not { } point || point.PointType == MapPointType.Boss ||
             !GetPath().Contains(point.coord))
+            return false;
+        if (point.PointType is not (MapPointType.Monster or MapPointType.Elite) &&
+            (point.PointType != MapPointType.Unknown || combatRoom.ParentEventId != null ||
+             combatRoom.RoomType != RoomType.Monster))
             return false;
         List<CardModel> candidates = [];
         List<CardPoolModel> eligiblePools = [];
@@ -394,6 +410,12 @@ public sealed class PenguinLogisticsId : ExusiaiAncientRelic
 public sealed class AFewFineVintages : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+    [
+        HoverTipFactory.FromPotion<UrsusBeluga>(),
+        HoverTipFactory.FromPotion<GaulChardonnay>(),
+        HoverTipFactory.FromPotion<YanFenjiu>(),
+    ];
 
     public override Task AfterObtained() => PlayerCmd.GainMaxPotionCount(2, Owner);
 
@@ -500,9 +522,9 @@ public sealed class IllGottenGains : ExusiaiAncientRelic
 public sealed class CompanyVan : ExusiaiAncientRelic
 {
     private int _timesUsed;
-    public override bool IsUsedUp => _timesUsed >= 2;
+    public override bool IsUsedUp => _timesUsed >= 3;
     public override bool ShowCounter => !IsUsedUp;
-    public override int DisplayAmount => Math.Max(0, 2 - _timesUsed);
+    public override int DisplayAmount => Math.Max(0, 3 - _timesUsed);
 
     [SavedProperty]
     public int TimesUsed
@@ -511,7 +533,7 @@ public sealed class CompanyVan : ExusiaiAncientRelic
         set
         {
             AssertMutable();
-            _timesUsed = Math.Clamp(value, 0, 2);
+            _timesUsed = Math.Clamp(value, 0, 3);
             if (IsUsedUp)
                 Status = RelicStatus.Disabled;
             InvokeDisplayAmountChanged();
@@ -568,13 +590,21 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
         List<RelicModel> neowAncients = ModelDb.AncientEvent<Neow>().AllPossibleOptions
             .Select(o => o.Relic).OfType<RelicModel>().ToList();
         List<Reward> rewards = [];
+        HashSet<ModelId> offeredNonStackable = [];
         foreach (RelicModel lost in toRemove)
         {
             RelicModel? replacement = lost.Rarity == RelicRarity.Ancient
-                ? PickAncient(neowIds.Contains(lost.Id) ? neowAncients : nonNeowAncients)
-                : PickOrdinary();
+                ? PickAncient(neowIds.Contains(lost.Id) ? neowAncients : nonNeowAncients, offeredNonStackable)
+                : PickOrdinary(offeredNonStackable);
             if (replacement is not null)
-                rewards.Add(new RelicReward(replacement.ToMutable(), Owner));
+            {
+                if (!replacement.IsStackable)
+                    offeredNonStackable.Add(replacement.Id);
+                // Ancient event options are already mutable; reward creation needs a
+                // fresh instance of the canonical model instead of ToMutable on one.
+                RelicModel canonical = ModelDb.GetById<RelicModel>(replacement.Id);
+                rewards.Add(new RelicReward(canonical.ToMutable(), Owner));
+            }
         }
         if (rewards.Count > 0)
         {
@@ -583,16 +613,17 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
         }
     }
 
-    private RelicModel? PickAncient(IEnumerable<RelicModel> source)
+    private RelicModel? PickAncient(IEnumerable<RelicModel> source, HashSet<ModelId> offeredNonStackable)
     {
         List<RelicModel> candidates = source
             .Where(IsCandidate)
+            .Where(r => r.IsStackable || !offeredNonStackable.Contains(r.Id))
             .GroupBy(r => r.Id).Select(g => g.First())
             .OrderBy(r => r.Id.ToString(), StringComparer.Ordinal).ToList();
         return Owner.RunState.Rng.Niche.NextItem(candidates);
     }
 
-    private RelicModel? PickOrdinary()
+    private RelicModel? PickOrdinary(HashSet<ModelId> offeredNonStackable)
     {
         RelicRarity[] rarities = [RelicRarity.Common, RelicRarity.Uncommon, RelicRarity.Rare, RelicRarity.Shop];
         List<(RelicRarity rarity, List<RelicModel> pool, float weight)> pools = [];
@@ -600,6 +631,7 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
         {
             List<RelicModel> candidates = ModelDb.AllRelics
                 .Where(r => r.Rarity == rarity && IsCandidate(r))
+                .Where(r => r.IsStackable || !offeredNonStackable.Contains(r.Id))
                 .GroupBy(r => r.Id).Select(g => g.First())
                 .OrderBy(r => r.Id.ToString(), StringComparer.Ordinal).ToList();
             if (candidates.Count > 0)
@@ -617,6 +649,10 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
 
     private bool IsCandidate(RelicModel relic)
     {
+        if (relic is ReturnToSender)
+            return false;
+        if (relic.AddsPet && Owner.HasEventPet())
+            return false;
         if (!relic.IsStackable && Owner.Relics.Any(r => r.Id == relic.Id))
             return false;
         try { return relic.IsAllowed(Owner.RunState); }
@@ -658,12 +694,35 @@ public sealed class DjDeck : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class PrizedRecord : ExusiaiAncientRelic
 {
+    private HashSet<Creature>? _affected;
+
+    public override async Task BeforeCombatStart()
+    {
+        if (Owner.Creature.CombatState is not { } combat)
+            return;
+        foreach (Creature enemy in combat.GetOpponentsOf(Owner.Creature))
+            await ReduceMaxHp(enemy);
+    }
+
     public override async Task AfterCreatureAddedToCombat(Creature creature)
     {
-        if (creature.Side == Owner.Creature.Side || !creature.IsAlive)
+        if (creature.Side == Owner.Creature.Side)
+            return;
+        await ReduceMaxHp(creature);
+    }
+
+    private async Task ReduceMaxHp(Creature creature)
+    {
+        if (creature.MaxHp <= 0 || !(_affected ??= []).Add(creature))
             return;
         Flash();
-        await CreatureCmd.SetMaxHp(creature, Math.Max(1, Math.Floor(creature.MaxHp * 0.8m)));
+        await CreatureCmd.SetMaxAndCurrentHp(creature, Math.Max(1, Math.Floor(creature.MaxHp * 0.8m)));
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        _affected?.Clear();
+        return Task.CompletedTask;
     }
 }
 
@@ -671,6 +730,7 @@ public sealed class PrizedRecord : ExusiaiAncientRelic
 public sealed class BossBusinessCard : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromCard<Emperor>(upgrade: true)];
 
     public override async Task AfterObtained()
     {

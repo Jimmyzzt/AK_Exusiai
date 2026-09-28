@@ -36,7 +36,8 @@ public sealed class Confess47Pet : ModMonsterTemplate
         AnimState attack = new("Attack") { NextState = idle };
         AnimState sleep = new("Default", isLooping: true);
         AnimState wake = new("Start") { NextState = idle };
-        CreatureAnimator animator = new(idle, controller);
+        // The front-model entrance plays as soon as the pet's visuals are created.
+        CreatureAnimator animator = new(wake, controller);
         animator.AddAnyState("Idle", idle);
         animator.AddAnyState("Attack", attack);
         animator.AddAnyState("Sleep", sleep);

@@ -93,7 +93,7 @@
   "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.title": "Weak Beat",
   "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.description": "Take [blue]{Amount}%[/blue] less damage until your next turn starts.",
   "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.smartDescription": "Take [blue]{Amount}%[/blue] less damage until your next turn starts.",
-  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.title": "Beluga Intoxication",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.title": "Intoxication",
   "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.description": "Your single target Attacks target random enemies this turn.",
   "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.smartDescription": "Your single target Attacks target random enemies this turn."
 }

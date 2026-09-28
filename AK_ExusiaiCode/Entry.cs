@@ -37,6 +37,7 @@ public partial class Entry
         _patcher.RegisterPatch<BelugaRandomTargetPatch>();
         _patcher.RegisterPatch<BeaconMapVisualPatch>();
         _patcher.RegisterPatch<BeaconMapPointIconPatch>();
+        _patcher.RegisterPatch<AncientOptionTitlePatch>();
         _patcher.RegisterPatch<CompanyVanTravelPatch>();
         _patcher.RegisterPatch<CompassionTransferPatch>();
         _patcher.RegisterPatch<InterferencePatch>();

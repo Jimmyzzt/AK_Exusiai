@@ -38,8 +38,29 @@ public static class CompassionTransferCmd
             return;
         }
 
+        // Run only the effect with the recipient as the card owner. AutoPlay would
+        // start another complete card play while the original one is still active.
         CardModel transferred = card.CreateCloneForPlayer(recipient);
-        await CardCmd.AutoPlay(choiceContext, transferred, recipient.Creature, AutoPlayType.Default);
+        CardPlay transferredPlay = new()
+        {
+            Card = transferred,
+            Player = recipient,
+            Target = recipient.Creature,
+            ResultPile = cardPlay.ResultPile,
+            Resources = cardPlay.Resources,
+            IsAutoPlay = cardPlay.IsAutoPlay,
+            PlayIndex = cardPlay.PlayIndex,
+            PlayCount = cardPlay.PlayCount,
+        };
+        await CardPileCmd.Add(transferred, PileType.Play, skipVisuals: true);
+        try
+        {
+            await CardOnPlayHook.RunCardOnPlayHooks(transferred, choiceContext, transferredPlay);
+        }
+        finally
+        {
+            transferred.RemoveFromState();
+        }
     }
 
     public static Task PlayEnchantmentEffect(

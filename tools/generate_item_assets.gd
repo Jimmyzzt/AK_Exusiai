@@ -19,7 +19,7 @@ const ITEMS := [
     {"source": "references/free/art/ancients_generated/SprayCan.png", "output": "AK_Exusiai/images/relics/SprayCan.png", "size": 256, "padding": 16, "radius": 4},
     {"source": "references/free/art/ancients_generated/CactusTart.png", "output": "AK_Exusiai/images/relics/CactusTart.png", "size": 256, "padding": 16, "radius": 4},
     {"source": "references/free/art/ancients_generated/PrismaticWings.png", "output": "AK_Exusiai/images/relics/PrismaticWings.png", "size": 256, "padding": 16, "radius": 4},
-    {"source": "references/free/art/ancients_generated/Confess47.png", "output": "AK_Exusiai/images/relics/Confess47.png", "size": 256, "padding": 16, "radius": 4},
+    {"source": "references/official/art/立绘_CONFESS-47_1.png", "output": "AK_Exusiai/images/relics/Confess47.png", "size": 256, "padding": 16, "radius": 4},
     {"source": "references/free/art/ancients_generated/BeaconOfNations.png", "output": "AK_Exusiai/images/relics/BeaconOfNations.png", "size": 256, "padding": 16, "radius": 4},
     {"source": "references/free/art/AK_Exusiai_Ancients素材_2026-09-25/01_拉特兰/10_律法/光环_萨卡兹肉鸽_指定图标.png", "output": "AK_Exusiai/images/relics/TheLaw.png", "size": 256, "padding": 16, "radius": 4},
     {"source": "references/free/art/ancients_generated/PenguinLogisticsId.png", "output": "AK_Exusiai/images/relics/PenguinLogisticsId.png", "size": 256, "padding": 16, "radius": 4},
@@ -36,7 +36,7 @@ const ITEMS := [
     {"source": "references/free/art/大帝的珍藏.png", "output": "AK_Exusiai/images/potions/EmperorsStash.png", "size": 80, "padding": 4, "radius": 2},
     {"source": "references/free/art/瓶装光环.png", "output": "AK_Exusiai/images/potions/BottledHalo.png", "size": 80, "padding": 4, "radius": 2},
     {"source": "references/free/art/ancients_generated/UrsusBeluga.png", "output": "AK_Exusiai/images/potions/UrsusBeluga.png", "size": 80, "padding": 4, "radius": 2},
-    {"source": "references/free/art/ancients_generated/GaulChardonnay.png", "output": "AK_Exusiai/images/potions/GaulChardonnay.png", "size": 80, "padding": 4, "radius": 2},
+    {"source": "references/free/art/ancients_generated/GaulChardonnay.png", "output": "AK_Exusiai/images/potions/GaulChardonnay.png", "size": 80, "padding": 10, "radius": 2, "rotation_degrees": 45.0},
     {"source": "references/free/art/ancients_generated/YanFenjiu.png", "output": "AK_Exusiai/images/potions/YanFenjiu.png", "size": 80, "padding": 4, "radius": 2},
     {"source": "references/official/art/Logo_拉特兰.png", "output": "AK_Exusiai/images/ancients/laterano/map_icon.png", "size": 85, "padding": 5, "radius": 2},
     {"source": "references/official/art/企鹅物流logo.png", "output": "AK_Exusiai/images/ancients/emperor/map_icon.png", "size": 85, "padding": 5, "radius": 2},
@@ -83,11 +83,15 @@ func _generate_item(item: Dictionary) -> bool:
     var scale: float = min(float(available) / cropped.get_width(), float(available) / cropped.get_height())
     var width: int = max(1, roundi(cropped.get_width() * scale))
     var height: int = max(1, roundi(cropped.get_height() * scale))
-    cropped.resize(width, height, Image.INTERPOLATE_LANCZOS)
+    var pixel_scale := 3 if item.has("rotation_degrees") else 1
+    cropped.resize(width * pixel_scale, height * pixel_scale, Image.INTERPOLATE_LANCZOS)
 
-    var main := Image.create(size, size, false, Image.FORMAT_RGBA8)
-    var position := Vector2i((size - width) / 2, (size - height) / 2)
+    var main := Image.create(size * pixel_scale, size * pixel_scale, false, Image.FORMAT_RGBA8)
+    var position := Vector2i((size - width) * pixel_scale / 2, (size - height) * pixel_scale / 2)
     main.blit_rect(cropped, Rect2i(Vector2i.ZERO, cropped.get_size()), position)
+    if item.has("rotation_degrees"):
+        main = _rotate_image(main, deg_to_rad(float(item.rotation_degrees)))
+        main.resize(size, size, Image.INTERPOLATE_LANCZOS)
 
     var output_path: String = item.output
     var outline_path := output_path.trim_suffix(".png") + "Outline.png"
@@ -110,6 +114,20 @@ func _copy_png(source_relative: String, output_relative: String, size: int = 0) 
     if size > 0 and image.get_size() != Vector2i(size, size):
         image.resize(size, size, Image.INTERPOLATE_LANCZOS)
     return _save_png(image, output_relative)
+
+func _rotate_image(source: Image, angle: float) -> Image:
+    var rotated := Image.create(source.get_width(), source.get_height(), false, Image.FORMAT_RGBA8)
+    var center := Vector2(source.get_width() - 1, source.get_height() - 1) / 2.0
+    var cosine := cos(angle)
+    var sine := sin(angle)
+    for y in source.get_height():
+        for x in source.get_width():
+            var offset := Vector2(x, y) - center
+            var old_x := roundi(center.x + cosine * offset.x + sine * offset.y)
+            var old_y := roundi(center.y - sine * offset.x + cosine * offset.y)
+            if old_x >= 0 and old_y >= 0 and old_x < source.get_width() and old_y < source.get_height():
+                rotated.set_pixel(x, y, source.get_pixel(old_x, old_y))
+    return rotated
 
 func _find_alpha_bounds(image: Image) -> Rect2i:
     var min_x := image.get_width()

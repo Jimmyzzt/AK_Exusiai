@@ -25,9 +25,11 @@ public sealed class Emperor : ExusiaiCardTemplate
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         IReadOnlyList<CardModel> options = LogisticsCardCatalog.CreateEmperorOptions(Owner, IsUpgraded);
-        CardModel? selected = (await CardSelectCmd.FromSimpleGrid(
-            choiceContext, options, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1)))
-            .FirstOrDefault();
+        CardModel? selected = IsUpgraded
+            ? (await CardSelectCmd.FromSimpleGrid(
+                choiceContext, options, Owner, new CardSelectorPrefs(SelectionScreenPrompt, 1)))
+                .FirstOrDefault()
+            : await CardSelectCmd.FromChooseACardScreen(choiceContext, options, Owner, canSkip: true);
         if (selected != null)
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
                 selected, PileType.Hand, Owner));

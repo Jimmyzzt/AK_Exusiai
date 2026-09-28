@@ -63,10 +63,8 @@ public sealed class YanFenjiu : ExusiaiPotionTemplate
         var player = target!.Player!;
         List<MegaCrit.Sts2.Core.Models.CardModel> selected = (await CardSelectCmd.FromHand(
             choiceContext, player, new CardSelectorPrefs(SelectionScreenPrompt, 0, int.MaxValue), null, this)).ToList();
-        foreach (var card in selected)
-        {
-            var replacement = CardFactory.CreateRandomCardForTransform(card, isInCombat: true, player.RunState.Rng.Niche);
-            await CardCmd.Transform(card, replacement);
-        }
+        var transformations = selected.Select(card => new CardTransformation(
+            card, CardFactory.CreateRandomCardForTransform(card, isInCombat: true, player.RunState.Rng.Niche)));
+        await CardCmd.Transform(transformations, null);
     }
 }

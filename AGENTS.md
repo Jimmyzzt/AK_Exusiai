@@ -29,6 +29,16 @@
 dotnet build .\AK_Exusiai.csproj
 ```
 
+需要无界面验证运行时加载时，先按本机 `local.props` 设置 `$sts2GameDir`，并将 `$smokeLogPath` 设为可写日志路径；再在游戏安装目录设置 Steam App ID 后启动。已在 2026-09-28 验证能正常初始化 Steamworks、Mod 注册和补丁。`SlayTheSpire2.exe` 是启动器，命令返回后游戏进程可能仍在运行，要等进程退出并检查指定日志，再进行下一次构建。
+
+```powershell
+$env:SteamAppId = '2868840'
+$env:SteamGameId = '2868840'
+Push-Location $sts2GameDir # 由本机 local.props 中的 Sts2Dir 指定
+& .\SlayTheSpire2.exe --headless --quit-after 180 --log-file $smokeLogPath
+Pop-Location
+```
+
 只检查 C#，不导出 PCK、不部署：
 
 ```powershell

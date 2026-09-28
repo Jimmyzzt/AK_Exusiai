@@ -50,6 +50,8 @@ internal sealed class BeaconMapVisualPatch : IPatchMethod
 
 internal sealed class BeaconMapPointIconPatch : IPatchMethod
 {
+    private static readonly AccessTools.FieldRef<NMapPoint, IRunState> PointRunRef =
+        AccessTools.FieldRefAccess<NMapPoint, IRunState>("_runState");
     public static string PatchId => "show-beacon-combat-icon";
     public static string Description => "Use the Beacon icon in marked combat map nodes";
     public static ModPatchTarget[] GetTargets() =>
@@ -59,13 +61,33 @@ internal sealed class BeaconMapPointIconPatch : IPatchMethod
 
     public static void Postfix(NNormalMapPoint __instance)
     {
-        if (!__instance.Point.Quests.OfType<BeaconOfNations>().Any())
+        // Old saves may still contain Beacon as a vanilla quest marker. Remove only
+        // our marker so Fur Coat and other mods retain their own quest overlays.
+        foreach (BeaconOfNations oldMarker in __instance.Point.Quests.OfType<BeaconOfNations>().ToList())
+            __instance.Point.RemoveQuest(oldMarker);
+        if (__instance.Point.PointType is not (MapPointType.Monster or MapPointType.Elite))
             return;
-        TextureRect? icon = __instance.GetNodeOrNull<TextureRect>("%QuestIcon");
-        if (icon is not null)
+        IRunState? run = PointRunRef(__instance);
+        if (run is null || !run.Players.SelectMany(p => p.Relics).OfType<BeaconOfNations>()
+                .Any(b => b.MarkedActIndex == run.CurrentActIndex && b.GetPath().Contains(__instance.Point.coord)))
+            return;
+        Control? container = __instance.GetNodeOrNull<Control>("%IconContainer");
+        TextureRect? roomIcon = __instance.GetNodeOrNull<TextureRect>("%Icon");
+        if (container is null || roomIcon is null || container.HasNode("BeaconIcon"))
+            return;
+        Texture2D? texture = ResourceLoader.Load<Texture2D>($"{Entry.ResPath}/images/map/BeaconOfNations.svg");
+        if (texture is null)
+            return;
+        TextureRect marker = new()
         {
-            icon.Texture = ResourceLoader.Load<Texture2D>($"{Entry.ResPath}/images/map/BeaconOfNations.svg");
-            icon.Visible = true;
-        }
+            Name = "BeaconIcon",
+            Texture = texture,
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+            Position = roomIcon.Position + new Vector2(-10, -10),
+            Size = new Vector2(24, 24),
+        };
+        container.AddChild(marker);
     }
 }
