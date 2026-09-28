@@ -319,5 +319,9 @@
   "AK_EXUSIAI_CARD_PIETY.title": "Piety",
   "AK_EXUSIAI_CARD_WAYWARD.smartDescription": "When Exhausted or transformed during combat, lose 1 [gold]Strength[/gold] and [gold]Dexterity[/gold].",
   "AK_EXUSIAI_CARD_BEWILDERED.description": "[gold]Regret[/gold].",
-  "AK_EXUSIAI_CARD_PIETY.selectionScreenPrompt": "Choose a card to gain Angel."
+  "AK_EXUSIAI_CARD_PIETY.selectionScreenPrompt": "Choose a card to gain Angel.",
+  "AK_EXUSIAI_CARD_GRAFFITI.title": "Graffiti",
+  "AK_EXUSIAI_CARD_GRAFFITI.description": "Choose a card in your hand. Add {Cards:diff()} [gold]Angel[/gold] copy or copies of it to your hand.",
+  "AK_EXUSIAI_CARD_GRAFFITI.smartDescription": "Choose a card in your hand. Add {Cards:diff()} [gold]Angel[/gold] copy or copies of it to your hand.",
+  "AK_EXUSIAI_CARD_GRAFFITI.selectionScreenPrompt": "Choose a card to copy."
 }

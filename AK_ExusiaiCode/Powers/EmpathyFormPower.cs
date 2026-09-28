@@ -29,11 +29,8 @@ public sealed class EmpathyFormPower : ModPowerTemplate
         if (count <= 0)
             return;
 
-        IEnumerable<CardModel> selected = await CardSelectCmd.FromCombatPile(
-            choiceContext,
-            hand,
-            player,
-            new CardSelectorPrefs(SelectionScreenPrompt, count));
+        IEnumerable<CardModel> selected = await CardSelectCmd.FromHand(
+            choiceContext, player, new CardSelectorPrefs(SelectionScreenPrompt, count), null, this);
         foreach (CardModel card in selected)
             await AngelCmd.Add(choiceContext, card);
     }

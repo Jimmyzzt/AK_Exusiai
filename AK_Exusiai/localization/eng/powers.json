@@ -86,5 +86,14 @@
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_POWER.smartDescription": "At the start of your next turn, gain Ammo equal to your hand size. [blue]{Amount}[/blue] trigger(s) remaining.",
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.smartDescription": "[blue]{Amount}[/blue] upgraded Covenant of Bullets trigger(s) remaining.",
   "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.description": "[blue]{Amount}[/blue] upgraded Covenant of Bullets trigger(s) remaining.",
-  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title": "Covenant of Bullets Upgrade Bonus"
+  "AK_EXUSIAI_POWER_COVENANT_OF_BULLETS_BONUS_POWER.title": "Covenant of Bullets Upgrade Bonus",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.title": "Strong Beat",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.description": "Deal [blue]{Amount}%[/blue] more damage this turn.",
+  "AK_EXUSIAI_POWER_STRONG_BEAT_POWER.smartDescription": "Deal [blue]{Amount}%[/blue] more damage this turn.",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.title": "Weak Beat",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.description": "Take [blue]{Amount}%[/blue] less damage until your next turn starts.",
+  "AK_EXUSIAI_POWER_WEAK_BEAT_POWER.smartDescription": "Take [blue]{Amount}%[/blue] less damage until your next turn starts.",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.title": "Beluga Intoxication",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.description": "Your single target Attacks target random enemies this turn.",
+  "AK_EXUSIAI_POWER_BELUGA_RANDOM_TARGET_POWER.smartDescription": "Your single target Attacks target random enemies this turn."
 }

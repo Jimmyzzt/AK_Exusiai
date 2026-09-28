@@ -71,7 +71,7 @@ public sealed class RelicLogisticsCapability : ModelCapability
         StateChanged();
     }
 
-    public void EndCombat()
+    public void EndCombat(bool preserveTransit = false)
     {
         bool changed = false;
         if (_deliveryRemaining > 0)
@@ -80,7 +80,7 @@ public sealed class RelicLogisticsCapability : ModelCapability
             changed = true;
         }
 
-        if (_isTransit && _transitRemaining > 0)
+        if (!preserveTransit && _isTransit && _transitRemaining > 0)
         {
             _transitRemaining--;
             changed = true;

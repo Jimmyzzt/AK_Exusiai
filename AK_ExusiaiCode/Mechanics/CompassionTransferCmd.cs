@@ -1,3 +1,5 @@
+using AK_Exusiai.Cards;
+using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -24,6 +26,15 @@ public static class CompassionTransferCmd
         if (!IsTransfer(card, cardPlay.Target) || cardPlay.Target?.Player is not { } recipient)
         {
             await CardOnPlayHook.RunCardOnPlayHooks(card, choiceContext, cardPlay);
+            return;
+        }
+
+        // Compassion normally affects every ally. A transferred copy must affect only
+        // the teammate selected by the original card play.
+        if (card is Compassion)
+        {
+            await PowerCmd.Apply<CompassionPower>(choiceContext, recipient.Creature,
+                card.DynamicVars["Cards"].BaseValue, card.Owner.Creature, card);
             return;
         }
 
