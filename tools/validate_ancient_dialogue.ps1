@@ -29,7 +29,8 @@ foreach ($language in @('zhs', 'eng')) {
     $lineCount = 0
     foreach ($ancient in $ancients) {
         $prefix = "$ancient.talk.$character."
-        for ($sequence = 0; $sequence -lt 3; $sequence++) {
+        $sequenceCount = if ($ancient -in @('NONUPEIPE', 'OROBAS')) { 2 } else { 3 }
+        for ($sequence = 0; $sequence -lt $sequenceCount; $sequence++) {
             $repeat = if ($sequence -eq 1 -or ($ancient -eq 'THE_ARCHITECT' -and $sequence -eq 2)) { 'r' } else { '' }
             $lines = @($table.Keys | Where-Object { $_ -match "^$([regex]::Escape($prefix))$sequence-\d+$repeat\.(ancient|char)$" })
             Assert-Dialogue ($lines.Count -ge 2) "Missing dialogue: $prefix$sequence"

@@ -126,11 +126,11 @@
       "flip_vertical": false
     },
     "ArmorPiercingRound": {
-      "source": "references/free/asset/穿甲弹.png",
+      "source": "references/free/asset/增压弹.png",
       "zoom": 0.993,
       "offset": [
-        0.0016,
-        -0.3916
+        -0.0021,
+        -0.0232
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -805,7 +805,7 @@
       "top_color": "182330",
       "bottom_color": "677485",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -824,7 +824,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -843,7 +843,7 @@
       "top_color": "35151d",
       "bottom_color": "d35a48",
       "motif": "auto",
-      "rotation": 0,
+      "rotation": 0.0,
       "flip_horizontal": false,
       "flip_vertical": false
     },
@@ -1456,11 +1456,11 @@
       "flip_vertical": false
     },
     "MoveOut": {
-      "source": "references/official/asset/ScreenShot_2026-08-25_180729_314.png",
-      "zoom": 1.08,
+      "source": "references/official/asset/70cde52dfe23c1ead0b9355860c3f51a161775300.png",
+      "zoom": 1.361,
       "offset": [
-        0.003,
-        -0.0494
+        -0.2472,
+        0.0996
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1722,11 +1722,11 @@
       "flip_vertical": false
     },
     "DisruptiveStrike": {
-      "source": "references/free/asset/增压弹.png",
-      "zoom": 1.08,
+      "source": "references/official/asset/ScreenShot_2026-08-28_180413_398.png",
+      "zoom": 1.259,
       "offset": [
-        0.0211,
-        -0.0392
+        -0.011,
+        -0.015
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1760,19 +1760,19 @@
       "flip_vertical": false
     },
     "PenguinTransitHub": {
-      "source": "references/free/asset/周转 turnover.svg",
-      "zoom": 0.549,
+      "source": "references/free/art/中转站.svg",
+      "zoom": 0.346,
       "offset": [
         0.0,
-        -0.031
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
       "background": "custom",
       "gradient_mode": "radial",
       "texture": "grid",
-      "top_color": "3c2059",
-      "bottom_color": "7b49b2",
+      "top_color": "9c424a",
+      "bottom_color": "53307a",
       "motif": "auto",
       "rotation": 0.0,
       "flip_horizontal": false,
@@ -1950,11 +1950,30 @@
       "flip_vertical": false
     },
     "Wayward": {
-      "source": "references/official/asset/Avg_61_i10.png",
+      "source": "references/official/asset/Avg_61_i07.png",
       "zoom": 1.0,
       "offset": [
-        -0.1536,
-        -0.003
+        0.0072,
+        0.0
+      ],
+      "background_enabled": true,
+      "placeholder_enabled": false,
+      "background": "laterano_sunset",
+      "gradient_mode": "vertical",
+      "texture": "streaks",
+      "top_color": "3c2059",
+      "bottom_color": "ee9558",
+      "motif": "auto",
+      "rotation": 0,
+      "flip_horizontal": false,
+      "flip_vertical": false
+    },
+    "Piety": {
+      "source": "references/official/asset/Avg_39_i09.png",
+      "zoom": 1.166,
+      "offset": [
+        0.0,
+        0.0
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
@@ -1968,12 +1987,12 @@
       "flip_horizontal": false,
       "flip_vertical": false
     },
-    "Piety": {
-      "source": "references/official/asset/Avg_39_i09.png",
+    "Graffiti": {
+      "source": "references/official/asset/ScreenShot_2026-08-25_180729_314.png",
       "zoom": 1.166,
       "offset": [
-        0.0,
-        0.0
+        -0.2154,
+        0.0191
       ],
       "background_enabled": true,
       "placeholder_enabled": false,
