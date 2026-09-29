@@ -18,6 +18,7 @@
     <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Dir)\data_sts2_windows_x86_64</Sts2DataDir>
     <ModOutputDir>$(Sts2Dir)\mods\$(MSBuildProjectName)\</ModOutputDir>
     <ModPckPath>$(ModOutputDir)$(MSBuildProjectName).pck</ModPckPath>
+    <RitsuLibAutoCopy>false</RitsuLibAutoCopy>
     <CopyModOnBuild Condition="'$(CopyModOnBuild)' == ''">true</CopyModOnBuild>
     <RunPckExport Condition="'$(RunPckExport)' == '' and '$(DesignTimeBuild)' != 'true'">true</RunPckExport>
     <RunPckExport Condition="'$(RunPckExport)' == ''">false</RunPckExport>

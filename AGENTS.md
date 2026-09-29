@@ -18,10 +18,10 @@
 - 游戏基线：Slay the Spire 2 public beta `v0.111.0`。
 - Godot：4.5.1 Mono。
 - .NET SDK：9.x；目标框架 `net9.0`。
-- RitsuLib：`STS2.RitsuLib` 0.5.20，以 `AK_Exusiai.csproj` 为编译依赖依据；运行时依赖另见 `AK_Exusiai.json`。
-- 各自通过未跟踪的 `local.props` 配置游戏、Godot 和部署目录；模板见 `local.props.template`。共享文件不得包含绝对路径。
+- RitsuLib：编译依赖 `STS2.RitsuLib` 0.5.20；清单最低运行时依赖 0.5.20。本机 2026-09-29 核对的工坊运行时为 0.6.2，包含游戏 API 0.111.0 的兼容程序集。
+- 各自通过未跟踪的 `local.props` 配置游戏和 Godot 路径；模板见 `local.props.template`。共享文件不得包含绝对路径。
 
-游戏、NuGet 编译包和游戏中部署的 RitsuLib 运行时必须匹配。不要仅因线上出现新版本就升级；先核对游戏 API、NuGet 包和运行时，再单独升级并回归。审计记录见 `docs/archive/FRAMEWORK_AUDIT.md`。
+游戏、NuGet 编译包和工坊 RitsuLib 运行时必须在所用 API 上兼容；版本号不同不能代替兼容性验证。不要仅因线上出现新版本就升级；先核对游戏 API、NuGet 包和运行时，再单独升级并回归。审计记录见 `docs/archive/FRAMEWORK_AUDIT.md`。
 
 游戏可能锁定 Mod DLL，完整构建前先退出游戏：
 
@@ -47,7 +47,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 
 完整验证至少确认：0 个编译错误；PCK 中包含新增本地化和资源；本地输出与部署 DLL/PCK/JSON 一致；启动日志中 Mod 初始化、自动注册和 `ModelDbDefer` 全部成功。
 
-纯文档修改检查链接、路径、事实和 `git diff --check` 即可，不必启动游戏或重复编译。完整构建不会自动安装 RitsuLib：`local.props.template` 中遗留的 `RitsuLibDeployDir` 当前没有构建目标使用。编辑器所需 Spine 扩展也需单独准备，见开发说明。
+构建只部署能天使自身的 DLL、PCK 和 JSON。RitsuLib 运行时由玩家和开发者订阅的 Steam 创意工坊条目提供，不要手动复制或打包进本 Mod。旧版 RitsuLib NuGet 包的 `buildTransitive/STS2.RitsuLib.targets` 会在 `local.props` 设置 `RitsuLibDeployDir` 时自动复制旧框架；项目固定 `RitsuLibAutoCopy=false` 以禁止此行为，包括本机配置仍保留该旧属性的情况。升级 NuGet 时复查其构建目标。纯文档修改检查链接、路径、事实和 `git diff --check` 即可，不必启动游戏或重复编译。编辑器所需 Spine 扩展需单独准备，见开发说明。
 
 ## 3. 目录与注册约定
 
