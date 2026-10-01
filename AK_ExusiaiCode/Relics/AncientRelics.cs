@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -46,6 +47,7 @@ public abstract class ExusiaiAncientRelic : ExusiaiRelicTemplate
 public sealed class PhotoWithTheLord : ExusiaiAncientRelic
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<ArtifactPower>(2m)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.FromPower<ArtifactPower>()];
 
     public override async Task BeforeCombatStart()
     {
@@ -59,6 +61,8 @@ public sealed class PhotoWithTheLord : ExusiaiAncientRelic
 public sealed class EntryPermit : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.StartingCardsHoverTip, .. HoverTipFactory.FromEnchantment<Ascension>(), ExusiaiKeywords.AngelHoverTip];
 
     public override Task AfterObtained()
     {
@@ -81,6 +85,8 @@ public sealed class EntryPermit : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class StudyTourCertificate : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.SmithHoverTip];
+
     public override bool TryModifyRestSiteOptions(Player player, ICollection<RestSiteOption> options)
     {
         if (player != Owner)
@@ -110,6 +116,8 @@ public sealed class StudyTourCertificate : ExusiaiAncientRelic
 public sealed class LordDrone : ExusiaiAncientRelic
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1), new PowerVar<ArtifactPower>(1m)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [HoverTipFactory.ForEnergy(this), HoverTipFactory.FromPower<ArtifactPower>()];
 
     public override decimal ModifyMaxEnergy(Player player, decimal amount) =>
         player == Owner ? amount + DynamicVars.Energy.BaseValue : amount;
@@ -142,19 +150,17 @@ public sealed class SprayCan : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class CactusTart : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.AngelHoverTip];
+
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature) || Owner.PlayerCombatState?.TurnNumber != 1)
             return;
-        List<CardModel> cards = ModelDb.CardPool<ExusiaiCardPool>()
-            .GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
-            .Where(c => c.Rarity is CardRarity.Common or CardRarity.Uncommon or CardRarity.Rare)
-            .Where(c => !c.IsUpgraded)
-            .ToList();
-        CardModel? canonical = Owner.RunState.Rng.CombatCardGeneration.NextItem(cards);
-        if (canonical is null)
+        CardModel? generated = CardFactory.GetDistinctForCombat(Owner,
+            Owner.Character.CardPool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint),
+            1, Owner.RunState.Rng.CombatCardGeneration).FirstOrDefault();
+        if (generated is null)
             return;
-        CardModel generated = combatState.CreateCard(canonical, Owner);
         await AngelCmd.Add(new ThrowingPlayerChoiceContext(), generated);
         Flash();
         await CardPileCmd.AddGeneratedCardToCombat(generated, PileType.Hand, Owner);
@@ -164,6 +170,9 @@ public sealed class CactusTart : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class PrismaticWings : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [HoverTipFactory.FromPower<TemporarySoarPower>(), HoverTipFactory.FromPower<WeakPower>()];
+
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature) || Owner.PlayerCombatState?.TurnNumber is not <= 3)
@@ -180,6 +189,8 @@ public sealed class Confess47 : ExusiaiAncientRelic
     private int _cooldown;
     private bool _entryFinished;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [HoverTipFactory.ForEnergy(this), HoverTipFactory.Static(StaticHoverTip.Stun)];
     public override bool AddsPet => true;
     public override bool ShowCounter => _cooldown > 0;
     public override int DisplayAmount => _cooldown;
@@ -377,6 +388,7 @@ public sealed class TheLaw : ExusiaiAncientRelic
     public override bool ShowCounter => !IsUsedUp;
     public override int DisplayAmount => _charges;
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Charges", 3m)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.CurseHoverTip];
 
     [SavedProperty]
     public int Charges
@@ -417,6 +429,8 @@ public sealed class TheLaw : ExusiaiAncientRelic
 public sealed class PenguinLogisticsId : ExusiaiAncientRelic
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [HoverTipFactory.ForEnergy(this), ExusiaiKeywords.DeliveryHoverTip];
 
     public override decimal ModifyMaxEnergy(Player player, decimal amount) =>
         player == Owner ? amount + DynamicVars.Energy.BaseValue : amount;
@@ -437,6 +451,7 @@ public sealed class AFewFineVintages : ExusiaiAncientRelic
         HoverTipFactory.FromPotion<UrsusBeluga>(),
         HoverTipFactory.FromPotion<GaulChardonnay>(),
         HoverTipFactory.FromPotion<YanFenjiu>(),
+        ExusiaiKeywords.OverloadHoverTip,
     ];
 
     public override Task AfterObtained() => PlayerCmd.GainMaxPotionCount(2, Owner);
@@ -517,6 +532,7 @@ public sealed class IllGottenGains : ExusiaiAncientRelic
     [SavedProperty]
     public bool TookDamageThisCombat { get; set; }
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.TransitHoverTip];
 
     public override async Task AfterObtained()
     {
@@ -586,6 +602,7 @@ public sealed class CompanyVan : ExusiaiAncientRelic
 public sealed class ReturnToSender : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.TransitHoverTip];
 
     public override async Task AfterObtained()
     {
@@ -694,6 +711,9 @@ public sealed class ReturnToSender : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class DjDeck : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.StrongBeatHoverTip, ExusiaiKeywords.WeakBeatHoverTip];
+
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature))

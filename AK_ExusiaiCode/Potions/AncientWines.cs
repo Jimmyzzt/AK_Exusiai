@@ -21,6 +21,8 @@ public sealed class UrsusBeluga : ExusiaiPotionTemplate
     public override PotionRarity Rarity => PotionRarity.Rare;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
     public override TargetType TargetType => TargetType.AnyPlayer;
+    protected override IEnumerable<MegaCrit.Sts2.Core.HoverTips.IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.OverloadHoverTip];
 
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {

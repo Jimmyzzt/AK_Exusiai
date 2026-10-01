@@ -20,12 +20,12 @@ prompts were:
 | CactusTart.png | Small green cactus-fruit tart with golden pastry crust. |
 | PrismaticWings.png | Thin broken iridescent light shards with Exusiai's simple undecorated halo, based on official character art. |
 | Confess47.png | Miniature antique automated confession carriage, wooden booth, wheels and side cannon. |
-| BeaconOfNations.png | Silver-gold Laterano beacon with the official Laterano emblem. |
+| BeaconOfNations.png | Earlier silver-gold Laterano beacon; runtime now uses the user's `references/free/asset/像素风冰蓝能量信标立方体.png`. |
 | PenguinLogisticsId.png | Courier employee badge bearing the official Penguin Logistics logo. |
 | AFewFineVintages.png | Wooden carrier holding three distinct vintage bottles. |
-| BlackCard.png | Matte black VIP card with gold line composition and a smaller embossed portrait of Emperor. |
+| BlackCard.png | Earlier black VIP card; runtime now uses the user's `红黑炫光徽标会员卡.png` in this folder. |
 | MasterTape.png | Earlier generated reel; retained as an unused historical draft. The runtime icon now uses the cassette reference in the `14_母带` research folder. |
-| IllGottenGains.png | Coin-filled leather money pouch tied with red courier cord. |
+| IllGottenGains.png | Earlier coin-filled pouch; runtime now uses the user's `破旧礼帽与蓝钞木箱.png` in this folder. |
 | CompanyVan.png | Long dark Penguin Logistics passenger van with colorful side graffiti, based on official `ScreenShot_2026-08-25_145544_784.png`. |
 | ReturnToSender.png | Sealed parcel with red return-arrow stamp and courier tape. |
 | DjDeck.png | Compact two-turntable DJ deck with red and cyan controls. |
