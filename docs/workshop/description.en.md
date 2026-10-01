@@ -2,13 +2,17 @@
 
 Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is here to expand her business into the Spire. (Really?)
 
+## V1.3 update notes
+
+**Laterano and Penguin Logistics join as two new Ancients, with 20 Ancient relics between them!** A few cards also received balance adjustments. See the [changelog](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) for details.
+
 ## Content
 
 - 1 new character!
 - 2 appearance sets with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
 - 104 cards: 91 character cards, including 5 multiplayer cards, starter cards, and Ancient cards; 11 token cards, comprising 8 Penguin Logistics cards and 3 Angel cards; and 2 Curses.
 - 9 character relics and 3 potions.
-- 2 new Ancients, Laterano and Penguin Logistics, with 20 Ancient relics.
+- 2 new Ancients and their 20 Ancient relics.
 
 ## Core mechanics
 
@@ -25,9 +29,9 @@ Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filede
 
 ## Credits and assets
 
-This is an unofficial, non-commercial fan work. Most card art uses official Arknights assets and illustrations by Exusiai's official artist, Huanxiang Heitu. Some art was drawn by community member @雪樱; icons come from [Alibaba Iconfont](https://www.iconfont.cn/); a small number of assets come from other online sources; and a very small portion was made with AI assistance. (Finding a real photo of “char siu apple pie” proved impossible.) If any material presents a rights issue, please contact us so it can be changed promptly.
+Most card art uses official Arknights assets and illustrations by Exusiai's official artist, Huanxiang Heitu. Some cards were illustrated by community member @雪樱; icons come from [Alibaba Iconfont](https://www.iconfont.cn/); and some assets come from other online sources or were made with AI assistance (for example, I really couldn't find a real photo of “char siu apple pie”). This mod is not used commercially. If any material presents a rights issue, please contact us so it can be changed promptly.
 
-Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools.Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for providing reference material and assistance! And to the STS2 modding community (QQ group 263898222) for testing.
+Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools. Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for providing reference material and assistance! And to the STS2 modding community (QQ group 263898222) for testing.
 
 The mod supports Simplified Chinese and English. The English localization was initially machine-translated, so reports of awkward wording or display issues are especially welcome.
 
@@ -46,32 +50,3 @@ Come chat and share feedback!
 If you enjoy the mod, please consider giving it a thumbs-up and adding it to your favorites. Thanks!
 
 Planned future additions include enemies and boss encounters.
-
-## V1.3 update notes
-
-This update adds Laterano and Penguin Logistics as two new Ancients, with 20 Ancient relics. It also makes a few card balance adjustments. The previous effects below are from V1.2. Values in parentheses are for the upgraded card. Both versions show each card's full effect.
-
-- **Penguin Standard** (1-cost Skill)
-  - Before: Choose a relic to gain Delivery 5. Obtain 2 random relics with Transit 1 (2).
-  - After: Choose a non-Transit relic to gain Delivery 5. Obtain 2 random relics with Transit 2 (3).
-- **Guaranteed Success!** (Attack)
-  - Before: Cost 3 (2). Deal 5 damage 5 times. Choose a Delivered relic to reactivate immediately. Exhaust.
-  - After: Cost 3 (2). Deal 5 damage 5 times. Choose a Delivered relic to reactivate immediately, or choose a Transit relic to give it Transit 99. If it has both, apply Transit. Exhaust.
-- **Expedite!** (1-cost Skill)
-  - Before: Reduce the Delivery of all Delivered relics by 1 (2). Exhaust.
-  - After: Reduce the Delivery of all Delivered relics by 1. When upgraded, give all Transit relics Transit 1. Exhaust.
-- **Empathy Form** (3-cost Power)
-  - Before: Ethereal (removed when upgraded). At the start of your turn, give 1 card in your hand Angel. Whenever you play an Angel card, draw 1 card.
-  - After: Ethereal. At the start of your turn, give 1 card in your hand Angel (2 cards when upgraded).
-- **Texas** (0-cost token Attack)
-  - Before: This attack does not spend Ammo. Deal 2 damage to all enemies 2 times and apply 1 (2) Weak to all enemies. Exhaust.
-  - After: This attack does not spend Ammo. Deal 2 (4) damage to all enemies 2 times and apply 1 (2) Weak to all enemies. Exhaust.
-- **Exusiai** (0-cost token Skill)
-  - Before: Gain 3 (4) Ammo. Heal 5 HP. Exhaust.
-  - After: Gain 3 (6) Ammo. Heal 5 HP. Exhaust.
-- **Croissant** (0-cost token Skill)
-  - Before: Gain 9 (13) Block and 15 Gold. Exhaust.
-  - After: Gain 9 (13) Block and 10 (15) Gold. Exhaust.
-- **Sora** (0-cost token Skill)
-  - Before: Gain 1 Strength. Apply 2 (3) Weak to all enemies. Exhaust.
-  - After: Gain 1 (2) Strength. Apply 2 (3) Weak to all enemies. Exhaust.
