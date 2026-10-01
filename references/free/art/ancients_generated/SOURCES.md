@@ -1,7 +1,7 @@
 # Ancient item icon sources
 
-Generated on 2026-09-25 with the built-in image generation tool. These are new
-illustrations based on the user's Ancient design and the nearby research folder
+Generated on 2026-09-25 and revised on 2026-10-01 with the built-in image
+generation tool. These are new illustrations based on the user's Ancient design and the nearby research folder
 `AK_Exusiai_Ancients素材_2026-09-25`; they are not extracted game icons.
 
 Common final prompt: a single centered, genuinely transparent-background relic
@@ -12,31 +12,32 @@ prompts were:
 
 | File | Subject prompt |
 | --- | --- |
-| PhotoWithTheLord.png | Worn instant photo of a red-haired angelic courier beside a Laterano PCS terminal. |
-| EntryPermit.png | Cream-and-gold Laterano travel permit with halo seal and blue ribbon. |
-| StudyTourCertificate.png | Rolled study certificate with halo seal and red cord. |
-| LordDrone.png | Hovering graphite PCS terminal drone with gold halo and cyan sensors. |
+| PhotoWithTheLord.png | Worn instant photo of Exusiai with a plain halo and shard-like light wings before the same cubical Lord-Server ring. |
+| EntryPermit.png | Open Laterano permit with the official Laterano emblem on its cover and a city view based on `Avg_bg_26_g9_laterano_street.png`, `Avg_26_i02.png`, and `Avg_39_i01.png`. |
+| StudyTourCertificate.png | Rolled certificate whose gold seal uses the official Laterano emblem. |
+| LordDrone.png | Earlier generated terminal drone; retained as an unused historical draft. The runtime icon now uses `references/free/art/主-主机.png`. |
 | SprayCan.png | Worn red spray can with blue cap and halo paint motif. |
 | CactusTart.png | Small green cactus-fruit tart with golden pastry crust. |
-| PrismaticWings.png | Detached faceted iridescent angel wings with a central halo. |
+| PrismaticWings.png | Thin broken iridescent light shards with Exusiai's simple undecorated halo, based on official character art. |
 | Confess47.png | Miniature antique automated confession carriage, wooden booth, wheels and side cannon. |
-| BeaconOfNations.png | Slender silver-gold Laterano signal beacon with halo lamp. |
-| PenguinLogisticsId.png | Black-and-red courier employee badge with simplified penguin mark. |
+| BeaconOfNations.png | Silver-gold Laterano beacon with the official Laterano emblem. |
+| PenguinLogisticsId.png | Courier employee badge bearing the official Penguin Logistics logo. |
 | AFewFineVintages.png | Wooden carrier holding three distinct vintage bottles. |
-| BlackCard.png | Matte black VIP card with gold penguin mark and red edge. |
-| MasterTape.png | Music master tape reel with burgundy case and gold music details. |
+| BlackCard.png | Matte black VIP card with gold line composition and a smaller embossed portrait of Emperor. |
+| MasterTape.png | Earlier generated reel; retained as an unused historical draft. The runtime icon now uses the cassette reference in the `14_母带` research folder. |
 | IllGottenGains.png | Coin-filled leather money pouch tied with red courier cord. |
-| CompanyVan.png | Compact red-and-black penguin courier van, three-quarter view. |
+| CompanyVan.png | Long dark Penguin Logistics passenger van with colorful side graffiti, based on official `ScreenShot_2026-08-25_145544_784.png`. |
 | ReturnToSender.png | Sealed parcel with red return-arrow stamp and courier tape. |
 | DjDeck.png | Compact two-turntable DJ deck with red and cyan controls. |
-| BossBusinessCard.png | Elegant black boss's business card with gold penguin mark and red seal. |
+| BossBusinessCard.png | Boss's card with Emperor portrait and the Penguin Logistics logo in its red wax seal, based on the `20_老板的名片` research folder. |
 | UrsusBeluga.png | Frosted white northern vodka bottle with a whale silhouette. |
 | GaulChardonnay.png | Slender pale-gold white wine bottle with vine motif. |
 | YanFenjiu.png | Round red-brown ceramic spirit jar with crimson cloth stopper. |
 
-`TheLaw.png` and `PrizedRecord.png` are deliberately absent from this generated
-source set. Their runtime icons use the user's specifically selected research
-images; their original source notes remain in the adjacent research folder.
+`TheLaw.png`, `PrizedRecord.png`, `LordServer.png`, and the current `MasterTape.png` runtime icons
+use the user's specifically selected research images. The current `LordDrone.png`
+runtime icon uses `references/free/art/主-主机.png`. Their original source notes
+remain in the adjacent research folders.
 
 Runtime icons and white outline silhouettes are built by the project's
 `tools/generate_item_assets.gd` manifest.

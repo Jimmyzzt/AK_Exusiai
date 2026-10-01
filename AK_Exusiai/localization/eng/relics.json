@@ -30,7 +30,7 @@
   "AK_EXUSIAI_RELIC_PHOTO_WITH_THE_LORD.description": "At the start of each combat, gain [blue]2[/blue] [gold]Artifact[/gold].",
   "AK_EXUSIAI_RELIC_PHOTO_WITH_THE_LORD.flavor": "Look at the camera!~",
   "AK_EXUSIAI_RELIC_ENTRY_PERMIT.title": "Entry Permit",
-  "AK_EXUSIAI_RELIC_ENTRY_PERMIT.description": "Upon pickup, all starting cards still in your deck gain the [gold]Ascension[/gold] enchantment. Cards with an enchantment are unaffected.",
+  "AK_EXUSIAI_RELIC_ENTRY_PERMIT.description": "Upon pickup, upgrade all starting cards in your deck and give them the [gold]Ascension[/gold] enchantment. Cards already enchanted gain no new enchantment.",
   "AK_EXUSIAI_RELIC_ENTRY_PERMIT.flavor": "Good for collecting stamps at Laterano's attractions.",
   "AK_EXUSIAI_RELIC_STUDY_TOUR_CERTIFICATE.title": "Study Tour Certificate",
   "AK_EXUSIAI_RELIC_STUDY_TOUR_CERTIFICATE.description": "When you [gold]Smith[/gold] at a Rest Site, you may choose [blue]1[/blue] additional card to upgrade. Then upgrade [blue]1[/blue] random remaining unupgraded card.",

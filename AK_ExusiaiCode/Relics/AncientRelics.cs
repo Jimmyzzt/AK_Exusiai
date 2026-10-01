@@ -66,7 +66,11 @@ public sealed class EntryPermit : ExusiaiAncientRelic
         Ascension ascension = ModelDb.Enchantment<Ascension>();
         foreach (CardModel card in Owner.Deck.Cards.ToList())
         {
-            if (starterIds.Contains(card.Id) && ascension.CanEnchant(card))
+            if (!starterIds.Contains(card.Id))
+                continue;
+            if (card.IsUpgradable)
+                CardCmd.Upgrade(card);
+            if (ascension.CanEnchant(card))
                 CardCmd.Enchant<Ascension>(card, 1m);
         }
         Flash();

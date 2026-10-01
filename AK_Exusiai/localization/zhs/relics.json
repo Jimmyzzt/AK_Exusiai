@@ -30,7 +30,7 @@
   "AK_EXUSIAI_RELIC_PHOTO_WITH_THE_LORD.description": "每场战斗开始时，获得[blue]2[/blue]层[gold]人工制品[/gold]。",
   "AK_EXUSIAI_RELIC_PHOTO_WITH_THE_LORD.flavor": "看镜头！~",
   "AK_EXUSIAI_RELIC_ENTRY_PERMIT.title": "入境许可",
-  "AK_EXUSIAI_RELIC_ENTRY_PERMIT.description": "拾起时，你卡组中所有初始牌获得[gold]升华[/gold]附魔。已有附魔的牌不受影响。",
+  "AK_EXUSIAI_RELIC_ENTRY_PERMIT.description": "拾起时，升级你卡组中所有初始牌，并使其获得[gold]升华[/gold]附魔。已有附魔的牌不会再次附魔。",
   "AK_EXUSIAI_RELIC_ENTRY_PERMIT.flavor": "可用于在拉特兰各景点集章。",
   "AK_EXUSIAI_RELIC_STUDY_TOUR_CERTIFICATE.title": "研学证明",
   "AK_EXUSIAI_RELIC_STUDY_TOUR_CERTIFICATE.description": "在休息处[gold]锻造[/gold]时，可以额外选择[blue]1[/blue]张牌。随后随机升级[blue]1[/blue]张剩余未升级的牌。",
