@@ -1,4 +1,5 @@
 using AK_Exusiai.Content;
+using AK_Exusiai.Mechanics;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -17,7 +18,8 @@ public sealed class LordServer : ExusiaiRelicTemplate
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [HoverTipFactory.ForEnergy(this)];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.CurseHoverTip, HoverTipFactory.ForEnergy(this)];
 
     public override async Task AfterCardGeneratedForCombat(CardModel card, Player? creator)
     {

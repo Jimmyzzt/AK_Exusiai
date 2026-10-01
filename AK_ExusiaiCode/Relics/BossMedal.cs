@@ -25,6 +25,7 @@ public sealed class BossMedal : ExusiaiRelicTemplate
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
     [
         HoverTipFactory.Static(StaticHoverTip.Block),
+        ExusiaiKeywords.RelicHoverTip,
         ExusiaiKeywords.DeliveryHoverTip,
     ];
 

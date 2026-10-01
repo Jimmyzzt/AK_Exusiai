@@ -21,8 +21,8 @@ public sealed class PenguinLogistics : ModAncientEventTemplate
     public override AncientEventPresentationAssetProfile AncientPresentationAssetProfile => new(
         MapIconPath: $"{Entry.ResPath}/images/ancients/emperor/map_icon.png",
         MapIconOutlinePath: $"{Entry.ResPath}/images/ancients/emperor/map_iconOutline.png",
-        RunHistoryIconPath: $"{Entry.ResPath}/images/ancients/emperor/map_icon.png",
-        RunHistoryIconOutlinePath: $"{Entry.ResPath}/images/ancients/emperor/map_iconOutline.png");
+        RunHistoryIconPath: $"{Entry.ResPath}/images/ancients/emperor/history_icon.png",
+        RunHistoryIconOutlinePath: $"{Entry.ResPath}/images/ancients/emperor/history_iconOutline.png");
 
     public override IEnumerable<EventOption> AllPossibleOptions =>
     [

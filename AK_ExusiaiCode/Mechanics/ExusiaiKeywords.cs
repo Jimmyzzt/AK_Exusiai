@@ -43,6 +43,8 @@ public static class ExusiaiKeywords
     public static IHoverTip CurseHoverTip => StaticTip("CURSE");
     public static IHoverTip StrongBeatHoverTip => StaticTip("STRONG_BEAT");
     public static IHoverTip WeakBeatHoverTip => StaticTip("WEAK_BEAT");
+    public static IHoverTip RelicHoverTip => StaticTip("RELIC");
+    public static IHoverTip RareHoverTip => StaticTip("RARE");
     private static IHoverTip StaticTip(string key) => new HoverTip(
         new LocString("static_hover_tips", $"AK_EXUSIAI_{key}.title"),
         new LocString("static_hover_tips", $"AK_EXUSIAI_{key}.description"));

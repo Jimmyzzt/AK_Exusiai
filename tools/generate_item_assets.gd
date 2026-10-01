@@ -38,8 +38,10 @@ const ITEMS := [
     {"source": "references/free/art/ancients_generated/UrsusBeluga.png", "output": "AK_Exusiai/images/potions/UrsusBeluga.png", "size": 80, "padding": 4, "radius": 2},
     {"source": "references/free/art/ancients_generated/GaulChardonnay.png", "output": "AK_Exusiai/images/potions/GaulChardonnay.png", "size": 80, "padding": 0, "radius": 2, "rotation_degrees": 45.0},
     {"source": "references/free/art/ancients_generated/YanFenjiu.png", "output": "AK_Exusiai/images/potions/YanFenjiu.png", "size": 80, "padding": 4, "radius": 2},
-    {"source": "references/official/art/Logo_拉特兰.png", "output": "AK_Exusiai/images/ancients/laterano/map_icon.png", "size": 85, "padding": 5, "radius": 2},
-    {"source": "references/official/art/企鹅物流logo.png", "output": "AK_Exusiai/images/ancients/emperor/map_icon.png", "size": 85, "padding": 5, "radius": 2},
+    {"source": "references/free/art/AK_Exusiai_Ancients素材_2026-09-25/01_拉特兰/09_万国信标/拉特兰_标志.png", "output": "AK_Exusiai/images/ancients/laterano/map_icon.png", "size": 278, "padding": 16, "radius": 2},
+    {"source": "references/free/art/AK_Exusiai_Ancients素材_2026-09-25/01_拉特兰/09_万国信标/拉特兰_标志.png", "output": "AK_Exusiai/images/ancients/laterano/history_icon.png", "size": 85, "padding": 5, "radius": 2},
+    {"source": "references/official/art/企鹅物流logo.png", "output": "AK_Exusiai/images/ancients/emperor/map_icon.png", "size": 278, "padding": 16, "radius": 2},
+    {"source": "references/official/art/企鹅物流logo.png", "output": "AK_Exusiai/images/ancients/emperor/history_icon.png", "size": 85, "padding": 5, "radius": 2},
 ]
 
 const COPIES := [

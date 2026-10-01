@@ -280,6 +280,7 @@ public sealed class Confess47 : ExusiaiAncientRelic
 [RegisterRelic(typeof(AncientRelicPool))]
 public sealed class BeaconOfNations : ExusiaiAncientRelic
 {
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.RareHoverTip];
     [SavedProperty] public int MarkedActIndex { get; set; } = -1;
     [SavedProperty] public int[] PathColumns { get; set; } = [];
     [SavedProperty] public int[] PathRows { get; set; } = [];
@@ -430,7 +431,7 @@ public sealed class PenguinLogisticsId : ExusiaiAncientRelic
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [HoverTipFactory.ForEnergy(this), ExusiaiKeywords.DeliveryHoverTip];
+        [HoverTipFactory.ForEnergy(this), ExusiaiKeywords.RelicHoverTip, ExusiaiKeywords.DeliveryHoverTip];
 
     public override decimal ModifyMaxEnergy(Player player, decimal amount) =>
         player == Owner ? amount + DynamicVars.Energy.BaseValue : amount;
@@ -458,6 +459,8 @@ public sealed class AFewFineVintages : ExusiaiAncientRelic
 
     public override async Task BeforeCombatStart()
     {
+        // The game's Petrified Toad procures its potion in BeforeCombatStartLate,
+        // after this hook. Keep the wine in the earlier phase so it gets the slot first.
         if (!Owner.HasOpenPotionSlots)
             return;
         PotionModel[] wines = [ModelDb.Potion<UrsusBeluga>(), ModelDb.Potion<GaulChardonnay>(), ModelDb.Potion<YanFenjiu>()];
@@ -480,6 +483,7 @@ public sealed class BlackCard : ExusiaiAncientRelic
 public sealed class MasterTape : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.RareHoverTip];
 
     public override async Task AfterObtained()
     {
@@ -532,7 +536,8 @@ public sealed class IllGottenGains : ExusiaiAncientRelic
     [SavedProperty]
     public bool TookDamageThisCombat { get; set; }
     public override bool HasUponPickupEffect => true;
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.TransitHoverTip];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.TransitHoverTip, ExusiaiKeywords.RelicHoverTip];
 
     public override async Task AfterObtained()
     {
@@ -602,7 +607,8 @@ public sealed class CompanyVan : ExusiaiAncientRelic
 public sealed class ReturnToSender : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
-    protected override IEnumerable<IHoverTip> AdditionalHoverTips => [ExusiaiKeywords.TransitHoverTip];
+    protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [ExusiaiKeywords.TransitHoverTip, ExusiaiKeywords.RelicHoverTip];
 
     public override async Task AfterObtained()
     {
