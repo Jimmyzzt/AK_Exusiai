@@ -54,7 +54,7 @@
   "AK_EXUSIAI_RELIC_BEACON_OF_NATIONS.description": "Mark all combats on a random route. Those combats grant an extra [gold]Rare[/gold] card reward that can include other colors.",
   "AK_EXUSIAI_RELIC_BEACON_OF_NATIONS.flavor": "A Summit of Nations souvenir. It doubles as a light.",
   "AK_EXUSIAI_RELIC_THE_LAW.title": "The Law",
-  "AK_EXUSIAI_RELIC_THE_LAW.description": "Upon pickup, remove all [gold]Curses[/gold] from your deck, including Eternal Curses. Prevent the next [blue]{Charges}[/blue] [gold]Curses[/gold] you would obtain.",
+  "AK_EXUSIAI_RELIC_THE_LAW.description": "Upon pickup, remove all [gold]Curses[/gold] from your deck, including [gold]Eternal Curses[/gold]. Prevent the next [blue]{Charges}[/blue] [gold]Curses[/gold] you would obtain.",
   "AK_EXUSIAI_RELIC_THE_LAW.flavor": "These days, its main purpose is supplying an untouchable fluorescent light.",
   "AK_EXUSIAI_RELIC_PENGUIN_LOGISTICS_ID.title": "Penguin Logistics ID",
   "AK_EXUSIAI_RELIC_PENGUIN_LOGISTICS_ID.description": "At the start of each turn, gain {Energy:energyIcons()}. At the start of each combat, give a random active [gold]relic[/gold] [gold]Delivery[/gold] [blue]1[/blue].",

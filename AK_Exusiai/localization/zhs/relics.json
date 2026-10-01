@@ -54,7 +54,7 @@
   "AK_EXUSIAI_RELIC_BEACON_OF_NATIONS.description": "标记随机一条路线上的所有战斗。这些战斗会额外掉落一组可以包含其他颜色的[gold]稀有[/gold]卡牌奖励。",
   "AK_EXUSIAI_RELIC_BEACON_OF_NATIONS.flavor": "万国峰会的文创周边，可以照明。",
   "AK_EXUSIAI_RELIC_THE_LAW.title": "律法",
-  "AK_EXUSIAI_RELIC_THE_LAW.description": "拾起时，删除卡组中的所有[gold]诅咒[/gold]（包括永恒诅咒），抵消你下[blue]{Charges}[/blue]次获得的[gold]诅咒[/gold]。",
+  "AK_EXUSIAI_RELIC_THE_LAW.description": "拾起时，删除卡组中的所有[gold]诅咒[/gold]（包括[gold]永恒诅咒[/gold]），抵消你下[blue]{Charges}[/blue]次获得的[gold]诅咒[/gold]。",
   "AK_EXUSIAI_RELIC_THE_LAW.flavor": "现在它的主要作用是提供一个摸不着的日光灯。",
   "AK_EXUSIAI_RELIC_PENGUIN_LOGISTICS_ID.title": "企鹅物流工牌",
   "AK_EXUSIAI_RELIC_PENGUIN_LOGISTICS_ID.description": "在每个回合开始时获得{Energy:energyIcons()}。在每场战斗开始时，使随机一个未失效[gold]遗物[/gold]获得：[gold]快递[/gold][blue]1[/blue]。",

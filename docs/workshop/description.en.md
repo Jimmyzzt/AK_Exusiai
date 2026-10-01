@@ -8,6 +8,7 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 - 2 appearance sets with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
 - 104 cards: 91 character cards, including 5 multiplayer cards, starter cards, and Ancient cards; 11 token cards, comprising 8 Penguin Logistics cards and 3 Angel cards; and 2 Curses.
 - 9 character relics and 3 potions.
+- 2 new Ancients, Laterano and Penguin Logistics, with 20 Ancient relics.
 
 ## Core mechanics
 
@@ -44,11 +45,11 @@ Come chat and share feedback!
 
 If you enjoy the mod, please consider giving it a thumbs-up and adding it to your favorites. Thanks!
 
-Planned future additions include new Ancients, enemies, and boss encounters.
+Planned future additions include enemies and boss encounters.
 
-## V1.3 balance changes
+## V1.3 update notes
 
-The previous effects are from V1.2. Values in parentheses are for the upgraded card. Both versions show each card's full effect.
+This update adds Laterano and Penguin Logistics as two new Ancients, with 20 Ancient relics. It also makes a few card balance adjustments. The previous effects below are from V1.2. Values in parentheses are for the upgraded card. Both versions show each card's full effect.
 
 - **Penguin Standard** (1-cost Skill)
   - Before: Choose a relic to gain Delivery 5. Obtain 2 random relics with Transit 1 (2).

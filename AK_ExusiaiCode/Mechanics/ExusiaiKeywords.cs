@@ -38,7 +38,6 @@ public static class ExusiaiKeywords
     public static IHoverTip TransitHoverTip => ModKeywordRegistry.CreateHoverTip(TransitId);
     public static IHoverTip AngelHoverTip => ModKeywordRegistry.CreateHoverTip(AngelId);
     public static IHoverTip OverloadHoverTip => ModKeywordRegistry.CreateHoverTip(OverloadId);
-    public static IHoverTip StartingCardsHoverTip => StaticTip("STARTING_CARDS");
     public static IHoverTip SmithHoverTip => StaticTip("SMITH");
     public static IHoverTip CurseHoverTip => StaticTip("CURSE");
     public static IHoverTip StrongBeatHoverTip => StaticTip("STRONG_BEAT");

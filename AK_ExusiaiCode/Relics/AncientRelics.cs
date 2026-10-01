@@ -62,7 +62,7 @@ public sealed class EntryPermit : ExusiaiAncientRelic
 {
     public override bool HasUponPickupEffect => true;
     protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-        [ExusiaiKeywords.StartingCardsHoverTip, .. HoverTipFactory.FromEnchantment<Ascension>(), ExusiaiKeywords.AngelHoverTip];
+        [.. HoverTipFactory.FromEnchantment<Ascension>(), ExusiaiKeywords.AngelHoverTip];
 
     public override Task AfterObtained()
     {

@@ -6,8 +6,6 @@
   "AK_EXUSIAI_FIREPOWER_GENERIC.description": "火力会使弹药额外增加伤害。",
   "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.title": "快递与中转",
   "AK_EXUSIAI_DELIVERY_TRANSIT_INTERACTION.description": "被[gold]快递[/gold]的[gold]中转[/gold]遗物获得[gold]中转[/gold]时，改为减少其[gold]快递[/gold]层数。",
-  "AK_EXUSIAI_STARTING_CARDS.title": "初始牌",
-  "AK_EXUSIAI_STARTING_CARDS.description": "角色开局牌组中的牌，包括打击、防御和该角色专属的初始牌。",
   "AK_EXUSIAI_SMITH.title": "锻造",
   "AK_EXUSIAI_SMITH.description": "在休息处升级你牌组中的牌。",
   "AK_EXUSIAI_CURSE.title": "诅咒",
