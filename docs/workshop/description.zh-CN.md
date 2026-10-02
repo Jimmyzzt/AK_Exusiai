@@ -4,7 +4,7 @@
 
 ## V1.3 更新说明
 
-**新增了拉特兰与企鹅物流两位先古之民，以及对应的20件先古遗物！**另对少量卡牌进行了平衡性调整，具体改动可以在 [改动说明](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) 中看到。
+**新增了拉特兰与企鹅物流两位先古之民，以及对应的20件先古遗物！** 另对少量卡牌进行了平衡性调整，具体改动可以在 [改动说明](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) 中看到。
 
 ## 内容
 
