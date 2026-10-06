@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="能天使 Mod 社区统计：卡牌选取率、分幕通关率与遗物表现。仅公开聚合数据。">
+  <meta name="referrer" content="no-referrer"><title>能天使数据统计</title>
+  <link rel="stylesheet" href="./style.css"><script src="./app.js" type="module"></script>
+</head>
+<body>
+  <header><a class="brand" href="?page=cards"><img src="./art/portrait.png" alt="" width="46" height="46"><span>能天使<span class="brand-sub">社区数据统计 · EXUSIAI</span></span></a>
+    <nav aria-label="统计分类"><a href="?page=cards" data-page="cards">卡牌</a><a href="?page=relics" data-page="relics">遗物</a><a href="?page=ancients" data-page="ancients">先古遗物</a><a href="?page=privacy" data-page="privacy">统计口径与隐私</a></nav>
+  </header>
+  <main id="statistics">
+    <section class="intro"><div><p class="eyebrow">PENGUIN LOGISTICS / FIELD REPORT</p><h1 id="page-title">每次送达，都有迹可循。</h1><p>从社区对局观察卡牌与遗物的表现。所有 Mod 组合默认纳入，可按实际环境筛选。</p></div><span class="stamp">企鹅物流<br><strong>任务档案</strong></span></section>
+    <div class="status-row"><p id="status" role="status" aria-live="polite">正在连接社区统计…</p><button id="refresh" class="quiet">刷新</button></div>
+    <section class="summary" aria-label="筛选后的对局总览"><article><span>能天使玩家局</span><strong id="run-count">—</strong><small>联机按本机玩家计样本</small></article><article><span>最终通关率</span><strong id="win-rate">—</strong><small id="wins">等待样本</small></article><article><span>平均到达层数</span><strong id="average-floor">—</strong><small id="abandoned-count">默认排除放弃局</small></article></section>
+    <form id="filters"><div class="filter-heading"><h2>对局范围</h2><button type="reset" class="quiet">重置</button></div><div class="filter-grid">
+      <label>人数<select name="party"><option value="solo">单人</option><option value="multi">联机</option><option value="all">全部</option></select></label>
+      <label>模式<select name="mode"><option value="Standard">标准</option><option value="Daily">每日挑战</option><option value="Custom">自定义</option><option value="all">全部</option></select></label>
+      <label>放弃局<select name="abandoned"><option value="exclude">排除</option><option value="loss">计作失败</option></select></label>
+      <label>进阶<select name="ascension"><option value="">全部</option></select></label>
+      <label>Mod 发布版本<select name="version"><option value="">全部</option></select></label>
+      <label>内容修订<select name="revision"><option value="">全部</option></select></label>
+      <label>开始日期（UTC）<input name="from" type="date"></label><label>结束日期（UTC）<input name="to" type="date"></label>
+    </div><details><summary>排除指定 Mod <span id="exclude-count"></span></summary><p class="muted">整局启用列表包含任一勾选 Mod，即排除该局。最多选10项。</p><input id="mod-search" type="search" placeholder="搜索 Mod ID" aria-label="搜索 Mod"><div id="mod-list" class="mod-list"></div></details><button type="submit">应用筛选</button></form>
+    <section class="results"><div class="results-heading"><div><p class="eyebrow">COMMUNITY OBSERVATIONS</p><h2 id="entity-title">卡牌表现</h2></div><div class="tools"><label class="sr-only" for="search">搜索内容</label><input id="search" type="search" placeholder="搜索中文 / English"><select id="act" aria-label="卡牌所在幕"><option value="0">全部幕</option><option value="1">第1幕</option><option value="2">第2幕</option><option value="3">第3幕</option></select><button id="export" class="quiet">导出汇总</button></div></div>
+      <p id="metric-note" class="muted">选取率分母为奖励提供次数；持有胜率表示最终卡组持有此牌的玩家局通关率。相关性不等于强度因果。</p>
+      <div class="table-wrap"><table><thead id="table-head"></thead><tbody id="rows"></tbody></table></div><p id="empty" hidden>暂无符合条件的样本。新局结束且玩家授权上传后，数据将在约15分钟内更新。</p>
+    </section>
+  </main>
+  <main id="privacy" hidden><section class="intro"><div><p class="eyebrow">DATA & CONSENT</p><h1>统计口径与隐私</h1><p>公开社区观察，服务能天使卡牌平衡。</p></div></section><article class="prose">
+    <h2>采集范围</h2><p>玩家在 RitsuLib 中明确授权后，仅采集新结束的本机能天使对局；不扫描历史存档。包含单人、联机、失败与放弃局。记录局终结果、日期、进阶、幕数、版本、启用 Mod，以及本 Mod 的卡牌与遗物计数。默认统计单人标准局、全部 Mod 组合，排除放弃局。</p>
+    <p>上传前剔除 Steam / 网络玩家 ID、玩家名称、种子、队友明细、日志和本地路径。服务保存脱敏记录和安装凭证的单向摘要，以便去重和删除。原始逐局记录及安装标识没有公开查询接口；页面与导出仅提供汇总。Cloudflare 处理请求所需的网络元数据；应用不记录上传内容或凭证。</p>
+    <h2>指标如何计算</h2><p>样本单位为“能天使玩家局”；同一联机队伍的两位能天使各自授权后贡献两份玩家样本。胜利以游戏局终标记为准，放弃计作失败时强制视为失败。</p><ul><li>奖励选取率 = 选择次数 / 提供次数。同牌重复提供按次数统计。</li><li>持有率 = 局终卡组或永久遗物栏持有该内容的玩家局 / 总玩家局；每局每内容计一次。</li><li>持有胜率 = 持有该内容的通关玩家局 / 持有该内容的玩家局。</li><li>第X幕选择后通关率 = 在第X幕选择过该牌且最终通关的玩家局 / 在第X幕选择过该牌的玩家局；同局同幕重复选择只计一次。</li><li>卡牌平均获得层数由逐层获得记录计算；升级和删除为历史记录次数。初始牌无获得事件时显示不适用。</li><li>遗物获得次数结合逐层选取、先古选择、购买及最终永久栏记录。同ID同层的多种来源取最大次数，避免重复记录；这可能保守低估特殊Mod在同层反复获取的情况。中转副本不计入永久持有，先古选项按记录中的选项键匹配本 Mod 遗物。</li></ul><p>没有分母时显示“—”；低样本应谨慎解读。最终持有胜率和获得后通关率均受生存、选牌与玩家水平影响，不直接代表平衡强度。首版没有战斗出牌与伤害统计。</p>
+    <h2>更新和保存</h2><p>统计约每15分钟刷新。当前不设记录保存期限，也不自动清理对局数据。使用 D1 和 Workers 免费档位；遇到配额或连接问题时客户端保留有限队列等待重试，页面尽量显示最近成功的统计。首次访问且无缓存时会明确提示暂不可用。</p>
+    <h2>关闭和删除</h2><p>关闭 RitsuLib 授权会停止后续上传，不会删除既有数据。请从游戏 Mod 设置中的“删除本机已上传数据”进入本页，该操作先关闭上传，再将删除凭证仅放入浏览器地址片段。网页读取后立即清除片段，凭证不会作为查询参数发送。</p><p>确认删除会删除该安装凭证关联的所有对局，并永久撤销凭证以阻止旧队列重放。公开汇总缓存最多约15分钟后反映删除。丢失本机身份文件后无法证明旧记录归属。希望重新参与时，在游戏设置生成新统计身份，再重新授权。</p>
+    <div id="delete-panel" hidden class="delete-panel"><h3>删除本机统计记录</h3><label><input id="delete-confirm" type="checkbox">我确认删除所有关联记录并撤销本机统计身份。</label><button id="delete" disabled>确认删除</button><p id="delete-status" role="status"></p></div>
+    <p>参考：<a href="https://2223m1.github.io/NinjaSlayer/?page=cards">忍杀统计站</a> · <a href="https://spirebird.com/archive.html#cards">Spirebird</a> · <a href="https://github.com/Jimmyzzt/AK_Exusiai">Mod 源码与反馈</a></p>
+  </article></main>
+  <footer><span>企鹅物流 · 能天使社区统计</span><span id="build">静态站点 · 仅公开聚合数据</span></footer>
+  <dialog id="detail"><button id="close" aria-label="关闭详情" class="quiet close">✕</button><div id="detail-content"></div></dialog>
+</body></html>
