@@ -82,7 +82,7 @@ foreach (var body in handler.Bodies)
         Assert(!body.Contains(secret), "Envelope or credential escaped upload adapter");
 }
 Assert(queued[0].Payload!["applicant_payload"]!["_owner_token"] != null, "Sending must not mutate queued records");
-Assert(handler.Authorization.All(h => h == "Bearer " + new string('1', 64)), "Deletion credential belongs only in Authorization header");
+Assert(handler.Authorization.All(h => h == "Bearer " + new string('1', 64)), "Upload credential belongs only in Authorization header");
 allowed = false;
 Assert(!(await adapter.SendAsync(applicant, queued)).Success && handler.Bodies.Count == 4, "Disabled consent must not send");
 allowed = true;
@@ -90,17 +90,26 @@ Assert((await adapter.SendAsync(applicant, [Event("run_history"), Event(owner: '
 handler.Reply = () => { allowed = false; return new HttpResponseMessage(HttpStatusCode.OK); };
 Assert(!(await adapter.SendAsync(applicant, queued)).Success && handler.Bodies.Count == 5, "Consent revoked mid-batch stops the next send");
 allowed = true;
-foreach (var code in new[] { HttpStatusCode.Gone, HttpStatusCode.UnprocessableEntity })
+foreach (var code in new[] { HttpStatusCode.UnprocessableEntity })
 {
     handler.Reply = () => new HttpResponseMessage(code);
-    Assert((await adapter.SendAsync(applicant, [Event()])).Success, "Revoked/rejected events must not permanently block subsequent runs");
+    Assert((await adapter.SendAsync(applicant, [Event()])).Success, "Rejected events must not permanently block subsequent runs");
 }
 handler.Reply = () => new HttpResponseMessage(HttpStatusCode.TooManyRequests);
 Assert(!(await adapter.SendAsync(applicant, [Event()])).Success, "Rate-limited runs must remain queued");
 handler.Reply = () => throw new HttpRequestException("offline");
 Assert(!(await adapter.SendAsync(applicant, [Event()])).Success, "Network failure must remain queued");
 foreach (var message in messages) Assert(!message.Contains(new string('1', 64)), "Logs must not disclose credentials");
-Console.WriteLine("PASS: upload authorization, envelope privacy, partial-batch retry, revoked identities, HTTP limits and offline recovery.");
+Console.WriteLine("PASS: upload authorization, envelope privacy, partial-batch retry, HTTP limits and offline recovery.");
+
+string translationFolder = Path.GetFullPath("AK_Exusiai/localization/statistics");
+var chinese = JsonNode.Parse(File.ReadAllText(Path.Combine(translationFolder, "zhs.json")))!.AsObject();
+var english = JsonNode.Parse(File.ReadAllText(Path.Combine(translationFolder, "eng.json")))!.AsObject();
+Assert(chinese.Select(k => k.Key).Order().SequenceEqual(english.Select(k => k.Key).Order()), "Translation keys must match");
+foreach (var table in new[] { chinese, english }) foreach (var (key, value) in table)
+    Assert(!string.IsNullOrWhiteSpace(value?.GetValue<string>()), "Missing translation: " + key);
+Assert(chinese.Count == 5, "Only settings title, consent description, upload toggle and website text belong in localization");
+Console.WriteLine("PASS: Chinese/English statistics localization keys and values match.");
 
 sealed class RecordingHandler : HttpMessageHandler
 {

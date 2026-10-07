@@ -26,6 +26,6 @@ npm run dev
 
 Mod 已接入入口并通过 C# 构建、提取和上传适配器测试；2026-10-07 临时启用后的游戏启动已确认遥测申请成功注册，测试后原设置恢复。真实对局的授权、上传、离线重试和联机归属仍需游戏内验收。工坊包尚未发布。
 
-遥测申请文案位于 `mod/ExusiaiTelemetry.cs`：申请名称为 `DisplayName`，权限说明为 `TelemetryRequest.Description`。可直接改字符串后重新构建；不要修改已有 `ApplicantId`、`RequestId` 或事件名，否则会影响授权/队列关联。
+遥测申请和统计设置文案统一位于 `AK_Exusiai/localization/statistics/zhs.json`、`eng.json`（相对仓库根目录）。其中 `consent` 为权限说明，`title` 为申请名称。RitsuLib 的 I18N 使用“目录/语言.json”布局，自动跟随游戏语言并回退英文。设置仅有上传授权开关和网站入口；已移除删除数据、身份刷新及相关网页/API。不要修改已有 `ApplicantId`、`RequestId` 或事件名，否则会影响授权/队列关联。
 
 本目录由 `.gdignore` 和导出排除项隔离于 Godot 资源扫描；网页及 Node 依赖不进入游戏包。不要提交凭据、玩家原始记录、数据库导出或构建缓存。

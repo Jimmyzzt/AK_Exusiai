@@ -59,20 +59,10 @@ test('persist before ack, retry deduplicates, acts count player-runs once, mod e
   assert.equal((await mf.dispatchFetch('https://test.local/api/runs')).status,404);
   assert.equal((await db.prepare('SELECT COUNT(*) n FROM runs').first()).n,4);
 });
-test('deletion requires possession and explicit confirmation, cascades, permanently blocks replay',async()=>{
-  assert.deepEqual(await(await mf.dispatchFetch('https://test.local/api/identity',{headers:{Authorization:'Bearer '+token}})).json(),{revoked:false});
-  assert.equal((await send('/api/delete',{confirm:'no'})).status,422);
+test('removed deletion and identity routes cannot modify uploaded data',async()=>{
+  assert.equal((await send('/api/delete',{confirm:'delete-my-statistics'})).status,404);
+  assert.equal((await mf.dispatchFetch('https://test.local/api/identity',{headers:{Authorization:'Bearer '+token}})).status,404);
   assert.equal((await db.prepare('SELECT COUNT(*) n FROM runs').first()).n,4);
-  const result=await(await send('/api/delete',{confirm:'delete-my-statistics'})).json();assert.equal(result.runs,2);
-  assert.equal((await db.prepare('SELECT COUNT(*) n FROM runs').first()).n,2);
-  assert.equal((await db.prepare('SELECT COUNT(*) n FROM entities').first()).n,4);
-  assert.equal((await send('/api/upload',run())).status,410);
-  assert.equal((await send('/api/upload',run('d'))).status,410);
-  assert.deepEqual(await(await mf.dispatchFetch('https://test.local/api/identity',{headers:{Authorization:'Bearer '+token}})).json(),{revoked:true});
-  assert.equal((await mf.dispatchFetch('https://test.local/api/stats?party=all&mode=all')).status,200);
-  const remaining=await(await mf.dispatchFetch('https://test.local/api/stats?version=1.1.0')).json();
-  assert.equal(remaining.overview.runs,1);assert.equal(remaining.overview.wins,0);
-  assert.equal(remaining.entities.find(e=>e.act===1).picked_runs,1);
 });
 test('failed D1 batch rolls back run and all rollups; invalid body never stores partial data',async()=>{
   await db.exec("CREATE TRIGGER force_failure BEFORE INSERT ON entities BEGIN SELECT RAISE(ABORT,'test failure'); END;");
@@ -81,9 +71,9 @@ test('failed D1 batch rolls back run and all rollups; invalid body never stores 
   await db.exec('DROP TRIGGER force_failure;');
   assert.equal((await send('/api/upload',{...run('e'),entities:[{id:'forbidden'}]},token2)).status,422);
   assert.equal((await send('/api/upload',run('e'),token2)).status,200);
-  assert.equal((await db.prepare('SELECT SUM(runs) n FROM cohorts').first()).n,3);
+  assert.equal((await db.prepare('SELECT SUM(runs) n FROM cohorts').first()).n,5);
 });
-test('concurrent retries persist one coherent payload and deletion restores the previous totals',async()=>{
+test('concurrent retries persist one coherent payload',async()=>{
   const owner='3'.repeat(64), first=run('f'), second=run('f');
   second.entities[0].offered=6;second.entities[1].offered=6;second.entities[1].act=2;
   const responses=await Promise.all(Array.from({length:8},(_,i)=>send('/api/upload',i%2?first:second,owner)));
@@ -91,7 +81,5 @@ test('concurrent retries persist one coherent payload and deletion restores the 
   const stored=JSON.parse((await db.prepare('SELECT payload FROM runs WHERE id=?').bind(first.id).first()).payload);
   const rows=(await db.prepare('SELECT entity_id id,act,owned,offered,picked,obtained,floor_sum,upgraded,removed FROM entities WHERE run_id=? ORDER BY act').bind(first.id).all()).results;
   assert.deepEqual(rows,stored.entities);
-  assert.equal((await db.prepare('SELECT SUM(runs) n FROM cohorts').first()).n,4);
-  await send('/api/delete',{confirm:'delete-my-statistics'},owner);
-  assert.equal((await db.prepare('SELECT SUM(runs) n FROM cohorts').first()).n,3);
+  assert.equal((await db.prepare('SELECT SUM(runs) n FROM cohorts').first()).n,6);
 });

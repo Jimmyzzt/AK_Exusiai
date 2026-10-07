@@ -59,6 +59,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `AK_ExusiaiCode/Patches/`：确无合适 Hook 时使用的窄范围 patch。
 - `AK_ExusiaiCode/Relics/`、`Potions/`：遗物和药水。
 - `AK_Exusiai/localization/{zhs,eng}/`：简中与英文。
+- `AK_Exusiai/localization/statistics/{zhs,eng}.json`：统计授权和设置文案；使用 RitsuLib I18N 的“目录/语言.json”布局，修改时保持两份键一致。统计设置仅保留上传授权和网站入口。
 - `AK_Exusiai/images/`、`audio/`：运行时最终资源。
 - `references/{official,free}/`：可复现制作所需的源素材及来源记录。
 - `stat/`：社区统计方案、网页、Worker/D1 及统计集成代码；确认清单见 `stat/PLAN.md`，构建与部署见 `stat/README.md`。该目录隔离于 Godot 扫描与 PCK 导出，仅显式编译 `stat/mod/` 的 C# 文件。

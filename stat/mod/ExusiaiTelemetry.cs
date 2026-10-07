@@ -1,5 +1,4 @@
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text.Json.Nodes;
 using Godot;
@@ -11,6 +10,7 @@ using MegaCrit.Sts2.Core.Runs;
 using STS2RitsuLib;
 using STS2RitsuLib.Settings;
 using STS2RitsuLib.Telemetry;
+using STS2RitsuLib.Utils;
 using RandomNumberGenerator = System.Security.Cryptography.RandomNumberGenerator;
 
 namespace AK_Exusiai.Statistics;
@@ -29,42 +29,47 @@ internal static class ExusiaiTelemetry
     private static readonly System.Net.Http.HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(30) };
     private static System.Threading.Timer? _retry;
     private static bool _initialized;
-    private static string _status = "统计身份由本机保存。重新生成前须先在网站确认删除旧身份。";
+    private static I18N? _localization;
+
+    private static ModSettingsText Text(string key) => ModSettingsText.I18N(_localization!, key, key);
 
     internal static void Initialize()
     {
         if (_initialized) return;
         _initialized = true;
         _identityPath = ProjectSettings.GlobalizePath("user://exusiai-stat-identity.txt");
+        _localization = new I18N("Exusiai-Statistics", pckFolders: [$"{Entry.ResPath}/localization/statistics"]);
         RitsuLibFramework.RegisterTelemetryApplicant(new TelemetryApplicant
         {
             ApplicantId = Entry.ModId, OwnerModId = Entry.ModId,
-            DisplayName = "能天使社区统计 / Exusiai community statistics",
+            DisplayName = Entry.ModId, DisplayNameText = Text("title"),
             Adapter = new ExusiaiUploadAdapter(Http, () => Token,
                 () => RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history"),
                 message => Entry.Logger.Warn(message), message => Entry.Logger.Info(message)),
             Requests = [new TelemetryRequest
             {
                 RequestId = "run_history", Category = TelemetryDataCategory.RunHistory,
-                Description = "仅上传今后本机能天使对局的脱敏统计：选牌、卡组、遗物、幕数、结果、版本与启用Mod。含放弃和联机局；不上传Steam身份、种子、日志或队友明细。仅公开聚合统计，暂无保存期限。隐私与删除：https://exusiai.zzt.si/?page=privacy",
+                Description = "consent", DescriptionText = Text("consent"),
                 CaptureFilter = context => context.EventName == EventName,
             }]
         });
         _started = RitsuLibFramework.SubscribeLifecycle<RunStartedEvent>(e => _localId = LocalContext.GetMe(e.RunState)?.NetId, false);
         _loaded = RitsuLibFramework.SubscribeLifecycle<RunLoadedEvent>(e => _localId = LocalContext.GetMe(e.RunState)?.NetId, false);
         _ended = RitsuLibFramework.SubscribeLifecycle<RunEndedEvent>(Capture, false);
-        RitsuLibFramework.RegisterModSettings(Entry.ModId, page => page.AddSection("statistics", section =>
+        var uploadConsent = ModSettingsBindings.Callback(Entry.ModId, "statistics.upload",
+            () => RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history"),
+            allowed => RitsuLibFramework.SetTelemetryApplicantConsent(Entry.ModId,
+                allowed ? TelemetryConsentState.Granted : TelemetryConsentState.Denied,
+                allowed ? ["run_history"] : []), () => { });
+        RitsuLibFramework.RegisterModSettings(Entry.ModId, page =>
         {
-            section.AddParagraph("privacy", ModSettingsText.Literal("统计上传由 RitsuLib 的遥测授权控制，可随时关闭。关闭不删除已上传数据；删除请使用下方入口。"));
-            section.AddParagraph("status", ModSettingsText.Literal(_status));
-            section.AddButton("website", ModSettingsText.Literal("能天使数据统计"), ModSettingsText.Literal("打开网站"), () => OS.ShellOpen(Endpoint));
-            section.AddButton("delete", ModSettingsText.Literal("删除本机已上传数据"), ModSettingsText.Literal("关闭上传并打开删除页面"), () =>
+            page.WithTitle(Text("title"));
+            page.AddSection("statistics", section =>
             {
-                RitsuLibFramework.SetTelemetryApplicantConsent(Entry.ModId, TelemetryConsentState.Denied);
-                OS.ShellOpen(Endpoint + "/?page=privacy#delete=" + Token);
+                section.AddToggle("upload", Text("allow_upload"), uploadConsent, description: Text("consent"));
+                section.AddButton("website", Text("website"), Text("open_website"), () => OS.ShellOpen(Endpoint));
             });
-            section.AddButton("reset", ModSettingsText.Literal("删除后重新参与统计"), ModSettingsText.Literal("验证删除并生成新身份"), (IModSettingsUiActionHost host) => ResetIdentity(host));
-        }), "能天使 / Exusiai");
+        }, Entry.ModId);
         // The framework's queue survives restarts; explicit periodic flush covers transient outages.
         _retry = new System.Threading.Timer(_ => Retry(), null, TimeSpan.FromMinutes(2), TimeSpan.FromMinutes(15));
         Entry.Logger.Info("Community statistics registered; RitsuLib consent is required for new local Exusiai runs.");
@@ -81,7 +86,7 @@ internal static class ExusiaiTelemetry
                 {
                     string value = File.ReadAllText(_identityPath).Trim();
                     if (value.Length != 64 || value.Any(c => !Uri.IsHexDigit(c)))
-                        throw new InvalidOperationException("Invalid statistics identity; reset it in Mod settings.");
+                        throw new InvalidOperationException("Invalid local statistics credential.");
                     return _token = value;
                 }
                 Directory.CreateDirectory(Path.GetDirectoryName(_identityPath)!);
@@ -96,34 +101,6 @@ internal static class ExusiaiTelemetry
     {
         try { if (RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history")) await RitsuLibFramework.FlushTelemetryAsync(); }
         catch { Entry.Logger.Warn("Statistics retry deferred."); }
-    }
-
-    private static async void ResetIdentity(IModSettingsUiActionHost host)
-    {
-        RitsuLibFramework.SetTelemetryApplicantConsent(Entry.ModId, TelemetryConsentState.Denied);
-        try
-        {
-            using var request = new HttpRequestMessage(HttpMethod.Get, Endpoint + "/api/identity");
-            string oldToken = Token;
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", oldToken);
-            using var response = await Http.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            var result = JsonNode.Parse(await response.Content.ReadAsStringAsync());
-            if (result?["revoked"]?.GetValue<bool>() != true) _status = "请先打开删除页面并完成确认；旧身份仍已保留，上传已关闭。";
-            else
-            {
-                lock (IdentityLock)
-                {
-                    if (_token != oldToken) return;
-                    string newToken = Convert.ToHexString(RandomNumberGenerator.GetBytes(32)).ToLowerInvariant();
-                    File.WriteAllText(_identityPath, newToken);
-                    _token = newToken;
-                }
-                _status = "已生成新统计身份。请在 RitsuLib 遥测设置中重新授权，之后的新局才会上传。";
-            }
-        }
-        catch { _status = "未能验证删除状态，旧凭证已保留。请稍后重试；上传仍已关闭。"; }
-        host.RequestRefresh();
     }
 
     private static void Capture(RunEndedEvent evt)

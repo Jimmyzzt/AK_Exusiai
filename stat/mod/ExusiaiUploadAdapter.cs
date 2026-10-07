@@ -33,9 +33,9 @@ internal sealed class ExusiaiUploadAdapter(HttpClient http, Func<string> identit
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credential);
                 request.Content = new StringContent(body.ToJsonString(), Encoding.UTF8, "application/json");
                 using var response = await http.SendAsync(request, cancellationToken);
-                if ((int)response.StatusCode is 410 or 422)
+                if ((int)response.StatusCode == 422)
                 {
-                    warn($"Statistics event discarded (HTTP {(int)response.StatusCode}): identity revoked or schema rejected.");
+                    warn("Statistics event discarded (HTTP 422): schema rejected.");
                     continue;
                 }
                 if (!response.IsSuccessStatusCode) return TelemetrySendResult.Fail($"Statistics service returned HTTP {(int)response.StatusCode}; retained for retry.");
