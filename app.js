@@ -10,7 +10,7 @@ for(const nav of document.querySelectorAll('nav a')) if(nav.dataset.page===page)
 $('#statistics').hidden=page==='privacy';$('#privacy').hidden=page!=='privacy';$('#act').hidden=page!=='cards';
 $('#entity-title').textContent=({cards:'卡牌表现',relics:'角色遗物',ancients:'先古遗物'})[page]||'';
 if(page!=='cards') $('#metric-note').textContent='仅统计本 Mod 遗物；永久持有率排除中转副本。获得样本由逐层选择、购买与永久栏记录按ID/层数去重，先古选项按游戏记录匹配。';
-for(let i=0;i<=100;i++) $('#filters [name=ascension]').add(new Option(`A${i}`,String(i)));
+for(let i=0;i<=10;i++) $('#filters [name=ascension]').add(new Option(`A${i}`,String(i)));
 const params=new URL(location.href).searchParams;
 for(const name of ['party','mode','abandoned','from','to','ascension']) if(params.has(name)) $('#filters').elements[name].value=params.get(name);
 for(const name of ['version','revision']) if(params.get(name)) { const select=$('#filters').elements[name]; select.add(new Option(params.get(name),params.get(name))); select.value=params.get(name); }
