@@ -1,6 +1,6 @@
 {
   "title": "Exusiai Community Statistics",
-  "consent": "We would like to upload anonymized statistics from Exusiai runs. We publish only aggregated statistics without private information, Steam identities, logs, or detailed teammate data.",
+  "consent": "Collect anonymized data from your Exusiai runs to assess card balance. We publish aggregated data on the statistics website without any private information. Steam identities, logs, and detailed teammate data are not uploaded.",
   "allow_upload": "Allow run statistics uploads",
   "website": "Exusiai Statistics",
   "open_website": "Open statistics website"
