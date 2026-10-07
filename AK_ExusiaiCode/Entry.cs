@@ -64,6 +64,8 @@ public partial class Entry
             $"{ModId}.AmmoCombatHooks",
             GetAmmoCombatHookModels);
         AmmoResource.Register();
+        try { Statistics.ExusiaiTelemetry.Initialize(); }
+        catch { Logger.Warn("Community statistics initialization failed; gameplay remains available."); }
         Logger.Info("AK_Exusiai initialized for Exusiai.");
     }
 

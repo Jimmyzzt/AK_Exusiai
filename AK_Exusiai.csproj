@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer" Version="2.3.2" PrivateAssets="all" />
-    <PackageReference Include="STS2.RitsuLib" Version="0.6.3" GeneratePathProperty="true" />
+    <PackageReference Include="STS2.RitsuLib" Version="0.6.6" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,9 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
-    <EmbeddedResource Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
-    <None Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**" />
+    <Compile Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**;stat/**" />
+    <Compile Include="stat/mod/**/*.cs" />
+    <EmbeddedResource Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**;stat/**" />
+    <None Remove=".godot/**;.idea/**;.vs/**;bin/**;obj/**;tmp/**;stat/**" />
 
     <AdditionalFiles Include="AK_Exusiai/localization/**/*.json" />
     <Compile Remove="AK_Exusiai/**" />

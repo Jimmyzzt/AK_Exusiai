@@ -18,7 +18,7 @@
 - 游戏基线：Slay the Spire 2 public beta `v0.111.0`。
 - Godot：4.5.1 Mono。
 - .NET SDK：9.x；目标框架 `net9.0`。
-- RitsuLib：编译依赖和清单最低运行时依赖均为 `STS2.RitsuLib` 0.6.3。本机 2026-10-01 核对的工坊运行时为 0.6.3，包含游戏 API 0.111.0 的兼容程序集。后续每次构建或发布前核对 NuGet 最新稳定版，升级编译包与清单最低版本，并回归；保留明确版本号以便复现构建。
+- RitsuLib：编译依赖和清单最低运行时依赖均为 `STS2.RitsuLib` 0.6.6。本机 2026-10-07 核对的工坊运行时为 0.6.6，包含游戏 API 0.111.0 的兼容程序集。后续每次构建或发布前核对 NuGet 最新稳定版，升级编译包与清单最低版本，并回归；保留明确版本号以便复现构建。
 - 各自通过未跟踪的 `local.props` 配置游戏和 Godot 路径；模板见 `local.props.template`。共享文件不得包含绝对路径。
 
 游戏、NuGet 编译包和工坊 RitsuLib 运行时必须在所用 API 上兼容；版本号相同也不能代替兼容性验证。以最新稳定版为开发基线；更新时先核对游戏 API、NuGet 包和工坊运行时，再编译并回归。历史审计记录见 `docs/archive/FRAMEWORK_AUDIT.md`。
@@ -49,6 +49,8 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 
 构建只部署能天使自身的 DLL、PCK 和 JSON。RitsuLib 运行时由玩家和开发者订阅的 Steam 创意工坊条目提供，不要手动复制或打包进本 Mod。旧版 RitsuLib NuGet 包的 `buildTransitive/STS2.RitsuLib.targets` 会在 `local.props` 设置 `RitsuLibDeployDir` 时自动复制旧框架；项目固定 `RitsuLibAutoCopy=false` 以禁止此行为，包括本机配置仍保留该旧属性的情况。升级 NuGet 时复查其构建目标。纯文档修改检查链接、路径、事实和 `git diff --check` 即可，不必启动游戏或重复编译。编辑器所需 Spine 扩展需单独准备，见开发说明。
 
+维护者已订阅工坊 RitsuLib：禁止在游戏本地 `mods/` 下创建或更新任何 RitsuLib 副本，也不要为了启动测试临时复制。编译依赖只留在 NuGet/构建缓存中，运行时使用工坊订阅；升级前后保持 `RitsuLibAutoCopy=false`。新测试工程同样必须关闭该属性；`Directory.Build.targets` 对仓库内所有项目统一禁用复制，强行通过命令行开启会报错。不要只检查主工程后就假设传递依赖的测试项目也安全。
+
 ## 3. 目录与注册约定
 
 - `AK_ExusiaiCode/Cards/`：卡牌，一张主牌一个文件。
@@ -59,6 +61,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `AK_Exusiai/localization/{zhs,eng}/`：简中与英文。
 - `AK_Exusiai/images/`、`audio/`：运行时最终资源。
 - `references/{official,free}/`：可复现制作所需的源素材及来源记录。
+- `stat/`：社区统计方案、网页、Worker/D1 及统计集成代码；确认清单见 `stat/PLAN.md`，构建与部署见 `stat/README.md`。该目录隔离于 Godot 扫描与 PCK 导出，仅显式编译 `stat/mod/` 的 C# 文件。
 
 注册优先使用 RitsuLib：
 
