@@ -2,6 +2,7 @@ using AK_Exusiai.Powers;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Patching.Models;
 
 namespace AK_Exusiai.Patches;
@@ -26,7 +27,8 @@ internal sealed class InterferencePatch : IPatchMethod
         foreach (AbstractModel model in models)
         {
             if (model is PowerModel power &&
-                power is not SilencePower &&
+                // Swipe only returns stolen cards on death; Silence must not suppress that cleanup.
+                power is not (SilencePower or SwipePower) &&
                 power.Owner.HasPower<SilencePower>() &&
                 power.TypeForCurrentAmount == PowerType.Buff)
             {

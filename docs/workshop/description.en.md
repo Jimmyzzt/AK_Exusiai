@@ -4,7 +4,10 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 
 ## V1.3 update notes
 
-**Laterano and Penguin Logistics join as two new Ancients, with 20 Ancient relics between them!** A few cards also received balance adjustments. See the [changelog](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) for details.
+> **Laterano and Penguin Logistics join as two new Ancients, with 20 Ancient relics between them!** A few cards also received balance adjustments. See the [changelog](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) for details.
+>
+> We have added optional **statistics** to help understand card performance and balance. De-identified data from subsequent Exusiai runs is uploaded only after you explicitly grant permission through RitsuLib.
+> Visit the [Exusiai statistics website](https://exusiai.zzt.si/) to explore aggregated community data, including card and relic performance, pick rates, and win rates. A [backup site](https://jimmyzzt.github.io/AK_Exusiai/) is also available.
 
 ## Content
 
@@ -21,11 +24,11 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 - **Penguin Logistics** — From her best friends. Use Delivery to temporarily send Relics away in exchange for benefits, then use Transit to obtain temporary Relics. Emperor, Texas, Exusiai, Croissant, Sora, Bison, Yith, and Mostima also show up as Penguin Logistics cards to lend a hand.
 - **Communications Technology** — Inspired by her high-school studies. Use Interference and Silence to suppress enemies. Each stack of Interference slightly reduces the damage dealt by that enemy's attacks for the rest of combat. The first time an enemy gains Interference, it also gains Silence, disabling its passive abilities for the turn. Passive abilities include effects such as Strength, The Insatiable's Sandpit, Aeonglass's Withering Presence, and Test Subject's Adaptable.
 
-## Installation and compatibility
+## Compatibility
 
 > **Currently supports beta version 0.111 only.**
 
-Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295). In multiplayer, every player should use matching game, mod, and dependency versions, with content mods in the same load order.
+Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295).
 
 ## Credits and assets
 
