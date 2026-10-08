@@ -13,7 +13,7 @@ try {
   delete process.env.STAT_API_ORIGIN;
   execFileSync(process.execPath,[resolve(stat,'scripts/build.mjs')],{cwd:stat,stdio:'inherit'});
   execFileSync(process.execPath,[resolve(stat,'node_modules/typescript/bin/tsc'),'--noEmit'],{cwd:stat,stdio:'inherit'});
-  execFileSync(process.execPath,['--test','tests/worker.test.mjs','tests/web.test.mjs'],{cwd:stat,stdio:'inherit'});
+  execFileSync(process.execPath,['--test','tests/worker.test.mjs','tests/web.test.mjs','tests/card-metadata.test.mjs'],{cwd:stat,stdio:'inherit'});
   report.build_id=JSON.parse(await readFile(join(stat,'dist/build.json'),'utf8')).build_id;
   runWrangler(['deploy','--dry-run']);
   stage='worker'; runWrangler(['d1','migrations','apply','exusiai-stat','--remote']); runWrangler(['deploy']); report.worker='deployed';

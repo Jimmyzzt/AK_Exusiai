@@ -4,12 +4,15 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative} from 'node:path';
 import sharp from 'sharp';
+import {cardMetadata} from './card-metadata.mjs';
 const root=new URL('../../',import.meta.url), dist=new URL('../dist/',import.meta.url);
 const read=(path)=>readFile(new URL(path,root),'utf8');
-const catalog=[];
+const catalog=[],translations={};
 for(const [file,kind] of [['cards','card'],['relics','relic']]) {
   const zh=JSON.parse(await read(`AK_Exusiai/localization/zhs/${file}.json`));
   const en=JSON.parse(await read(`AK_Exusiai/localization/eng/${file}.json`));
+  translations[file]={zhs:zh,eng:en};
+  if(file==='cards')for(const language of ['zhs','eng'])Object.assign(translations.cards[language],JSON.parse(await read(`AK_Exusiai/localization/${language}/static_hover_tips.json`)));
   for(const [key,name] of Object.entries(zh)) {
     if(!key.endsWith('.title') || !key.startsWith(`AK_EXUSIAI_${kind.toUpperCase()}_`)) continue;
     const id=key.slice(0,-6);
@@ -46,8 +49,7 @@ for(const folder of ['Cards','Relics']) {
       const slug=m[1].replace(/([a-z0-9])([A-Z])/g,'$1_$2').replace(/([A-Z])([A-Z][a-z])/g,'$1_$2').toUpperCase();
       const item=catalog.find(c=>c.id===`AK_EXUSIAI_${folder==='Cards'?'CARD':'RELIC'}_${slug}`);
       if(!item) continue;
-      const cardType=source.match(/: base\([^,]+, CardType\.(\w+), CardRarity\.(\w+)/);
-      if(folder==='Cards' && cardType) {item.type=cardType[1];item.rarity=cardType[2];}
+      if(folder==='Cards')Object.assign(item,cardMetadata(source,item.id,translations.cards));
       const input=new URL(`AK_Exusiai/images/${folder.toLowerCase()}/${m[1]}.png`,root);
       let bytes;try {bytes=await readFile(input);}catch(error){if(error.code==='ENOENT')continue;throw error;}
       let pipeline=sharp(bytes);
@@ -67,6 +69,7 @@ const fingerprint=createHash('sha256');
 for(const path of ['web/index.html','web/app.js','web/metrics.js','web/style.css','worker/src/index.ts','worker/src/analytics.ts','worker/src/baselines.ts','worker/src/steam.ts','worker/src/tags.mjs','worker/src/store-details.ts','worker/src/validation.mjs','mod/ExusiaiTelemetry.cs','mod/ExusiaiUploadAdapter.cs','mod/RunStatistics.cs','mod/DetailedStatistics.cs','mod/ActSnapshots.cs']) fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
 fingerprint.update(JSON.stringify(catalog));
 fingerprint.update(guide);
+fingerprint.update(await readFile(new URL('./card-metadata.mjs',import.meta.url)));
 const buildId=fingerprint.digest('hex').slice(0,12);
 await writeFile(new URL('build.json',dist),JSON.stringify({commit,build_id:buildId,built_at:new Date().toISOString(),api:process.env.STAT_API_ORIGIN || 'https://exusiai.zzt.si'}));
 await writeFile(new URL('.nojekyll',dist),'');
