@@ -16,7 +16,7 @@ async function authorization(){
 }
 async function api(path,options={}){
  operation=path.split('?')[0];const response=await fetch(origin+'/api/publication/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+await authorization()},signal:AbortSignal.timeout(60000)});
- if(!response.ok)throw new Error('Publication service HTTP '+response.status);const data=await response.json();if(data.usage)for(const k of Object.keys(usage))usage[k]+=data.usage[k]||0;return data;
+ if(!response.ok)throw Object.assign(new Error('Publication service HTTP '+response.status),{status:response.status});const data=await response.json();if(data.usage)for(const k of Object.keys(usage))usage[k]+=data.usage[k]||0;return data;
 }
 async function preserve(previous){
  if(!previous)throw new Error('No successful release to preserve');
@@ -72,7 +72,7 @@ try{
   if(!published)await preserve(previous);
  }
 }catch(error){
- console.error(JSON.stringify({event:'publication_failed',operation,usage}));
+ console.error(JSON.stringify({event:'publication_failed',operation,http_status:Number.isInteger(error.status)?error.status:null,usage}));
  if(previous)await preserve(previous);process.exitCode=1;
 }
 

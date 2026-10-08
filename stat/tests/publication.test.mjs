@@ -4,7 +4,11 @@ import {createHash} from 'node:crypto';
 import {checkClaims,verifier,AUDIENCE} from '../worker/src/publisher-auth.mjs';
 import {staticSource} from '../web/static-data.mjs';
 import {emptyBlock} from '../shared/statistics.mjs';
-import {readFile,readdir} from 'node:fs/promises';
+import {readFile,readdir,mkdtemp,rm,writeFile} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {writeRelease} from '../scripts/public-release.mjs';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {initializePublication} from '../worker/src/initialize.mjs';
 const now=1750000000;
@@ -50,6 +54,21 @@ function release(revision=1){
  const bytes=Buffer.from(JSON.stringify(bundle)),sha256=createHash('sha256').update(bytes).digest('hex');
  return {bundle,manifest:{schema_version:1,generated_at:revision,source_revision:bundle.source_revision,model:bundle.model,previous:null,file:'statistics-'+sha256+'.json',sha256,bytes:bytes.length},bytes};
 }
+test('website publication retains current and previous data; invalid retention cannot replace the last manifest',async()=>{
+ const directory=await mkdtemp(join(tmpdir(),'exusiai-publication-')),folder=pathToFileURL(directory+'/');
+ try{
+  const first=release(),second=release(2);
+  const one=await writeRelease(first.bundle,folder,null);
+  const two=await writeRelease(second.bundle,folder,{manifest:one,bundle:first.bundle});
+  assert.equal(two.previous.sha256,one.sha256);
+  assert.deepEqual((await readdir(folder)).sort(),['manifest.json',one.file,two.file].sort());
+  assert.deepEqual(await writeRelease(second.bundle,folder,{manifest:two,bundle:second.bundle}),two);
+  const before=await readFile(new URL('manifest.json',folder),'utf8');
+  await writeFile(new URL(one.file,folder),'corrupted');
+  await assert.rejects(writeRelease(second.bundle,folder,{manifest:two,bundle:second.bundle}),/integrity/);
+  assert.equal(await readFile(new URL('manifest.json',folder),'utf8'),before);
+ }finally{await rm(directory,{recursive:true,force:true});}
+});
 test('manifest-only refresh, content integrity, offline startup and malformed update keep the last release',async()=>{
  const first=release(),second=release(2);let current=first,broken=false,offline=false,downloads=0,saved=null;
  const cache={get:async()=>saved,set:async v=>{saved=v;}};
