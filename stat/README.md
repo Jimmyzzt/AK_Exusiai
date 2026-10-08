@@ -1,6 +1,6 @@
 # 能天使社区统计
 
-首版已实现并部署：[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。两站共用 Worker API，只公开聚合统计。Mod 上传需玩家在 RitsuLib 中授权，不补传历史存档。
+首版已实现并部署：[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。两站展示 GitHub Pages 发布的聚合 JSON；浏览器筛选不调用 D1 统计 API。Mod 上传需玩家在 RitsuLib 中授权，不补传历史存档。
 
 目录：
 
@@ -22,7 +22,7 @@ npm run migrate:local
 npm run dev
 ```
 
-停止本地开发服务器后，使用已登录的 Cloudflare/GitHub 账号执行 `npm run publish`，发布 Worker 并触发 main 的 GitHub Pages 工作流；请先提交推送相应源码。卡图、本地化和网页推送后自动更新 Pages，Worker 静态页面共享这一发布，无需 Cloudflare CI 密钥。单独 `npm run deploy` 只更新 Worker。
+静态发布、迁移、OIDC与重建操作见 [实施报告](docs/STATIC_PUBLICATION.md)。首次上线需执行有界 bootstrap。停止本地开发服务器后，使用已登录的 Cloudflare/GitHub 账号执行 `npm run publish`，发布 Worker 并触发 main 的 GitHub Pages 工作流；请先提交推送相应源码。卡图、本地化和网页推送后自动更新 Pages，Worker 静态页面共享这一发布，无需 Cloudflare CI 密钥。单独 `npm run deploy` 只更新 Worker。
 
 统计 v2 已扩展新局的逐幕、升级版、选牌和战斗摘要；旧局保留，缺失指标显示“—”。最新采集包仍需在游戏中验证跨幕存档、联机和局终上传，并由维护者发布工坊。算法和参考站差异见 [指标方法](docs/METRICS.md)。
 

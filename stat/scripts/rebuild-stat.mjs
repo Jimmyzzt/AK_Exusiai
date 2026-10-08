@@ -1,0 +1,12 @@
+import {execFileSync} from 'node:child_process';
+import {writeFile,mkdir} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+const remote=process.argv.includes('--remote'),local=process.argv.includes('--local');
+if(remote===local)throw new Error('Choose --local or --remote explicitly');
+const stat=fileURLToPath(new URL('../',import.meta.url)),file=new URL('../.publish/rebuild.sql',import.meta.url);
+await mkdir(new URL('../.publish/',import.meta.url),{recursive:true});
+const resetPolicy=process.argv.includes('--reset-pair-policy');
+const sql="UPDATE stat_state SET cooldown=0"+(resetPolicy?",policy='null',catalog_revision=catalog_revision+1":"")+" WHERE id=1;\nINSERT INTO stat_dirty(run_id) SELECT id FROM runs UNION SELECT run_id FROM stat_facts WHERE true ON CONFLICT(run_id) DO UPDATE SET generation=generation+1;";
+await writeFile(file,sql);
+execFileSync(process.execPath,[fileURLToPath(new URL('../node_modules/wrangler/bin/wrangler.js',import.meta.url)),'d1','execute','exusiai-stat',remote?'--remote':'--local','--config','worker/wrangler.jsonc','--file',fileURLToPath(file)],{cwd:stat,stdio:'inherit'});
+console.log('Rebuild queued without deleting history or the last published release. Dispatch stat-data.yml with bootstrap=true for a bounded backfill.');

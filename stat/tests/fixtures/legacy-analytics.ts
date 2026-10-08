@@ -1,5 +1,5 @@
-import {filters} from './validation.mjs';
-import {PROTECTED_MODS} from './tags.mjs';
+import {filters} from '../../worker/src/validation.mjs';
+import {PROTECTED_MODS} from '../../worker/src/tags.mjs';
 export type Filter=ReturnType<typeof filters>;
 type Row=Record<string,string|number|null>;
 export function selected(f:Filter) {
@@ -14,11 +14,11 @@ export function selected(f:Filter) {
   const snap=f.act==='all'?'r.max_act':f.act==='standard'?'MIN(r.max_act,3)':f.act;
   const floor=f.act==='all'?'r.floor':f.act==='standard'?'CASE WHEN r.detailed THEN r.floor3 WHEN NOT r.extended THEN r.floor END':`(SELECT a.floors FROM run_acts a WHERE a.run_id=r.id AND a.act=${f.act})`;
   const extra=`EXISTS(SELECT 1 FROM cohort_mods m LEFT JOIN mod_catalog c ON c.id=m.mod_id WHERE m.cohort_id=r.cohort_id AND (c.primary_tag='acts' OR m.mod_id IN('ActLikeIt2','EndlessMode','ActToggler','YUILongMap')))`;
-  const cte=`WITH candidates AS MATERIALIZED (
-    SELECT r.id,r.day,r.version,r.revision,r.ascension,r.players,r.mode,r.abandoned,r.cohort_id,r.victory,r.floor,r.duration,d.run_id IS NOT NULL detailed,d.floor3,COALESCE(d.max_act,MAX(1,COALESCE((SELECT MAX(e.act) FROM entities e WHERE e.run_id=r.id),1))) max_act,${extra} extended,
+  const cte=`WITH candidates AS (
+    SELECT r.*,d.run_id IS NOT NULL detailed,d.floor3,COALESCE(d.max_act,MAX(1,COALESCE((SELECT MAX(e.act) FROM entities e WHERE e.run_id=r.id),1))) max_act,${extra} extended,
       COALESCE(d.win3,CASE WHEN EXISTS(SELECT 1 FROM entities e WHERE e.run_id=r.id AND e.act>3) THEN 1 WHEN ${extra} THEN NULL ELSE r.victory END) standard_win
     FROM runs r LEFT JOIN run_details d ON d.run_id=r.id
-  ), selected AS ${f.exclude.length||f.tags.length||f.tag_mode==='white'?'MATERIALIZED ':''}(SELECT r.*,${f.act==='all'?'r.victory':'r.standard_win'} w,${floor} scope_floor,${snap} snapshot_act FROM candidates r ${terms.length?'WHERE '+terms.join(' AND '):''})`;
+  ), selected AS (SELECT r.*,${f.act==='all'?'r.victory':'r.standard_win'} w,${floor} scope_floor,${snap} snapshot_act FROM candidates r ${terms.length?'WHERE '+terms.join(' AND '):''})`;
   return {cte,values};
 }
 const scope=(a:string,f:Filter)=>f.act==='all'?`${a}.act>0`:f.act==='standard'?`${a}.act BETWEEN 1 AND 3`:`${a}.act=${f.act}`;
@@ -65,4 +65,14 @@ export async function calculate(db:D1Database,f:Filter) {
   for(const counts of overall.results){const target=entities.find(e=>e.id===counts.id&&e.variant===counts.variant&&e.act===0);if(target)Object.assign(target,counts);}
   const mods=results[7].results.filter(m=>!PROTECTED_MODS.includes(String(m.id))).map(m=>({...m,official_tags:JSON.parse(String(m.official_tags))}));
   return {schema:'exusiai.statistics.v1',updated_at:Date.now(),filters:f,overview:results[0].results[0],entities,mods,versions:results[8].results,sample_unit:'exusiai_player_run',model:'personal-logistic-floor-v2'};
+}
+export async function snapshot(db:D1Database,f:Filter,force=false) {
+  const key=JSON.stringify(f),now=Date.now();
+  const old=await db.prepare('SELECT updated_at,payload FROM snapshots WHERE key=?').bind(key).first<{updated_at:number;payload:string}>();
+  if(!force&&old&&now-old.updated_at<900000)return JSON.parse(old.payload);
+  try {
+    const result=await calculate(db,f);
+    await db.batch([db.prepare('INSERT INTO snapshots(key,updated_at,payload) VALUES(?,?,?) ON CONFLICT(key) DO UPDATE SET updated_at=excluded.updated_at,payload=excluded.payload').bind(key,result.updated_at,JSON.stringify(result)),db.prepare('DELETE FROM snapshots WHERE key NOT IN(SELECT key FROM snapshots ORDER BY updated_at DESC LIMIT 128)')]);
+    return result;
+  }catch(error){if(old)return {...JSON.parse(old.payload),stale:true};throw error;}
 }

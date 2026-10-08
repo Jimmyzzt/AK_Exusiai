@@ -1,0 +1,59 @@
+name: Shared statistics release
+on:
+  workflow_call:
+    inputs:
+      reuse_site:
+        type: boolean
+        default: false
+      bootstrap:
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: stat-pages-shared
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: stat/package-lock.json
+      - run: npm ci
+        working-directory: stat
+      - name: Prepare full website or reuse the last successful artifact
+        id: prepare
+        run: node scripts/prepare-site.mjs ${{ inputs.reuse_site && '--reuse' || '' }}
+        working-directory: stat
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Maintain bounded rollups and generate validated public JSON
+        id: statistics
+        run: node scripts/publish-data.mjs
+        working-directory: stat
+        env:
+          STAT_BOOTSTRAP: ${{ inputs.bootstrap }}
+      - uses: actions/configure-pages@v5
+        if: steps.prepare.outputs.website_changed == 'true' || steps.statistics.outputs.stats_changed == 'true'
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.prepare.outputs.website_changed == 'true' || steps.statistics.outputs.stats_changed == 'true'
+        with:
+          path: stat/dist
+      - name: Atomically publish website and statistics together
+        if: steps.prepare.outputs.website_changed == 'true' || steps.statistics.outputs.stats_changed == 'true'
+        id: deploy
+        uses: actions/deploy-pages@v4

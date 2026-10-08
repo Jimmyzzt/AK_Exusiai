@@ -1,3 +1,4 @@
+import {applySchema} from './helpers/schema.mjs';
 import {test,before,after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile,readdir} from 'node:fs/promises';
@@ -14,9 +15,7 @@ before(async()=>{
   ({staticPage}=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64')));
   mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:result.outputFiles[0].text,compatibilityDate:'2026-10-06',d1Databases:{DB:'test-db'},bindings:{UPLOAD_ENABLED:'true'},serviceBindings:{ASSETS:async()=>new Response('static')},ratelimits:{UPLOAD_LIMIT:{namespace_id:'1001',simple:{limit:1000,period:60}}}}));
   db=await mf.getD1Database('DB');
-  const sql=(await Promise.all((await readdir('worker/migrations')).sort().map(name=>readFile('worker/migrations/'+name,'utf8')))).join('\n');
-  // D1 exec expects each complete statement on a line.
-  await db.exec(sql.replace(/--[^\n]*/g,'').split(';').map(s=>s.trim().replace(/\s+/g,' ')).filter(Boolean).join(';\n')+';');
+ await applySchema(db);
   const analytics=await build({entryPoints:['worker/src/analytics.ts'],bundle:true,write:false,format:'esm',platform:'node'});
   ({calculate}=await import('data:text/javascript;base64,'+Buffer.from(analytics.outputFiles[0].text).toString('base64')));
   const steam=await build({entryPoints:['worker/src/steam.ts'],bundle:true,write:false,format:'esm',platform:'node'});
@@ -33,19 +32,7 @@ test('no raw identity or out-of-catalog fields accepted',()=>{
   assert.equal(filters(new URL('https://x/api/stats?ascension=10')).ascension,'10');
   assert.throws(()=>filters(new URL('https://x/api/stats?ascension=11')),InvalidInput);
 });
-test('refresh uses the same 15-minute snapshot instead of recomputing after every upload',async()=>{
-  const uri='https://test.local/api/stats?ascension=0';
-  const old=await(await mf.dispatchFetch(uri)).json();
-  assert.equal((await send('/api/upload',run('0',{ascension:0}),token2)).status,200);
-  const refreshed=await(await mf.dispatchFetch(uri)).json();
-  assert.equal(refreshed.updated_at,old.updated_at);
-  assert.equal(refreshed.overview.runs,old.overview.runs);
-  // A different edge bypasses its Cache API entry, but still reuses the shared D1 snapshot.
-  const coldEdge=await(await mf.dispatchFetch('https://another-edge.local/api/stats?ascension=0')).json();
-  assert.equal(coldEdge.updated_at,old.updated_at);
-  assert.equal(coldEdge.overview.runs,old.overview.runs);
-  await db.exec("DELETE FROM runs WHERE ascension=0; DELETE FROM cohorts WHERE ascension=0; DELETE FROM snapshots;");
-});
+test('retired public statistics route cannot create a snapshot or trigger a D1 calculation',async()=>{for(const method of ['GET','POST'])assert.equal((await mf.dispatchFetch('https://test.local/api/stats?ascension=0',{method})).status,410);assert.equal((await db.prepare('SELECT COUNT(*) n FROM snapshots').first()).n,0);assert.equal((await mf.dispatchFetch('https://test.local/api/publication/status')).status,401);});
 test('persist before ack, retry deduplicates, acts count player-runs once, mod exclusions and abandon switch',async()=>{
   assert.equal((await send('/api/upload',run())).status,200);
   assert.equal((await (await send('/api/upload',run())).json()).duplicate,true);
@@ -53,14 +40,14 @@ test('persist before ack, retry deduplicates, acts count player-runs once, mod e
   assert.equal((await send('/api/upload',run('b',{victory:false,abandoned:true,mods:[...run().mods,{id:'BalanceMod',version:'1'}]}))).status,200);
   assert.equal((await send('/api/upload',run('c',{players:2,victory:false}),token2)).status,200);
   assert.equal((await send('/api/upload',run('d',{victory:false}),token2)).status,200);
-  const solo=await(await mf.dispatchFetch('https://test.local/api/stats')).json();
+  const solo=await calculate(db,filters(new URL('https://test.local/api/stats')));
   assert.equal(solo.overview.runs,2);assert.equal(solo.overview.wins,1);
   const act=solo.entities.find(x=>x.act===1);assert.equal(act.picked,4);assert.equal(act.picked_runs,2);assert.equal(act.picked_wins,1);
-  const all=await(await mf.dispatchFetch('https://test.local/api/stats?party=all&abandoned=loss')).json();
+  const all=await calculate(db,filters(new URL('https://test.local/api/stats?party=all&abandoned=loss')));
   assert.equal(all.overview.runs,4);assert.equal(all.overview.wins,1);assert.equal(all.overview.abandoned,1);
-  const excluded=await(await mf.dispatchFetch('https://test.local/api/stats?party=all&abandoned=loss&exclude=BalanceMod')).json();
+  const excluded=await calculate(db,filters(new URL('https://test.local/api/stats?party=all&abandoned=loss&exclude=BalanceMod')));
   assert.equal(excluded.overview.runs,3);
-  const revision=await(await mf.dispatchFetch('https://test.local/api/stats?revision=other')).json();assert.equal(revision.overview.runs,0);
+  const revision=await calculate(db,filters(new URL('https://test.local/api/stats?revision=other')));assert.equal(revision.overview.runs,0);
   const serialized=JSON.stringify(all);for(const secret of ['owner_hash','received_at','payload',run().id,token])assert.equal(serialized.includes(secret),false);
   assert.equal((await mf.dispatchFetch('https://test.local/api/runs')).status,404);
   assert.equal((await db.prepare('SELECT COUNT(*) n FROM runs').first()).n,4);
@@ -111,7 +98,7 @@ test('v2 third-act wins, upgrade variants, ownership deduplication, frozen WAR a
  assert.equal((await db.prepare('SELECT uses FROM mod_catalog WHERE id=\'ActLikeIt2\'').first()).uses,11);
  const invalid=detailed(28);invalid.details.offers[0].position=2;assert.equal((await send('/api/upload',invalid)).status,422);
 });
-test('tag lists ignore mandatory dependencies; POST and GET share snapshots',async()=>{
+test('tag lists ignore mandatory dependencies; retired query routes stay closed',async()=>{
  await db.prepare("UPDATE mod_catalog SET primary_tag='acts',official_tags='[\"Acts\"]' WHERE id='ActLikeIt2'").run();
  const read=q=>calculate(db,filters(new URL('https://x/api/stats?ascension=7&'+q)));
  assert.equal((await read('tag_mode=black&tags=acts')).overview.runs,0);
@@ -120,7 +107,7 @@ test('tag lists ignore mandatory dependencies; POST and GET share snapshots',asy
  assert.equal((await read('tag_mode=white')).overview.runs,0);
  assert.equal((await read('exclude=AK_Exusiai&exclude=STS2-RitsuLib')).overview.runs,11);
  assert.ok((await read('')).mods.every(m=>!['AK_Exusiai','STS2-RitsuLib'].includes(m.id)));
- const uri='/api/stats',query='ascension=7&act=standard',a=await(await mf.dispatchFetch('https://test.local'+uri+'?'+query)).json(),b=await(await send(uri,{query})).json();assert.equal(a.updated_at,b.updated_at);assert.equal(b.overview.runs,11);
+ assert.equal((await mf.dispatchFetch('https://test.local/api/stats?ascension=7')).status,410);assert.equal((await send('/api/stats',{query:'ascension=7'})).status,410);
 });
 test('Steam official taxonomy, bounded batches, daily refresh and cooldown preserve cached tags',async()=>{
  await db.exec('DELETE FROM enrichment_state; UPDATE mod_catalog SET next_check=9999999999999;');

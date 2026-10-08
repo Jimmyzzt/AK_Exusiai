@@ -14,9 +14,8 @@ export function credential(request) {
 export async function hash(value) {
   return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))), b => b.toString(16).padStart(2, '0')).join('');
 }
-export async function readJson(request) {
+export async function readJson(request,limit=256 * 1024) {
   if (!request.headers.get('Content-Type')?.startsWith('application/json')) fail();
-  const limit = 256 * 1024;
   if (Number(request.headers.get('Content-Length')) > limit) fail();
   const reader = request.body?.getReader();
   if (!reader) fail();
@@ -96,16 +95,5 @@ function validateDetails(v,catalog) {
   if([...counters.keys()].some(k=>!metrics.has(k)))fail();
   for(const f of d.fights){object(f,['act','floor','position','encounter','damage','turns']);point(f);text(f.encounter,512);integer(f.damage,0,1000000);integer(f.turns,1,100000);}
 }
-export function filters(url) {
-  const p = url.searchParams;
-  if ([...p.keys()].some(k=>!['party','mode','abandoned','from','to','version','revision','ascension','exclude','act','split','tag_mode','tags'].includes(k))) fail();
-  const f = {party:p.get('party') || 'solo',mode:p.get('mode') || 'Standard',abandoned:p.get('abandoned') || 'exclude',from:p.get('from') || '',to:p.get('to') || '',version:p.get('version') || '',revision:p.get('revision') || '',ascension:p.get('ascension') || '',exclude:[...new Set(p.getAll('exclude'))].filter(id=>!PROTECTED_MODS.includes(id)).sort(),act:p.get('act')||'standard',split:p.get('split')==='1',tag_mode:p.get('tag_mode')||'black',tags:[...new Set(p.getAll('tags'))].sort()};
-  if (!['solo','multi','all'].includes(f.party) || !['Standard','Daily','Custom','all'].includes(f.mode) || !['exclude','loss'].includes(f.abandoned) || f.exclude.length>512) fail();
-  if(!['standard','all','1','2','3'].includes(f.act)||!['black','white'].includes(f.tag_mode)||f.tags.some(t=>!Object.hasOwn(TAG_GROUPS,t)))fail();
-  for (const day of [f.from,f.to]) if (day && (!/^\d{4}-\d{2}-\d{2}$/.test(day) || new Date(day).toISOString().slice(0,10)!==day)) fail();
-  if (f.from && f.to && f.from > f.to) fail();
-  if (f.ascension && (!/^\d{1,2}$/.test(f.ascension) || Number(f.ascension)>10)) fail();
-  if (f.version.length>64 || f.revision.length>64 || f.exclude.some(m=>m.length>128)) fail();
-  return f;
-}
-import {PROTECTED_MODS,TAG_GROUPS} from './tags.mjs';
+import {filters as normalizeFilters} from '../../shared/filter.mjs';
+export function filters(url){try{return normalizeFilters(url);}catch{throw new InvalidInput();}}

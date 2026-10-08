@@ -1,0 +1,21 @@
+name: Refresh community statistics
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      bootstrap:
+        description: 'Use the bounded initialization budget for an explicit backfill'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+jobs:
+  publish:
+    uses: ./.github/workflows/stat-release.yml
+    with:
+      reuse_site: true
+      bootstrap: ${{ inputs.bootstrap || false }}

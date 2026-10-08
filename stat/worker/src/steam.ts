@@ -1,3 +1,4 @@
+import {metered} from './usage.mjs';
 import {officialTags,primaryTag,PROTECTED_MODS} from './tags.mjs';
 type Row={id:string;title:string;workshop_id:string|null;uses:number;failures:number};
 type SteamItem={publishedfileid:string;result:number;consumer_app_id:number;title:string;tags?:{tag:string}[]};
@@ -8,7 +9,8 @@ async function textBody(response:Response,max=2*1024*1024) {
   for(;;){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;if(length>max){await reader.cancel();throw new Error('Steam response limit');}result+=decoder.decode(value,{stream:true});}
   return result+decoder.decode();
 }
-export async function enrichMods(db:D1Database,now=Date.now(),fetcher:typeof fetch=fetch) {
+export async function enrichMods(database:D1Database,now=Date.now(),fetcher:typeof fetch=fetch) {
+  const {db,usage}=metered(database);try{
   const cooldown=await db.prepare("SELECT value FROM enrichment_state WHERE key='cooldown'").first<{value:number}>();
   if(cooldown && cooldown.value>now)return;
   const lease=await db.prepare("INSERT INTO enrichment_state(key,value) VALUES('lease',?) ON CONFLICT(key) DO UPDATE SET value=excluded.value WHERE enrichment_state.value<=?").bind(now+900000,now).run();
@@ -58,4 +60,5 @@ export async function enrichMods(db:D1Database,now=Date.now(),fetcher:typeof fet
     ]);
     console.warn(JSON.stringify({event:'steam_metadata_deferred',blocked}));
   }
+  }finally{console.info(JSON.stringify({event:'stat_steam_usage',...usage}));}
 }

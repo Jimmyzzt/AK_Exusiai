@@ -9,7 +9,7 @@
   "assets": { "directory": "../dist", "binding": "ASSETS", "run_worker_first": true },
   "d1_databases": [{ "binding": "DB", "database_name": "exusiai-stat", "database_id": "455f5965-2c3f-4d5e-8144-136c9dda3ade", "migrations_dir": "migrations" }],
   "ratelimits": [{ "name": "UPLOAD_LIMIT", "namespace_id": "1001", "simple": { "limit": 30, "period": 60 } }],
-  "vars": { "UPLOAD_ENABLED": "true", "SHARED_PAGES": "true" },
+  "vars": { "UPLOAD_ENABLED": "true", "SHARED_PAGES": "true", "STATIC_STATS_READY": "true" },
   "triggers": { "crons": ["*/15 * * * *"] },
   "observability": { "enabled": true, "logs": { "enabled": true, "invocation_logs": false, "head_sampling_rate": 0.05 }, "traces": { "enabled": true, "head_sampling_rate": 0.01 } }
 }
