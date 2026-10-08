@@ -1,3 +1,4 @@
+import {initializePublication} from './initialize.mjs';
 import {metered} from './usage.mjs';
 import catalog from '../web-catalog.json';
 import { InvalidInput, credential, hash, readJson, validateRun,filters } from './validation.mjs';
@@ -71,12 +72,16 @@ export default {
       if(url.pathname==='/api/health' && request.method==='GET') return json({schema:'exusiai.statistics.v1',status:'ok',uploads:env.UPLOAD_ENABLED==='true'});
       if(url.pathname==='/api/stats'&&String(env.STATIC_STATS_READY)==='false'){
         let target=url;if(request.method==='POST'){const body=await readJson(request);if(typeof body?.query!=='string')throw new InvalidInput();target=new URL(url.origin+'/api/stats?'+body.query);}
-        const row=await env.DB.prepare('SELECT payload FROM snapshots WHERE key=?').bind(JSON.stringify(filters(target))).first<{payload:string}>();
+        try{const ready=await fetch('https://jimmyzzt.github.io/AK_Exusiai/data/manifest.json',{method:'HEAD',signal:AbortSignal.timeout(5000),cf:{cacheTtl:60,cacheEverything:true}});if(ready.ok&&ready.headers.get('Content-Type')?.includes('application/json'))return json({error:'Use the published static statistics'},410);}catch{}
+        const f=filters(target),key=new Request(url.origin+'/api/cache/'+await hash(JSON.stringify(f))),cached=await caches.default.match(key);
+        if(cached)return json({...await cached.json<Record<string,unknown>>(),stale:true});
+        const row=await env.DB.prepare('SELECT payload FROM snapshots WHERE key=?').bind(JSON.stringify(f)).first<{payload:string}>();
         return row?json({...JSON.parse(row.payload),stale:true}):json({error:'Static publication preparing'},503);
       }
       if(url.pathname==='/api/stats')return json({error:'Statistics are published as static JSON',manifest:'https://jimmyzzt.github.io/AK_Exusiai/data/manifest.json'},410);
       if(url.pathname.startsWith('/api/publication/')) {
         const claims=await verifyPublisher(request);if(!claims)return json({error:'Unauthorized'},401);
+        if(url.pathname==='/api/publication/initialize'&&request.method==='POST')return json(await initializePublication(env.DB));
         if(url.pathname==='/api/publication/tick'&&request.method==='POST')return json(await beginWork(env.DB,{bootstrap:url.searchParams.get('bootstrap')==='1'&&claims.event_name==='workflow_dispatch'}));
         if(url.pathname==='/api/publication/status'&&request.method==='GET')return json(await publicationStatus(env.DB));
         if(url.pathname==='/api/publication/work-cells'&&request.method==='GET'){const offset=Number(url.searchParams.get('offset')||0);if(!Number.isInteger(offset)||offset<0||offset>1200)throw new InvalidInput();return json(await workCells(env.DB,url.searchParams.get('nonce'),offset));}

@@ -26,6 +26,7 @@ async function preserve(previous){
 let previous=null,changed=false;
 try{
  previous=await previousRelease(fetch,folder);
+ await api('initialize',{method:'POST'});
  const bootstrap=process.env.STAT_BOOTSTRAP==='true',maxJobs=bootstrap?200:40;
  let state=await api('status');
  for(let i=0;state.pending&&i<maxJobs;i++){

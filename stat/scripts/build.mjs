@@ -6,6 +6,9 @@ import {fileURLToPath} from 'node:url';
 import {relative} from 'node:path';
 import sharp from 'sharp';
 import {cardMetadata} from './card-metadata.mjs';
+const migration=(await readFile(new URL('../worker/migrations/0003_incremental.sql',import.meta.url),'utf8')).replace(/--[^\n]*/g,'');
+const statements=(migration.match(/\s*CREATE TRIGGER[\s\S]*?END;|[^;]+;/g)||[]).map(s=>s.trim());
+await writeFile(new URL('../worker/migration-0003.json',import.meta.url),JSON.stringify(statements,null,2)+'\n');
 const root=new URL('../../',import.meta.url), dist=new URL('../dist/',import.meta.url);
 const read=(path)=>readFile(new URL(path,root),'utf8');
 const catalog=[],translations={};
@@ -68,7 +71,7 @@ await writeFile(new URL('catalog.json',dist),JSON.stringify(catalog));
 let commit='local'; try {commit=execFileSync('git',['-c','safe.directory='+decodeURIComponent(root.pathname).replace(/^\/([A-Z]:)/,'$1').replace(/\/$/,''),'rev-parse','--short','HEAD'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();} catch {}
 const fingerprint=createHash('sha256');
 for(const path of ['web/index.html','web/app.js','web/metrics.js','web/style.css','worker/src/index.ts','worker/src/analytics.ts','worker/src/baselines.ts','worker/src/steam.ts','worker/src/tags.mjs','worker/src/store-details.ts','worker/src/validation.mjs','mod/ExusiaiTelemetry.cs','mod/ExusiaiUploadAdapter.cs','mod/RunStatistics.cs','mod/DetailedStatistics.cs','mod/ActSnapshots.cs']) fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
-for(const path of ['shared/statistics.mjs','shared/public-data.mjs','shared/filter.mjs','web/static-data.mjs','worker/src/incremental.mjs','worker/src/publisher-auth.mjs','worker/src/publication.mjs','worker/src/usage.mjs'])fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
+for(const path of ['shared/statistics.mjs','shared/public-data.mjs','shared/filter.mjs','web/static-data.mjs','worker/src/incremental.mjs','worker/src/publisher-auth.mjs','worker/src/publication.mjs','worker/src/usage.mjs','worker/src/initialize.mjs'])fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
 fingerprint.update(JSON.stringify(catalog));
 fingerprint.update(guide);
 fingerprint.update(await readFile(new URL('./card-metadata.mjs',import.meta.url)));

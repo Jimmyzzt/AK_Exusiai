@@ -1,12 +1,12 @@
 # 能天使社区统计
 
-首版已实现并部署：[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。两站展示 GitHub Pages 发布的聚合 JSON；浏览器筛选不调用 D1 统计 API。Mod 上传需玩家在 RitsuLib 中授权，不补传历史存档。
+网站：[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。本轮改为两站展示 GitHub Pages 发布的聚合 JSON，浏览器本地筛选；生产迁移状态见[实施报告](docs/STATIC_PUBLICATION.md)。Mod 上传需玩家在 RitsuLib 中授权，不补传历史存档。
 
 目录：
 
 - `mod/`：C# 上传集成，由 Mod 项目显式编译。
 - `web/`：GitHub Pages 与 Worker 共用的网页。
-- `worker/`：上传和聚合查询 API、D1 迁移。
+- `worker/`：上传、Steam同步、受控汇总维护与导出、D1迁移。
 - `docs/`：统计方法、隐私和部署文档。
 - `scripts/`：生成内容目录、构建网页和双站发布。
 - `tests/`：Worker/D1 与 Mod 数据提取测试。

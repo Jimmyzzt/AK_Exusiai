@@ -19,8 +19,8 @@ export function indexedCache(){
  return {get:()=>action('readonly',s=>s.get('current')),set:value=>action('readwrite',s=>s.put(value,'current'))};
 }
 export function staticSource({fetcher=fetch,cache=indexedCache(),base=new URL('./data/',location.href)}={}){
- let current=null,restored=false;
- return {async refresh(){
+ let current=null,restored=false,pending=null;
+ async function refresh(){
   if(!restored){restored=true;try{const saved=await cache.get();if(saved){validateManifest(saved.manifest);validateBundle(saved.bundle);const bytes=new TextEncoder().encode(JSON.stringify(saved.bundle));if(bytes.length!==saved.manifest.bytes||await digest(bytes)!==saved.manifest.sha256||saved.bundle.generated_at!==saved.manifest.generated_at)throw new Error('Corrupt cached release');current=saved;}}catch{}}
   try{
    const response=await fetcher(new URL('manifest.json',base),{cache:'no-cache'});if(!response.ok)throw new Error('Manifest unavailable');
@@ -29,5 +29,7 @@ export function staticSource({fetcher=fetch,cache=indexedCache(),base=new URL('.
    const bundle=await readPublished(manifest,fetcher,base);current={manifest,bundle};try{await cache.set(current);}catch{}
    return {bundle,state:'updated'};
   }catch(error){if(current)return {bundle:current.bundle,state:'offline'};throw error;}
- }};
+ }
+ // Manual and automatic checks share one operation; a slower response cannot replace a newer release.
+ return {refresh(){return pending??=(refresh().finally(()=>{pending=null;}));}};
 }
