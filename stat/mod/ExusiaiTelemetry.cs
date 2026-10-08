@@ -19,13 +19,13 @@ namespace AK_Exusiai.Statistics;
 internal static class ExusiaiTelemetry
 {
     internal const string Endpoint = "https://exusiai.zzt.si";
-    internal const string Revision = "cards-v1.3-stat-v1";
+    internal const string Revision = "cards-v1.3-stat-v2";
     private const string EventName = "exusiai.run.v1";
     private static ulong? _localId;
     private static string? _token;
     private static string _identityPath = "";
     private static readonly object IdentityLock = new();
-    private static IDisposable? _started, _loaded, _ended;
+    private static IDisposable? _started, _loaded, _ended, _actEntering;
     private static readonly System.Net.Http.HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(30) };
     private static System.Threading.Timer? _retry;
     private static bool _initialized;
@@ -38,6 +38,7 @@ internal static class ExusiaiTelemetry
         if (_initialized) return;
         _initialized = true;
         _identityPath = ProjectSettings.GlobalizePath("user://exusiai-stat-identity.txt");
+        ActSnapshots.InitializePath(ProjectSettings.GlobalizePath("user://exusiai-stat-acts.json"));
         _localization = new I18N("Exusiai-Statistics", pckFolders: [$"{Entry.ResPath}/localization/statistics"]);
         RitsuLibFramework.RegisterTelemetryApplicant(new TelemetryApplicant
         {
@@ -53,8 +54,13 @@ internal static class ExusiaiTelemetry
                 CaptureFilter = context => context.EventName == EventName,
             }]
         });
-        _started = RitsuLibFramework.SubscribeLifecycle<RunStartedEvent>(e => _localId = LocalContext.GetMe(e.RunState)?.NetId, false);
-        _loaded = RitsuLibFramework.SubscribeLifecycle<RunLoadedEvent>(e => _localId = LocalContext.GetMe(e.RunState)?.NetId, false);
+        _started = RitsuLibFramework.SubscribeLifecycle<RunStartedEvent>(e => { _localId = LocalContext.GetMe(e.RunState)?.NetId; ActSnapshots.Begin(true); }, false);
+        _loaded = RitsuLibFramework.SubscribeLifecycle<RunLoadedEvent>(e => { _localId = LocalContext.GetMe(e.RunState)?.NetId; ActSnapshots.Begin(false); }, false);
+        _actEntering = RitsuLibFramework.SubscribeLifecycle<ActEnteringEvent>(e =>
+        {
+            try { if (RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history")) ActSnapshots.Boundary(e, Token); }
+            catch { Entry.Logger.Warn("Statistics act snapshot unavailable; gameplay is unaffected."); }
+        }, false);
         _ended = RitsuLibFramework.SubscribeLifecycle<RunEndedEvent>(Capture, false);
         var uploadConsent = ModSettingsBindings.Callback(Entry.ModId, "statistics.upload",
             () => RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history"),

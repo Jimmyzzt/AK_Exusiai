@@ -99,12 +99,18 @@ internal static class RunStatistics
         var ownMod = ModManager.GetLoadedMods().FirstOrDefault(m => m.manifest?.id == Entry.ModId);
         var mods = new JsonArray();
         foreach (var mod in ModManager.GetLoadedMods().OrderBy(m => m.manifest?.id, StringComparer.Ordinal))
-            if (mod.manifest is { } manifest) mods.Add(new JsonObject { ["id"] = manifest.id, ["version"] = manifest.version ?? "unknown" });
+            if (mod.manifest is { } manifest)
+            {
+                var metadata = new JsonObject { ["id"] = manifest.id, ["version"] = manifest.version ?? "unknown" };
+                if (!string.IsNullOrWhiteSpace(manifest.name)) metadata["title"] = manifest.name;
+                if (mod.workshopId is > 0) metadata["workshop_id"] = mod.workshopId.Value.ToString();
+                mods.Add(metadata);
+            }
         // Only an HMAC leaves the machine; raw net IDs/start times/seeds are never sent.
         string runId = Convert.ToHexString(HMACSHA256.HashData(Convert.FromHexString(token), Encoding.UTF8.GetBytes($"{run.StartTime}|{run.SerializableRng.Seed}|{me.NetId}"))).ToLowerInvariant();
         return new JsonObject
         {
-            ["schema"] = "exusiai.run.v1", ["id"] = runId, ["_owner_token"] = token,
+            ["schema"] = "exusiai.run.v2", ["id"] = runId, ["_owner_token"] = token,
             ["day"] = evt.OccurredAtUtc.ToString("yyyy-MM-dd"),
             ["version"] = ownMod?.manifest?.version ?? "unknown", ["revision"] = revision,
             ["game_version"] = gameVersion,
@@ -113,6 +119,7 @@ internal static class RunStatistics
             ["victory"] = evt.IsVictory && !evt.IsAbandoned, ["abandoned"] = evt.IsAbandoned,
             ["floor"] = run.FloorReached, ["duration"] = run.RunTime,
             ["mods"] = mods, ["entities"] = new JsonArray(metrics.Values.OrderBy(m => m.Id, StringComparer.Ordinal).ThenBy(m => m.Act).Select(m => (JsonNode)m.Json()).ToArray()),
+            ["details"] = DetailedStatistics.Build(evt, me, token, relicAcquisitions),
         };
     }
 }

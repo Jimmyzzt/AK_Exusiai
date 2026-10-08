@@ -13,7 +13,7 @@ try {
   delete process.env.STAT_API_ORIGIN;
   execFileSync(process.execPath,[resolve(stat,'scripts/build.mjs')],{cwd:stat,stdio:'inherit'});
   execFileSync(process.execPath,[resolve(stat,'node_modules/typescript/bin/tsc'),'--noEmit'],{cwd:stat,stdio:'inherit'});
-  execFileSync(process.execPath,['--test','tests/worker.test.mjs'],{cwd:stat,stdio:'inherit'});
+  execFileSync(process.execPath,['--test','tests/worker.test.mjs','tests/web.test.mjs'],{cwd:stat,stdio:'inherit'});
   report.build_id=JSON.parse(await readFile(join(stat,'dist/build.json'),'utf8')).build_id;
   runWrangler(['deploy','--dry-run']);
   stage='worker'; runWrangler(['d1','migrations','apply','exusiai-stat','--remote']); runWrangler(['deploy']); report.worker='deployed';
@@ -31,8 +31,9 @@ try {
   tempGit(['update-ref','refs/heads/gh-pages',commit]);tempGit(['push','origin','refs/heads/gh-pages:refs/heads/gh-pages']);
   let exists=true;
   try {execFileSync('gh',['api','repos/Jimmyzzt/AK_Exusiai/pages'],{stdio:'pipe'});}catch(error){if(!String(error.stderr).includes('404'))throw error;exists=false;}
-  const config={build_type:'legacy',source:{branch:'gh-pages',path:'/'}};
+  const config={build_type:'workflow'};
   execFileSync('gh',['api','--method',exists?'PUT':'POST','repos/Jimmyzzt/AK_Exusiai/pages','--input','-'],{encoding:'utf8',input:JSON.stringify(config),stdio:['pipe','ignore','inherit']});
+  execFileSync('gh',['workflow','run','stat-pages.yml','--repo','Jimmyzzt/AK_Exusiai','--ref','main'],{stdio:'inherit'});
   report.pages='submitted';
   console.log('Worker: https://exusiai.zzt.si\nGitHub Pages: https://jimmyzzt.github.io/AK_Exusiai/');
 } catch(error) {report[stage]='failed';console.error(`Publish failed at ${stage}; completed deployments remain live. Retry npm run publish after resolving the error.`);process.exitCode=1;}

@@ -51,6 +51,26 @@ var json = result.ToJsonString();
 foreach (var secret in new[] { "123456789", "987654321", "1000000", "private-run-seed", "net_id", "player_id", "rng", "seed", "session_id", "anonymous_install_id" }) Assert(!json.Contains(secret, StringComparison.OrdinalIgnoreCase), "Raw identity/seed escaped sanitizer: " + secret);
 Console.WriteLine("PASS: local-only history, card counts, deterministic private run ID, abandon outcome, identity allowlist.");
 
+Assert(result["schema"]!.GetValue<string>() == "exusiai.run.v2", "New uploads must use detailed schema");
+var detail = result["details"]!;
+Assert(detail["offers"]!.AsArray().Count == 2 && detail["offers"]![0]!["position"]!.GetValue<int>() == 1, "Offer floors and local-only selection details");
+Assert(detail["items"]!.AsArray().Single(i => i!["id"]!.GetValue<string>() == Ancient)!["obtained"]!.GetValue<int>() == 1, "Detailed relic sources must deduplicate too");
+var originalHistory = run.MapPointHistory;
+var upgraded = new SerializableCard { Id = card.Id, CurrentUpgradeLevel = 1 };
+me.Deck.Add(upgraded);
+run.MapPointHistory = Enumerable.Range(1, 4).Select(a => new List<MapPointHistoryEntry>
+{
+    new() { PlayerStats = [new PlayerMapPointHistoryEntry { PlayerId = me.NetId, CurrentHp = a < 4 ? 30 : 0, DamageTaken = 8 }],
+        Rooms = [new MapPointRoomHistoryEntry { RoomType = a < 4 ? MegaCrit.Sts2.Core.Rooms.RoomType.Boss : MegaCrit.Sts2.Core.Rooms.RoomType.Monster, TurnsTaken = 3 }] }
+}).ToList();
+var laterLoss = (JsonObject)build.Invoke(null, [new RunEndedEvent(run, false, true, DateTimeOffset.UtcNow), me, new string('1',64), "v0.111.0"])!;
+Assert(!laterLoss["victory"]!.GetValue<bool>() && laterLoss["details"]!["win3"]!.GetValue<bool>(), "A later-act loss must preserve third-act completion");
+Assert(!laterLoss["details"]!["acts"]![2]!["snapshot_known"]!.GetValue<bool>(), "Missing third-act boundary deck must stay unknown");
+Assert(laterLoss["details"]!["acts"]![3]!["deck"]!.AsArray().Count == 2, "Upgraded and base ownership variants remain distinct");
+Assert(laterLoss["details"]!["fights"]!.AsArray().Count == 4 && laterLoss["details"]!["fights"]![0]!["damage"]!.GetValue<int>() == 8, "Combat summaries must come from history");
+run.MapPointHistory = originalHistory; me.Deck.Remove(upgraded);
+Console.WriteLine("PASS: v2 offer details, relic deduplication, third-act wins, missing boundary coverage, upgrade variants and combat summaries.");
+
 var adapterType = typeof(AK_Exusiai.Entry).Assembly.GetType("AK_Exusiai.Statistics.ExusiaiUploadAdapter")!;
 bool allowed = true;
 var messages = new List<string>();

@@ -22,9 +22,9 @@ npm run migrate:local
 npm run dev
 ```
 
-停止本地开发服务器后，使用已登录的 Cloudflare/GitHub 账号执行 `npm run publish`，从同一份构建发布 Worker 与 `gh-pages`；不会推送源码分支。单独 `npm run deploy` 只更新 Worker。
+停止本地开发服务器后，使用已登录的 Cloudflare/GitHub 账号执行 `npm run publish`，发布 Worker 并触发 main 的 GitHub Pages 工作流；请先提交推送相应源码。卡图、本地化和网页推送后自动更新 Pages，Worker 静态页面共享这一发布，无需 Cloudflare CI 密钥。单独 `npm run deploy` 只更新 Worker。
 
-Mod 已接入入口并通过 C# 构建、提取和上传适配器测试；2026-10-07 临时启用后的游戏启动已确认遥测申请成功注册，测试后原设置恢复。真实对局的授权、上传、离线重试和联机归属仍需游戏内验收。工坊包尚未发布。
+统计 v2 已扩展新局的逐幕、升级版、选牌和战斗摘要；旧局保留，缺失指标显示“—”。最新采集包仍需在游戏中验证跨幕存档、联机和局终上传，并由维护者发布工坊。算法和参考站差异见 [指标方法](docs/METRICS.md)。
 
 遥测申请和统计设置文案统一位于 `AK_Exusiai/localization/statistics/zhs.json`、`eng.json`（相对仓库根目录）。其中 `consent` 为权限说明，`title` 为申请名称。RitsuLib 的 I18N 使用“目录/语言.json”布局，自动跟随游戏语言并回退英文。设置仅有上传授权开关和网站入口；已移除删除数据、身份刷新及相关网页/API。不要修改已有 `ApplicantId`、`RequestId` 或事件名，否则会影响授权/队列关联。
 

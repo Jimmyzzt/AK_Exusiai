@@ -3,6 +3,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative} from 'node:path';
+import sharp from 'sharp';
 const root=new URL('../../',import.meta.url), dist=new URL('../dist/',import.meta.url);
 const read=(path)=>readFile(new URL(path,root),'utf8');
 const catalog=[];
@@ -27,6 +28,15 @@ await mkdir(dist,{recursive:true});
 await cp(new URL('../web/',import.meta.url),dist,{recursive:true});
 await mkdir(new URL('art/',dist),{recursive:true});
 await cp(new URL('AK_Exusiai/images/character/exusiai_icon.png',root),new URL('art/portrait.png',dist));
+await sharp(fileURLToPath(new URL('references/official/asset/立绘_新约能天使_1.png',root)))
+  .resize({height:880,withoutEnlargement:true}).webp({quality:90}).toFile(fileURLToPath(new URL('art/hero.webp',dist)));
+// Read the skill guide from the art tool; keep webpage framing synchronized with that source.
+const guide=await read('tools/card_art_manager/card_art_preview.gd');
+const skillGuide=/else:\s*\n\t\tnormalized_points = \[([\s\S]*?)\]/.exec(guide)?.[1];
+if(!skillGuide) throw new Error('Skill portrait guide not found');
+const points=[...skillGuide.matchAll(/Vector2\(([\d.]+), ([\d.]+)\)/g)].map(m=>[+m[1],+m[2]]);
+if(points.length!==4) throw new Error('Unexpected skill portrait guide');
+const crop={left:Math.min(...points.map(p=>p[0])),right:Math.max(...points.map(p=>p[0])),top:Math.min(...points.map(p=>p[1])),bottom:Math.max(...points.map(p=>p[1]))};
 for(const folder of ['Cards','Relics']) {
   const dir=new URL(`AK_ExusiaiCode/${folder}/`,root);
   for(const file of await readdir(dir)) {
@@ -38,7 +48,15 @@ for(const folder of ['Cards','Relics']) {
       if(!item) continue;
       const cardType=source.match(/: base\([^,]+, CardType\.(\w+), CardRarity\.(\w+)/);
       if(folder==='Cards' && cardType) {item.type=cardType[1];item.rarity=cardType[2];}
-      try { await cp(new URL(`AK_Exusiai/images/${folder.toLowerCase()}/${m[1]}.png`,root),new URL(`art/${m[1]}.png`,dist)); item.art=`art/${m[1]}.png`; } catch {}
+      const input=new URL(`AK_Exusiai/images/${folder.toLowerCase()}/${m[1]}.png`,root);
+      let bytes;try {bytes=await readFile(input);}catch(error){if(error.code==='ENOENT')continue;throw error;}
+      let pipeline=sharp(bytes);
+      if(folder==='Cards') {
+        const meta=await pipeline.metadata(),left=Math.round(meta.width*crop.left),top=Math.round(meta.height*crop.top);
+        pipeline=pipeline.extract({left,top,width:Math.round(meta.width*crop.right)-left,height:Math.round(meta.height*crop.bottom)-top});
+      }
+      await pipeline.webp({quality:92}).toFile(fileURLToPath(new URL(`art/${m[1]}.webp`,dist)));
+      item.art=`art/${m[1]}.webp`;item.art_revision=createHash('sha256').update(bytes).update(JSON.stringify(crop)).digest('hex').slice(0,12);
     }
   }
 }
@@ -46,8 +64,9 @@ await writeFile(new URL('../worker/web-catalog.json',import.meta.url),JSON.strin
 await writeFile(new URL('catalog.json',dist),JSON.stringify(catalog));
 let commit='local'; try {commit=execFileSync('git',['-c','safe.directory='+decodeURIComponent(root.pathname).replace(/^\/([A-Z]:)/,'$1').replace(/\/$/,''),'rev-parse','--short','HEAD'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();} catch {}
 const fingerprint=createHash('sha256');
-for(const path of ['web/index.html','web/app.js','web/style.css','worker/src/index.ts','worker/src/statistics.ts','worker/src/validation.mjs','mod/ExusiaiTelemetry.cs','mod/ExusiaiUploadAdapter.cs','mod/RunStatistics.cs']) fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
+for(const path of ['web/index.html','web/app.js','web/metrics.js','web/style.css','worker/src/index.ts','worker/src/analytics.ts','worker/src/baselines.ts','worker/src/steam.ts','worker/src/tags.mjs','worker/src/store-details.ts','worker/src/validation.mjs','mod/ExusiaiTelemetry.cs','mod/ExusiaiUploadAdapter.cs','mod/RunStatistics.cs','mod/DetailedStatistics.cs','mod/ActSnapshots.cs']) fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
 fingerprint.update(JSON.stringify(catalog));
+fingerprint.update(guide);
 const buildId=fingerprint.digest('hex').slice(0,12);
 await writeFile(new URL('build.json',dist),JSON.stringify({commit,build_id:buildId,built_at:new Date().toISOString(),api:process.env.STAT_API_ORIGIN || 'https://exusiai.zzt.si'}));
 await writeFile(new URL('.nojekyll',dist),'');

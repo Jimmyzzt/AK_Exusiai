@@ -1,0 +1,45 @@
+name: Publish statistics website
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'stat/**'
+      - 'AK_Exusiai/images/**'
+      - 'AK_Exusiai/localization/**'
+      - 'AK_ExusiaiCode/Cards/**'
+      - 'AK_ExusiaiCode/Relics/**'
+      - 'references/official/asset/立绘_新约能天使_1.png'
+      - 'tools/card_art_manager/card_art_preview.gd'
+      - '.github/workflows/stat-pages.yml'
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: stat-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: stat/package-lock.json
+      - run: npm ci
+        working-directory: stat
+      - run: npm run build && npm run check && npm test
+        working-directory: stat
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: stat/dist
+      - name: Deploy the shared static release
+        id: deploy
+        uses: actions/deploy-pages@v4

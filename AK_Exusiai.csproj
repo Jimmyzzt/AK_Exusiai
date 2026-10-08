@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer" Version="2.3.2" PrivateAssets="all" />
-    <PackageReference Include="STS2.RitsuLib" Version="0.6.6" GeneratePathProperty="true" />
+    <PackageReference Include="STS2.RitsuLib" Version="0.6.7" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>

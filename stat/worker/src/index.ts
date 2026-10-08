@@ -1,8 +1,24 @@
 import catalog from '../web-catalog.json';
 import { InvalidInput, credential, hash, readJson, validateRun, filters } from './validation.mjs';
-import { snapshot } from './statistics';
+import { snapshot } from './analytics';
+import { detailStatements } from './store-details';
+import { enrichMods } from './steam';
 const ids=new Set(catalog.map(item=>item.id));
 const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Access-Control-Allow-Origin':'*','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
+export async function staticPage(request:Request,env:Env,fetcher:typeof fetch=fetch) {
+  const url=new URL(request.url);
+  if(env.SHARED_PAGES!=='true')return env.ASSETS.fetch(request);
+  if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
+  if(!/^\/(?:|index\.html|app\.js|metrics\.js|style\.css|catalog\.json|build\.json|art\/[A-Za-z0-9_-]+\.(?:webp|png))$/.test(url.pathname))return env.ASSETS.fetch(request);
+  const remote=new URL('https://jimmyzzt.github.io/AK_Exusiai/'+url.pathname.slice(1));
+  const version=url.searchParams.get('v');if(version&&/^[a-f0-9]{12}$/.test(version))remote.searchParams.set('v',version);
+  try {
+    // Share the Pages publication without forwarding visitor cookies, credentials, or filter parameters.
+    const response=await fetcher(remote,{method:request.method,signal:AbortSignal.timeout(10000),cf:{cacheTtl:version?86400:60,cacheEverything:true}});
+    if(response.ok){const headers=new Headers(response.headers);headers.set('X-Content-Type-Options','nosniff');headers.set('X-Frame-Options','DENY');headers.set('Referrer-Policy','no-referrer');headers.set('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://exusiai.zzt.si; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");headers.set('Cache-Control',version?'public,max-age=86400':'public,max-age=60');return new Response(response.body,{status:response.status,headers});}
+  }catch{}
+  return env.ASSETS.fetch(request);
+}
 async function upload(request:Request,env:Env) {
   if(env.UPLOAD_ENABLED!=='true') return json({error:'Uploads paused'},503);
   const token=credential(request),owner=await hash(token);
@@ -13,6 +29,7 @@ async function upload(request:Request,env:Env) {
   const now=Date.now();
   const cohort=await hash(JSON.stringify([run.day,run.version,run.revision,run.ascension,run.players,run.mode,run.abandoned,run.mods.map((m:{id:string})=>m.id).sort()]));
   const nonce=crypto.randomUUID();
+  const details=await detailStatements(env.DB,run,owner,nonce);
   // All writes are atomic. JSON table insertion keeps the whole run below D1's statement/bind limits.
   const results=await env.DB.batch([
     env.DB.prepare('INSERT OR IGNORE INTO cohorts(id,day,version,revision,ascension,players,mode,abandoned) VALUES(?,?,?,?,?,?,?,?)').bind(cohort,run.day,run.version,run.revision,run.ascension,run.players,run.mode,+run.abandoned),
@@ -27,6 +44,10 @@ async function upload(request:Request,env:Env) {
       SELECT ?,entity_id,act,owned,owned*?,offered,picked,obtained,floor_sum,upgraded,removed,CASE WHEN picked>0 THEN 1 ELSE 0 END,CASE WHEN picked>0 THEN ? ELSE 0 END FROM entities WHERE run_id=? AND EXISTS(SELECT 1 FROM runs WHERE write_nonce=?)
       ON CONFLICT(cohort_id,entity_id,act) DO UPDATE SET owned=owned+excluded.owned,owned_wins=owned_wins+excluded.owned_wins,offered=offered+excluded.offered,picked=picked+excluded.picked,obtained=obtained+excluded.obtained,floor_sum=floor_sum+excluded.floor_sum,upgraded=upgraded+excluded.upgraded,removed=removed+excluded.removed,picked_runs=picked_runs+excluded.picked_runs,picked_wins=picked_wins+excluded.picked_wins`).bind(cohort,+run.victory,+run.victory,run.id,nonce),
     env.DB.prepare('DELETE FROM cohorts WHERE id=? AND runs=0 AND NOT EXISTS(SELECT 1 FROM runs WHERE cohort_id=?)').bind(cohort,cohort),
+    env.DB.prepare(`INSERT INTO mod_catalog(id,title,workshop_id,uses) SELECT json_extract(value,'$.id'),COALESCE(json_extract(value,'$.title'),''),json_extract(value,'$.workshop_id'),1 FROM json_each(?) WHERE EXISTS(SELECT 1 FROM runs WHERE write_nonce=?)
+      ON CONFLICT(id) DO UPDATE SET uses=uses+1,title=CASE WHEN status='ready' THEN title ELSE COALESCE(NULLIF(excluded.title,''),title) END,next_check=CASE WHEN workshop_id IS NULL AND excluded.workshop_id IS NOT NULL THEN 0 ELSE next_check END,workshop_id=COALESCE(workshop_id,excluded.workshop_id)`)
+      .bind(JSON.stringify(run.mods),nonce),
+    ...details,
   ]);
   if(!results[1].meta.changes) {
     if(await env.DB.prepare('SELECT 1 FROM runs WHERE id=? AND owner_hash=?').bind(run.id,owner).first()) return json({accepted:true,duplicate:true});
@@ -37,13 +58,19 @@ async function upload(request:Request,env:Env) {
 export default {
   async fetch(request,env,ctx) {
     const url=new URL(request.url);
-    if(!url.pathname.startsWith('/api/')) return env.ASSETS.fetch(request);
+    if(!url.pathname.startsWith('/api/')) return staticPage(request,env);
     if(request.method==='OPTIONS') return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET,POST,OPTIONS','Access-Control-Allow-Headers':'Content-Type,Authorization','Access-Control-Max-Age':'86400'}});
     try {
       if(url.pathname==='/api/upload' && request.method==='POST') return await upload(request,env);
       if(url.pathname==='/api/health' && request.method==='GET') return json({schema:'exusiai.statistics.v1',status:'ok',uploads:env.UPLOAD_ENABLED==='true'});
-      if(url.pathname==='/api/stats' && request.method==='GET') {
-        const f=filters(url), key=new Request(url.origin+'/api/cache/'+await hash(JSON.stringify(f))), cache=caches.default;
+      if(url.pathname==='/api/stats' && ['GET','POST'].includes(request.method)) {
+        let filterUrl=url;
+        if(request.method==='POST'){
+          const body=await readJson(request);
+          if(!body||Object.keys(body).length!==1||typeof body.query!=='string'||body.query.length>100000)throw new InvalidInput();
+          filterUrl=new URL(url.origin+'/api/stats?'+body.query);
+        }
+        const f=filters(filterUrl), key=new Request(url.origin+'/api/cache/'+await hash(JSON.stringify(f))), cache=caches.default;
         const cached=await cache.match(key);
         if(cached) {
           const data=await cached.clone().json<{updated_at:number}>();
@@ -67,5 +94,8 @@ export default {
       return json({error:'Service temporarily unavailable; retry later'},503);
     }
   },
-  async scheduled(_event,env,_ctx) { await snapshot(env.DB,filters(new URL('https://exusiai.zzt.si/api/stats')),true); },
+  async scheduled(_event,env,ctx) {
+    ctx.waitUntil(enrichMods(env.DB));
+    await snapshot(env.DB,filters(new URL('https://exusiai.zzt.si/api/stats')),true);
+  },
 } satisfies ExportedHandler<Env>;
