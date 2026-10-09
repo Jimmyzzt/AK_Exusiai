@@ -88,9 +88,9 @@ export default {
         if(url.pathname==='/api/publication/stage'&&request.method==='POST')return json(await stageWork(env.DB,await readJson(request,500000),ids));
         if(url.pathname==='/api/publication/commit'&&request.method==='POST'){const input=await readJson(request);if(!input||Object.keys(input).join()!=='nonce'||typeof input.nonce!=='string')throw new InvalidInput();return json(await commitWork(env.DB,input.nonce));}
         if(url.pathname==='/api/publication/export'&&request.method==='GET'){
-          const after=Number(url.searchParams.get('after')||0),through=Number(url.searchParams.get('through')),revision=Number(url.searchParams.get('revision')||after),key=url.searchParams.get('key')||'';
-          if(![after,through,revision].every(n=>Number.isSafeInteger(n)&&n>=0)||after>through||revision>through||key&&!/^[a-f0-9]{64}$/.test(key))throw new InvalidInput();
-          return json(await exportPage(env.DB,{after,through,revision,key,catalog:url.searchParams.get('catalog')==='1',bootstrap:url.searchParams.get('bootstrap')==='1'&&claims.event_name==='workflow_dispatch'}));
+          const after=Number(url.searchParams.get('after')||0),through=Number(url.searchParams.get('through')),revision=Number(url.searchParams.get('revision')||after),key=url.searchParams.get('key')||'',catalogRevision=url.searchParams.has('catalog_revision')?Number(url.searchParams.get('catalog_revision')):undefined;
+          if(![after,through,revision,...(catalogRevision===undefined?[]:[catalogRevision])].every(n=>Number.isSafeInteger(n)&&n>=0)||after>through||revision>through||key&&!/^[a-f0-9]{64}$/.test(key))throw new InvalidInput();
+          return json(await exportPage(env.DB,{after,through,revision,key,catalogRevision,catalog:url.searchParams.get('catalog')==='1',bootstrap:url.searchParams.get('bootstrap')==='1'&&claims.event_name==='workflow_dispatch'}));
         }
       }
       return json({error:'Not found'},404);

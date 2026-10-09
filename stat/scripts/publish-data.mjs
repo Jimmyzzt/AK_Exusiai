@@ -56,17 +56,18 @@ try{
    if(after>through)throw new Error('Source revision moved backwards');
    const cells=new Map((previous?.bundle.cells||[]).map(c=>[c.key,c]));let next={},mods,inconsistent=false,pages=0;
    do{
-    const q=new URLSearchParams({after:String(after),through:String(through),revision:String(next.revision??after),key:next.key||'',catalog:pages===0?'1':'0',bootstrap:bootstrap?'1':'0'});
+    const q=new URLSearchParams({after:String(after),through:String(through),revision:String(next.revision??after),key:next.key||'',catalog_revision:String(start.source_revision.catalog),catalog:pages===0?'1':'0',bootstrap:bootstrap?'1':'0'});
     const page=await api('export?'+q);pages++;
     if(page.changed||page.budget){inconsistent=true;break;}
     if(JSON.stringify(page.source_revision)!==JSON.stringify(start.source_revision)){inconsistent=true;break;}
     if(page.mods)mods=page.mods;
     for(const c of page.cells){if(c.deleted)cells.delete(c.key);else cells.set(c.key,publicCell(c));}
     next=page.next;
+    if(pages%100===0)console.log(JSON.stringify({event:'publication_export_progress',pages,cells:cells.size,source_revision:start.source_revision,usage}));
     if(usage.rows_read>(bootstrap?200000:20000)||pages>3000)throw new Error('Publication read budget');
    }while(next);
    const end=await api('status');
-   if(inconsistent||end.pending||JSON.stringify(end.source_revision)!==JSON.stringify(start.source_revision))continue;
+   if(inconsistent||end.source_revision.statistics!==through)continue;
    const live=[...cells.values()].sort((a,b)=>a.key.localeCompare(b.key));
    const versions=[...new Map(live.filter(c=>!c.projection.length).map(c=>[JSON.stringify(c.dims.slice(1,3)),{version:c.dims[1],revision:c.dims[2]}])).values()];
    const bundle=validateBundle({schema_version:1,generated_at:Date.now(),source_revision:start.source_revision,model:'personal-logistic-floor-v2',algorithm:1,pair_mods:start.pair_mods,mods,versions,cells:live});

@@ -5,9 +5,10 @@ export function packBlock(block){
   let id=index.get(row[2]);if(id===undefined){id=ids.length;ids.push(row[2]);index.set(row[2],id);}
   let mask=0;const values=[];for(let i=5;i<row.length;i++)if(row[i]!==0){mask|=1<<(i-5);values.push(row[i]);}
   const body=[id,row[3],row[4],mask,...values],key=JSON.stringify(body),flag=1<<(row[0]*2+row[1]);
-  const previous=groups.get(key);if(previous)previous[0]|=flag;else groups.set(key,[flag,...body]);
+  let candidates=groups.get(key);if(!candidates){candidates=[];groups.set(key,candidates);}
+  const previous=candidates.find(group=>(group[0]&flag)===0);if(previous)previous[0]|=flag;else candidates.push([flag,...body]);
  }
- return {codec:1,ids,overview:block.overview,rows:[...groups.values()]};
+ return {codec:1,ids,overview:block.overview,rows:[...groups.values()].flat()};
 }
 export function unpackBlock(value){
  if(value?.codec===undefined)return value;

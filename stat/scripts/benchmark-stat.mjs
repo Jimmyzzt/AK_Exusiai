@@ -7,6 +7,7 @@ import {applySchema} from '../tests/helpers/schema.mjs';
 import {filters} from '../shared/filter.mjs';
 import {metered,processOne,status,exportPage} from '../worker/src/incremental.mjs';
 import {selectPublic,validateBundle,publicCell} from '../shared/public-data.mjs';
+import {encodePublished,publishedText} from '../shared/public-wire.mjs';
 import assert from 'node:assert/strict';
 async function module(path){const b=await build({entryPoints:[path],bundle:true,write:false,format:'esm',platform:'node'});return import('data:text/javascript;base64,'+Buffer.from(b.outputFiles[0].text).toString('base64'));}
 const mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("bench")}}',compatibilityDate:'2026-10-06',d1Databases:{DB:'performance-v3'}}));
@@ -38,9 +39,10 @@ try{
  const live=cells.filter(c=>!c.deleted).map(publicCell),bundle=validateBundle({schema_version:1,generated_at:0,source_revision:s.source_revision,model:'personal-logistic-floor-v2',algorithm:1,pair_mods:s.pair_mods,mods,versions:[{version:'bench',revision:'bench'}],cells:live});
  const local=selectPublic(bundle,f);for(const r of report.reference.entities){const m=local.entities.find(v=>v.id===r.id&&v.act===r.act&&v.variant===r.variant);for(const k of ['offered','picked','picked_runs','owned','owned_wins','picked_wins','obtained','upgraded','removed'])assert.equal(m[k]||0,r[k]||0);}
  report.maintenance.initial_export={...exportUsage,cells:cells.length,bytes:Buffer.byteLength(JSON.stringify(bundle))};
+ report.compact={wire_bytes:Buffer.byteLength(publishedText(bundle)),blocks:encodePublished(bundle).blocks.length,stored_payload_bytes:(await db.prepare('SELECT SUM(length(CAST(payload AS BLOB))) bytes FROM stat_cells').first()).bytes};
  const idle=await publicationStatus(db);report.maintenance.unchanged_cycle={...idle.usage};
  const before=s.source_revision.statistics;await seed(82);const step=await incrementalStep(db);report.maintenance.one_new_run={...step.usage,state:step.state};
  const now=await status(db);const delta=await exportPage(db,{after:before,through:now.source_revision.statistics,catalog:true,bootstrap:true});report.maintenance.first_delta_page={...delta.usage,returned:delta.cells.length};
  const p=await db.prepare('EXPLAIN QUERY PLAN SELECT key,payload FROM stat_cells WHERE (revision,key)>(?,?) AND revision<=? ORDER BY revision,key LIMIT 16').bind(1,'',100).all();report.pagination_plan=p.results.map(r=>r.detail);
- delete report.reference;await writeFile('docs/PERFORMANCE_2026-10-09.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+ delete report.reference;await writeFile(process.env.STAT_BENCH_OUTPUT||'docs/PERFORMANCE_2026-10-09.json',JSON.stringify(report,null,2));console.log(JSON.stringify({dataset:report.dataset,compact:report.compact,maintenance:report.maintenance},null,2));
 }finally{await mf.dispose();}

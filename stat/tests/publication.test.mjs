@@ -16,6 +16,7 @@ import {packBlock,unpackBlock} from '../shared/block-codec.mjs';
 import {encodePublished,decodePublished,publishedText} from '../shared/public-wire.mjs';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
+import {compactStatements} from '../scripts/compact-stat.mjs';
 const now=1750000000;
 const claims={iss:'https://token.actions.githubusercontent.com',aud:AUDIENCE,repository:'Jimmyzzt/AK_Exusiai',repository_id:'1341664712',repository_owner_id:'57975018',ref:'refs/heads/main',job_workflow_ref:'Jimmyzzt/AK_Exusiai/.github/workflows/stat-release.yml@refs/heads/main',event_name:'schedule',iat:now,nbf:now,exp:now+300};
 test('initialization budget defers safely without reporting failure or publishing an empty website',async()=>{
@@ -81,6 +82,7 @@ test('compact sums preserve signed values, all views and the highest field; publ
  const block=emptyBlock(),values=Array(28).fill(0);values[0]=1;values[13]=-0.0123456789;values[27]=123;
  block.entities=[0,1,2,3,4].flatMap(scope=>[0,1].map(split=>[scope,split,'AK_EXUSIAI_CARD_CHARGING_MODE',3,1,...values]));
  const packed=packBlock(block);assert.equal(packed.rows.length,1);assert.deepEqual(unpackBlock(packed),block);
+ const duplicate={...block,entities:[block.entities[0],...block.entities]};assert.deepEqual(unpackBlock(packBlock(duplicate)),duplicate);
  assert.ok(JSON.stringify(packed).length<JSON.stringify(block).length/2);
  assert.throws(()=>unpackBlock({...packed,owner_hash:'secret'}));
  const first=release(),b={...first.bundle,source_revision:{statistics:1,catalog:1},cells:['a','b'].map(c=>({key:c.repeat(64),revision:1,dims:['2026-10-09','v','r',0,1,'Standard',0,0,0],projection:[],block}))};
@@ -97,6 +99,22 @@ test('compact public transport remains integrity checked and restores offline fr
  const options={fetcher,cache,base:new URL('https://pages.test/data/')};
  assert.deepEqual((await staticSource(options).refresh()).bundle,b);
  offline=true;const result=await staticSource(options).refresh();assert.equal(result.state,'offline');assert.deepEqual(result.bundle,b);
+});
+test('storage conversion changes only matching aggregate revisions and preserves newer writes',async()=>{
+ const mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("test")}}',compatibilityDate:'2026-10-06',d1Databases:{DB:'compaction-test'}}));
+ try{
+  const db=await mf.getD1Database('DB'),block=emptyBlock();
+  const values=Array(28).fill(0);values[0]=1;values[13]=-0.25;
+  block.entities=[0,1].map(scope=>[scope,0,'AK_EXUSIAI_CARD_CHARGING_MODE',0,-1,...values]);
+  const b={...release().bundle,cells:['a','b'].map(c=>({key:c.repeat(64),revision:1,dims:['2026-10-09','v','r',0,1,'Standard',0,0,0],projection:[],block}))};
+  await db.prepare('CREATE TABLE stat_cells(key TEXT PRIMARY KEY,revision INTEGER,payload TEXT)').run();
+  await db.batch(b.cells.map((cell,i)=>db.prepare('INSERT INTO stat_cells VALUES(?,?,?)').bind(cell.key,i+1,JSON.stringify(cell.block))));
+  const plan=compactStatements(b);assert.ok(plan.summary.compact_payload_bytes<plan.summary.expanded_payload_bytes);
+  await db.batch(plan.statements.map(sql=>db.prepare(sql)));
+  const rows=(await db.prepare('SELECT key,payload FROM stat_cells ORDER BY key').all()).results;
+  assert.equal(JSON.parse(rows[0].payload).codec,1);assert.deepEqual(unpackBlock(JSON.parse(rows[0].payload)),block);
+  assert.equal(rows[1].payload,JSON.stringify(block));
+ }finally{await mf.dispose();}
 });
 test('website publication retains current and previous data; invalid retention cannot replace the last manifest',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'exusiai-publication-')),folder=pathToFileURL(directory+'/');

@@ -1,0 +1,203 @@
+{
+  "dataset": {
+    "runs": 82,
+    "entities": 7100,
+    "mods": 505,
+    "relations": 1450,
+    "detailed_runs": 4,
+    "offers": 0,
+    "fights": 0,
+    "act_decks": 0
+  },
+  "queries": [
+    {
+      "name": "original",
+      "rows_read": 2466941,
+      "rows_written": 0,
+      "duration_ms": 141,
+      "queries": 10,
+      "phases": [
+        {
+          "query": 0,
+          "rows_read": 34738,
+          "rows_written": 0,
+          "duration_ms": 4,
+          "returned": 1
+        },
+        {
+          "query": 1,
+          "rows_read": 1260291,
+          "rows_written": 0,
+          "duration_ms": 74,
+          "returned": 65
+        },
+        {
+          "query": 2,
+          "rows_read": 83,
+          "rows_written": 0,
+          "duration_ms": 1,
+          "returned": 0
+        },
+        {
+          "query": 3,
+          "rows_read": 83,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 0
+        },
+        {
+          "query": 4,
+          "rows_read": 162286,
+          "rows_written": 0,
+          "duration_ms": 7,
+          "returned": 22
+        },
+        {
+          "query": 5,
+          "rows_read": 374932,
+          "rows_written": 0,
+          "duration_ms": 18,
+          "returned": 22
+        },
+        {
+          "query": 6,
+          "rows_read": 167,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 0
+        },
+        {
+          "query": 7,
+          "rows_read": 1010,
+          "rows_written": 0,
+          "duration_ms": 1,
+          "returned": 505
+        },
+        {
+          "query": 8,
+          "rows_read": 164,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 1
+        }
+      ]
+    },
+    {
+      "name": "optimized",
+      "rows_read": 177598,
+      "rows_written": 0,
+      "duration_ms": 20,
+      "queries": 10,
+      "phases": [
+        {
+          "query": 0,
+          "rows_read": 19640,
+          "rows_written": 0,
+          "duration_ms": 2,
+          "returned": 1
+        },
+        {
+          "query": 1,
+          "rows_read": 42043,
+          "rows_written": 0,
+          "duration_ms": 5,
+          "returned": 65
+        },
+        {
+          "query": 2,
+          "rows_read": 2,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 0
+        },
+        {
+          "query": 3,
+          "rows_read": 19641,
+          "rows_written": 0,
+          "duration_ms": 2,
+          "returned": 0
+        },
+        {
+          "query": 4,
+          "rows_read": 28185,
+          "rows_written": 0,
+          "duration_ms": 2,
+          "returned": 22
+        },
+        {
+          "query": 5,
+          "rows_read": 28186,
+          "rows_written": 0,
+          "duration_ms": 3,
+          "returned": 22
+        },
+        {
+          "query": 6,
+          "rows_read": 3,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 0
+        },
+        {
+          "query": 7,
+          "rows_read": 1010,
+          "rows_written": 0,
+          "duration_ms": 1,
+          "returned": 505
+        },
+        {
+          "query": 8,
+          "rows_read": 164,
+          "rows_written": 0,
+          "duration_ms": 0,
+          "returned": 1
+        }
+      ]
+    }
+  ],
+  "maintenance": {
+    "initialization": {
+      "rows_read": 39518,
+      "rows_written": 15950,
+      "duration_ms": 744,
+      "jobs": 82
+    },
+    "implementation": "Actions work protocol (one cell per stage in this benchmark; production batches up to eight)",
+    "initial_export": {
+      "rows_read": 3603,
+      "rows_written": 261,
+      "duration_ms": 101,
+      "queries": 7,
+      "cells": 521,
+      "bytes": 15129251
+    },
+    "unchanged_cycle": {
+      "rows_read": 3,
+      "rows_written": 1,
+      "duration_ms": 0,
+      "queries": 3
+    },
+    "one_new_run": {
+      "rows_read": 453,
+      "rows_written": 177,
+      "duration_ms": 8,
+      "queries": 142,
+      "state": "processed"
+    },
+    "first_delta_page": {
+      "rows_read": 1524,
+      "rows_written": 1,
+      "duration_ms": 1,
+      "queries": 7,
+      "returned": 2
+    }
+  },
+  "compact": {
+    "wire_bytes": 200672,
+    "blocks": 10,
+    "stored_payload_bytes": 2198746
+  },
+  "pagination_plan": [
+    "SEARCH stat_cells USING INDEX stat_cells_revision ((revision,key)>(?,?) AND revision<?)"
+  ]
+}

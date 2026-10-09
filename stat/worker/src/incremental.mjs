@@ -75,16 +75,18 @@ export async function processOne(database,{now=Date.now(),bootstrap=false,before
    .bind(window,window,usage.rows_read,usage.rows_read,window,usage.rows_written,usage.rows_written,day,day,usage.rows_read,usage.rows_read,day,usage.rows_written,usage.rows_written,nonce).run();
  }
 }
-export async function exportPage(database,{after=0,through,revision=after,key='',catalog=false,bootstrap=false}){
+export async function exportPage(database,{after=0,through,revision=after,key='',catalog=false,catalogRevision,bootstrap=false}){
  const {db,usage}=metered(database);try{const s=await status(db);
- if(s.pending||s.source_revision.statistics!==through||revision<after) return {changed:true,usage};
+ const capture=catalog||catalogRevision===undefined,snapshotCatalog=catalogRevision??s.source_revision.catalog;
+ // Capture a coherent catalog once. Subsequent queued uploads/tags belong to the next release.
+ if(s.source_revision.statistics!==through||revision<after||(capture&&(s.pending||s.source_revision.catalog!==snapshotCatalog))) return {changed:true,usage};
  if((s.budget.day===Math.floor(Date.now()/86400000)&&(s.budget.day_reads>=1800000||s.budget.day_writes>=30000))||(s.budget.window===Math.floor(Date.now()/900000)&&s.budget.rows_read>=(bootstrap?200000:20000))) return {budget:true,usage};
  const rows=(await db.prepare('SELECT key,dims,projection,payload,revision,active FROM stat_cells WHERE (revision,key)>(?,?) AND revision<=? ORDER BY revision,key LIMIT 2').bind(revision,key||(revision===after?'\uffff':''),through).all()).results;
  const cells=rows.map(r=>r.active?{key:r.key,revision:r.revision,dims:r.dims,projection:r.projection,payload:r.payload}:{key:r.key,revision:r.revision,deleted:true});
  let mods;if(catalog)mods=(await db.prepare('SELECT id,title,uses,primary_tag,official_tags,workshop_id,status FROM mod_catalog WHERE id NOT IN(SELECT value FROM json_each(?)) ORDER BY uses DESC,id').bind(JSON.stringify(PROTECTED)).all()).results.map(m=>({id:m.id,title:m.title,uses:m.uses,primary_tag:m.primary_tag,official_tags:JSON.parse(m.official_tags),workshop_id:m.workshop_id,status:m.status}));
  const tail=rows.at(-1);const end=await status(db);
- if(end.pending||JSON.stringify(end.source_revision)!==JSON.stringify(s.source_revision))return {changed:true,usage};
+ if(end.source_revision.statistics!==through||(capture&&(end.pending||end.source_revision.catalog!==snapshotCatalog)))return {changed:true,usage};
 
- return {source_revision:s.source_revision,pair_mods:s.pair_mods,cells,mods,next:rows.length===2?{revision:tail.revision,key:tail.key}:null,usage};
+ return {source_revision:{statistics:through,catalog:snapshotCatalog},pair_mods:s.pair_mods,cells,mods,next:rows.length===2?{revision:tail.revision,key:tail.key}:null,usage};
  }finally{await account(database,usage);}
 }

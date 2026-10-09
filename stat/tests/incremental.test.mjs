@@ -102,3 +102,14 @@ test('removal reverses the saved contribution and public Mod usage without rebui
  assert.equal(await db.prepare('SELECT run_id FROM stat_facts WHERE run_id=?').bind(id).first(),null);
  const f=filters(new URL('https://x?party=all&abandoned=loss'));compare(await reference(db,f),selectPublic(await bundle(),f));
 });
+test('publication pins its captured catalog; queued tags/uploads do not invalidate unchanged aggregate pages',async()=>{
+ const start=await status(db),through=start.source_revision.statistics,catalogRevision=start.source_revision.catalog;
+ const first=await exportPage(db,{through,catalog:true,catalogRevision,bootstrap:true});assert.equal(first.changed,undefined);assert.ok(first.next);
+ await db.prepare('UPDATE stat_state SET catalog_revision=catalog_revision+1 WHERE id=1').run();
+ await db.prepare("INSERT INTO stat_dirty(run_id) VALUES('queued-after-capture')").run();
+ const next=await exportPage(db,{through,...first.next,catalogRevision,bootstrap:true});
+ assert.equal(next.changed,undefined);assert.deepEqual(next.source_revision,start.source_revision);
+ assert.equal((await exportPage(db,{through,catalog:true,catalogRevision,bootstrap:true})).changed,true);
+ while((await processOne(db,{bootstrap:true})).state==='processed'){}
+ assert.equal((await exportPage(db,{through,...first.next,catalogRevision,bootstrap:true})).changed,true);
+});
