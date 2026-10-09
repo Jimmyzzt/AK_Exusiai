@@ -10,6 +10,8 @@ on:
     branches: [main]
     paths:
       - 'stat/**'
+      - '!stat/docs/**'
+      - '!stat/README.md'
       - 'AK_Exusiai/images/**'
       - 'AK_Exusiai/localization/**'
       - 'AK_ExusiaiCode/Cards/**'

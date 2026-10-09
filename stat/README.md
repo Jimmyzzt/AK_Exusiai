@@ -34,6 +34,7 @@ npm run dev
 ## 发布
 
 - main的网页/卡图/本地化/相关源码推送触发`stat-pages.yml`，构建、类型检查、测试后将网页和统计一起部署Pages。Worker静态页面共享该发布，并保留部署时本地资源作回退。
+- 纯统计文档修改不触发网站构建；文档里的最新验证统一写项目进度，性能报告保留在忽略目录。
 - `stat-data.yml`计划每小时8/23/38/53分运行，数据刷新复用兼容的网站artifact。无变化跳过Pages部署；两个工作流共用维护锁。
 - **Worker代码不会随Pages自动部署。** 登录的维护者可运行`npm run publish`完成构建/检查/追加迁移/Worker部署，并触发Pages；先把源码推送main。单独`npm run deploy`只部署Worker。
 - 首次积压或明确补维护，手动运行`stat-data.yml`并开启`bootstrap`。普通最多40条/20分钟，bootstrap最多200条/45分钟，每日预算仍生效。
