@@ -17,8 +17,17 @@ import {encodePublished,decodePublished,publishedText} from '../shared/public-wi
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 import {compactStatements} from '../scripts/compact-stat.mjs';
+import {publicationFetch} from '../scripts/publication-http.mjs';
 const now=1750000000;
 const claims={iss:'https://token.actions.githubusercontent.com',aud:AUDIENCE,repository:'Jimmyzzt/AK_Exusiai',repository_id:'1341664712',repository_owner_id:'57975018',ref:'refs/heads/main',job_workflow_ref:'Jimmyzzt/AK_Exusiai/.github/workflows/stat-release.yml@refs/heads/main',event_name:'schedule',iat:now,nbf:now,exp:now+300};
+test('transient publication reads retry the same cursor with fresh timeouts; failures are bounded and writes are not replayed',async()=>{
+ let calls=0;const seen=[],delays=[],logs=[];
+ const url='https://fixture.test/api/publication/export?revision=7&key=private-cursor';
+ const response=await publicationFetch(async(input,options)=>{calls++;seen.push([input,options.signal]);if(calls===1)throw new TypeError('private failure detail');return new Response(calls===2?'private error':'ok',{status:calls===2?503:200});},url,{headers:{Authorization:'private-token'}},{wait:async ms=>delays.push(ms),log:s=>logs.push(s)});
+ assert.equal(await response.text(),'ok');assert.equal(calls,3);assert.ok(seen.every(v=>v[0]===url));assert.notEqual(seen[0][1],seen[1][1]);assert.deepEqual(delays,[500,1500]);assert.ok(logs.every(s=>!s.includes('private')));
+ calls=0;const failed=await publicationFetch(async()=>{calls++;return new Response('',{status:503});},url,{}, {wait:async()=>{},log:()=>{}});assert.equal(calls,4);assert.equal(failed.status,503);
+ calls=0;await publicationFetch(async()=>{calls++;return new Response('',{status:503});},url,{method:'POST'},{wait:async()=>assert.fail('write retry'),log:()=>{}});assert.equal(calls,1);
+});
 test('initialization budget defers safely without reporting failure or publishing an empty website',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'exusiai-deferred-')),output=join(directory,'output');
  try{

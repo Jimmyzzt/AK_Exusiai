@@ -5,6 +5,7 @@ import {previousRelease,writeRelease,PAGES} from './public-release.mjs';
 import {validateBundle,publicCell} from '../shared/public-data.mjs';
 import {AUDIENCE} from '../worker/src/publisher-auth.mjs';
 import {mapLimited} from './parallel.mjs';
+import {publicationFetch} from './publication-http.mjs';
 const origin='https://exusiai.zzt.si',folder=new URL('../dist/data/',import.meta.url);
 let auth=null,until=0,operation='previous_release';
 const usage={rows_read:0,rows_written:0,duration_ms:0};
@@ -16,7 +17,7 @@ async function authorization(){
  auth=value;until=Date.now()+180000;return auth;
 }
 async function api(path,options={}){
- operation=path.split('?')[0];const response=await fetch(origin+'/api/publication/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+await authorization()},signal:AbortSignal.timeout(60000)});
+ operation=path.split('?')[0];const response=await publicationFetch(fetch,origin+'/api/publication/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+await authorization()}});
  if(!response.ok)throw Object.assign(new Error('Publication service HTTP '+response.status),{status:response.status});const data=await response.json();if(data.usage)for(const k of Object.keys(usage))usage[k]+=data.usage[k]||0;return data;
 }
 async function preserve(previous){
