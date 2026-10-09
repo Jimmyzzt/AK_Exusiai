@@ -1,0 +1,16 @@
+﻿退回的包裹 / Return to Sender
+源表：Ancients!B22:F22
+状态：图标候选
+
+企鹅物流安全屋的待运货物原图，主题匹配。它没有退件标识，后续应补充退回封条或戳记。
+
+素材：
+待运货物_企鹅物流家具.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/待运货物
+  原图/生成来源：https://torappu.prts.wiki/assets/furniture/furni_penguin_boxes_01.png
+
+企鹅物流_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/泰拉大典:组织/企鹅物流
+  原图/生成来源：https://media.prts.wiki/2/2b/Logo_企鹅物流.png

@@ -1,0 +1,10 @@
+{
+  "AK_EXUSIAI_KEYWORD_DELIVERY.title": "快递",
+  "AK_EXUSIAI_KEYWORD_DELIVERY.description": "使遗物暂时失效，在[blue]X[/blue]场战斗后恢复。不可选择初始遗物和已失效遗物。\\n给予[gold]快递[/gold]的卡牌需要成功[gold]快递[/gold]才能生效后续效果。",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.title": "中转",
+  "AK_EXUSIAI_KEYWORD_TRANSIT.description": "中转[blue]X[/blue]的遗物将在[blue]X[/blue]场战斗后失效（包括本场战斗），失效后可以重新中转。",
+  "AK_EXUSIAI_KEYWORD_ANGEL.title": "天使",
+  "AK_EXUSIAI_KEYWORD_ANGEL.description": "获得[gold]保留[/gold]。每次获得天使后首次打出免费。诅咒牌获得天使后立即消耗。",
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.title": "过载",
+  "AK_EXUSIAI_KEYWORD_OVERLOAD.description": "攻击伤害提高[blue]50%[/blue]。过载期间不再获得或扣除弹药。回合结束时失去所有弹药并退出过载。"
+}

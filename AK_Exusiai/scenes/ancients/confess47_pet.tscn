@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="SpineSkeletonDataResource" path="res://AK_Exusiai/images/ancients/confess47/front/skeleton_data.tres" id="1_spine"]
+
+[node name="Confess47Pet" type="Node2D"]
+
+[node name="Visuals" type="SpineSprite" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -4)
+scale = Vector2(0.45, 0.45)
+skeleton_data_res = ExtResource("1_spine")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+offset_left = -90.0
+offset_top = -150.0
+offset_right = 90.0
+offset_bottom = 0.0
+mouse_filter = 2
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -75)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -180)

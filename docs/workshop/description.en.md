@@ -1,0 +1,55 @@
+# Locked and loaded, ready for action★
+
+Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is here to expand her business into the Spire. (Really?)
+
+## V1.3 update notes
+
+> **Laterano and Penguin Logistics join as two new Ancients, with 20 Ancient relics between them!** A few cards also received balance adjustments. See the [changelog](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) for details.
+>
+> We have added optional **statistics** to help understand card performance and balance. De-identified data from subsequent Exusiai runs is uploaded only after you explicitly grant permission through RitsuLib.
+> Visit the [Exusiai statistics website](https://exusiai.zzt.si/) to explore aggregated community data, including card and relic performance, pick rates, and win rates. A [backup site](https://jimmyzzt.github.io/AK_Exusiai/) is also available.
+
+## Content
+
+- 1 new character!
+- 2 appearance sets with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
+- 104 cards: 91 character cards, including 5 multiplayer cards, starter cards, and Ancient cards; 11 token cards, comprising 8 Penguin Logistics cards and 3 Angel cards; and 2 Curses.
+- 9 character relics and 3 potions.
+- 2 new Ancients and their 20 Ancient relics.
+
+## Core mechanics
+
+- **Ammo** — From Exusiai's firearms. Ammo adds damage to attacks, with more Ammo providing a larger bonus. Reach the limit to enter Overload: attacks become stronger and stop consuming Ammo, letting you fire away to your heart's content.
+- **Angel** — From Laterano. Three Angel Token Cards help cycle your deck. Add Angel to a card to give it Retain and make it free to play once.
+- **Penguin Logistics** — From her best friends. Use Delivery to temporarily send Relics away in exchange for benefits, then use Transit to obtain temporary Relics. Emperor, Texas, Exusiai, Croissant, Sora, Bison, Yith, and Mostima also show up as Penguin Logistics cards to lend a hand.
+- **Communications Technology** — Inspired by her high-school studies. Use Interference and Silence to suppress enemies. Each stack of Interference slightly reduces the damage dealt by that enemy's attacks for the rest of combat. The first time an enemy gains Interference, it also gains Silence, disabling its passive abilities for the turn. Passive abilities include effects such as Strength, The Insatiable's Sandpit, Aeonglass's Withering Presence, and Test Subject's Adaptable.
+
+## Compatibility
+
+> **Currently supports beta version 0.111 only.**
+
+Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295).
+
+## Credits and assets
+
+Most card art uses official Arknights assets and illustrations by Exusiai's official artist, Huanxiang Heitu. Some cards were illustrated by community member @雪樱; icons come from [Alibaba Iconfont](https://www.iconfont.cn/); and some assets come from other online sources or were made with AI assistance (for example, I really couldn't find a real photo of “char siu apple pie”). This mod is not used commercially. If any material presents a rights issue, please contact us so it can be changed promptly.
+
+Thanks to the original creators, PRTS, RitsuLib, and the maintainers of the community tools. Special thanks to the creator of the [Nymph mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3784269718) for providing reference material and assistance! And to the STS2 modding community (QQ group 263898222) for testing.
+
+The mod supports Simplified Chinese and English. The English localization was initially machine-translated, so reports of awkward wording or display issues are especially welcome.
+
+## Bug reports
+
+Please post in the Workshop bug-report thread, the community group, or [GitHub Issues](https://github.com/Jimmyzzt/AK_Exusiai/issues). Include the game and mod versions, the affected card and its upgrade state, whether the issue occurred in single-player or multiplayer, and reproduction steps.
+
+Attach the `godot.log` from the affected session. For multiplayer desynchronization, also include the matching `ritsulib_state_divergence_*.zip`. Enter `open logs` in the game console to open the log folder.
+
+## Community
+
+QQ group: 1080295067
+
+Come chat and share feedback!
+
+If you enjoy the mod, please consider giving it a thumbs-up and adding it to your favorites. Thanks!
+
+Planned future additions include enemies and boss encounters.

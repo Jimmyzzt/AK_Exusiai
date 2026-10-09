@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "id": "custom:mag_insert",
+      "name": "换弹 · 插入弹匣",
+      "file": "AK_Exusiai/audio/card_effects/mag-insert.wav"
+    },
+    {
+      "id": "custom:reload_1911",
+      "name": "换弹 · 柔和版",
+      "file": "AK_Exusiai/audio/card_effects/reload.wav"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <!-- Covers the Mod and every test project, including transitive NuGet imports. -->
+    <RitsuLibAutoCopy>false</RitsuLibAutoCopy>
+  </PropertyGroup>
+  <Target Name="PreventLocalRitsuLibDeployment" BeforeTargets="PrepareForBuild;CopyRitsuLibPackageModFiles">
+    <Error Condition="'$(RitsuLibAutoCopy)' == 'true'"
+           Text="RitsuLib runtime must come from the Steam Workshop subscription. Local deployment is prohibited; keep RitsuLibAutoCopy=false." />
+  </Target>
+</Project>

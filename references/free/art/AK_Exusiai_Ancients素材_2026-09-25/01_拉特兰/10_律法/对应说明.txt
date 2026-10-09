@@ -1,0 +1,11 @@
+﻿律法 / The Law
+源表：Ancients!B12:F12
+状态：表格指定图标
+
+严格使用表格备注指定的萨卡兹肉鸽藏品光环。
+
+素材：
+光环_萨卡兹肉鸽_指定图标.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴#光环
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_fight_17.png

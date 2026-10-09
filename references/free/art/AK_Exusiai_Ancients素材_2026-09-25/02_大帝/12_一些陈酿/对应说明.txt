@@ -1,0 +1,21 @@
+﻿一些陈酿 / A Few Fine Vintages
+源表：Ancients!B17:F17
+状态：改制参考
+
+三瓶均为已有藏品原图，只提供酒瓶外形；不冒称乌萨斯白鲸、高卢霞多丽/干白或大炎汾酒的官方图标。
+
+素材：
+生命之水_酒瓶参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q20.png
+
+皇家利口酒_酒瓶参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q21.png
+
+摩根队长佳酿_酒瓶参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q19.png

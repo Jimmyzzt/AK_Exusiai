@@ -1,0 +1,21 @@
+﻿万国信标 / Beacon of Nations
+源表：Ancients!B11:F11
+状态：改制参考
+
+万国峰会蚀刻章、拉特兰街景和标志提供主题参考。未找到同名信标成品；后续需设计能清楚识别为信标的主体。
+
+素材：
+万国峰会_蚀刻章.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/光荣之路/存档#“万国峰会”
+  原图/生成来源：https://media.prts.wiki/8/8e/蚀刻章_“万国峰会”.png
+
+拉特兰_街景.png
+  性质：剧情CG原图
+  来源页：https://prts.wiki/w/拉特兰
+  原图/生成来源：https://media.prts.wiki/c/c5/Avg_bg_26_g9_laterano_street.png
+
+拉特兰_标志.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/拉特兰
+  原图/生成来源：https://media.prts.wiki/e/e9/Logo_拉特兰.png

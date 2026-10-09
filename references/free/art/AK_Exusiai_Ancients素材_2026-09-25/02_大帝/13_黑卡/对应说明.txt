@@ -1,0 +1,11 @@
+﻿黑卡 / Black Card
+源表：Ancients!B18:F18
+状态：改制参考
+
+游戏室管理员权限卡可作卡片轮廓参考；尚需重新设计黑色贵宾卡的配色和细节，不是已确认的大帝黑卡。
+
+素材：
+游戏室管理员权限卡_卡片参考.png
+  性质：游戏原素材
+  来源页：https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴
+  原图/生成来源：https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_legacy_42.png

@@ -1,0 +1,3566 @@
+{
+  "schema": 1,
+  "game_sha256": "0861bfa1df347538d932f22d580e75420f08082792eb914e53b4882764acdbe9",
+  "method": "C# source references + recursive text scene dependencies + PCK debug audio inventory",
+  "limitations": [
+    "动态资源名及间接助手仍需逐项复核",
+    "FMOD 事件来自代码/场景引用，未声称穷举音频 bank",
+    "adapted 表示已接入，游戏内逐项验证另行记录"
+  ],
+  "counts": {
+    "sources": 300,
+    "mapped": 195,
+    "entries": 955,
+    "adapted": 657
+  },
+  "sources": [
+    {
+      "id": "AdaptiveStrike",
+      "name": "适应打击",
+      "english": "Adaptive Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Aeonglass",
+      "name": "Aeonglass",
+      "english": "Aeonglass",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "AllForOne",
+      "name": "万物一心",
+      "english": "All for One",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Anger",
+      "name": "愤怒",
+      "english": "Anger",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "AshenStrike",
+      "name": "灰烬打击",
+      "english": "Ashen Strike",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Assassinate",
+      "name": "刺杀",
+      "english": "Assassinate",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_dramatic_stab"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "AssassinRubyRaider",
+      "name": "AssassinRubyRaider",
+      "english": "AssassinRubyRaider",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "AstralPulse",
+      "name": "星界脉冲",
+      "english": "Astral Pulse",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Axebot",
+      "name": "Axebot",
+      "english": "Axebot",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/axebot/axebot_attack_spin",
+        "event:event:/sfx/enemy/enemy_attacks/axebot/axebot_buff",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "AxeRubyRaider",
+      "name": "AxeRubyRaider",
+      "english": "AxeRubyRaider",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Backstab",
+      "name": "背刺",
+      "english": "Backstab",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_dramatic_stab"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BallLightning",
+      "name": "球状闪电",
+      "english": "Ball Lightning",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BansheesCry",
+      "name": "女妖之嚎",
+      "english": "Banshee's Cry",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Barrage",
+      "name": "弹幕齐射",
+      "english": "Barrage",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Bash",
+      "name": "痛击",
+      "english": "Bash",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BeamCell",
+      "name": "光束射线",
+      "english": "Beam Cell",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BeatIntoShape",
+      "name": "锻打成型",
+      "english": "Beat into Shape",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BlightStrike",
+      "name": "荒疫打击",
+      "english": "Blight Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Bludgeon",
+      "name": "重锤",
+      "english": "Bludgeon",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BodySlam",
+      "name": "全身撞击",
+      "english": "Body Slam",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Bolas",
+      "name": "流星锤",
+      "english": "Bolas",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NBolasVfx",
+        "scene:vfx/cards/bolas_vfx",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Bombardment",
+      "name": "轰击",
+      "english": "Bombardment",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NLargeMagicMissileVfx",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_large_magic_missile"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BoneShards",
+      "name": "碎骨",
+      "english": "Bone Shards",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BowlbugEgg",
+      "name": "BowlbugEgg",
+      "english": "BowlbugEgg",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/workbug_egg/workbug_egg_attack",
+        "event:event:/sfx/enemy/enemy_attacks/workbug_egg/workbug_egg_die",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "BowlbugNectar",
+      "name": "BowlbugNectar",
+      "english": "BowlbugNectar",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/workbug_goop/workbug_goop_die",
+        "event:event:/sfx/enemy/enemy_attacks/workbug_goop/workbug_goop_spit",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "BowlbugRock",
+      "name": "BowlbugRock",
+      "english": "BowlbugRock",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/workbug_rock/workbug_rock_attack",
+        "event:event:/sfx/enemy/enemy_attacks/workbug_rock/workbug_rock_die",
+        "event:event:/sfx/enemy/enemy_attacks/workbug_rock/workbug_rock_stun",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "BowlbugSilk",
+      "name": "BowlbugSilk",
+      "english": "BowlbugSilk",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/workbug_silk/workbug_silk_die",
+        "event:event:/sfx/enemy/enemy_attacks/workbug_silk/workbug_silk_spit",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Break",
+      "name": "破击",
+      "english": "Break",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Breakthrough",
+      "name": "突破",
+      "english": "Breakthrough",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_bloody_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BruteRubyRaider",
+      "name": "BruteRubyRaider",
+      "english": "BruteRubyRaider",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Bully",
+      "name": "欺凌",
+      "english": "Bully",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Bury",
+      "name": "埋葬",
+      "english": "Bury",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "BygoneEffigy",
+      "name": "BygoneEffigy",
+      "english": "BygoneEffigy",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Byrdonis",
+      "name": "Byrdonis",
+      "english": "Byrdonis",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/byrdonis/byrdonis_die",
+        "event:event:/sfx/enemy/enemy_attacks/byrdonis/byrdonis_hurt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "ByrdSwoop",
+      "name": "异鸟扑击",
+      "english": "Byrd Swoop",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/byrdpip/byrdpip_attack",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CalcifiedCultist",
+      "name": "CalcifiedCultist",
+      "english": "CalcifiedCultist",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_attack",
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_buff_calcified",
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_die_calcified",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "CelestialMight",
+      "name": "天穹之力",
+      "english": "Celestial Might",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CeremonialBeast",
+      "name": "CeremonialBeast",
+      "english": "CeremonialBeast",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_die",
+        "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_plow",
+        "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_plow_end",
+        "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_shrill",
+        "event:event:/sfx/enemy/enemy_attacks/ceremonial_beast/ceremonial_beast_stun",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
+        "factory:NHorizontalLinesVfx",
+        "factory:NSpikeSplashVfx",
+        "scene:vfx/spike_splash_vfx",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_line_burst",
+        "scene:vfx/vfx_scream",
+        "scene:vfx/whole_screen/horizontal_lines_vfx"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Chomper",
+      "name": "Chomper",
+      "english": "Chomper",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/chomper/chomper_hurt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Cinder",
+      "name": "余烬",
+      "english": "Cinder",
+      "origin": "card",
+      "effects": [
+        "factory:NFireBurstVfx",
+        "scene:vfx/vfx_fire_burst"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Clash",
+      "name": "交锋",
+      "english": "Clash",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Claw",
+      "name": "爪击",
+      "english": "Claw",
+      "origin": "card",
+      "effects": [
+        "factory:NScratchVfx",
+        "scene:vfx/vfx_scratch_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ColdSnap",
+      "name": "寒流",
+      "english": "Cold Snap",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CollisionCourse",
+      "name": "碰撞轨迹",
+      "english": "Collision Course",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Comet",
+      "name": "彗星",
+      "english": "Comet",
+      "origin": "card",
+      "effects": [
+        "factory:NSmallMagicMissileVfx",
+        "scene:vfx/vfx_small_magic_missile"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CompileDriver",
+      "name": "编译冲击",
+      "english": "Compile Driver",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Conflagration",
+      "name": "焚烧",
+      "english": "Conflagration",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "factory:NGroundFireVfx",
+        "scene:vfx/fires/vfx_ground_fire",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CorpseSlug",
+      "name": "CorpseSlug",
+      "english": "CorpseSlug",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_attack",
+        "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_attack_light",
+        "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_die",
+        "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_ravenous",
+        "event:event:/sfx/enemy/enemy_attacks/corpse_slugs/corpse_slugs_ravenous_up_double",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "CrashLanding",
+      "name": "迫降",
+      "english": "Crash Landing",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CrescentSpear",
+      "name": "新月长矛",
+      "english": "Crescent Spear",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CrossbowRubyRaider",
+      "name": "CrossbowRubyRaider",
+      "english": "CrossbowRubyRaider",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/crossbow_ruby_raider/crossbow_ruby_raider_reload",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Crusher",
+      "name": "Crusher",
+      "english": "Crusher",
+      "origin": "monster",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_attack_slam",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_left_attack_scissor",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_left_attack_scoop",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_left_attack_slam",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_left_buff",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_left_die",
+        "scene:vfx/monsters/kaiser_crab_boss_explosion",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "CrushUnder",
+      "name": "下砸",
+      "english": "Crush Under",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
+        "factory:NSpikeSplashVfx",
+        "scene:vfx/spike_splash_vfx",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "CubexConstruct",
+      "name": "CubexConstruct",
+      "english": "CubexConstruct",
+      "origin": "monster",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/cubex_construct/cubex_construct_burrow",
+        "event:event:/sfx/enemy/enemy_attacks/cubex_construct/cubex_construct_charge_attack",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "DaggerSpray",
+      "name": "匕首雨",
+      "english": "Dagger Spray",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/characters/silent/silent_dagger_spray",
+        "factory:NDaggerSprayFlurryVfx",
+        "factory:NDaggerSprayImpactVfx",
+        "scene:vfx/vfx_dagger_spray_flurry",
+        "scene:vfx/vfx_dagger_spray_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DaggerThrow",
+      "name": "投掷匕首",
+      "english": "Dagger Throw",
+      "origin": "card",
+      "effects": [
+        "factory:NDaggerSprayFlurryVfx",
+        "factory:NDaggerSprayImpactVfx",
+        "scene:vfx/vfx_dagger_spray_flurry",
+        "scene:vfx/vfx_dagger_spray_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DampCultist",
+      "name": "DampCultist",
+      "english": "DampCultist",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_attack",
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_buff_damp",
+        "event:event:/sfx/enemy/enemy_attacks/cultists/cultists_die_damp",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Dash",
+      "name": "冲刺",
+      "english": "Dash",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_flying_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DeathMarch",
+      "name": "死亡行军",
+      "english": "Death March",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Debilitate",
+      "name": "摧残",
+      "english": "Debilitate",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DecimillipedeSegment",
+      "name": "DecimillipedeSegment",
+      "english": "DecimillipedeSegment",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/decimillipede/decimillipede_attack_buff",
+        "event:event:/sfx/enemy/enemy_attacks/decimillipede/decimillipede_attack_triple",
+        "event:event:/sfx/enemy/enemy_attacks/decimillipede/decimillipede_attack_weaken",
+        "event:event:/sfx/enemy/enemy_attacks/decimillipede/decimillipede_die",
+        "event:event:/sfx/enemy/enemy_attacks/decimillipede/decimillipede_heal",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_decimillipede_rocks"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Defile",
+      "name": "玷污",
+      "english": "Defile",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Devastate",
+      "name": "葬送",
+      "english": "Devastate",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DevotedSculptor",
+      "name": "DevotedSculptor",
+      "english": "DevotedSculptor",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_scream"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Dismantle",
+      "name": "拆卸",
+      "english": "Dismantle",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DrainPower",
+      "name": "能量汲取",
+      "english": "Drain Power",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DramaticEntrance",
+      "name": "闪亮登场",
+      "english": "Dramatic Entrance",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_dramatic_entrance_fullscreen"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "DyingStar",
+      "name": "星灭",
+      "english": "Dying Star",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "EchoingSlash",
+      "name": "回响斩击",
+      "english": "Echoing Slash",
+      "origin": "card",
+      "effects": [],
+      "status": "no_independent_effect",
+      "reason": "当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。"
+    },
+    {
+      "id": "Entomancer",
+      "name": "Entomancer",
+      "english": "Entomancer",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/entomancer/entomancer_attack_ranged",
+        "event:event:/sfx/enemy/enemy_attacks/entomancer/entomancer_die",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Eradicate",
+      "name": "根除",
+      "english": "Eradicate",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Exoskeleton",
+      "name": "Exoskeleton",
+      "english": "Exoskeleton",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/roaches/roaches_attack",
+        "event:event:/sfx/enemy/enemy_attacks/roaches/roaches_attack_heavy",
+        "event:event:/sfx/enemy/enemy_attacks/roaches/roaches_buff",
+        "event:event:/sfx/enemy/enemy_attacks/roaches/roaches_die",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Exterminate",
+      "name": "杀灭",
+      "english": "Exterminate",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Fabricator",
+      "name": "Fabricator",
+      "english": "Fabricator",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/fabricator/fabricator_hurt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FakeMerchantMonster",
+      "name": "FakeMerchantMonster",
+      "english": "FakeMerchantMonster",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/npcs/reverse_merchant/reverse_merchant_die",
+        "event:event:/sfx/npcs/reverse_merchant/reverse_merchant_hurt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FallingStar",
+      "name": "陨星",
+      "english": "Falling Star",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Fear",
+      "name": "恐惧",
+      "english": "Fear",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Feed",
+      "name": "狂宴",
+      "english": "Feed",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Fetch",
+      "name": "取回",
+      "english": "Fetch",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FiendFire",
+      "name": "恶魔之焰",
+      "english": "Fiend Fire",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/characters/attack_fire",
+        "factory:NGroundFireVfx",
+        "scene:vfx/fires/vfx_ground_fire"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FightMe",
+      "name": "与我一战！",
+      "english": "Fight Me!",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Finisher",
+      "name": "终结技",
+      "english": "Finisher",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NStabVfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Fisticuffs",
+      "name": "拳斗",
+      "english": "Fisticuffs",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FlailKnight",
+      "name": "FlailKnight",
+      "english": "FlailKnight",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/flail_knight/flail_knight_flail",
+        "event:event:/sfx/enemy/enemy_attacks/flail_knight/flail_knight_ram",
+        "event:event:/sfx/enemy/enemy_attacks/flail_knight/flail_knight_war_chant",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FlakCannon",
+      "name": "散射炮",
+      "english": "Flak Cannon",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FlashOfSteel",
+      "name": "亮剑",
+      "english": "Flash of Steel",
+      "origin": "card",
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Flatten",
+      "name": "重压",
+      "english": "Flatten",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Flechettes",
+      "name": "飞镖",
+      "english": "Flechettes",
+      "origin": "card",
+      "effects": [
+        "audio:dagger_throw.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FlickFlack",
+      "name": "翻越撑击",
+      "english": "Flick-Flack",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Flyconid",
+      "name": "Flyconid",
+      "english": "Flyconid",
+      "origin": "monster",
+      "effects": [
+        "factory:NSporeImpactVfx",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_spore_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FocusedStrike",
+      "name": "集中打击",
+      "english": "Focused Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Fogmog",
+      "name": "Fogmog",
+      "english": "Fogmog",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/fogmog/fogmog_summon",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FossilStalker",
+      "name": "FossilStalker",
+      "english": "FossilStalker",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/fossil_stalker/fossil_stalker_attack_buff",
+        "event:event:/sfx/enemy/enemy_attacks/fossil_stalker/fossil_stalker_attack_double",
+        "event:event:/sfx/enemy/enemy_attacks/fossil_stalker/fossil_stalker_attack_single",
+        "event:event:/sfx/enemy/enemy_attacks/fossil_stalker/fossil_stalker_hurt",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "FrogKnight",
+      "name": "FrogKnight",
+      "english": "FrogKnight",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/frog_knight/frog_knight_buff",
+        "event:event:/sfx/enemy/enemy_attacks/frog_knight/frog_knight_charge",
+        "event:event:/sfx/enemy/enemy_attacks/frog_knight/frog_knight_tongue_lash",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Ftl",
+      "name": "超越光速",
+      "english": "FTL",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "FuzzyWurmCrawler",
+      "name": "FuzzyWurmCrawler",
+      "english": "FuzzyWurmCrawler",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "GammaBlast",
+      "name": "伽马爆破",
+      "english": "Gamma Blast",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_giant_horizontal_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GangUp",
+      "name": "群起攻之",
+      "english": "Gang Up",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GasBomb",
+      "name": "GasBomb",
+      "english": "GasBomb",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_explode",
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_minion_die",
+        "factory:NGaseousImpactVfx",
+        "scene:vfx/vfx_gaseous_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "GiantRock",
+      "name": "巨石",
+      "english": "Giant Rock",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_rock_shatter"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GlobeHead",
+      "name": "GlobeHead",
+      "english": "GlobeHead",
+      "origin": "monster",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/globe_head/globe_head_charge",
+        "event:event:/sfx/enemy/enemy_attacks/globe_head/globe_head_slap",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_lightning"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "GoForTheEyes",
+      "name": "眼部攻击",
+      "english": "Go for the Eyes",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GoldAxe",
+      "name": "金斧",
+      "english": "Gold Axe",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_dramatic_stab"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GrandFinale",
+      "name": "华丽收场",
+      "english": "Grand Finale",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NGrandFinaleImpactVfx",
+        "factory:NGrandFinaleVfx",
+        "scene:vfx/vfx_grand_finale",
+        "scene:vfx/vfx_grand_finale_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Graveblast",
+      "name": "坟冢爆射",
+      "english": "Graveblast",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GremlinMerc",
+      "name": "GremlinMerc",
+      "english": "GremlinMerc",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/gremlin_merc/gremlin_merc_attack_buff",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_coin_explosion_regular"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "GuidingStar",
+      "name": "引导之星",
+      "english": "Guiding Star",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/characters/regent/regent_guiding_star",
+        "factory:NSmallMagicMissileVfx",
+        "scene:vfx/vfx_small_magic_missile"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "GunkUp",
+      "name": "污秽攻击",
+      "english": "Gunk Up",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NGoopyImpactVfx",
+        "scene:vfx/vfx_goopy_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HandOfGreed",
+      "name": "贪婪之手",
+      "english": "Hand of Greed",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_coin_explosion_regular"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Hang",
+      "name": "吊杀",
+      "english": "Hang",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HauntedShip",
+      "name": "HauntedShip",
+      "english": "HauntedShip",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_spooky_scream"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Headbutt",
+      "name": "头槌",
+      "english": "Headbutt",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HeavenlyDrill",
+      "name": "天际钻头",
+      "english": "Heavenly Drill",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "scene:vfx/vfx_giant_horizontal_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Hegemony",
+      "name": "霸权",
+      "english": "Hegemony",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HeirloomHammer",
+      "name": "传承之锤",
+      "english": "Heirloom Hammer",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HelixDrill",
+      "name": "螺旋钻击",
+      "english": "Helix Drill",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Hemokinesis",
+      "name": "御血术",
+      "english": "Hemokinesis",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_bloody_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HighFive",
+      "name": "击掌",
+      "english": "High Five",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HowlFromBeyond",
+      "name": "彼岸咆哮",
+      "english": "Howl from Beyond",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "HunterKiller",
+      "name": "HunterKiller",
+      "english": "HunterKiller",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/hunter_killer/hunter_killer_die",
+        "event:event:/sfx/enemy/enemy_attacks/hunter_killer/hunter_killer_hurt",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Hyperbeam",
+      "name": "超能光束",
+      "english": "Hyperbeam",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/characters/defect/defect_hyperbeam",
+        "factory:NHyperbeamImpactVfx",
+        "factory:NHyperbeamVfx",
+        "scene:vfx/vfx_hyperbeam",
+        "scene:vfx/vfx_hyperbeam_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "IceLance",
+      "name": "冰之长枪",
+      "english": "Ice Lance",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "InfestedPrism",
+      "name": "InfestedPrism",
+      "english": "InfestedPrism",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_attack",
+        "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_attack_defend",
+        "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_attack_spin",
+        "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_buff",
+        "event:event:/sfx/enemy/enemy_attacks/infested_prisms/infested_prisms_die",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Inklet",
+      "name": "Inklet",
+      "english": "Inklet",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/inklet/inklet_attack_triple",
+        "event:event:/sfx/enemy/enemy_attacks/inklet/inklet_hurt",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "IronWave",
+      "name": "铁斩波",
+      "english": "Iron Wave",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_flying_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Jackpot",
+      "name": "大奖",
+      "english": "Jackpot",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "KinFollower",
+      "name": "KinFollower",
+      "english": "KinFollower",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_minion/the_kin_minion_boomerang_slash",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_minion/the_kin_minion_buff",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_minion/the_kin_minion_die",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_minion/the_kin_minion_quick_slash",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_hurt",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_kin_poof"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "KinglyKick",
+      "name": "王者之踢",
+      "english": "Kingly Kick",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "KinglyPunch",
+      "name": "王者之拳",
+      "english": "Kingly Punch",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "KinPriest",
+      "name": "KinPriest",
+      "english": "KinPriest",
+      "origin": "monster",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_cast",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_die",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_rally",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_soul_beam",
+        "event:event:/sfx/enemy/enemy_attacks/the_kin_priest/the_kin_priest_soul_grenade",
+        "factory:NKinPriestGrenadeVfx",
+        "scene:vfx/monsters/kin_priest_grenade_vfx",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Knockdown",
+      "name": "击倒",
+      "english": "Knockdown",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "KnockoutBlow",
+      "name": "决胜一击",
+      "english": "Knockout Blow",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "KnowledgeDemon",
+      "name": "KnowledgeDemon",
+      "english": "KnowledgeDemon",
+      "origin": "monster",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/knowledge_demon/knowledge_demon_clap",
+        "event:event:/sfx/enemy/enemy_attacks/knowledge_demon/knowledge_demon_flame",
+        "event:event:/sfx/enemy/enemy_attacks/knowledge_demon/knowledge_demon_slap",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LagavulinMatriarch",
+      "name": "LagavulinMatriarch",
+      "english": "LagavulinMatriarch",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/lagavulin_matriarch/lagavulin_matriarch_attack_stab",
+        "event:event:/sfx/enemy/enemy_attacks/lagavulin_matriarch/lagavulin_matriarch_awaken",
+        "event:event:/sfx/enemy/enemy_attacks/lagavulin_matriarch/lagavulin_matriarch_cast",
+        "event:event:/sfx/enemy/enemy_attacks/lagavulin_matriarch/lagavulin_matriarch_slam",
+        "factory:NSleepingVfx",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_sleeping"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LeadingStrike",
+      "name": "先制打击",
+      "english": "Leading Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "LeafSlimeM",
+      "name": "LeafSlimeM",
+      "english": "LeafSlimeM",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_slime_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LeafSlimeS",
+      "name": "LeafSlimeS",
+      "english": "LeafSlimeS",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_slime_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LivingFog",
+      "name": "LivingFog",
+      "english": "LivingFog",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_attack_blow",
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_die",
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_minion_appear",
+        "event:event:/sfx/enemy/enemy_attacks/living_fog/living_fog_summon",
+        "factory:NGaseousImpactVfx",
+        "scene:vfx/vfx_gaseous_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LivingShield",
+      "name": "LivingShield",
+      "english": "LivingShield",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LouseProgenitor",
+      "name": "LouseProgenitor",
+      "english": "LouseProgenitor",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_attack",
+        "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_attack_web",
+        "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_curl",
+        "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_die",
+        "event:event:/sfx/enemy/enemy_attacks/giant_louse/giant_louse_uncurl",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "LunarBlast",
+      "name": "月面射击",
+      "english": "Lunar Blast",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MadScience",
+      "name": "疯狂科学",
+      "english": "Mad Science",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MagiKnight",
+      "name": "MagiKnight",
+      "english": "MagiKnight",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/magi_knight/magi_knight_attack_bomb",
+        "event:event:/sfx/enemy/enemy_attacks/magi_knight/magi_knight_attack_ram",
+        "event:event:/sfx/enemy/enemy_attacks/magi_knight/magi_knight_cast_shield",
+        "event:event:/sfx/enemy/enemy_attacks/magi_knight/magi_knight_hurt",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "MakeItSo",
+      "name": "如此甚好",
+      "english": "Make It So",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Mangle",
+      "name": "凌虐",
+      "english": "Mangle",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Maul",
+      "name": "撕咬",
+      "english": "Maul",
+      "origin": "card",
+      "effects": [
+        "factory:NScratchVfx",
+        "scene:vfx/vfx_scratch_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Mawler",
+      "name": "Mawler",
+      "english": "Mawler",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "MechaKnight",
+      "name": "MechaKnight",
+      "english": "MechaKnight",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_buff",
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_dash",
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_die",
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_flamethrower",
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_heavy_attack",
+        "event:event:/sfx/enemy/enemy_attacks/mechaknight/mechaknight_hurt",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NBigSlashImpactVfx",
+        "factory:NBigSlashVfx",
+        "factory:NFgGroundSpikeVfx",
+        "factory:NFireBurstVfx",
+        "factory:NSpikeSplashVfx",
+        "scene:vfx/spike_splash_vfx",
+        "scene:vfx/vfx_big_slash",
+        "scene:vfx/vfx_big_slash_impact",
+        "scene:vfx/vfx_fire_burst"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "MementoMori",
+      "name": "铭记死亡",
+      "english": "Memento Mori",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MeteorShower",
+      "name": "流星雨",
+      "english": "Meteor Shower",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MeteorStrike",
+      "name": "陨石打击",
+      "english": "Meteor Strike",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "factory:NLargeMagicMissileVfx",
+        "scene:vfx/vfx_large_magic_missile"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Midnight",
+      "name": "午夜",
+      "english": "Midnight",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MindBlast",
+      "name": "心灵震慑",
+      "english": "Mind Blast",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MinionDiveBomb",
+      "name": "仆从俯冲",
+      "english": "Minion Dive Bomb",
+      "origin": "card",
+      "effects": [
+        "factory:NMinionDiveBombVfx",
+        "scene:vfx/vfx_minion_dive_bomb"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MinionStrike",
+      "name": "仆从打击",
+      "english": "Minion Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Misery",
+      "name": "苦难",
+      "english": "Misery",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MoltenFist",
+      "name": "熔融之拳",
+      "english": "Molten Fist",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_molten_fist"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MomentumStrike",
+      "name": "趁势打击",
+      "english": "Momentum Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "MultiAttackMoveMonster",
+      "name": "MultiAttackMoveMonster",
+      "english": "MultiAttackMoveMonster",
+      "origin": "monster",
+      "effects": [],
+      "status": "needs_investigation",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Murder",
+      "name": "谋杀",
+      "english": "Murder",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Myte",
+      "name": "Myte",
+      "english": "Myte",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/mite/mite_attack",
+        "event:event:/sfx/enemy/enemy_attacks/mite/mite_cast",
+        "event:event:/sfx/enemy/enemy_attacks/mite/mite_die",
+        "event:event:/sfx/enemy/enemy_attacks/mite/mite_suck",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "NeowsFury",
+      "name": "涅奥之怒",
+      "english": "Neow's Fury",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Neutralize",
+      "name": "中和",
+      "english": "Neutralize",
+      "origin": "card",
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Nibbit",
+      "name": "Nibbit",
+      "english": "Nibbit",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/nibbit/nibbit_die",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Null",
+      "name": "空值",
+      "english": "Null",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Omnislice",
+      "name": "万向斩",
+      "english": "Omnislice",
+      "origin": "card",
+      "effects": [],
+      "status": "no_independent_effect",
+      "reason": "当前 OnPlay 直接结算伤害，无独立出手/命中特效；可自行绑定效果。"
+    },
+    {
+      "id": "Outrage",
+      "name": "群情激愤",
+      "english": "Outrage",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Ovicopter",
+      "name": "Ovicopter",
+      "english": "Ovicopter",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/egg_layer/egg_layer_attack",
+        "event:event:/sfx/enemy/enemy_attacks/egg_layer/egg_layer_die",
+        "event:event:/sfx/enemy/enemy_attacks/egg_layer/egg_layer_idle_loop",
+        "event:event:/sfx/enemy/enemy_attacks/egg_layer/egg_layer_lay",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "OwlMagistrate",
+      "name": "OwlMagistrate",
+      "english": "OwlMagistrate",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_attack_dive",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_attack_peck",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_die",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_die_flying",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_fly_loop",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_hurt_flying",
+        "event:event:/sfx/enemy/enemy_attacks/owl_magistrate/owl_magistrate_take_off",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_gaze"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "PactsEnd",
+      "name": "契约终结",
+      "english": "Pact's End",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Parafright",
+      "name": "Parafright",
+      "english": "Parafright",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_hologram_attack",
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_hologram_die",
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_hologram_heal",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Peck",
+      "name": "啄击",
+      "english": "Peck",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PerfectedStrike",
+      "name": "完美打击",
+      "english": "Perfected Strike",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "factory:NBigSlashImpactVfx",
+        "factory:NBigSlashVfx",
+        "scene:vfx/vfx_big_slash",
+        "scene:vfx/vfx_big_slash_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PhantasmalGardener",
+      "name": "PhantasmalGardener",
+      "english": "PhantasmalGardener",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/phantasmal_gardeners/phantasmal_gardeners_attack_bite",
+        "event:event:/sfx/enemy/enemy_attacks/phantasmal_gardeners/phantasmal_gardeners_attack_lick",
+        "event:event:/sfx/enemy/enemy_attacks/phantasmal_gardeners/phantasmal_gardeners_buff",
+        "event:event:/sfx/enemy/enemy_attacks/phantasmal_gardeners/phantasmal_gardeners_die",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "PhotonCut",
+      "name": "光子切割",
+      "english": "Photon Cut",
+      "origin": "card",
+      "effects": [
+        "audio:dagger_throw.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PhrogParasite",
+      "name": "PhrogParasite",
+      "english": "PhrogParasite",
+      "origin": "monster",
+      "effects": [
+        "factory:NWormyImpactVfx",
+        "scene:vfx/vfx_wormy_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Pillage",
+      "name": "劫掠",
+      "english": "Pillage",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Pinpoint",
+      "name": "精密瞄准",
+      "english": "Pinpoint",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PoisonedStab",
+      "name": "带毒刺击",
+      "english": "Poisoned Stab",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_dramatic_stab"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Poke",
+      "name": "戳击",
+      "english": "Poke",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PommelStrike",
+      "name": "剑柄打击",
+      "english": "Pommel Strike",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Pounce",
+      "name": "猛扑",
+      "english": "Pounce",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PreciseCut",
+      "name": "精确切击",
+      "english": "Precise Cut",
+      "origin": "card",
+      "effects": [
+        "audio:dagger_throw.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Predator",
+      "name": "猎杀者",
+      "english": "Predator",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Protector",
+      "name": "守护者",
+      "english": "Protector",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PullFromBelow",
+      "name": "亡魂牵引",
+      "english": "Pull from Below",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "PunchConstruct",
+      "name": "PunchConstruct",
+      "english": "PunchConstruct",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/punch_construct/punch_construct_attack_double",
+        "event:event:/sfx/enemy/enemy_attacks/punch_construct/punch_construct_attack_single",
+        "event:event:/sfx/enemy/enemy_attacks/punch_construct/punch_construct_buff",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Queen",
+      "name": "Queen",
+      "english": "Queen",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/queen/queen_arms_attack",
+        "event:event:/sfx/enemy/enemy_attacks/queen/queen_cast",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Radiate",
+      "name": "辐射",
+      "english": "Radiate",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Rampage",
+      "name": "暴走",
+      "english": "Rampage",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Rattle",
+      "name": "猛晃",
+      "english": "Rattle",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Reap",
+      "name": "收割",
+      "english": "Reap",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Reave",
+      "name": "剥夺",
+      "english": "Reave",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Rebound",
+      "name": "弹回",
+      "english": "Rebound",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Refract",
+      "name": "折射",
+      "english": "Refract",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Rend",
+      "name": "撕碎",
+      "english": "Rend",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Ricochet",
+      "name": "连续反弹",
+      "english": "Ricochet",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "RightHandHand",
+      "name": "得力助手",
+      "english": "Right Hand Hand",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "RipAndTear",
+      "name": "狂乱撕扯",
+      "english": "Rip and Tear",
+      "origin": "card",
+      "effects": [
+        "factory:NScratchVfx",
+        "scene:vfx/vfx_scratch_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Rocket",
+      "name": "Rocket",
+      "english": "Rocket",
+      "origin": "monster",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_right_attack_slam",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_right_attack_snap",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_right_buff",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_right_die",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_right_regrow",
+        "event:event:/sfx/enemy/enemy_attacks/kaiser_crab/kaiser_crab_rocket",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "RocketPunch",
+      "name": "火箭飞拳",
+      "english": "Rocket Punch",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Salvo",
+      "name": "箭雨",
+      "english": "Salvo",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Scrape",
+      "name": "刮削",
+      "english": "Scrape",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ScrollOfBiting",
+      "name": "ScrollOfBiting",
+      "english": "ScrollOfBiting",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/scroll_of_biting/scroll_of_biting_bite",
+        "event:event:/sfx/enemy/enemy_attacks/scroll_of_biting/scroll_of_biting_bite_double",
+        "event:event:/sfx/enemy/enemy_attacks/scroll_of_biting/scroll_of_biting_buff",
+        "event:event:/sfx/enemy/enemy_attacks/scroll_of_biting/scroll_of_biting_die",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SculptingStrike",
+      "name": "雕琢打击",
+      "english": "Sculpting Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Seapunk",
+      "name": "Seapunk",
+      "english": "Seapunk",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/seapunk/seapunk_buff",
+        "event:event:/sfx/enemy/enemy_attacks/seapunk/seapunk_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/seapunk/seapunk_kick",
+        "event:event:/sfx/enemy/enemy_attacks/seapunk/seapunk_kick_multi",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SeekerStrike",
+      "name": "探寻打击",
+      "english": "Seeker Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SetupStrike",
+      "name": "预备打击",
+      "english": "Setup Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SevenStars",
+      "name": "七星",
+      "english": "Seven Stars",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Severance",
+      "name": "切断",
+      "english": "Severance",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SewerClam",
+      "name": "SewerClam",
+      "english": "SewerClam",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/sewer_clam/sewer_clam_buff",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Shatter",
+      "name": "打碎",
+      "english": "Shatter",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ShiningStrike",
+      "name": "明耀打击",
+      "english": "Shining Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Shiv",
+      "name": "小刀",
+      "english": "Shiv",
+      "origin": "card",
+      "effects": [
+        "factory:NShivThrowVfx",
+        "scene:vfx/vfx_shiv_throw"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ShrinkerBeetle",
+      "name": "ShrinkerBeetle",
+      "english": "ShrinkerBeetle",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SicEm",
+      "name": "紧追不放",
+      "english": "Sic 'Em",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SingleAttackMoveMonster",
+      "name": "SingleAttackMoveMonster",
+      "english": "SingleAttackMoveMonster",
+      "origin": "monster",
+      "effects": [],
+      "status": "needs_investigation",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Skewer",
+      "name": "串刺",
+      "english": "Skewer",
+      "origin": "card",
+      "effects": [
+        "factory:NStabVfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SkulkingColony",
+      "name": "SkulkingColony",
+      "english": "SkulkingColony",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/skulking_colony/skulking_colony_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/skulking_colony/skulking_colony_kick",
+        "event:event:/sfx/enemy/enemy_attacks/skulking_colony/skulking_colony_slap",
+        "event:event:/sfx/enemy/enemy_attacks/skulking_colony/skulking_colony_spin",
+        "event:event:/sfx/enemy/enemy_attacks/skulking_colony/skulking_colony_thrust",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Slice",
+      "name": "切割",
+      "english": "Slice",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "factory:NThinSliceVfx",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SlimedBerserker",
+      "name": "SlimedBerserker",
+      "english": "SlimedBerserker",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/slimed_berserker/slimed_berserker_buff",
+        "event:event:/sfx/enemy/enemy_attacks/slimed_berserker/slimed_berserker_slime"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SlitheringStrangler",
+      "name": "SlitheringStrangler",
+      "english": "SlitheringStrangler",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/slithering_strangler/slithering_strangler_attack_headbutt",
+        "event:event:/sfx/enemy/enemy_attacks/slithering_strangler/slithering_strangler_cast",
+        "event:event:/sfx/enemy/enemy_attacks/slithering_strangler/slithering_strangler_tail",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SludgeSpinner",
+      "name": "SludgeSpinner",
+      "english": "SludgeSpinner",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/sludge_spinner/sludge_spinner_attack_dash",
+        "event:event:/sfx/enemy/enemy_attacks/sludge_spinner/sludge_spinner_attack_spin",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SlumberingBeetle",
+      "name": "SlumberingBeetle",
+      "english": "SlumberingBeetle",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/slumbering_beetle/slumbering_beetle_roll",
+        "event:event:/sfx/enemy/enemy_attacks/slumbering_beetle/slumbering_beetle_sleep_loop",
+        "event:event:/sfx/enemy/enemy_attacks/slumbering_beetle/slumbering_beetle_wake_up",
+        "factory:NSleepingVfx",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_sleeping"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Snap",
+      "name": "响指",
+      "english": "Snap",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SnappingJaxfruit",
+      "name": "SnappingJaxfruit",
+      "english": "SnappingJaxfruit",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/orb_plant/orb_plant_idle_loop"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SneakyGremlin",
+      "name": "SneakyGremlin",
+      "english": "SneakyGremlin",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/gremlin_merc/sneaky_gremlin_attack",
+        "event:event:/sfx/enemy/enemy_attacks/gremlin_merc/sneaky_gremlin_die",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SolarStrike",
+      "name": "太阳打击",
+      "english": "Solar Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SoulFysh",
+      "name": "SoulFysh",
+      "english": "SoulFysh",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/soul_fysh/soul_fysh_beckon",
+        "event:event:/sfx/enemy/enemy_attacks/soul_fysh/soul_fysh_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/soul_fysh/soul_fysh_intangible",
+        "event:event:/sfx/enemy/enemy_attacks/soul_fysh/soul_fysh_reappear",
+        "event:event:/sfx/enemy/enemy_attacks/soul_fysh/soul_fysh_wave",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_spooky_scream"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SoulNexus",
+      "name": "SoulNexus",
+      "english": "SoulNexus",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SoulStorm",
+      "name": "灵魂风暴",
+      "english": "Soul Storm",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SovereignBlade",
+      "name": "君王之剑",
+      "english": "Sovereign Blade",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "event:event:/sfx/characters/regent/regent_sovereign_blade",
+        "factory:NBigSlashImpactVfx",
+        "factory:NBigSlashVfx",
+        "scene:vfx/sovereign_blade",
+        "scene:vfx/vfx_big_slash",
+        "scene:vfx/vfx_big_slash_impact",
+        "scene:vfx/vfx_giant_horizontal_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "完整演出依赖已锻造君王之剑的持久节点与攻击状态；可单独选择巨型斩击及关联声音。"
+    },
+    {
+      "id": "Sow",
+      "name": "播种",
+      "english": "Sow",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SpectralKnight",
+      "name": "SpectralKnight",
+      "english": "SpectralKnight",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/spectral_knight/spectral_knight_hex",
+        "event:event:/sfx/enemy/enemy_attacks/spectral_knight/spectral_knight_soul_flame",
+        "event:event:/sfx/enemy/enemy_attacks/spectral_knight/spectral_knight_soul_slash",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "SpinyToad",
+      "name": "SpinyToad",
+      "english": "SpinyToad",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/spiny_toad/spiny_toad_die",
+        "event:event:/sfx/enemy/enemy_attacks/spiny_toad/spiny_toad_explode",
+        "event:event:/sfx/enemy/enemy_attacks/spiny_toad/spiny_toad_lick",
+        "event:event:/sfx/enemy/enemy_attacks/spiny_toad/spiny_toad_protrude",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Spite",
+      "name": "怨恨",
+      "english": "Spite",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Squash",
+      "name": "压扁",
+      "english": "Squash",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Squeeze",
+      "name": "榨取",
+      "english": "Squeeze",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Stabbot",
+      "name": "Stabbot",
+      "english": "Stabbot",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Stardust",
+      "name": "星尘",
+      "english": "Stardust",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_starry_impact"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Stomp",
+      "name": "踩踏",
+      "english": "Stomp",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "factory:NBgGroundSpikeVfx",
+        "factory:NFgGroundSpikeVfx",
+        "factory:NSpikeSplashVfx",
+        "scene:vfx/spike_splash_vfx",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Strangle",
+      "name": "紧勒",
+      "english": "Strangle",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "StrikeDefect",
+      "name": "打击",
+      "english": "Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "StrikeIronclad",
+      "name": "打击",
+      "english": "Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "StrikeNecrobinder",
+      "name": "打击",
+      "english": "Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "StrikeRegent",
+      "name": "打击",
+      "english": "Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "StrikeSilent",
+      "name": "打击",
+      "english": "Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SuckerPunch",
+      "name": "突然一拳",
+      "english": "Sucker Punch",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Sunder",
+      "name": "分离",
+      "english": "Sunder",
+      "origin": "card",
+      "effects": [
+        "audio:slash_attack.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Supermassive",
+      "name": "超质量体",
+      "english": "Supermassive",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Suppress",
+      "name": "压制",
+      "english": "Suppress",
+      "origin": "card",
+      "effects": [
+        "factory:NThinSliceVfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SweepingBeam",
+      "name": "扫荡射线",
+      "english": "Sweeping Beam",
+      "origin": "card",
+      "effects": [
+        "factory:NSweepingBeamImpactVfx",
+        "factory:NSweepingBeamVfx",
+        "scene:vfx/vfx_sweeping_beam"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SweepingGaze",
+      "name": "扫荡凝视",
+      "english": "Sweeping Gaze",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "SwordBoomerang",
+      "name": "飞剑回旋镖",
+      "english": "Sword Boomerang",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Synthesis",
+      "name": "人工合成",
+      "english": "Synthesis",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TagTeam",
+      "name": "双打组合",
+      "english": "Tag Team",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TearAsunder",
+      "name": "扯碎",
+      "english": "Tear Asunder",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TerrorEel",
+      "name": "TerrorEel",
+      "english": "TerrorEel",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/terror_eel/terror_eel_attack_multi",
+        "event:event:/sfx/enemy/enemy_attacks/terror_eel/terror_eel_debuff",
+        "scene:vfx/vfx_attack_slash",
+        "scene:vfx/vfx_scream"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TeslaCoil",
+      "name": "特斯拉线圈",
+      "english": "Tesla Coil",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TestSubject",
+      "name": "TestSubject",
+      "english": "TestSubject",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/test_subject/test_subject_bite",
+        "event:event:/sfx/enemy/enemy_attacks/test_subject/test_subject_knock_out",
+        "event:event:/sfx/enemy/enemy_attacks/test_subject/test_subject_revive_three_heads",
+        "event:event:/sfx/enemy/enemy_attacks/test_subject/test_subject_revive_two_heads",
+        "event:event:/sfx/enemy/enemy_attacks/test_subject/test_subject_slash",
+        "factory:NTestSubjectBurnVfx",
+        "scene:vfx/monsters/test_subject_burn_vfx",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheAdversaryMkOne",
+      "name": "TheAdversaryMkOne",
+      "english": "TheAdversaryMkOne",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheAdversaryMkThree",
+      "name": "TheAdversaryMkThree",
+      "english": "TheAdversaryMkThree",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheAdversaryMkTwo",
+      "name": "TheAdversaryMkTwo",
+      "english": "TheAdversaryMkTwo",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheBall",
+      "name": "魔球",
+      "english": "The Ball",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TheForgotten",
+      "name": "TheForgotten",
+      "english": "TheForgotten",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheHunt",
+      "name": "狩猎",
+      "english": "The Hunt",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TheInsatiable",
+      "name": "TheInsatiable",
+      "english": "TheInsatiable",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/the_insatiable/the_insatiable_finisher",
+        "event:event:/sfx/enemy/enemy_attacks/the_insatiable/the_insatiable_liquify_ground",
+        "event:event:/sfx/enemy/enemy_attacks/the_insatiable/the_insatiable_lunging_bite",
+        "event:event:/sfx/enemy/enemy_attacks/the_insatiable/the_insatiable_salivate",
+        "event:event:/sfx/enemy/enemy_attacks/the_insatiable/the_insatiable_thrash",
+        "scene:vfx/vfx_bite",
+        "scene:vfx/vfx_scratch",
+        "scene:vfx/vfx_scream"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheLost",
+      "name": "TheLost",
+      "english": "TheLost",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheObscura",
+      "name": "TheObscura",
+      "english": "TheObscura",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_attack",
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_buff",
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_die",
+        "event:event:/sfx/enemy/enemy_attacks/obscura/obscura_summon",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TheScythe",
+      "name": "巨镰",
+      "english": "The Scythe",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ThievingHopper",
+      "name": "ThievingHopper",
+      "english": "ThievingHopper",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_attack",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_attack_hover",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_die",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_flee",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_flee_hover",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_hover_loop",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_hurt_hover",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_steal",
+        "event:event:/sfx/enemy/enemy_attacks/thieving_hopper/thieving_hopper_take_off",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Thrash",
+      "name": "痛殴",
+      "english": "Thrash",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_thrash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "ThrummingHatchet",
+      "name": "无休手斧",
+      "english": "Thrumming Hatchet",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Thunderclap",
+      "name": "闪电霹雳",
+      "english": "Thunderclap",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TimesUp",
+      "name": "大限已至",
+      "english": "Time's Up",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Toadpole",
+      "name": "Toadpole",
+      "english": "Toadpole",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/toadpole/toadpole_attack_spin",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TorchHeadAmalgam",
+      "name": "TorchHeadAmalgam",
+      "english": "TorchHeadAmalgam",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/torch_head_amalgam/torch_head_amalgam_beam",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "ToughEgg",
+      "name": "ToughEgg",
+      "english": "ToughEgg",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/tough_egg/hatchling_die",
+        "event:event:/sfx/enemy/enemy_attacks/tough_egg/tough_egg_die",
+        "event:event:/sfx/enemy/enemy_attacks/tough_egg/tough_egg_hatch",
+        "scene:vfx/vfx_bite"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TrackerRubyRaider",
+      "name": "TrackerRubyRaider",
+      "english": "TrackerRubyRaider",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Tunneler",
+      "name": "Tunneler",
+      "english": "Tunneler",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_attack",
+        "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_burrow",
+        "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_die",
+        "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_hidden_attack",
+        "event:event:/sfx/enemy/enemy_attacks/burrowing_bug/burrowing_bug_hurt",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TurretOperator",
+      "name": "TurretOperator",
+      "english": "TurretOperator",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/turret_operator/turret_operator_buff",
+        "event:event:/sfx/enemy/enemy_attacks/turret_operator/turret_operator_hurt",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TwigSlimeM",
+      "name": "TwigSlimeM",
+      "english": "TwigSlimeM",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_slime_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TwigSlimeS",
+      "name": "TwigSlimeS",
+      "english": "TwigSlimeS",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_slime_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "TwinStrike",
+      "name": "双重打击",
+      "english": "Twin Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "TwoTailedRat",
+      "name": "TwoTailedRat",
+      "english": "TwoTailedRat",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_attack_bite",
+        "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_attack_hands",
+        "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_die",
+        "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_hurt",
+        "event:event:/sfx/enemy/enemy_attacks/two_tail_rats/two_tail_rats_summon",
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "UltimateStrike",
+      "name": "究极打击",
+      "english": "Ultimate Strike",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Unleash",
+      "name": "出击",
+      "english": "Unleash",
+      "origin": "card",
+      "effects": [
+        "audio:blunt_attack.mp3",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Unrelenting",
+      "name": "无情猛攻",
+      "english": "Unrelenting",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Uppercut",
+      "name": "上勾拳",
+      "english": "Uppercut",
+      "origin": "card",
+      "effects": [
+        "audio:heavy_attack.mp3",
+        "scene:vfx/vfx_heavy_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Uproar",
+      "name": "骚动",
+      "english": "Uproar",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Vantom",
+      "name": "Vantom",
+      "english": "Vantom",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/vantom/vantom_buff",
+        "event:event:/sfx/enemy/enemy_attacks/vantom/vantom_dismember",
+        "event:event:/sfx/enemy/enemy_attacks/vantom/vantom_extend_1",
+        "event:event:/sfx/enemy/enemy_attacks/vantom/vantom_extend_2",
+        "event:event:/sfx/enemy/enemy_attacks/vantom/vantom_inky_lance",
+        "scene:vfx/vfx_attack_blunt",
+        "scene:vfx/vfx_giant_horizontal_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Veilpiercer",
+      "name": "刺破帷幕",
+      "english": "Veilpiercer",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "VineShambler",
+      "name": "VineShambler",
+      "english": "VineShambler",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/vine_shambler/vine_shambler_cast",
+        "event:event:/sfx/enemy/enemy_attacks/vine_shambler/vine_shambler_chomp",
+        "event:event:/sfx/enemy/enemy_attacks/vine_shambler/vine_shambler_defensive_swipe",
+        "scene:vfx/monsters/vine_shambler_vines/vine_shambler_vines_vfx",
+        "scene:vfx/vfx_bite",
+        "scene:vfx/vfx_scratch"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Volley",
+      "name": "连射",
+      "english": "Volley",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "WaterfallGiant",
+      "name": "WaterfallGiant",
+      "english": "WaterfallGiant",
+      "origin": "monster",
+      "effects": [
+        "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_ambient",
+        "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_attack_kick",
+        "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_attack_stomp",
+        "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_eruption",
+        "event:event:/sfx/enemy/enemy_attacks/waterfall_giant/waterfall_giant_knockout",
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "Whirlwind",
+      "name": "旋风斩",
+      "english": "Whirlwind",
+      "origin": "card",
+      "effects": [
+        "event:event:/sfx/characters/ironclad/ironclad_whirlwind",
+        "factory:NHorizontalLinesVfx",
+        "factory:NSmokyVignetteVfx",
+        "scene:vfx/vfx_giant_horizontal_slash",
+        "scene:vfx/whole_screen/horizontal_lines_vfx"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Whistle",
+      "name": "吹哨",
+      "english": "Whistle",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Wriggler",
+      "name": "Wriggler",
+      "english": "Wriggler",
+      "origin": "monster",
+      "effects": [
+        "factory:NWormyImpactVfx",
+        "scene:vfx/vfx_bite",
+        "scene:vfx/vfx_wormy_impact"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    },
+    {
+      "id": "WroughtInWar",
+      "name": "战火铸就",
+      "english": "Wrought in War",
+      "origin": "card",
+      "effects": [
+        "scene:vfx/vfx_attack_blunt"
+      ],
+      "status": "mapped"
+    },
+    {
+      "id": "Zapbot",
+      "name": "Zapbot",
+      "english": "Zapbot",
+      "origin": "monster",
+      "effects": [
+        "scene:vfx/vfx_attack_slash"
+      ],
+      "status": "needs_adapter",
+      "reason": "怪物攻击需拆分具体招式及锚点"
+    }
+  ]
+}

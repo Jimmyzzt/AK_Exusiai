@@ -1,0 +1,838 @@
+{
+  "assets": [
+    {
+      "id": "pcs",
+      "name": "拉特兰_PCS主机_剧情背景",
+      "url": "https://media.prts.wiki/5/52/Avg_bg_61_g7_pcsserverroom.png",
+      "page": "https://prts.wiki/w/剧情角色一览#众生行记",
+      "kind": "剧情CG原图",
+      "width": 1024,
+      "height": 576,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "5fbeda66e512082116cc44b80ee4d6aa303e4d84d8782d29d8abf82243ccb25f",
+      "bytes": 683010,
+      "downloaded_file": "pcs.png"
+    },
+    {
+      "id": "emperor",
+      "name": "大帝_企鹅物流老板_剧情立绘",
+      "url": "https://media.prts.wiki/7/75/Avg_char_105_emper.png",
+      "page": "https://prts.wiki/w/剧情角色一览",
+      "kind": "角色立绘原图",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "38e533d5f3d810c6b8d0c742b5efd2f419bc88ec859cd3460ef22233b9a4dd5e",
+      "bytes": 221773,
+      "downloaded_file": "emperor.png"
+    },
+    {
+      "id": "laterano_logo",
+      "name": "拉特兰_标志",
+      "url": "https://media.prts.wiki/e/e9/Logo_拉特兰.png",
+      "page": "https://prts.wiki/w/拉特兰",
+      "kind": "游戏原素材",
+      "width": 510,
+      "height": 510,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "69749d237d798e2225753852252c6fcbaf8f7420b994e090fbaee06c19da24f0",
+      "bytes": 36953,
+      "downloaded_file": "laterano_logo.png"
+    },
+    {
+      "id": "pl_logo",
+      "name": "企鹅物流_标志",
+      "url": "https://media.prts.wiki/2/2b/Logo_企鹅物流.png",
+      "page": "https://prts.wiki/w/泰拉大典:组织/企鹅物流",
+      "kind": "游戏原素材",
+      "width": 510,
+      "height": 510,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "62f86f1432835cf94450639c800cfa24f93c5733b8412ffd0b653f6b063a7a30",
+      "bytes": 36545,
+      "downloaded_file": "pl_logo.png"
+    },
+    {
+      "id": "laterano_street",
+      "name": "拉特兰_街景",
+      "url": "https://media.prts.wiki/c/c5/Avg_bg_26_g9_laterano_street.png",
+      "page": "https://prts.wiki/w/拉特兰",
+      "kind": "剧情CG原图",
+      "width": 1024,
+      "height": 576,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "c3bbdbec6ce988dbb6e5f418f7f3c78f01eb85e87699af41ac514fe918ae2cf5",
+      "bytes": 616331,
+      "downloaded_file": "laterano_street.png"
+    },
+    {
+      "id": "photo",
+      "name": "残破合影_藏品原图",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a05.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 174,
+      "height": 180,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "6484a5f64e4a8f3489b34d43caead4c414c283551e2dcece370f04163433ca65",
+      "bytes": 41824,
+      "downloaded_file": "photo.png"
+    },
+    {
+      "id": "permit",
+      "name": "招聘许可_道具原图",
+      "url": "https://torappu.prts.wiki/assets/item_icon/TKT_RECRUIT.png",
+      "page": "https://prts.wiki/w/招聘许可",
+      "kind": "游戏原素材",
+      "width": 183,
+      "height": 183,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "5b4f848f9281f3f2409960b9dfc615c7d0da842abe8e297d2fa7cf3a722730c0",
+      "bytes": 41193,
+      "downloaded_file": "permit.png"
+    },
+    {
+      "id": "document",
+      "name": "全局作战文件_藏品原图",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_r26.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 157,
+      "height": 162,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "3ebb4c9f7cec29c0670d706f7a4bc1dac5d44830b874fc2b6d8e09fba3de0ce3",
+      "bytes": 37042,
+      "downloaded_file": "document.png"
+    },
+    {
+      "id": "intern",
+      "name": "最佳见习生_蚀刻章",
+      "url": "https://media.prts.wiki/5/5c/蚀刻章_“最佳见习生”.png",
+      "page": "https://prts.wiki/w/光荣之路/存档#“最佳见习生”",
+      "kind": "游戏原素材",
+      "width": 103,
+      "height": 114,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "f173abd6a44b20ff2486d146861c4d1f4a93f03f8add50ffef7fb555da347ab5",
+      "bytes": 16592,
+      "downloaded_file": "intern.png"
+    },
+    {
+      "id": "summit",
+      "name": "万国峰会_蚀刻章",
+      "url": "https://media.prts.wiki/8/8e/蚀刻章_“万国峰会”.png",
+      "page": "https://prts.wiki/w/光荣之路/存档#“万国峰会”",
+      "kind": "游戏原素材",
+      "width": 160,
+      "height": 180,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "f19d0292779b8aac9eff0d52b989d907c952e64c7703d8046b244d0588367783",
+      "bytes": 43587,
+      "downloaded_file": "summit.png"
+    },
+    {
+      "id": "drone",
+      "name": "静音小队_无人机藏品",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a01.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 172,
+      "height": 148,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "dd31bf50e0af643625c20ed345661922f78b4c5614a622f11ab5ced4feccb673",
+      "bytes": 34456,
+      "downloaded_file": "drone.png"
+    },
+    {
+      "id": "spray_ethan",
+      "name": "伊桑_超级喷漆套装_漆罐参考",
+      "url": "https://torappu.prts.wiki/assets/uniequip_img/uniequip_002_ethan.png",
+      "page": "https://prts.wiki/w/伊桑#超级喷漆套装",
+      "kind": "模组原图_含漆罐",
+      "width": 511,
+      "height": 511,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "9c82dc01eca065f234c5ee411f4115aa0fa2ebede0b44710bd68afb13406f0b4",
+      "bytes": 297177,
+      "downloaded_file": "spray_ethan.png"
+    },
+    {
+      "id": "cactus",
+      "name": "仙人掌挞_AI概念图",
+      "url": "AI image_gen / 2026-09-25",
+      "page": "https://prts.wiki/w/拉特兰#饮食",
+      "kind": "AI自制概念图_非官方",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "3666c25b179d5b532e58f15e1cec582551910561e96cdf07f34aff5e5ae66bdc",
+      "bytes": 2100034,
+      "downloaded_file": "cactus.png"
+    },
+    {
+      "id": "exusiai",
+      "name": "新约能天使_精英二立绘_光翼参考",
+      "url": "https://media.prts.wiki/0/07/立绘_新约能天使_2.png",
+      "page": "https://prts.wiki/w/文件:立绘_新约能天使_2.png",
+      "kind": "角色立绘原图",
+      "width": 2560,
+      "height": 2560,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "bc999fd3782e82f67ac5cc2b6d00f80a595798045dde9ac2e4fe209a8e4c06c0",
+      "bytes": 4901265,
+      "downloaded_file": "exusiai.png"
+    },
+    {
+      "id": "confess",
+      "name": "CONFESS-47_立绘",
+      "url": "https://media.prts.wiki/d/d0/立绘_CONFESS-47_1.png",
+      "page": "https://prts.wiki/w/文件:立绘_CONFESS-47_1.png",
+      "kind": "角色立绘原图",
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "97a70ac7058de74861a63a26388b87d033c04be57f2be546b3c106555648e3dc",
+      "bytes": 2888185,
+      "downloaded_file": "confess.png"
+    },
+    {
+      "id": "halo",
+      "name": "光环_萨卡兹肉鸽_指定图标",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_fight_17.png",
+      "page": "https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴#光环",
+      "kind": "游戏原素材",
+      "width": 180,
+      "height": 167,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "75eb27833ac1c42f8c2d49758b47dd25d999943bc6ea8f389f0032b8f7be0345",
+      "bytes": 42107,
+      "downloaded_file": "halo.png"
+    },
+    {
+      "id": "night",
+      "name": "黑夜呢喃_傀影肉鸽_指定图标",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a09.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒#“黑夜呢喃”",
+      "kind": "游戏原素材",
+      "width": 156,
+      "height": 127,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "427b7cf78fc8698b4948a11dc29c63051a64de4be76884a0fe194206f3ed7a16",
+      "bytes": 20041,
+      "downloaded_file": "night.png"
+    },
+    {
+      "id": "night_sarkaz",
+      "name": "黑夜呢喃_萨卡兹肉鸽_同名版本",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_legacy_66.png",
+      "page": "https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴#“黑夜呢喃”",
+      "kind": "游戏原素材",
+      "width": 156,
+      "height": 127,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "ee324682cc654ff2820810f449787ed33460c68380cd6946817df01c9d3c3cb2",
+      "bytes": 20132,
+      "downloaded_file": "night_sarkaz.png"
+    },
+    {
+      "id": "wine_vodka",
+      "name": "生命之水_酒瓶参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q20.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 135,
+      "height": 171,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "c4ebf38b180cd6fc15834da0fc3be8f34c595f8f9330022eaf3b28a923d5caee",
+      "bytes": 24586,
+      "downloaded_file": "wine_vodka.png"
+    },
+    {
+      "id": "wine_liqueur",
+      "name": "皇家利口酒_酒瓶参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q21.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 116,
+      "height": 172,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "b90e48bd63d2336e58f05976825359dd5f0548fc63da0bcd795a29caf7877415",
+      "bytes": 21605,
+      "downloaded_file": "wine_liqueur.png"
+    },
+    {
+      "id": "wine_morgan",
+      "name": "摩根队长佳酿_酒瓶参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q19.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 129,
+      "height": 168,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "273e31975b2ed7057ff54935dc3a8e4029048279e7c0d89ee69aa5bb94f66317",
+      "bytes": 23727,
+      "downloaded_file": "wine_morgan.png"
+    },
+    {
+      "id": "access_card",
+      "name": "游戏室管理员权限卡_卡片参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_4_relic_legacy_42.png",
+      "page": "https://prts.wiki/w/萨卡兹的无终奇语/想象实体图鉴",
+      "kind": "游戏原素材",
+      "width": 180,
+      "height": 151,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "373b9fd275a97c9299b8a23d462157d3ef6fbbab971b14a1dc1a2a1a39c732bb",
+      "bytes": 40765,
+      "downloaded_file": "access_card.png"
+    },
+    {
+      "id": "tape",
+      "name": "精神治疗录像带_磁带参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_n08.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 168,
+      "height": 165,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "514215845a99c2f8d45eb4d9097ea2c753cea6e96b6f9a40a7441f37fe9bc5e4",
+      "bytes": 39151,
+      "downloaded_file": "tape.png"
+    },
+    {
+      "id": "money",
+      "name": "爱丽舍钱袋_钱袋参考",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_q11.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 176,
+      "height": 156,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "ef466dc8b68f3170916d64c06cb1b6a5d6550dc11d9af16049d4ab85b1731966",
+      "bytes": 39289,
+      "downloaded_file": "money.png"
+    },
+    {
+      "id": "boxes",
+      "name": "待运货物_企鹅物流家具",
+      "url": "https://torappu.prts.wiki/assets/furniture/furni_penguin_boxes_01.png",
+      "page": "https://prts.wiki/w/待运货物",
+      "kind": "游戏原素材",
+      "width": 226,
+      "height": 169,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "025f153383bbc062f4d4f9c21a9d1157a1518f790cf1aa74e087dabc9750a30d",
+      "bytes": 25885,
+      "downloaded_file": "boxes.png"
+    },
+    {
+      "id": "dj",
+      "name": "极限混音设备_打碟台",
+      "url": "https://torappu.prts.wiki/assets/furniture/furni_obsidianFestival_DJBooth_01.png",
+      "page": "https://prts.wiki/w/“极限”混音设备",
+      "kind": "游戏原素材",
+      "width": 226,
+      "height": 169,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "964ce4d3c37b79e82eeed36e424e67f7b3df77708e56bc47c7df8f66ed3619bd",
+      "bytes": 55463,
+      "downloaded_file": "dj.png"
+    },
+    {
+      "id": "recordplayer",
+      "name": "旧式唱片机_企鹅物流家具",
+      "url": "https://torappu.prts.wiki/assets/furniture/furni_penguin_recordPlayer_01.png",
+      "page": "https://prts.wiki/w/旧式唱片机",
+      "kind": "游戏原素材",
+      "width": 226,
+      "height": 169,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "sha256": "2e0751149afe8bcc8569b89eb2bf3a725e0f63e6afb333e68213252756c15791",
+      "bytes": 15660,
+      "downloaded_file": "recordplayer.png"
+    },
+    {
+      "id": "business_card",
+      "name": "空白名片_藏品原图",
+      "url": "https://torappu.prts.wiki/assets/roguelike_topic_itempic/rogue_1_relic_a45.png",
+      "page": "https://prts.wiki/w/傀影与猩红孤钻/长生者宝盒",
+      "kind": "游戏原素材",
+      "width": 180,
+      "height": 165,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "8bbd1a7aafaa8e48952f08929227de93737ab92a9f34e736a89a1e6db4d451a3",
+      "bytes": 30710,
+      "downloaded_file": "business_card.png"
+    },
+    {
+      "id": "van_fanart",
+      "name": "企鹅物流运输车_同人构图参考",
+      "url": "https://static.zerochan.net/Arknights.full.2573746.jpg",
+      "page": "https://www.zerochan.net/2573746",
+      "kind": "第三方同人参考_非官方_未取得再发布授权",
+      "width": 2241,
+      "height": 1080,
+      "mode": "RGB",
+      "alpha_extrema": null,
+      "sha256": "b7f5a8b124f9335ee84e7f6257f34e46ec4409dfce53a6189e3cffaf94031337",
+      "bytes": 451863,
+      "downloaded_file": "van_fanart.jpg"
+    },
+    {
+      "id": "van_concept",
+      "name": "公司的面包车_AI概念图_非官方车型",
+      "url": "AI image_gen / 2026-09-25",
+      "page": "https://prts.wiki/w/泰拉大典:组织/企鹅物流",
+      "kind": "AI自制概念图_非官方",
+      "width": 1254,
+      "height": 1254,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "sha256": "99752cd3acc783f87a657996bf707ac931708b02711fa81129edbe8f59da742a",
+      "bytes": 1460398,
+      "downloaded_file": "van_concept.png"
+    }
+  ],
+  "relics": [
+    {
+      "row": 3,
+      "assets": [
+        "pcs",
+        "photo",
+        "exusiai"
+      ],
+      "status": "改制参考",
+      "note": "主机已核对为拉特兰 PCS 系统主机。CG 本身没有能天使合影；残破合影只作相纸边框参考，后续需合成或重绘。",
+      "name": "主机合影",
+      "english": "Photo with the Lord",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/01_主机合影/拉特兰_PCS主机_剧情背景.png",
+        "01_拉特兰/01_主机合影/残破合影_藏品原图.png",
+        "01_拉特兰/01_主机合影/新约能天使_精英二立绘_光翼参考.png"
+      ]
+    },
+    {
+      "row": 4,
+      "assets": [
+        "permit",
+        "laterano_logo"
+      ],
+      "status": "改制参考",
+      "note": "招聘许可提供凭证封套形态参考，不是拉特兰入境证。需移除罗德岛与通用道具标记，替换为拉特兰证件设计。",
+      "name": "入境许可",
+      "english": "Entry Permit",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/02_入境许可/招聘许可_道具原图.png",
+        "01_拉特兰/02_入境许可/拉特兰_标志.png"
+      ]
+    },
+    {
+      "row": 5,
+      "assets": [
+        "document",
+        "intern",
+        "laterano_logo"
+      ],
+      "status": "改制参考",
+      "note": "全局作战文件提供文件形态；最佳见习生是吾导先路的公证所主题蚀刻章，不是现成研学证明。",
+      "name": "研学证明",
+      "english": "Study Tour Certificate",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/03_研学证明/全局作战文件_藏品原图.png",
+        "01_拉特兰/03_研学证明/最佳见习生_蚀刻章.png",
+        "01_拉特兰/03_研学证明/拉特兰_标志.png"
+      ]
+    },
+    {
+      "row": 6,
+      "assets": [
+        "pcs",
+        "drone"
+      ],
+      "status": "改制参考",
+      "note": "无人主机为表中原创物品。PCS 主机是身份基准；静音小队只提供悬浮无人机结构，不能把普通无人机当作主机成品。",
+      "name": "无人主机",
+      "english": "Lord Drone",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/04_无人主机/拉特兰_PCS主机_剧情背景.png",
+        "01_拉特兰/04_无人主机/静音小队_无人机藏品.png"
+      ]
+    },
+    {
+      "row": 7,
+      "assets": [
+        "spray_ethan"
+      ],
+      "status": "改制参考",
+      "note": "伊桑的超级喷漆套装原图，确实画有喷枪和多只漆罐；后续可截取单罐或重绘。它并非能天使专属物品。已排除只有通用徽章外观的蒂比信物图标。",
+      "name": "喷漆罐",
+      "english": "Spray Can",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/05_喷漆罐/伊桑_超级喷漆套装_漆罐参考.png"
+      ]
+    },
+    {
+      "row": 8,
+      "assets": [
+        "cactus"
+      ],
+      "status": "AI自制概念图",
+      "note": "PRTS 确认拉特兰有仙人掌挞，但本次未找到可确认的官方成品图标。此图按甜点概念生成，配料与外形属于设计演绎。",
+      "name": "仙人掌挞",
+      "english": "Cactus Tart",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/06_仙人掌挞/仙人掌挞_AI概念图.png"
+      ]
+    },
+    {
+      "row": 9,
+      "assets": [
+        "exusiai",
+        "halo"
+      ],
+      "status": "改制参考",
+      "note": "以新约能天使原立绘的几何光翼为主参考；光环仅作发光质感辅助。未将角色立绘冒充独立光翼图标。",
+      "name": "炫彩光翼",
+      "english": "Prismatic Wings",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/07_炫彩光翼/新约能天使_精英二立绘_光翼参考.png",
+        "01_拉特兰/07_炫彩光翼/光环_萨卡兹肉鸽_指定图标.png"
+      ]
+    },
+    {
+      "row": 10,
+      "assets": [
+        "confess"
+      ],
+      "status": "同名原素材",
+      "note": "CONFESS-47 的真实告解车立绘；最终遗物小图仍需裁切或重绘，非普通机械人。",
+      "name": "CONFESS-47",
+      "english": "CONFESS-47",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/08_CONFESS-47/CONFESS-47_立绘.png"
+      ]
+    },
+    {
+      "row": 11,
+      "assets": [
+        "summit",
+        "laterano_street",
+        "laterano_logo"
+      ],
+      "status": "改制参考",
+      "note": "万国峰会蚀刻章、拉特兰街景和标志提供主题参考。未找到同名信标成品；后续需设计能清楚识别为信标的主体。",
+      "name": "万国信标",
+      "english": "Beacon of Nations",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/09_万国信标/万国峰会_蚀刻章.png",
+        "01_拉特兰/09_万国信标/拉特兰_街景.png",
+        "01_拉特兰/09_万国信标/拉特兰_标志.png"
+      ]
+    },
+    {
+      "row": 12,
+      "assets": [
+        "halo"
+      ],
+      "status": "表格指定图标",
+      "note": "严格使用表格备注指定的萨卡兹肉鸽藏品光环。",
+      "name": "律法",
+      "english": "The Law",
+      "ancient": "拉特兰",
+      "files": [
+        "01_拉特兰/10_律法/光环_萨卡兹肉鸽_指定图标.png"
+      ]
+    },
+    {
+      "row": 16,
+      "assets": [
+        "pl_logo",
+        "access_card"
+      ],
+      "status": "改制参考",
+      "note": "企鹅物流官方标志与游戏室管理员权限卡提供组合参考，不是现成员工工牌。需替换 GAME ROOM 等文字，重新设计工牌布局。",
+      "name": "企鹅物流工牌",
+      "english": "Penguin Logistics ID",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/11_企鹅物流工牌/企鹅物流_标志.png",
+        "02_大帝/11_企鹅物流工牌/游戏室管理员权限卡_卡片参考.png"
+      ]
+    },
+    {
+      "row": 17,
+      "assets": [
+        "wine_vodka",
+        "wine_liqueur",
+        "wine_morgan"
+      ],
+      "status": "改制参考",
+      "note": "三瓶均为已有藏品原图，只提供酒瓶外形；不冒称乌萨斯白鲸、高卢霞多丽/干白或大炎汾酒的官方图标。",
+      "name": "一些陈酿",
+      "english": "A Few Fine Vintages",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/12_一些陈酿/生命之水_酒瓶参考.png",
+        "02_大帝/12_一些陈酿/皇家利口酒_酒瓶参考.png",
+        "02_大帝/12_一些陈酿/摩根队长佳酿_酒瓶参考.png"
+      ]
+    },
+    {
+      "row": 18,
+      "assets": [
+        "access_card"
+      ],
+      "status": "改制参考",
+      "note": "游戏室管理员权限卡可作卡片轮廓参考；尚需重新设计黑色贵宾卡的配色和细节，不是已确认的大帝黑卡。",
+      "name": "黑卡",
+      "english": "Black Card",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/13_黑卡/游戏室管理员权限卡_卡片参考.png"
+      ]
+    },
+    {
+      "row": 19,
+      "assets": [
+        "tape"
+      ],
+      "status": "改制参考",
+      "note": "磁带外形素材；原物为精神治疗录像带，并非大帝的音乐母带。可用于重绘磁带母带，若要开盘式母带则需另画。",
+      "name": "母带",
+      "english": "Master Tape",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/14_母带/精神治疗录像带_磁带参考.png"
+      ]
+    },
+    {
+      "row": 20,
+      "assets": [
+        "money"
+      ],
+      "status": "图标候选",
+      "note": "爱丽舍钱袋提供装钱袋的现成图标；没有证据表明与大帝剧情存在直接联系。",
+      "name": "不义之财",
+      "english": "Ill-Gotten Gains",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/15_不义之财/爱丽舍钱袋_钱袋参考.png"
+      ]
+    },
+    {
+      "row": 21,
+      "assets": [
+        "van_concept",
+        "van_fanart",
+        "pl_logo"
+      ],
+      "status": "AI概念图及参考",
+      "note": "新增透明底企鹅物流面包车概念图，以官方标志为参考生成；车型为原创设计，标志经生成重绘，不是官方车型或精确商标矢量稿。另附第三方同人运输车场景（Pixiv ID 7661612），仅作涂装与气氛参考，未取得其再发布授权。",
+      "name": "公司的面包车",
+      "english": "Company Van",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/16_公司的面包车/公司的面包车_AI概念图_非官方车型.png",
+        "02_大帝/16_公司的面包车/企鹅物流运输车_同人构图参考.jpg",
+        "02_大帝/16_公司的面包车/企鹅物流_标志.png"
+      ]
+    },
+    {
+      "row": 22,
+      "assets": [
+        "boxes",
+        "pl_logo"
+      ],
+      "status": "图标候选",
+      "note": "企鹅物流安全屋的待运货物原图，主题匹配。它没有退件标识，后续应补充退回封条或戳记。",
+      "name": "退回的包裹",
+      "english": "Return to Sender",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/17_退回的包裹/待运货物_企鹅物流家具.png",
+        "02_大帝/17_退回的包裹/企鹅物流_标志.png"
+      ]
+    },
+    {
+      "row": 23,
+      "assets": [
+        "dj",
+        "recordplayer"
+      ],
+      "status": "改制参考",
+      "note": "首选极限混音设备：属于打碟混音家具，但原图含完整灯效、音箱及背景，需提取或重绘台面。旧式唱片机只是企鹅物流相关备用参考，不等同于 DJ 台。",
+      "name": "打碟机",
+      "english": "DJ Deck",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/18_打碟机/极限混音设备_打碟台.png",
+        "02_大帝/18_打碟机/旧式唱片机_企鹅物流家具.png"
+      ]
+    },
+    {
+      "row": 24,
+      "assets": [
+        "night",
+        "night_sarkaz"
+      ],
+      "status": "用户指定图标",
+      "note": "首选傀影肉鸽黑夜呢喃；另外保留萨卡兹肉鸽同名图标作对照。未根据编号猜图，已按 PRTS 图片 alt 名称核对。",
+      "name": "珍藏的唱片",
+      "english": "Prized Record",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/19_珍藏的唱片/黑夜呢喃_傀影肉鸽_指定图标.png",
+        "02_大帝/19_珍藏的唱片/黑夜呢喃_萨卡兹肉鸽_同名版本.png"
+      ]
+    },
+    {
+      "row": 25,
+      "assets": [
+        "emperor",
+        "business_card",
+        "pl_logo"
+      ],
+      "status": "改制参考",
+      "note": "老板明确为企鹅物流大帝。提供大帝原立绘、空白名片与组织标志；名片成品需要后续合成或重绘。",
+      "name": "老板的名片",
+      "english": "Boss's Business Card",
+      "ancient": "大帝",
+      "files": [
+        "02_大帝/20_老板的名片/大帝_企鹅物流老板_剧情立绘.png",
+        "02_大帝/20_老板的名片/空白名片_藏品原图.png",
+        "02_大帝/20_老板的名片/企鹅物流_标志.png"
+      ]
+    }
+  ],
+  "source_workbook": {
+    "name": "AK_Exusiai.xlsx",
+    "sheet": "Ancients",
+    "sha256": "e96b3e85855961881786a7b06b0f7264916f35b1cbfe88e9f30ad1ea76a7e333"
+  },
+  "collected_date": "2026-09-25",
+  "generated_asset_note": "仙人掌挞与公司的面包车为透明背景 AI 概念图，不宣称是官方图或官方车型。车身标志以所附企鹅物流标志为参考生成。"
+}

@@ -1,0 +1,38 @@
+name: 核心机制
+description: 设计或实现弹药、快递、天使等跨卡机制
+title: "[Mechanic] "
+labels:
+  - mechanic
+body:
+  - type: textarea
+    id: contract
+    attributes:
+      label: 机制契约
+      description: 定义状态、触发时点、作用范围、叠加规则和清理规则。
+    validations:
+      required: true
+  - type: textarea
+    id: consumers
+    attributes:
+      label: 使用该机制的卡牌/遗物
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 当前 DLL 中的原版参考与 RitsuLib API
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: 边界情况与更新风险
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: 负责人和计划分支
+      placeholder: "GitHub 用户名；mechanic/name"
+    validations:
+      required: true

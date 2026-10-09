@@ -1,0 +1,47 @@
+# Build and Godot caches
+bin/
+obj/
+.godot/
+.mono/
+.vs/
+.idea/
+*.uid
+*.import
+
+# Local machine configuration
+local.props
+SpineGodotExtension4.5.1/
+*.user
+*.suo
+
+# Build/export/deployment artifacts
+export/
+dist/
+release/
+*.pck
+*.dll
+*.deps.json
+*.runtimeconfig.json
+
+# Logs, temporary files and office locks
+logs/
+tmp/
+*.log
+~$*.xlsx
+~$*.docx
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Do not vendor whole game installations or unrelated bulk dumps.
+# Selected project-required art/audio belongs under references/official/ and is tracked.
+game/
+game_files/
+full_game_dump/
+bulk_extracts/
+tools/card_effect_manager/*.v1.bak
+
+# Reference-only fan art without redistribution permission.
+**/企鹅物流运输车_同人构图参考.jpg
