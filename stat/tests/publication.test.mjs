@@ -28,6 +28,13 @@ test('transient publication reads retry the same cursor with fresh timeouts; fai
  calls=0;const failed=await publicationFetch(async()=>{calls++;return new Response('',{status:503});},url,{}, {wait:async()=>{},log:()=>{}});assert.equal(calls,4);assert.equal(failed.status,503);
  calls=0;await publicationFetch(async()=>{calls++;return new Response('',{status:503});},url,{method:'POST'},{wait:async()=>assert.fail('write retry'),log:()=>{}});assert.equal(calls,1);
 });
+test('publication retries truncated JSON reads but never replays a write after a truncated response',async()=>{
+ let calls=0;
+ const fetcher=async()=>{calls++;return calls===1?new Response('{"cells":'):Response.json({cells:[]});};
+ const {data}=await publicationFetch(fetcher,'https://fixture.test/api/publication/work-cells',{}, {readJson:true,wait:async()=>{},log:()=>{}});
+ assert.deepEqual(data,{cells:[]});assert.equal(calls,2);
+ calls=0;await assert.rejects(publicationFetch(fetcher,'https://fixture.test/api/publication/stage',{method:'POST'}, {readJson:true,wait:async()=>assert.fail('write retry'),log:()=>{}}),SyntaxError);assert.equal(calls,1);
+});
 test('initialization budget defers safely without reporting failure or publishing an empty website',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'exusiai-deferred-')),output=join(directory,'output');
  try{

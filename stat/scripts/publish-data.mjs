@@ -6,6 +6,7 @@ import {validateBundle,publicCell} from '../shared/public-data.mjs';
 import {AUDIENCE} from '../worker/src/publisher-auth.mjs';
 import {mapLimited} from './parallel.mjs';
 import {publicationFetch} from './publication-http.mjs';
+import {packBlock} from '../shared/block-codec.mjs';
 const origin='https://exusiai.zzt.si',folder=new URL('../dist/data/',import.meta.url);
 let auth=null,until=0,operation='previous_release';
 const usage={rows_read:0,rows_written:0,duration_ms:0};
@@ -17,8 +18,11 @@ async function authorization(){
  auth=value;until=Date.now()+180000;return auth;
 }
 async function api(path,options={}){
- operation=path.split('?')[0];const response=await publicationFetch(fetch,origin+'/api/publication/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+await authorization()}});
- if(!response.ok)throw Object.assign(new Error('Publication service HTTP '+response.status),{status:response.status});const data=await response.json();if(data.usage)for(const k of Object.keys(usage))usage[k]+=data.usage[k]||0;return data;
+ const endpoint=path.split('?')[0];operation=endpoint;
+ try{
+  const {response,data}=await publicationFetch(fetch,origin+'/api/publication/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+await authorization()}},{readJson:true});
+  if(!response.ok)throw Object.assign(new Error('Publication service HTTP '+response.status),{status:response.status});if(data.usage)for(const k of Object.keys(usage))usage[k]+=data.usage[k]||0;return data;
+ }catch(error){error.operation=endpoint;throw error;}
 }
 async function preserve(previous){
  if(!previous){console.log(JSON.stringify({event:'publication_deferred',reason:'initialization_pending',usage}));return false;}
@@ -39,7 +43,7 @@ try{
   const offsets=Array.from({length:Math.ceil(work.keys.length/8)},(_,i)=>i*8);
   const existing=await mapLimited(offsets,3,offset=>api('work-cells?'+new URLSearchParams({nonce:work.nonce,offset:String(offset)})));
   for(const page of existing)work.existing.push(...page.cells);
-  const updates=mergeWork(work);let chunks=[],part=[],bytes=0;
+  operation='merge-work';const updates=mergeWork(work).map(cell=>({...cell,block:packBlock(cell.block)}));operation='chunk-work';let chunks=[],part=[],bytes=0;
   for(const update of updates){const size=JSON.stringify(update).length;if(part.length>=8||bytes+size>240000){chunks.push(part);part=[];bytes=0;}if(size>240000)throw new Error('Maintenance cell size budget');part.push(update);bytes+=size;}if(part.length)chunks.push(part);
   await mapLimited(chunks,3,(updates,ordinal)=>api('stage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nonce:work.nonce,ordinal,updates})}));
   const committed=await api('commit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nonce:work.nonce})});if(committed.state!=='processed')break;
@@ -78,7 +82,8 @@ try{
   if(!published)ready=await preserve(previous);
  }
 }catch(error){
- console.error(JSON.stringify({event:'publication_failed',operation,http_status:Number.isInteger(error.status)?error.status:null,usage}));
+ const known=['Negative contribution','Maintenance cell size budget','Publication read budget','Source revision moved backwards','OIDC unavailable'];
+ console.error(JSON.stringify({event:'publication_failed',operation:error.operation||operation,http_status:Number.isInteger(error.status)?error.status:null,reason:known.includes(error.message)?error.message:['SyntaxError','TimeoutError','TypeError','AbortError'].includes(error.name)?error.name:'validation_or_internal',usage}));
  if(previous)await preserve(previous);process.exitCode=1;
 }
 

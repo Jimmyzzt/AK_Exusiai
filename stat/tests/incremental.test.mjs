@@ -73,6 +73,7 @@ test('public whitelist rejects secrets, unsupported filters do not fall back to 
 });
 import {beginWork,workCells,stageWork,commitWork} from '../worker/src/publication.mjs';
 import {mergeWork} from '../shared/statistics.mjs';
+import {packBlock} from '../shared/block-codec.mjs';
 test('Actions work protocol stages privately, deduplicates chunks, fences commits and recovers label races',async()=>{
  const id=(5).toString(16).padStart(64,'0');
  await db.prepare('INSERT INTO stat_dirty(run_id) VALUES(?) ON CONFLICT(run_id) DO UPDATE SET generation=generation+1').bind(id).run();
@@ -85,7 +86,7 @@ test('Actions work protocol stages privately, deduplicates chunks, fences commit
  await stageWork(db,{nonce:work.nonce,ordinal:0,updates:updates.slice(0,1)},allowed);
  assert.equal((await status(db)).source_revision.statistics,start.source_revision.statistics);
  await assert.rejects(commitWork(db,work.nonce),/Incomplete/);
- for(let i=1;i<updates.length;i++)await stageWork(db,{nonce:work.nonce,ordinal:i,updates:[updates[i]]},allowed);
+ for(let i=1;i<updates.length;i++)await stageWork(db,{nonce:work.nonce,ordinal:i,updates:[{...updates[i],block:packBlock(updates[i].block)}]},allowed);
  await db.prepare("UPDATE mod_catalog SET primary_tag='acts' WHERE id='ModC'").run();
  assert.equal((await commitWork(db,work.nonce)).state,'processed');assert.ok((await status(db)).pending);
  while((await processOne(db,{bootstrap:true})).state==='processed'){}

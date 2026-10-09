@@ -2,6 +2,8 @@
 
 网站：[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。本轮改为两站展示 GitHub Pages 发布的聚合 JSON，浏览器本地筛选；生产迁移状态见[实施报告](docs/STATIC_PUBLICATION.md)。Mod 上传需玩家在 RitsuLib 中授权，不补传历史存档。
 
+2026-10-09首次静态发布与双站校验已通过，已有汇总存储完成无损编码转换，原始对局保留。故障原因、真实存储大小与读取用量见[恢复记录](docs/PUBLICATION_RECOVERY_2026-10-09.md)。从旧网页重新加载一次即可使用新链路，页面内刷新只检查公开manifest。
+
 目录：
 
 - `mod/`：C# 上传集成，由 Mod 项目显式编译。

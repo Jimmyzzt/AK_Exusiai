@@ -1,6 +1,6 @@
 # 统计实施说明
 
-更新：2026-10-08。[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。只公开聚合统计，D1 / Workers 使用免费档位。
+更新：2026-10-09。[主站](https://exusiai.zzt.si/) · [GitHub Pages](https://jimmyzzt.github.io/AK_Exusiai/)。只公开聚合统计，D1 / Workers 使用免费档位。当前维护与静态发布架构见[实施报告](STATIC_PUBLICATION.md)。
 
 ## Mod 采集
 
@@ -37,16 +37,17 @@ v2 除原有计数外，记录启用 Mod 的公开名称 / 工坊 ID、每幕实
 ## API、缓存与迁移
 
 - `POST /api/upload`：Bearer 凭证，v1 / v2 严格白名单，正文最多256KiB，IP每分钟30次、每安装每日30局。
-- `GET /api/stats`：公开聚合。过长筛选可 `POST /api/stats`，正文仅 `{ "query": "URL查询字符串" }`，GET / POST 共用缓存键。
+- `data/manifest.json`和内容哈希JSON：公开聚合，由Pages静态发布，网页本地筛选。旧`/api/stats`返回410，不执行查询或生成快照。
 - `GET /api/health`：上传开关和服务信息，不是数据库就绪探针。没有逐局或玩家查询接口。
+- `/api/publication/*`：仅本仓库main的指定GitHub工作流通过OIDC访问，维护有界增量汇总及导出；匿名返回401。
 
-筛选：party、mode、abandoned、from/to（UTC）、version、revision、ascension（A0–A10）、act（standard/all/1/2/3）、split=1、可重复exclude和tags、tag_mode=black/white。最多512个手动排除。只公开聚合 CSV。
+筛选：party、mode、abandoned、from/to（UTC）、version、revision、ascension（A0–A10）、act（standard/all/1/2/3）、split=1、exclude和tags、tag_mode=black/white。支持所有Mod单项排除，以及初始化时常用6项内的双项排除；其他组合明确提示不支持，不回退D1。标签黑白名单保留。只公开聚合CSV。
 
-新迁移 `0002_analysis.sql` 追加明细、模型和 Mod 库，不修改0001，不删除旧局。聚合查询读取规范表，不读取原始 payload。个人模型和历史基线在新局入库前计算并冻结；旧局没有明细时不补造战斗或升级状态。
+`0002_analysis.sql`追加明细、模型和Mod库，`0003_incremental.sql`追加贡献账本、待处理队列、汇总单元及修订/租约。均不删除旧局。受控维护按索引读取新局或标签变化影响的局，公开导出只读维护后的汇总。个人模型和历史基线在新局入库前计算并冻结；旧局没有明细时不补造战斗或升级状态。
 
-每个筛选组合复用15分钟快照；边缘命中不读 D1，冷边缘只读一条快照，过期 / 首次组合才聚合。最多保留128个查询快照，淘汰不会删除对局。刷新不强制重算。每15分钟定时刷新默认统计及一批 Mod 标签；其他筛选按需更新。故障回退已有快照 / 浏览器缓存，无缓存显示不可用。
+Actions约每15分钟维护有限变化，按修订导出静态JSON；Steam标签同步独立运行。无变化时跳过Pages发布。网页刷新只检查manifest，只有哈希变化才下载数据，筛选不访问D1；故障保留完整的上一发布及SHA256验证的IndexedDB缓存，无缓存时显示不可用。首次积压安全分批处理，公开JSON和D1汇总使用无损紧凑编码，详见[发布恢复记录](PUBLICATION_RECOVERY_2026-10-09.md)。
 
-原始记录当前无到期策略，无自动清理或付费升级。公开客户端无法提供可靠反作弊证明，异常记录需维护者复核。免费配额耗尽时上传与新查询可能暂停；队列容量有限，满库再讨论处理。
+原始记录当前无到期策略，无自动清理或付费升级。公开客户端无法提供可靠反作弊证明，异常记录需维护者复核。免费配额耗尽时上传与维护可能暂停，静态统计继续可用；队列容量有限，满库再讨论处理。
 
 ## 构建与双站同步
 
@@ -56,11 +57,11 @@ v2 除原有计数外，记录启用 Mod 的公开名称 / 工坊 ID、每幕实
 
 main 推送卡图、立绘、本地化、相关代码或 stat 变更，会触发 `.github/workflows/stat-pages.yml`：构建、类型检查、测试、官方 Pages artifact 部署。Pages 发布模式为 GitHub Actions。Worker 静态路径共享同一公开 Pages 发布，保留最近本机部署 ASSETS 为故障回退；API 始终由 Worker / D1 提供。代理不转发浏览器凭证 / Cookie / 筛选，静态更新缓存约60秒，无需 Cloudflare CI 密钥。静态刷新不访问 D1。
 
-Worker / 数据库代码不会随卡图推送自动部署，需要登录的维护者执行发布。`npm run publish` 做本机构建检查、远程迁移和 Worker 部署，保留 gh-pages 静态归档并触发 main 的 Pages 工作流；需先把对应源码提交推送到main，两站才能一致。不会替维护者发布工坊。
+Worker / 数据库代码不会随卡图推送自动部署，需要登录的维护者执行发布。`npm run publish`做本机构建检查、远程迁移和Worker部署，并触发main的Pages工作流；需先把对应源码提交推送到main，两站才能一致。Pages工作流保留当前和前一统计文件，完整网站与数据一起发布。不会替维护者发布工坊。
 
 ## 验证与待验收
 
-本地12项 Node / Miniflare / 真实 D1 测试覆盖旧局兼容、原子回滚、并发去重、15分钟缓存、升级版、第三幕与额外幕结果、标签规则 / 依赖保护、基线冻结、Steam 官方标签 / 每日检查 / 冷却、静态代理隔离与回退。C#测试覆盖本机归属、脱敏、遗物去重、v2选牌、升级版、第三幕完成、未知边界、战斗摘要、授权和队列重试。完整 Mod 构建 / PCK 导出为0警告0错误。
+当前32项Node / Miniflare / D1测试和TypeScript检查通过，覆盖旧局兼容、原子回滚、并发去重、升级版、第三幕与额外幕结果、标签规则 / 依赖保护、冻结基线、旧SQL指标等价、OIDC、静态缓存完整性、分页快照、预算暂停与汇总编码转换。之前C#测试覆盖本机归属、脱敏、遗物去重、v2选牌、升级版、第三幕完成、未知边界、战斗摘要、授权和队列重试；最近完整Mod构建 / PCK导出为0警告0错误，本次网站发布修复未改Mod或重新构建游戏包。
 
 仍需发布新 Mod 包后，用真实新局验证：每幕快照跨存档恢复、第三幕后继续玩额外幕、联机本机归属、升级奖励、断网队列重试、关闭授权。合成样本仅写本地数据库，未上传生产。启动 / 构建不代表真实局终验收。
 
