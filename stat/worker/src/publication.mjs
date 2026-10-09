@@ -19,6 +19,12 @@ export async function beginWork(database,{bootstrap=false,now=Date.now()}={}){
   let pairs=JSON.parse(state.policy);if(pairs==null)pairs=(await db.prepare("SELECT id FROM mod_catalog WHERE id NOT IN(SELECT value FROM json_each(?)) ORDER BY uses DESC,id LIMIT 6").bind(JSON.stringify(PROTECTED)).all()).results.map(r=>r.id).sort();
   const oldRow=await db.prepare('SELECT contribution,algorithm FROM stat_facts WHERE run_id=?').bind(pending.run_id).first();
   const old=oldRow?{...JSON.parse(oldRow.contribution),algorithm:oldRow.algorithm}:null,source=await readFacts(db,pending.run_id),next=source?{...contribution(source),algorithm:ALGORITHM,pair_mods:pairs}:null;
+  // Multiple Mod labels may change without changing this run's tag mask or sums.
+  // Acknowledge only the generation read above; a concurrent change stays queued.
+  if(old&&next&&JSON.stringify(old)===JSON.stringify(next)){
+   const acknowledged=await db.prepare('DELETE FROM stat_dirty WHERE run_id=? AND generation=? AND EXISTS(SELECT 1 FROM stat_state WHERE id=1 AND lease=? AND lease_until>=? AND revision=?)').bind(pending.run_id,pending.generation,nonce,now,state.revision).run();
+   return {state:acknowledged.meta.changes?'unchanged':'busy',usage,source_revision:state.revision};
+  }
   const specs=new Map();for(const c of [old,next])if(c)for(const projection of projectionsFor(c)){const key=await hash(JSON.stringify([c.algorithm,c.dims,projection]));specs.set(key,{key,algorithm:c.algorithm,dims:c.dims,projection});}
   const keys=[...specs.values()],revision=state.revision+1;
   await db.batch([db.prepare('DELETE FROM stat_work WHERE expires<?').bind(now),db.prepare('INSERT INTO stat_work VALUES(?,?,?,?,?,?,?,?)').bind(nonce,pending.run_id,pending.generation,revision,JSON.stringify(pairs),next?JSON.stringify(next):null,JSON.stringify(keys),now+60000)]);

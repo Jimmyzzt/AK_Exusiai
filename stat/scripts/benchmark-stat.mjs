@@ -1,6 +1,7 @@
 import {beginWork,workCells,stageWork,commitWork,publicationStatus} from '../worker/src/publication.mjs';
 import {mergeWork} from '../shared/statistics.mjs';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {dirname} from 'node:path';
 import {build} from 'esbuild';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {applySchema} from '../tests/helpers/schema.mjs';
@@ -32,7 +33,7 @@ try{
   const data=await calculate(wrapped,f);report.queries.push({name,...meter.usage,phases:detail});if(name==='original')report.reference=data;else assert.deepEqual(data.entities,report.reference.entities);
  }
  const init={rows_read:0,rows_written:0,duration_ms:0,jobs:0};
- while(true){const r=await incrementalStep(db);if(r.state!=='processed')break;init.jobs++;for(const k of ['rows_read','rows_written','duration_ms'])init[k]+=r.usage[k];}
+ while(true){const r=await incrementalStep(db);if(!['processed','unchanged'].includes(r.state))break;init.jobs++;for(const k of ['rows_read','rows_written','duration_ms'])init[k]+=r.usage[k];}
  report.maintenance.initialization=init;report.maintenance.implementation="Actions work protocol (one cell per stage in this benchmark; production batches up to eight)";
  const s=await status(db);let page=await exportPage(db,{after:0,through:s.source_revision.statistics,catalog:true,bootstrap:true}),next=page.next,mods=page.mods,cells=[...page.cells],exportUsage={...page.usage};
  while(next){page=await exportPage(db,{after:0,through:s.source_revision.statistics,...next,bootstrap:true});cells.push(...page.cells);next=page.next;for(const k of ['rows_read','rows_written','duration_ms'])exportUsage[k]+=page.usage[k];}
@@ -44,5 +45,5 @@ try{
  const before=s.source_revision.statistics;await seed(82);const step=await incrementalStep(db);report.maintenance.one_new_run={...step.usage,state:step.state};
  const now=await status(db);const delta=await exportPage(db,{after:before,through:now.source_revision.statistics,catalog:true,bootstrap:true});report.maintenance.first_delta_page={...delta.usage,returned:delta.cells.length};
  const p=await db.prepare('EXPLAIN QUERY PLAN SELECT key,payload FROM stat_cells WHERE (revision,key)>(?,?) AND revision<=? ORDER BY revision,key LIMIT 16').bind(1,'',100).all();report.pagination_plan=p.results.map(r=>r.detail);
- delete report.reference;await writeFile(process.env.STAT_BENCH_OUTPUT||'docs/PERFORMANCE_2026-10-09.json',JSON.stringify(report,null,2));console.log(JSON.stringify({dataset:report.dataset,compact:report.compact,maintenance:report.maintenance},null,2));
+ delete report.reference;const output=process.env.STAT_BENCH_OUTPUT||'.publish/performance.json';await mkdir(dirname(output),{recursive:true});await writeFile(output,JSON.stringify(report,null,2));console.log(JSON.stringify({dataset:report.dataset,compact:report.compact,maintenance:report.maintenance},null,2));
 }finally{await mf.dispose();}

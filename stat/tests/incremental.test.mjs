@@ -74,8 +74,32 @@ test('public whitelist rejects secrets, unsupported filters do not fall back to 
 import {beginWork,workCells,stageWork,commitWork} from '../worker/src/publication.mjs';
 import {mergeWork} from '../shared/statistics.mjs';
 import {packBlock} from '../shared/block-codec.mjs';
+test('unchanged label work avoids rollup rewrites and cannot acknowledge a newer queued generation',async()=>{
+ const id=(5).toString(16).padStart(64,'0'),start=await status(db);
+ await db.prepare('INSERT INTO stat_dirty(run_id) VALUES(?)').bind(id).run();
+ await db.exec("CREATE TRIGGER reject_redundant_rollup BEFORE UPDATE ON stat_cells BEGIN SELECT RAISE(ABORT,'redundant rollup'); END;");
+ try{
+  const result=await beginWork(db,{bootstrap:true});assert.equal(result.state,'unchanged');assert.ok(result.usage.rows_written<10);
+  assert.deepEqual((await status(db)).source_revision,start.source_revision);assert.equal((await status(db)).pending,false);
+  assert.equal((await db.prepare('SELECT COUNT(*) n FROM stat_work').first()).n,0);
+  await db.prepare('INSERT INTO stat_dirty(run_id) VALUES(?)').bind(id).run();
+  let raced=false;
+  const racing=new Proxy(db,{get(target,property){
+   if(property==='prepare')return sql=>{
+    const statement=target.prepare(sql);
+    if(!sql.startsWith('DELETE FROM stat_dirty WHERE run_id=? AND generation=?'))return statement;
+    return {bind(...args){const bound=statement.bind(...args);return {async run(){raced=true;await target.prepare('UPDATE stat_dirty SET generation=generation+1 WHERE run_id=?').bind(id).run();return bound.run();}};}};
+   };
+   const value=target[property];return typeof value==='function'?value.bind(target):value;
+  }});
+  assert.equal((await beginWork(racing,{bootstrap:true})).state,'busy');assert.ok(raced);assert.equal((await status(db)).pending,true);
+  assert.deepEqual((await status(db)).source_revision,start.source_revision);
+  assert.equal((await beginWork(db,{bootstrap:true})).state,'unchanged');
+ }finally{await db.exec('DROP TRIGGER reject_redundant_rollup;');}
+});
 test('Actions work protocol stages privately, deduplicates chunks, fences commits and recovers label races',async()=>{
  const id=(5).toString(16).padStart(64,'0');
+ await db.prepare('UPDATE runs SET duration=duration+1 WHERE id=?').bind(id).run();
  await db.prepare('INSERT INTO stat_dirty(run_id) VALUES(?) ON CONFLICT(run_id) DO UPDATE SET generation=generation+1').bind(id).run();
  const start=await status(db),job=await beginWork(db,{bootstrap:true});assert.equal(job.state,'work');
  assert.equal((await beginWork(db,{bootstrap:true})).state,'busy');

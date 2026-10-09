@@ -30,7 +30,7 @@ async function preserve(previous){
  console.log(JSON.stringify({event:'publication_preserved',source_revision:previous.bundle.source_revision,usage}));
  return true;
 }
-let previous=null,changed=false,ready=false;
+let previous=null,changed=false,ready=false,processed=0,unchanged=0;
 try{
  previous=await previousRelease(fetch,folder);
  await api('initialize',{method:'POST'});
@@ -38,6 +38,7 @@ try{
  let state=await api('status');
  for(let i=0;state.pending&&i<maxJobs;i++){
   const task=await api('tick'+(bootstrap?'?bootstrap=1':''),{method:'POST'});
+  if(task.state==='unchanged'){unchanged++;state=await api('status');continue;}
   if(task.state!=='work')break;
   const work=task.work;work.existing=[];
   const offsets=Array.from({length:Math.ceil(work.keys.length/8)},(_,i)=>i*8);
@@ -47,10 +48,12 @@ try{
   for(const update of updates){const size=JSON.stringify(update).length;if(part.length>=8||bytes+size>240000){chunks.push(part);part=[];bytes=0;}if(size>240000)throw new Error('Maintenance cell size budget');part.push(update);bytes+=size;}if(part.length)chunks.push(part);
   await mapLimited(chunks,3,(updates,ordinal)=>api('stage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nonce:work.nonce,ordinal,updates})}));
   const committed=await api('commit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nonce:work.nonce})});if(committed.state!=='processed')break;
+  processed++;
   if(usage.rows_read>(bootstrap?200000:20000))break;
   state=await api('status');
  }
  state=await api('status');
+ console.log(JSON.stringify({event:'publication_maintenance_summary',processed,unchanged,pending:state.pending,usage}));
  if(state.pending){ready=await preserve(previous);}
  else if(previous&&JSON.stringify(previous.bundle.source_revision)===JSON.stringify(state.source_revision)){ready=await preserve(previous);}
  else{

@@ -6,7 +6,7 @@
 
 - Mod ID、程序集名、PCK 名：`AK_Exusiai`。
 - 角色：能天使 / Exusiai；初始最大生命 77，初始金币 99。
-- 当前卡牌设计：`docs/AK_Exusiai-Card_V1.3.csv`；V1.3 更新说明见 `docs/archive/CHANGELOG_V1.3.md`，V1.2 卡表与旧记录也位于 `docs/archive/`。
+- 当前卡牌设计：`docs/AK_Exusiai-Card_V1.3.csv`；V1.3 更新说明见 `docs/workshop/CHANGELOG_V1.3.md`，V1.2 卡表与旧记录也位于 `docs/archive/`。
 - 遗物与药水设计：`docs/AK_Exusiai-Relic_Potion_V1.2.csv`。
 - 当前状态：Mod 已发布，V1.3 卡牌平衡改动已落实到源码，仍需在游戏中逐项回归；正式卡图、六套外观、能量 UI、转场与卡牌音效已接入。内容统计、构建证据和待验项目只维护在进度页，不把源码实现写成已在线发布。
 - 当前进度和待测项只维护在 `docs/PROGRESS.md`，不要在本页追加流水账。
@@ -62,7 +62,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `AK_Exusiai/localization/statistics/{zhs,eng}.json`：统计授权和设置文案；使用 RitsuLib I18N 的“目录/语言.json”布局，修改时保持两份键一致。统计设置仅保留上传授权和网站入口。
 - `AK_Exusiai/images/`、`audio/`：运行时最终资源。
 - `references/{official,free}/`：可复现制作所需的源素材及来源记录。
-- `stat/`：社区统计方案、网页、Worker/D1 及统计集成代码；确认清单见 `stat/PLAN.md`，构建与部署见 `stat/README.md`。该目录隔离于 Godot 扫描与 PCK 导出，仅显式编译 `stat/mod/` 的 C# 文件。
+- `stat/`：社区统计方案、网页、Worker/D1 及统计集成代码；范围、开发和运维见 `stat/README.md`，架构见 `stat/docs/ARCHITECTURE.md`，公式见 `stat/docs/METRICS.md`。该目录隔离于 Godot 扫描与 PCK 导出，仅显式编译 `stat/mod/` 的 C# 文件。
 
 注册优先使用 RitsuLib：
 
