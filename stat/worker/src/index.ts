@@ -13,7 +13,7 @@ export async function staticPage(request:Request,env:Env,fetcher:typeof fetch=fe
   const url=new URL(request.url);
   if(env.SHARED_PAGES!=='true')return env.ASSETS.fetch(request);
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405});
-  if(!/^\/(?:|index\.html|app\.js|metrics\.js|static-data\.mjs|public-data\.mjs|statistics\.mjs|filter\.mjs|tags\.mjs|style\.css|catalog\.json|build\.json|data\/(?:manifest\.json|statistics-[a-f0-9]{64}\.json)|art\/[A-Za-z0-9_-]+\.(?:webp|png))$/.test(url.pathname))return env.ASSETS.fetch(request);
+  if(!/^\/(?:|index\.html|app\.js|metrics\.js|static-data\.mjs|public-data\.mjs|statistics\.mjs|block-codec\.mjs|public-wire\.mjs|filter\.mjs|tags\.mjs|style\.css|catalog\.json|build\.json|data\/(?:manifest\.json|statistics-[a-f0-9]{64}\.json)|art\/[A-Za-z0-9_-]+\.(?:webp|png))$/.test(url.pathname))return env.ASSETS.fetch(request);
   const remote=new URL('https://jimmyzzt.github.io/AK_Exusiai/'+url.pathname.slice(1));
   const immutableData=/^\/data\/statistics-[a-f0-9]{64}\.json$/.test(url.pathname);
   const version=url.searchParams.get('v');if(version&&/^[a-f0-9]{12}$/.test(version))remote.searchParams.set('v',version);

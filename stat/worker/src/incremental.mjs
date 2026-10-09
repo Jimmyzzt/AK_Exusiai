@@ -1,5 +1,6 @@
 import {contribution,emptyBlock,mergeBlock,ALGORITHM,PROTECTED} from '../../shared/statistics.mjs';
 import {publicCell} from '../../shared/public-data.mjs';
+import {packBlock,unpackBlock} from '../../shared/block-codec.mjs';
 import {hash} from './validation.mjs';
 import {metered,account} from './usage.mjs';
 export {metered} from './usage.mjs';
@@ -47,11 +48,11 @@ export async function processOne(database,{now=Date.now(),bootstrap=false,before
   }
   const keys=[...operations.keys()];
   const existing=(await db.prepare('SELECT key,payload FROM stat_cells WHERE key IN(SELECT value FROM json_each(?))').bind(JSON.stringify(keys)).all()).results;
-  const current=new Map(existing.map(r=>[r.key,JSON.parse(r.payload)])),revision=state.revision+1,updates=[];
+  const current=new Map(existing.map(r=>[r.key,unpackBlock(JSON.parse(r.payload))])),revision=state.revision+1,updates=[];
   for(const o of operations.values()){
    const block=current.get(o.key)||emptyBlock();for(const [delta,sign] of o.deltas)mergeBlock(block,delta,sign);
    block.entities=block.entities.filter(r=>r[5]>0);if(block.overview.some(v=>v.some(n=>n<0)))throw new Error('Negative rollup');
-   updates.push({key:o.key,dims:JSON.stringify(o.dims),projection:JSON.stringify(o.projection),payload:JSON.stringify(block),active:+block.overview.some(v=>v[0]>0)});
+   updates.push({key:o.key,dims:JSON.stringify(o.dims),projection:JSON.stringify(o.projection),payload:JSON.stringify(packBlock(block)),active:+block.overview.some(v=>v[0]>0)});
   }
   // Small JSON batches preserve transactionality without one SQL statement per marginal.
   const chunks=[];let chunk=[],bytes=0;

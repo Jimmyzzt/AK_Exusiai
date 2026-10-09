@@ -7,6 +7,7 @@ import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {contribution,emptyBlock,mergeBlock} from '../shared/statistics.mjs';
 import {selectPublic,validateBundle,publicCell} from '../shared/public-data.mjs';
 import {filters} from '../worker/src/validation.mjs';
+import {encodePublished,decodePublished,publishedText} from '../shared/public-wire.mjs';
 import {readFacts,processOne,status,exportPage,metered} from '../worker/src/incremental.mjs';
 let mf,db,reference,optimized;const card='AK_EXUSIAI_CARD_CHARGING_MODE',other='AK_EXUSIAI_CARD_READY_FOR_ACTION',token='1'.repeat(64);
 async function module(path){const b=await build({entryPoints:[path],bundle:true,write:false,format:'esm',platform:'node'});return import('data:text/javascript;base64,'+Buffer.from(b.outputFiles[0].text).toString('base64'));}
@@ -44,8 +45,11 @@ async function bundle(){
 test('reference SQL, optimized SQL, incremental rollups and local filters agree',async()=>{
  while((await processOne(db,{bootstrap:true})).state==='processed'){}
  const b=await bundle();
+ const wire=encodePublished(b),restored=decodePublished(wire);
+ assert.deepEqual(restored,b);assert.equal(publishedText(restored),JSON.stringify(wire));
+ assert.ok(JSON.stringify(wire).length<JSON.stringify(b).length);
  for(const query of ['','party=all&abandoned=loss','mode=all&party=all&abandoned=loss','mode=Daily','party=multi','to=2026-10-07','act=all&party=all&abandoned=loss','act=1','act=2','act=3','split=1','act=all&split=1&abandoned=loss','exclude=ModA','exclude=ModA&exclude=ModB','tag_mode=black&tags=acts','tag_mode=white&tags=acts&tags=untagged','version=1.1.0','ascension=2','from=2026-10-09','exclude=AK_Exusiai&exclude=STS2-RitsuLib']){
-  const f=filters(new URL('https://x/api/stats?'+query)),a=await reference(db,f),o=await optimized(db,f),c=selectPublic(b,f);try{compare(a,o);}catch(e){throw new Error('SQL '+query,{cause:e});}try{compare(a,c);}catch(e){throw new Error('LOCAL '+query,{cause:e});}
+  const f=filters(new URL('https://x/api/stats?'+query)),a=await reference(db,f),o=await optimized(db,f),c=selectPublic(restored,f);try{compare(a,o);}catch(e){throw new Error('SQL '+query,{cause:e});}try{compare(a,c);}catch(e){throw new Error('LOCAL '+query,{cause:e});}
  }
 });
 test('idempotent drain, replayable rebuild, transaction failure and label invalidation',async()=>{

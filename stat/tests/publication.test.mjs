@@ -12,6 +12,8 @@ import {writeRelease} from '../scripts/public-release.mjs';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {initializePublication} from '../worker/src/initialize.mjs';
 import {mapLimited} from '../scripts/parallel.mjs';
+import {packBlock,unpackBlock} from '../shared/block-codec.mjs';
+import {encodePublished,decodePublished,publishedText} from '../shared/public-wire.mjs';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
 const now=1750000000;
@@ -75,6 +77,27 @@ function release(revision=1){
  const bytes=Buffer.from(JSON.stringify(bundle)),sha256=createHash('sha256').update(bytes).digest('hex');
  return {bundle,manifest:{schema_version:1,generated_at:revision,source_revision:bundle.source_revision,model:bundle.model,previous:null,file:'statistics-'+sha256+'.json',sha256,bytes:bytes.length},bytes};
 }
+test('compact sums preserve signed values, all views and the highest field; public blocks reject secret and unused data',()=>{
+ const block=emptyBlock(),values=Array(28).fill(0);values[0]=1;values[13]=-0.0123456789;values[27]=123;
+ block.entities=[0,1,2,3,4].flatMap(scope=>[0,1].map(split=>[scope,split,'AK_EXUSIAI_CARD_CHARGING_MODE',3,1,...values]));
+ const packed=packBlock(block);assert.equal(packed.rows.length,1);assert.deepEqual(unpackBlock(packed),block);
+ assert.ok(JSON.stringify(packed).length<JSON.stringify(block).length/2);
+ assert.throws(()=>unpackBlock({...packed,owner_hash:'secret'}));
+ const first=release(),b={...first.bundle,source_revision:{statistics:1,catalog:1},cells:['a','b'].map(c=>({key:c.repeat(64),revision:1,dims:['2026-10-09','v','r',0,1,'Standard',0,0,0],projection:[],block}))};
+ const wire=encodePublished(b);assert.equal(wire.blocks.length,1);assert.deepEqual(decodePublished(wire),b);
+ assert.throws(()=>decodePublished({...wire,blocks:[...wire.blocks,packed]}),/Unused/);
+ assert.throws(()=>decodePublished({...wire,blocks:[{...packed,payload:'secret'}]}));
+});
+test('compact public transport remains integrity checked and restores offline from IndexedDB cache',async()=>{
+ const b=release().bundle,bytes=Buffer.from(publishedText(b)),sha256=createHash('sha256').update(bytes).digest('hex');
+ const manifest={...release().manifest,schema_version:2,file:'statistics-'+sha256+'.json',sha256,bytes:bytes.length};
+ let saved=null,offline=false;
+ const cache={get:async()=>saved,set:async value=>{saved=value;}};
+ const fetcher=async url=>{if(offline)throw new Error('offline');return String(url).endsWith('manifest.json')?Response.json(manifest):new Response(bytes);};
+ const options={fetcher,cache,base:new URL('https://pages.test/data/')};
+ assert.deepEqual((await staticSource(options).refresh()).bundle,b);
+ offline=true;const result=await staticSource(options).refresh();assert.equal(result.state,'offline');assert.deepEqual(result.bundle,b);
+});
 test('website publication retains current and previous data; invalid retention cannot replace the last manifest',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'exusiai-publication-')),folder=pathToFileURL(directory+'/');
  try{

@@ -1,3 +1,4 @@
+import {unpackBlock} from './block-codec.mjs';
 /** Sufficient statistics shared by D1 maintenance, publication validation and the browser. */
 export const SCHEMA=1,MODEL='personal-logistic-floor-v2',ALGORITHM=1;
 export const TAG_ORDER=['acts','character','extend','visual','audio','qol','library','misc','untagged'];
@@ -93,7 +94,7 @@ export function finishEntities(rows){
 }
 /** Actions performs these merges privately in memory. No per-run work enters a Pages artifact. */
 export function mergeWork(work){
- const existing=new Map(work.existing.map(row=>[row.key,typeof row.payload==='string'?JSON.parse(row.payload):row.payload]));
+ const existing=new Map(work.existing.map(row=>[row.key,unpackBlock(typeof row.payload==='string'?JSON.parse(row.payload):row.payload)]));
  return work.keys.map(spec=>{
   const block=existing.get(spec.key)||emptyBlock();
   for(const [c,sign] of [[work.old,-1],[work.next,1]])if(c&&c.algorithm===spec.algorithm&&JSON.stringify(c.dims)===JSON.stringify(spec.dims)&&projectionsFor(c).some(p=>JSON.stringify(p)===JSON.stringify(spec.projection)))mergeBlock(block,c.block,sign);

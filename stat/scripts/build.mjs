@@ -71,14 +71,14 @@ await writeFile(new URL('catalog.json',dist),JSON.stringify(catalog));
 let commit='local'; try {commit=execFileSync('git',['-c','safe.directory='+decodeURIComponent(root.pathname).replace(/^\/([A-Z]:)/,'$1').replace(/\/$/,''),'rev-parse','--short','HEAD'],{cwd:root,encoding:'utf8',stdio:['ignore','pipe','ignore']}).trim();} catch {}
 const fingerprint=createHash('sha256');
 for(const path of ['web/index.html','web/app.js','web/metrics.js','web/style.css','worker/src/index.ts','worker/src/analytics.ts','worker/src/baselines.ts','worker/src/steam.ts','worker/src/tags.mjs','worker/src/store-details.ts','worker/src/validation.mjs','mod/ExusiaiTelemetry.cs','mod/ExusiaiUploadAdapter.cs','mod/RunStatistics.cs','mod/DetailedStatistics.cs','mod/ActSnapshots.cs']) fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
-for(const path of ['shared/statistics.mjs','shared/public-data.mjs','shared/filter.mjs','web/static-data.mjs','worker/src/incremental.mjs','worker/src/publisher-auth.mjs','worker/src/publication.mjs','worker/src/usage.mjs','worker/src/initialize.mjs'])fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
+for(const path of ['shared/block-codec.mjs','shared/public-wire.mjs','shared/statistics.mjs','shared/public-data.mjs','shared/filter.mjs','web/static-data.mjs','worker/src/incremental.mjs','worker/src/publisher-auth.mjs','worker/src/publication.mjs','worker/src/usage.mjs','worker/src/initialize.mjs'])fingerprint.update(await readFile(new URL('../'+path,import.meta.url)));
 fingerprint.update(JSON.stringify(catalog));
 fingerprint.update(guide);
 fingerprint.update(await readFile(new URL('./card-metadata.mjs',import.meta.url)));
 const buildId=fingerprint.digest('hex').slice(0,12);
-for(const name of ['statistics.mjs','public-data.mjs'])await cp(new URL('../shared/'+name,import.meta.url),new URL(name,dist));
+for(const name of ['statistics.mjs','public-data.mjs','block-codec.mjs','public-wire.mjs'])await cp(new URL('../shared/'+name,import.meta.url),new URL(name,dist));
 await bundleModule({entryPoints:[fileURLToPath(new URL('../web/static-data.mjs',import.meta.url))],bundle:true,format:'esm',platform:'browser',outfile:fileURLToPath(new URL('static-data.mjs',dist))});
 await bundleModule({entryPoints:[fileURLToPath(new URL('../shared/filter.mjs',import.meta.url))],bundle:true,format:'esm',platform:'browser',outfile:fileURLToPath(new URL('filter.mjs',dist))});
-await writeFile(new URL('build.json',dist),JSON.stringify({commit,public_schema:1,build_id:buildId,built_at:new Date().toISOString(),api:process.env.STAT_API_ORIGIN || 'https://exusiai.zzt.si'}));
+await writeFile(new URL('build.json',dist),JSON.stringify({commit,public_schema:2,build_id:buildId,built_at:new Date().toISOString(),api:process.env.STAT_API_ORIGIN || 'https://exusiai.zzt.si'}));
 await writeFile(new URL('.nojekyll',dist),'');
 console.log(`Built ${catalog.filter(c=>c.kind==='card').length} cards, ${catalog.filter(c=>c.kind==='relic').length} relics, ${catalog.filter(c=>c.kind==='ancient').length} ancient relics.`);

@@ -23,7 +23,7 @@ if(reuse){
  await mkdir(new URL('../dist/',import.meta.url),{recursive:true});
  execFileSync('tar',['-xf',download+'artifact.tar','-C',stat+'dist'],{stdio:'inherit'});
  const build=JSON.parse(await readFile(new URL('../dist/build.json',import.meta.url),'utf8'));
- if(build.public_schema!==1)throw new Error('Previous website schema mismatch');
+ if(build.public_schema!==2)throw new Error('Previous website schema mismatch');
 
  console.log(JSON.stringify({event:'website_reused',run:artifact.workflow_run.id}));
 }else{

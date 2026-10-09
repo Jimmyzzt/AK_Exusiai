@@ -2,6 +2,7 @@ import {metered,account} from './usage.mjs';
 import {readFacts,status} from './incremental.mjs';
 import {contribution,ALGORITHM,PROTECTED,projectionsFor} from '../../shared/statistics.mjs';
 import {publicCell} from '../../shared/public-data.mjs';
+import {packBlock} from '../../shared/block-codec.mjs';
 import {hash} from './validation.mjs';
 export async function publicationStatus(database){
  const meter=metered(database);const value=await status(meter.db);await account(database,meter.usage);return {...value,usage:meter.usage};
@@ -44,7 +45,7 @@ export async function stageWork(database,input,allowedIds){
   if(Object.keys(raw).sort().join()!=='block,dims,key,projection,revision')throw new RangeError('Unexpected work field');
   const cell=publicCell(raw),spec=specs.find(s=>s.key===cell.key);
   if(!spec||cell.revision!==work.revision||JSON.stringify(spec.dims)!==JSON.stringify(cell.dims)||JSON.stringify(spec.projection)!==JSON.stringify(cell.projection)||keys.has(cell.key)||allowedIds&&cell.block.entities.some(row=>!allowedIds.has(row[2])))throw new RangeError('Invalid work identity');
-  keys.add(cell.key);return {key:cell.key,dims:JSON.stringify(cell.dims),projection:JSON.stringify(cell.projection),payload:JSON.stringify(cell.block),active:+cell.block.overview.some(v=>v[0]>0)};
+  keys.add(cell.key);return {key:cell.key,dims:JSON.stringify(cell.dims),projection:JSON.stringify(cell.projection),payload:JSON.stringify(packBlock(cell.block)),active:+cell.block.overview.some(v=>v[0]>0)};
  });
  const payload=JSON.stringify(updates);if(payload.length>450000)throw new RangeError('Work chunk too large');
  const digest=await hash(payload),existing=await db.prepare('SELECT hash FROM stat_work_chunks WHERE nonce=? AND ordinal=?').bind(input.nonce,input.ordinal).first();
