@@ -10,7 +10,7 @@
 - 默认单人/标准/前三幕/排除放弃，A0–A10，纳入所有Mod。通过第三幕视为标准范围胜利；旧局缺失证据保持未知。
 - 内容限能天使卡牌、角色遗物、先古遗物。自身/RitsuLib不可排除；支持全部Mod单项排除、常用6项内双项排除、标签黑白名单。
 - 只公开聚合统计，不公开逐局或玩家标识。原始记录不预设期限，不自动删除、付费升级或补造指标。
-- 网页读静态JSON并本地筛选；GitHub计划约15分钟维护发布，平台可能延迟或漏调度。页面时间是最后成功生成统计的时间，无变化时不变。
+- 网页读静态JSON并本地筛选。目前按维护者选择使用手动发布；原GitHub约15分钟Cron配置仍保留，但已发现漏调度。Cloudflare派发补救暂不启用。页面时间是最后成功生成统计的时间，无变化时不变。
 
 ## 开发
 
@@ -55,7 +55,7 @@ npx wrangler d1 execute exusiai-stat --remote --config worker/wrangler.jsonc --c
 
 ## 维护命令
 
-### 启用Cloudflare定时触发
+### 可选Cloudflare触发（当前不启用）
 
 代码固定调用本仓库main的`stat-data.yml`，bootstrap=false，沿用任务锁及预算；每15分钟的Worker Cron同时做Steam同步和可选派发，Steam/D1失败不会阻断派发。未配置`GITHUB_PUBLICATION_TOKEN`时只做Steam，不调用GitHub；没有公开派发接口。
 
