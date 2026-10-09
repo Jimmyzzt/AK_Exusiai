@@ -11,8 +11,29 @@ import {pathToFileURL} from 'node:url';
 import {writeRelease} from '../scripts/public-release.mjs';
 import {Miniflare,convertV4MiniflareOptions} from 'miniflare';
 import {initializePublication} from '../worker/src/initialize.mjs';
+import {mapLimited} from '../scripts/parallel.mjs';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 const now=1750000000;
 const claims={iss:'https://token.actions.githubusercontent.com',aud:AUDIENCE,repository:'Jimmyzzt/AK_Exusiai',repository_id:'1341664712',repository_owner_id:'57975018',ref:'refs/heads/main',job_workflow_ref:'Jimmyzzt/AK_Exusiai/.github/workflows/stat-release.yml@refs/heads/main',event_name:'schedule',iat:now,nbf:now,exp:now+300};
+test('initialization budget defers safely without reporting failure or publishing an empty website',async()=>{
+ const directory=await mkdtemp(join(tmpdir(),'exusiai-deferred-')),output=join(directory,'output');
+ try{
+  const script=`globalThis.fetch=async url=>{const path=new URL(url).pathname;if(path.endsWith('manifest.json'))return new Response('',{status:404});if(path==='/oidc')return Response.json({value:'fixture'});if(path.endsWith('/initialize'))return Response.json({state:'ready'});if(path.endsWith('/status'))return Response.json({pending:true});if(path.endsWith('/tick'))return Response.json({state:'budget'});throw new Error('unexpected endpoint');};await import(${JSON.stringify(new URL('../scripts/publish-data.mjs',import.meta.url).href)});`;
+  const {stdout}=await promisify(execFile)(process.execPath,['--input-type=module','-e',script],{env:{...process.env,ACTIONS_ID_TOKEN_REQUEST_URL:'https://fixture.test/oidc',ACTIONS_ID_TOKEN_REQUEST_TOKEN:'fixture',GITHUB_OUTPUT:output,STAT_BOOTSTRAP:'false'}});
+  assert.match(stdout,/publication_deferred/);assert.equal(await readFile(output,'utf8'),'stats_changed=false\npublish_ready=false\n');
+  const workflow=await readFile('../.github/workflows/stat-release.yml','utf8');
+  assert.equal((workflow.match(/if: steps\.statistics\.outputs\.publish_ready == 'true'/g)||[]).length,3);
+ }finally{await rm(directory,{recursive:true,force:true});}
+});
+test('bounded parallel I/O preserves order and waits for in-flight requests after failure',async()=>{
+ let active=0,peak=0;
+ const result=await mapLimited([0,1,2,3,4],3,async n=>{active++;peak=Math.max(peak,active);await new Promise(r=>setTimeout(r,10*(5-n)));active--;return n*2;});
+ assert.deepEqual(result,[0,2,4,6,8]);assert.equal(peak,3);
+ let completed=false,started=0;
+ await assert.rejects(mapLimited([0,1,2,3],2,async n=>{started++;if(n===0)throw new Error('failure');await new Promise(r=>setTimeout(r,20));completed=true;}),/failure/);
+ assert.equal(completed,true);assert.equal(started,2);
+});
 test('fixed additive initialization is atomic, concurrent-safe and journaled once without changing original records',async()=>{
  const mf=new Miniflare(convertV4MiniflareOptions({modules:true,script:'export default {fetch(){return new Response("test")}}',compatibilityDate:'2026-10-06',d1Databases:{DB:'initialization-test'}}));
  try{
