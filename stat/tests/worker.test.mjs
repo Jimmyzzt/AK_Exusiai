@@ -127,3 +127,19 @@ test('shared Pages release proxy strips visitor credentials and filters, and fal
  assert.equal(await(await staticPage(request,env,async()=>new Response('down',{status:503}))).text(),'fallback');
  assert.equal(await(await staticPage(request,{...env,SHARED_PAGES:'false'},async()=>{throw new Error('must not fetch');})).text(),'fallback');
 });
+import {dispatchPublication,scheduleMaintenance} from '../worker/src/publication-trigger.mjs';
+test('optional Cron dispatch uses only the fixed repository workflow and never retries or logs credentials',async()=>{
+ const logs=[],requests=[],fetcher=async(url,options)=>{requests.push({url,options});return new Response(null,{status:204});};
+ assert.deepEqual(await dispatchPublication({},()=>assert.fail('disabled dispatch')),{state:'disabled'});
+ assert.deepEqual(await dispatchPublication({GITHUB_PUBLICATION_TOKEN:'private-fixture',repository:'attacker',ref:'other'},fetcher,s=>logs.push(s)),{state:'dispatched',http_status:204});
+ assert.equal(requests[0].url,'https://api.github.com/repos/Jimmyzzt/AK_Exusiai/actions/workflows/stat-data.yml/dispatches');
+ assert.deepEqual(JSON.parse(requests[0].options.body),{ref:'main',inputs:{bootstrap:false}});assert.equal(requests[0].options.redirect,'error');assert.equal(requests[0].options.headers.Authorization,'Bearer private-fixture');
+ assert.deepEqual(await dispatchPublication({GITHUB_PUBLICATION_TOKEN:'private-fixture'},async()=>Response.json({workflow_run_id:123}),s=>logs.push(s)),{state:'dispatched',http_status:200});
+ let calls=0;assert.deepEqual(await dispatchPublication({GITHUB_PUBLICATION_TOKEN:'private-fixture'},async()=>{calls++;return new Response('private failure',{status:403});},s=>logs.push(s)),{state:'failed',http_status:403});assert.equal(calls,1);
+ assert.deepEqual(await dispatchPublication({GITHUB_PUBLICATION_TOKEN:'private-fixture'},async()=>{calls++;throw new Error('private failure');},s=>logs.push(s)),{state:'failed',http_status:null});assert.equal(calls,2);assert.ok(logs.every(s=>!s.includes('private')));
+});
+test('Steam failure cannot suppress Cron dispatch and scheduled work is retained by waitUntil',async()=>{
+ const logs=[];let pending,dispatched=false;
+ scheduleMaintenance({DB:{}},{waitUntil(p){pending=p;}},async()=>{throw new Error('private database failure');},async()=>{dispatched=true;return {state:'dispatched'};},s=>logs.push(s));
+ assert.ok(pending instanceof Promise);await pending;assert.equal(dispatched,true);assert.deepEqual(logs.map(JSON.parse),[{event:'scheduled_component_failed',component:'steam'}]);
+});

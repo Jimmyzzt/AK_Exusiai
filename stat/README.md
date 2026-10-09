@@ -50,10 +50,26 @@ npm run dev
 npx wrangler d1 execute exusiai-stat --remote --config worker/wrangler.jsonc --command "SELECT revision,catalog_revision,day_reads,day_writes,cooldown,(SELECT COUNT(*) FROM stat_dirty) pending FROM stat_state WHERE id=1;"
 ```
 
-4. 调度遗漏可手动运行并核对发布；重新启用/保存Cron后必须用真实schedule记录验证恢复。若需稳定触发，可另设Cloudflare定时器调用GitHub，需要单独配置受限GitHub授权，目前没有该授权。
+4. 调度遗漏可手动运行并核对发布；重新启用/保存Cron后必须用真实schedule记录验证恢复。仓库已准备Cloudflare定时器调用GitHub的可选触发器，没有授权时禁用，启用方法如下。
 5. 对比两站`data/manifest.json`的修订、时间、SHA256，再校验对应JSON。故障保留上一个有效版本；网页刷新不会启动D1重算。
 
 ## 维护命令
+
+### 启用Cloudflare定时触发
+
+代码固定调用本仓库main的`stat-data.yml`，bootstrap=false，沿用任务锁及预算；每15分钟的Worker Cron同时做Steam同步和可选派发，Steam/D1失败不会阻断派发。未配置`GITHUB_PUBLICATION_TOKEN`时只做Steam，不调用GitHub；没有公开派发接口。
+
+在GitHub创建fine-grained token，仅选择`AK_Exusiai`仓库，Repository permissions只增加**Actions: Read and write**（Metadata读取自动附带），设定有效期。在stat目录执行：
+
+```powershell
+npx wrangler secret put GITHUB_PUBLICATION_TOKEN --config worker/wrangler.jsonc
+```
+
+只在本机交互提示中输入令牌，不放入聊天、源码、命令参数或文档。该操作创建并部署Worker新版本，先确保本仓库当前代码已部署。它新增的是Cloudflare Worker触发本仓库Actions的授权，需要维护者明确配置；不存在自动复制CLI登录令牌。
+
+随后核对Cron日志`publication_trigger`的dispatched/200（兼容204）与Actions的workflow_dispatch运行，最后验证新manifest；令牌失效的401/403、网络失败只记安全状态，不重放POST。移除此secret可关闭；GitHub原schedule保留作备用，两种触发共用原锁。不保证GitHub执行/发布精确在15分钟内完成。
+
+### 重建和测量
 
 ```powershell
 # 原始记录重新入队，保留现有常用双项名单

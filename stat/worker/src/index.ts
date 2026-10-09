@@ -7,6 +7,7 @@ import {publicationStatus,beginWork,workCells,stageWork,commitWork} from './publ
 import {verifyPublisher} from './publisher-auth.mjs';
 import { detailStatements } from './store-details';
 import { enrichMods } from './steam';
+import {scheduleMaintenance} from './publication-trigger.mjs';
 const ids=new Set(catalog.map(item=>item.id));
 const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Access-Control-Allow-Origin':'*','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}});
 export async function staticPage(request:Request,env:Env,fetcher:typeof fetch=fetch) {
@@ -102,8 +103,8 @@ export default {
     }
   },
   async scheduled(_event,env,ctx) {
-    ctx.waitUntil(enrichMods(env.DB));
-    // Steam enrichment is independent. The publisher drains the bounded rollup queue.
+    scheduleMaintenance(env,ctx,enrichMods);
+    // Publication dispatch is enabled only after the restricted GitHub secret is set.
     // No raw statistics calculation is reachable from visitors or this cron.
   },
 } satisfies ExportedHandler<Env>;

@@ -21,7 +21,7 @@ flowchart LR
 
 若新旧贡献完全相同，只确认当前队列代次，不重写汇总或递增统计修订；并发新变化留在队列。队列清空后按修订导出相对上一发布的变化，再生成公开文件。比率、均值、趋势斜率在加总后计算，预测不重新训练。
 
-公开文件经白名单、模式、字节数、SHA256校验，与网页一起部署Pages。浏览器下载一次后本地筛选；刷新只读manifest，哈希变了才下载JSON。Worker主站共享同一发布。上传、维护、Steam同步、访客读取是四种不同工作：**Cloudflare Cron目前只同步Steam，不合并统计或调用GitHub；统计由GitHub schedule/手动触发。**
+公开文件经白名单、模式、字节数、SHA256校验，与网页一起部署Pages。浏览器下载一次后本地筛选；刷新只读manifest，哈希变了才下载JSON。Worker主站共享同一发布。上传、维护、Steam同步、访客读取是四种不同工作。**Cloudflare Cron不合并统计；未配置授权时只同步Steam，配置受限GitHub secret后可每15分钟派发Actions。**
 
 ## 数据库保存内容
 
@@ -96,3 +96,5 @@ flowchart LR
 公开文件64MiB及维护分块有体积保护，触发后保留原局和旧版，需明确改分块。GitHub约15分钟计划可能延迟/丢弃；active及手动成功均不是schedule证据。[GitHub说明](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)。页面时间是最后成功生成时间，无变化不更新；排查结合Actions、原局数、队列和修订。
 
 历史故障只留结论：首次40条积压误报失败、展开包过大、标签更新取消快照、临时503、之后未调度。已修复正常暂停、紧凑编码、固定快照和读取重试；定时恢复必须以真实schedule运行验证。
+
+18:30复核仍只有09:26的一次GitHub schedule，禁用/启用与修改Cron没有恢复实际事件；没有公开证据解释GitHub内部遗漏原因。最后推送37901881259成功，双站修订185/916、15:57:17生成、默认53局/18局完整指标。原始118局/113贡献/21待处理，维护写入29221仍未触及3万保护。已准备可选Cloudflare派发，固定目标、无POST重试、安全日志、Steam失败隔离；没有受限GitHub授权，尚未验证生产派发，不将手动成功记为自动恢复。[GitHub派发权限](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event)。
