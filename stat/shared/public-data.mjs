@@ -9,7 +9,7 @@ export function selectPublic(bundle,f){
  const overviewSums=Array(OVERVIEW_FIELDS.length).fill(0),entities=new Map(),s=SCOPES.indexOf(f.act),tagMask=f.tags.reduce((m,t)=>m|(1<<TAG_ORDER.indexOf(t)),0);
  for(const cell of bundle.cells){
   const [day,version,revision,ascension,players,mode,abandoned,standardLoss,mask]=cell.dims;
-  if((f.from&&day<f.from)||(f.to&&day>f.to)||(f.version&&version!==f.version)||(f.revision&&revision!==f.revision)||(f.ascension&&ascension!==Number(f.ascension))||(f.party==='solo'&&players!==1)||(f.party==='multi'&&players<=1)||(f.mode!=='all'&&mode!==f.mode)||(f.abandoned==='exclude'&&(f.act==='all'?abandoned:standardLoss)))continue;
+  if((f.from&&day<f.from)||(f.to&&day>f.to)||(f.version&&version!==f.version)||(f.revision&&revision!==f.revision)||(f.ascension&&(f.ascension==='other'?ascension<=10:ascension!==Number(f.ascension)))||(f.party==='solo'&&players!==1)||(f.party==='multi'&&players<=1)||(f.mode!=='all'&&mode!==f.mode)||(f.abandoned==='exclude'&&(f.act==='all'?abandoned:standardLoss)))continue;
   if(f.tag_mode==='white'?(mask&~tagMask)!==0:(mask&tagMask)!==0)continue;
   const p=cell.projection;
   const sign=p.length===0?1:p.length===1&&exclude.includes(p[0])?-1:p.length===2&&exclude.length===2&&p.every(id=>exclude.includes(id))?1:0;

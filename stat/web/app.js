@@ -19,7 +19,7 @@ let tileKeys=storage.get('exusiai.metrics',['pick','win','pwar']).filter(k=>k in
 const kind=({cards:'card',relics:'relic',ancients:'ancient'})[page];
 for(const nav of all('nav a'))if(nav.dataset.page===page)nav.setAttribute('aria-current','page');
 $('#statistics').hidden=page==='privacy';$('#privacy').hidden=page!=='privacy';$('#entity-title').textContent=({cards:'卡牌表现',relics:'角色遗物',ancients:'先古遗物'})[page]||'';
-const form=$('#filters');for(let i=0;i<=10;i++)form.elements.ascension.add(new Option('A'+i,String(i)));
+const form=$('#filters');for(let i=0;i<=10;i++)form.elements.ascension.add(new Option('A'+i,String(i)));form.elements.ascension.add(new Option('其他（A10以上）','other'));
 for(const name of ['party','mode','abandoned','from','to','ascension','act','tag_mode'])if(params.has(name))form.elements[name].value=params.get(name);
 for(const name of ['version','revision'])if(params.get(name)){form.elements[name].add(new Option(params.get(name),params.get(name)));form.elements[name].value=params.get(name);}
 form.elements.split.checked=params.get('split')==='1';

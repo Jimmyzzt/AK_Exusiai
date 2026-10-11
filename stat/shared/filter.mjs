@@ -8,7 +8,7 @@ export function filters(url) {
   if(!['standard','all','1','2','3'].includes(f.act)||!['black','white'].includes(f.tag_mode)||f.tags.some(t=>!Object.hasOwn(TAG_GROUPS,t)))fail();
   for (const day of [f.from,f.to]) if (day && (!/^\d{4}-\d{2}-\d{2}$/.test(day) || new Date(day).toISOString().slice(0,10)!==day)) fail();
   if (f.from && f.to && f.from > f.to) fail();
-  if (f.ascension && (!/^\d{1,2}$/.test(f.ascension) || Number(f.ascension)>10)) fail();
+  if (f.ascension && f.ascension!=='other' && (!/^\d{1,2}$/.test(f.ascension) || Number(f.ascension)>10)) fail();
   if (f.version.length>64 || f.revision.length>64 || f.exclude.some(m=>m.length>128)) fail();
   return f;
 }
