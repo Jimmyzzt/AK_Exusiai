@@ -1,6 +1,6 @@
 # 能天使社区统计
 
-[统计网站](https://exusiai.zzt.si/) · [指标说明](docs/METRICS.md)
+[统计网站](https://exusiai.zzt.si/) · [指标说明](docs/METRICS.md) · [存储与性能评估](docs/STORAGE.md)
 
 玩家可在 Mod 设置中选择是否允许上传新增能天使对局，随时关闭。不补传玩家历史存档；仅公开聚合统计，不公开逐局数据或玩家身份。
 
