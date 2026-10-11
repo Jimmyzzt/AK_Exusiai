@@ -7,7 +7,7 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 > **Laterano and Penguin Logistics join as two new Ancients, with 20 Ancient relics between them!** A few cards also received balance adjustments. See the [changelog](https://steamcommunity.com/sharedfiles/filedetails/changelog/3801483321) for details.
 >
 > We have added optional **statistics** to help understand card performance and balance. De-identified data from subsequent Exusiai runs is uploaded only after you explicitly grant permission through RitsuLib.
-> Visit the [Exusiai statistics website](https://exusiai.zzt.si/) to explore aggregated community data, including card and relic performance, pick rates, and win rates. A [backup site](https://jimmyzzt.github.io/AK_Exusiai/) is also available.
+> Visit the [Exusiai statistics website](https://exusiai.zzt.si/) to explore aggregated community data, including card and relic performance, pick rates, and win rates. A [backup site](https://ef.zzt.si/) is also available.
 
 ## Content
 
