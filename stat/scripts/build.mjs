@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {relative} from 'node:path';
 import sharp from 'sharp';
-import {cardMetadata} from './card-metadata.mjs';
+import {cardMetadata,relicMetadata} from './card-metadata.mjs';
 const migration=(await readFile(new URL('../worker/migrations/0003_incremental.sql',import.meta.url),'utf8')).replace(/--[^\n]*/g,'');
 const statements=(migration.match(/\s*CREATE TRIGGER[\s\S]*?END;|[^;]+;/g)||[]).map(s=>s.trim());
 await writeFile(new URL('../worker/migration-0003.json',import.meta.url),JSON.stringify(statements,null,2)+'\n');
@@ -54,6 +54,7 @@ for(const folder of ['Cards','Relics']) {
       const item=catalog.find(c=>c.id===`AK_EXUSIAI_${folder==='Cards'?'CARD':'RELIC'}_${slug}`);
       if(!item) continue;
       if(folder==='Cards')Object.assign(item,cardMetadata(source,item.id,translations.cards));
+      else {const next=source.indexOf('public sealed class ',m.index+m[0].length),body=source.slice(m.index,next<0?undefined:next);Object.assign(item,relicMetadata(body,item.id,translations.relics));}
       const input=new URL(`AK_Exusiai/images/${folder.toLowerCase()}/${m[1]}.png`,root);
       let bytes;try {bytes=await readFile(input);}catch(error){if(error.code==='ENOENT')continue;throw error;}
       let pipeline=sharp(bytes);

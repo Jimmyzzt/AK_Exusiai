@@ -17,3 +17,9 @@ test('all current library descriptions resolve without exposing formatting synta
  const strike=await extract('DisruptiveStrike');assert.ok(!strike.descriptions.zhs[0].includes('（命中'));
  assert.throws(()=>renderRules('{Missing:diff()}',{},false),/Unresolved/);
 });
+
+test('all relic and ancient descriptions resolve source values in both languages',async()=>{
+ const {relicMetadata}=await import('../scripts/card-metadata.mjs');
+ const t=Object.fromEntries(await Promise.all(['zhs','eng'].map(async l=>[l,JSON.parse(await readFile('../AK_Exusiai/localization/'+l+'/relics.json','utf8'))])));let count=0;
+ for(const file of await readdir('../AK_ExusiaiCode/Relics')){if(!file.endsWith('.cs'))continue;const s=await readFile('../AK_ExusiaiCode/Relics/'+file,'utf8');for(const m of s.matchAll(/public sealed class (\w+)/g)){const id='AK_EXUSIAI_RELIC_'+m[1].replace(/([a-z0-9])([A-Z])/g,'$1_$2').replace(/([A-Z])([A-Z][a-z])/g,'$1_$2').toUpperCase();if(!t.zhs[id+'.title'])continue;const next=s.indexOf('public sealed class ',m.index+m[0].length),v=relicMetadata(s.slice(m.index,next<0?undefined:next),id,t);for(const l of ['zhs','eng']){assert.ok(v.descriptions[l][0].trim());assert.ok(!/[{}]|\\n/.test(v.descriptions[l][0]));}assert.equal(v.can_upgrade,false);if(id.endsWith('EXUSIAI_BADGE'))assert.match(v.descriptions.zhs[0],/5/);if(id.endsWith('CONFESS47'))assert.match(v.descriptions.zhs[0],/2/);count++;}}assert.equal(count,29);
+});

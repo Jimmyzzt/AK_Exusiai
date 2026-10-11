@@ -44,3 +44,15 @@ export function cardMetadata(source,id,translations){
  });
  return {type:base[2],rarity:base[3],cost,descriptions,can_upgrade:! /MaxUpgradeLevel\s*=>\s*0/.test(source)};
 }
+
+export function relicMetadata(source,id,translations){
+ const constants=Object.fromEntries([...source.matchAll(/const string (\w+)\s*=\s*"([^"]+)"/g)].map(m=>[m[1],m[2]])),vars={};
+ const declaration=/CanonicalVars\s*=>\s*\[([\s\S]*?)\]/.exec(source)?.[1]||'';
+ for(const m of declaration.matchAll(/new\s+(\w+)(?:<([\w.]+)>)?\(([^)]*)\)/g)){
+  const args=m[3].split(',').map(s=>s.trim()),type=m[1];
+  const key=type==='DynamicVar'?(constants[args[0]]||args[0].replace(/^"|"$/g,'')):type==='PowerVar'?m[2].split('.').at(-1):type.replace(/Var$/,'');
+  const number=Number((type==='DynamicVar'?args[1]:args[0]).replace(/m$/,''));if(!Number.isFinite(number))throw new Error(id+': unresolved relic variable');vars[key]=number;
+ }
+ const descriptions=Object.fromEntries(['zhs','eng'].map(lang=>{const raw=translations[lang][id+'.description'];if(!raw)throw new Error(id+': missing relic description');const text=renderRules(raw,vars,false,lang);return [lang,[text,text]];}));
+ return {can_upgrade:false,descriptions};
+}
