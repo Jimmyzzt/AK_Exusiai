@@ -12,6 +12,8 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class Loan : ExusiaiCardTemplate
 {
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override IEnumerable<IHoverTip> CardHoverTips => [HoverTipFactory.FromCard<Debt>()];
     protected override IEnumerable<DynamicVar> CanonicalVars => [new GoldVar(45)];
 

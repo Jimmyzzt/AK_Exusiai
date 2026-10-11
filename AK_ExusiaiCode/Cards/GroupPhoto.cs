@@ -11,6 +11,8 @@ namespace AK_Exusiai.Cards;
 [RegisterCard(typeof(ExusiaiCardPool))]
 public sealed class GroupPhoto : ExusiaiCardTemplate
 {
+    public override bool CanBeGeneratedInCombat => false;
+
     protected override IEnumerable<IHoverTip> CardHoverTips =>
         LogisticsCardCatalog.CreateHoverTips(IsUpgraded);
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

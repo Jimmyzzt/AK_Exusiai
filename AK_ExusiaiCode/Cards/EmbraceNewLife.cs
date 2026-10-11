@@ -34,7 +34,7 @@ public sealed class EmbraceNewLife : ExusiaiCardTemplate
             CardModel generated = AngelCardCatalog.CreateRandom(Owner);
             CardCmd.Enchant<Swift>(generated, 1m);
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(
-                generated, PileType.Draw, Owner));
+                generated, PileType.Draw, Owner, CardPilePosition.Random));
         }
     }
 }
