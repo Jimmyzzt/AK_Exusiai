@@ -1,0 +1,17 @@
+{
+  "title": "Exusiai",
+  "more_settings": "More settings",
+  "ancients": "Additional Ancient options",
+  "enabled": "Allow custom Ancients to appear",
+  "enabled_help": "Turn off to exclude Laterano and Penguin Logistics. Default leaves the existing selection unchanged, including other mods' candidates and weights. Applies to new standard, custom and multiplayer runs; multiplayer uses the host's settings.",
+  "reset": "Restore defaults",
+  "laterano": "Laterano (Act 2)",
+  "penguin": "Penguin Logistics (Act 3)",
+  "mode_default": "Default (unchanged)",
+  "mode_disabled": "Never appear",
+  "mode_guaranteed": "Always appear",
+  "mode_custom": "Custom probability",
+  "percent_help": "Converted using the actual candidates and weights, preserving the relative weights of other Ancients. At 100%, only the selected Ancient remains.",
+  "laterano_percent": "Laterano probability",
+  "penguin_percent": "Penguin Logistics probability"
+}

@@ -38,6 +38,7 @@ public partial class Entry
         _patcher.RegisterPatch<BeaconMapVisualPatch>();
         _patcher.RegisterPatch<BeaconMapPointIconPatch>();
         _patcher.RegisterPatch<AncientOptionTitlePatch>();
+        _patcher.RegisterPatch<AncientSelectionPatch>();
         _patcher.RegisterPatch<CompanyVanTravelPatch>();
         _patcher.RegisterPatch<CompassionTransferPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
@@ -66,6 +67,7 @@ public partial class Entry
         AmmoResource.Register();
         try { Statistics.ExusiaiTelemetry.Initialize(); }
         catch { Logger.Warn("Community statistics initialization failed; gameplay remains available."); }
+        Settings.ExusiaiModSettings.Initialize();
         Logger.Info("AK_Exusiai initialized for Exusiai.");
     }
 
