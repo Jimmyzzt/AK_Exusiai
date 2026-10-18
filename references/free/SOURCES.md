@@ -1,5 +1,9 @@
 # 自由/自制素材来源记录
 
+枪声源素材与制作工程见 [来源记录](audio/SOURCES.md)。维护者选定的单发母带与 Audacity 工程保留，前期未采用的候选音频及试听/加工文件已清理。
+
+2026-10-18：维护者提供 `audio/shot_remix.wav` 与 `audio/remix.aup4`，并明确要求直接导入单发音效。WAV 已原样复制到 `AK_Exusiai/audio/card_effects/shot-remix.wav`，项目文件与参考音频保留不变；导入记录及哈希见 [运行时音频来源](../../AK_Exusiai/audio/card_effects/SOURCES.md)。本记录不替维护者的混音选择额外许可证，也不推断底层录音来源。
+
 | 仓库路径 | 类型 | 来源 | 项目用途 | 修改 | 备注 |
 |---|---|---|---|---|---|
 | `references/free/art/弹药.svg` | SVG 图标 | 项目维护者提供 | 弹药资源的小图标与战斗计数器图标 | 源文件未修改，复制为 `AK_Exusiai/images/ui/ammo.svg` | 原始作者或授权链接尚待维护者补充 |

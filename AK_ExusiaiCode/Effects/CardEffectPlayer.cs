@@ -16,6 +16,14 @@ internal sealed class EffectPlayback : IDisposable
     internal readonly CancellationTokenSource Cancellation = new();
     private readonly List<Node> _nodes = [];
     internal bool Started;
+    internal long? AttackStartedAt;
+    private bool _animationStarted;
+    internal bool TryStartAnimation(bool once)
+    {
+        if (once && _animationStarted) return false;
+        _animationStarted = true;
+        return true;
+    }
     internal void Track(Node node) => _nodes.Add(node);
     public void Dispose()
     {
@@ -47,9 +55,11 @@ internal static class CardEffectPlayer
     }
 
     internal static async Task Play(EffectPlayback playback, CardEffectConfig config, EffectRecipe recipe,
-        Creature owner, IReadOnlyList<Creature> targets, bool animate = true)
+        Creature owner, IReadOnlyList<Creature> targets, bool animate = true, bool attack = false)
     {
         playback.Cancellation.Token.ThrowIfCancellationRequested();
+        bool customCadence = attack && config.HitInterval >= 0;
+        if (customCadence) playback.AttackStartedAt = System.Diagnostics.Stopwatch.GetTimestamp();
         bool start = !playback.Started || config.Repeat == "per_hit";
         playback.Started = true;
         async Task Launch()
@@ -66,9 +76,12 @@ internal static class CardEffectPlayer
         if (start)
         {
             if (recipe.PreAnimation) await Launch();
-            if (animate && recipe.Animation.Length > 0)
+            if (animate && recipe.Animation.Length > 0 && playback.TryStartAnimation(config.AnimationOnce))
             {
-                await CreatureCmd.TriggerAnim(owner, recipe.Animation, recipe.AnimationDelay >= 0 ? recipe.AnimationDelay : recipe.Animation == "Cast" ? owner.Player!.Character.CastAnimDelay : owner.Player!.Character.AttackAnimDelay);
+                // Still trigger the chosen animation, but do not add its native
+                // wind-up to every bullet when an explicit cadence is selected.
+                float animationDelay = customCadence ? 0 : recipe.AnimationDelay >= 0 ? recipe.AnimationDelay : recipe.Animation == "Cast" ? owner.Player!.Character.CastAnimDelay : owner.Player!.Character.AttackAnimDelay;
+                await CreatureCmd.TriggerAnim(owner, recipe.Animation, animationDelay);
                 playback.Cancellation.Token.ThrowIfCancellationRequested();
             }
             if (!recipe.PreAnimation) await Launch();
@@ -84,6 +97,8 @@ internal static class CardEffectPlayer
     {
         if (string.IsNullOrEmpty(id)) return;
         if (!CardEffectStore.Entries.TryGetValue(id, out var e) || e.Kind != "sfx" || e.Status != "adapted") return;
+        volume = Settings.ExusiaiModSettings.AudioVolume(id, volume);
+        if (volume <= 0) return;
         if (e.Adapter == "event") SfxCmd.Play(e.Resource, volume);
         else if (e.Adapter == "audio")
         {

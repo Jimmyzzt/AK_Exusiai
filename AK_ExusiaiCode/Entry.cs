@@ -41,6 +41,7 @@ public partial class Entry
         _patcher.RegisterPatch<AncientSelectionPatch>();
         _patcher.RegisterPatch<CompanyVanTravelPatch>();
         _patcher.RegisterPatch<CompassionTransferPatch>();
+        _patcher.RegisterPatch<CardAttackIntervalPatch>();
         _patcher.RegisterPatch<InterferencePatch>();
         _patcher.RegisterPatch<RelicLogisticsHookPatch>();
         _patcher.RegisterPatch<RelicLogisticsLifecyclePatch>();

@@ -11,7 +11,9 @@ namespace AK_Exusiai.Settings;
 internal static class ExusiaiModSettings
 {
     private static AncientAppearanceConfig _local = new();
+    private static AudioSettingsConfig _audio = new();
     private static string _path = "";
+    private static string _audioPath = "";
     private static I18N _text = null!;
     private static RunSavedData<AncientAppearanceConfig> _run = null!;
     private static readonly List<IModSettingsBinding> Bindings = [];
@@ -19,10 +21,12 @@ internal static class ExusiaiModSettings
 
     internal static ModSettingsText Text(string key) => ModSettingsText.I18N(_text, key, key);
     internal static string ButtonText => _text.Get("more_settings", "More settings");
+    internal static float AudioVolume(string id, float independentVolume) => _audio.ApplyToSound(id, independentVolume);
 
     internal static void Initialize()
     {
         _path = ProjectSettings.GlobalizePath($"user://{Entry.ModId}/ancients.json");
+        _audioPath = ProjectSettings.GlobalizePath($"user://{Entry.ModId}/audio.json");
         _text = new I18N("Exusiai-Settings", pckFolders: [$"{Entry.ResPath}/localization/settings"]);
         try
         {
@@ -32,6 +36,15 @@ internal static class ExusiaiModSettings
         catch (Exception e) when (e is IOException or JsonException or UnauthorizedAccessException)
         {
             Entry.Logger.Warn($"Unable to load Ancient settings; using defaults. {e.Message}");
+        }
+        try
+        {
+            if (File.Exists(_audioPath))
+                _audio = (JsonSerializer.Deserialize<AudioSettingsConfig>(File.ReadAllText(_audioPath)) ?? new()).Copy();
+        }
+        catch (Exception e) when (e is IOException or JsonException or UnauthorizedAccessException)
+        {
+            Entry.Logger.Warn($"Unable to load audio settings; using defaults. {e.Message}");
         }
         _run = RitsuLibFramework.GetRunSavedDataStore(Entry.ModId).Register<AncientAppearanceConfig>(
             "ancientAppearance", () => new(), new RunSavedDataOptions { SchemaVersion = 1 });
@@ -65,6 +78,14 @@ internal static class ExusiaiModSettings
                     host.RequestRefreshAfterDataModelBatchChange();
                 });
             });
+            page.AddSection("audio", section =>
+            {
+                section.WithTitle(Text("audio"));
+                var volume = ModSettingsBindings.Callback(Entry.ModId, "audio.gunshotVolume",
+                    () => _audio.GunshotVolumePercent, v => _audio.GunshotVolumePercent = v, SaveAudio);
+                section.AddSlider("gunshot_volume", Text("gunshot_volume"), volume,
+                    0, 100, 1, value => $"{value:0}%", Text("gunshot_volume_help"));
+            });
             Statistics.ExusiaiTelemetry.AddSettings(page);
         }, Entry.ModId);
     }
@@ -90,6 +111,12 @@ internal static class ExusiaiModSettings
     {
         Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
         File.WriteAllText(_path, JsonSerializer.Serialize(_local.Copy()));
+    }
+
+    private static void SaveAudio()
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(_audioPath)!);
+        File.WriteAllText(_audioPath, JsonSerializer.Serialize(_audio.Copy()));
     }
 
     internal static AncientAppearanceConfig ForRun(RunState run)

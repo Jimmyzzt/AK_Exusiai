@@ -1,15 +1,14 @@
 # Card effect audio attribution
 
-## mag-insert.wav
+## shot-remix.wav
 
-- Title: **Gun Magazine Insert 1**
-- Creator: **Gnarlyedits**
-- Source: https://freesound.org/people/Gnarlyedits/sounds/744815/
-- License: **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**
-- License URL: https://creativecommons.org/licenses/by-nc/4.0/
-- Supplied by the project owner. Imported without editing or transcoding; local filename is `mag-insert.wav`.
-- Retained as an optional sound (`custom:mag_insert`); the shared reload preset now uses `custom:reload_1911`.
-- This file remains under its own license, separate from the project's code license. Credit the creator and retain the source/license links when redistributing. Commercial use is not covered by this license.
+- Creator/editor: **Project owner**, supplied as `references/free/audio/shot_remix.wav`; associated Audacity project `references/free/audio/remix.aup4` is retained unchanged.
+- Imported 2026-10-18 at the owner's explicit request, byte-for-byte; no trimming, equalization, normalization, or transcoding.
+- Source/imported SHA-256: `0addad175fbcb6d9348fac26a08682bb7b3a8a334bac013191585655375ea401`.
+- Format: PCM16 stereo, 32000Hz, 0.131 seconds. The owner prepared it for immediate single-shot playback; sub-0.1-second repetition may overlap the tail.
+- Display name: **枪声 · Shot Remix（单发）**; catalog ID: `custom:shot_remix`.
+- Global gunshot volume is adjustable under the Mod's Audio settings, defaulting to 40%; the original WAV is not attenuated. This local multiplier combines with each card's independent volume and the game's SFX bus.
+- Permission to import comes from the owner's request. No additional open-content license or claim about underlying recording provenance is asserted for this remix here; the collected source sounds retain their separate attribution records.
 
 ## reload.wav
 

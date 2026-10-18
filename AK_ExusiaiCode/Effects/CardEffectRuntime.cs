@@ -3,6 +3,8 @@ using AK_Exusiai.Cards;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace AK_Exusiai.Effects;
 
@@ -14,6 +16,24 @@ internal static class CardEffectRuntime
         internal readonly EffectPlayback Playback = new();
     }
     private static readonly ConditionalWeakTable<CardPlay, PlayState> States = new();
+
+    internal static float RemainingInterval(float interval, double elapsedSeconds) =>
+        (float)Math.Max(0, interval - Math.Max(0, elapsedSeconds));
+
+    // Only replace the final visual pause of this card's powered attack damage.
+    // Reflections, enemies, other cards and unpowered secondary damage keep
+    // their original timing; no global wait/speed setting is modified.
+    internal static bool TryGetRemainingInterval(CardPlay? play, CardModel? source, Creature? dealer, ValueProp props, out float remaining)
+    {
+        remaining = 0;
+        if (play == null || source != play.Card || dealer != play.Player.Creature ||
+            source is not ExusiaiCardTemplate || source.Type != CardType.Attack || !props.IsPoweredAttack() ||
+            !States.TryGetValue(play, out var state) || state.Config.HitInterval < 0 || state.Playback.AttackStartedAt == null)
+            return false;
+        remaining = RemainingInterval(state.Config.HitInterval,
+            System.Diagnostics.Stopwatch.GetElapsedTime(state.Playback.AttackStartedAt.Value).TotalSeconds);
+        return true;
+    }
 
     internal static async Task BeforeCard(CardPlay play)
     {
@@ -59,6 +79,7 @@ internal static class CardEffectRuntime
             AnimationDelay = command._attackerAnimDelay,
         };
         EffectRecipe recipe = CardEffectPlayer.Resolve(state.Config, fallback);
+        if (state.Config.HitInterval >= 0) command.WithWaitBeforeHit(0, 0);
         // Capture the actual target chosen by AttackCommand, including random targeting.
         // Never draw another RNG value for a visual effect.
         List<Creature> actualTargets = [];
@@ -67,7 +88,7 @@ internal static class CardEffectRuntime
         Func<Task>? original = command._beforeDamage;
         command.BeforeDamage(async () =>
         {
-            try { await CardEffectPlayer.Play(state.Playback, state.Config, recipe, command.Attacker!, actualTargets.ToArray()); }
+            try { await CardEffectPlayer.Play(state.Playback, state.Config, recipe, command.Attacker!, actualTargets.ToArray(), attack: true); }
             catch (Exception e) { Entry.Logger.Warn($"Attack effect skipped: {e.Message}"); }
             finally { actualTargets.Clear(); }
             // Always execute the original callback, including ammunition consumption.

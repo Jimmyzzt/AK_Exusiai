@@ -1,6 +1,9 @@
 {
   "title": "Exusiai",
   "more_settings": "More settings",
+  "audio": "Audio",
+  "gunshot_volume": "Gunshot volume",
+  "gunshot_volume_help": "Adjusts single-shot gunfire, at 40% by default. Multiplies the card's independent volume and the game's SFX volume; does not affect reload or character-select sounds. Applies immediately and is saved on this device only.",
   "ancients": "Additional Ancient options",
   "enabled": "Allow custom Ancients to appear",
   "enabled_help": "Turn off to exclude Laterano and Penguin Logistics. Default leaves the existing selection unchanged, including other mods' candidates and weights. Applies to new standard, custom and multiplayer runs; multiplayer uses the host's settings.",

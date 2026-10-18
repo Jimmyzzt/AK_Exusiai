@@ -19,7 +19,7 @@ AK_Exusiai 是《Slay the Spire 2》与《明日方舟》题材的非官方、�
 | [其他来源](../../references/free/SOURCES.md) | 维护者提供或制作的图标、美术、工作文件及待补来源 |
 | [自定义卡牌音效](../../AK_Exusiai/audio/card_effects/SOURCES.md) | 作者、音频来源、许可与修改说明；此文件随 PCK 分发 |
 
-`mag-insert.wav` 为 **Gnarlyedits** 的 **Gun Magazine Insert 1**，来源 [Freesound 744815](https://freesound.org/people/Gnarlyedits/sounds/744815/)，采用 [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)，原样导入。当前共享换弹预设使用维护者独立制作的 `reload.wav`，旧条目仍作为可选音频保留。
+当前自定义卡牌音效使用维护者提供的 `reload.wav` 与 `shot_remix.wav`，源文件与制作记录见各 `SOURCES.md`。早期试用的 **Gnarlyedits / Gun Magazine Insert 1**（[Freesound 744815](https://freesound.org/people/Gnarlyedits/sounds/744815/)，[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)）已于2026-10-18清理，不再分发。
 
 项目部分视觉素材使用 AI 辅助制作，已有记录见其他来源表。原作素材、维护者原创素材、AI 辅助制作与第三方素材应分别保留其来源，不能笼统标为“全部原创”。
 

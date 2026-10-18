@@ -136,8 +136,14 @@ public partial class CardEffectBridge : Node
             {
                 for (int i = 0; i < Math.Clamp(request.Hits, 1, 12); i++)
                 {
-                    await CardEffectPlayer.Play(session, config, CardEffectPlayer.Resolve(config), _player.Creature, targets);
-                    if (i + 1 < request.Hits) await MegaCrit.Sts2.Core.Commands.Cmd.Wait(0.15f, session.Cancellation.Token);
+                    await CardEffectPlayer.Play(session, config, CardEffectPlayer.Resolve(config), _player.Creature, targets, attack: request.IsAttack);
+                    if (i + 1 < request.Hits)
+                    {
+                        float wait = request.IsAttack && config.HitInterval >= 0 && session.AttackStartedAt != null
+                            ? CardEffectRuntime.RemainingInterval(config.HitInterval, System.Diagnostics.Stopwatch.GetElapsedTime(session.AttackStartedAt.Value).TotalSeconds)
+                            : 0.15f;
+                        await MegaCrit.Sts2.Core.Commands.Cmd.Wait(wait, session.Cancellation.Token);
+                    }
                 }
             }
             // Keep Stop usable while particles/audio finish.
@@ -198,6 +204,8 @@ public partial class CardEffectBridge : Node
         public string Slot { get; set; } = "hit";
         public int Target { get; set; } = -1;
         public int Hits { get; set; } = 1;
+        // Older prepared requests were primarily attack previews.
+        public bool IsAttack { get; set; } = true;
         public CardEffectConfig? Config { get; set; }
     }
 }

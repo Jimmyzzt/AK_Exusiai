@@ -358,13 +358,43 @@
 		},
 		"card:Barrage": {
 			"config": {
+				"animation": "inherit",
+				"animation_once": false,
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_interval": 0.1,
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "custom:shot_remix",
 				"offset": [
 					16.0,
 					-4.0
 				],
-				"preset": "card:Barrage"
+				"phase": "start",
+				"preset": "card:Barrage",
+				"repeat": "per_hit",
+				"volume": 1.0
 			},
 			"name": "弹幕齐射"
+		},
+		"card:DaggerSpray": {
+			"config": {
+				"animation": "inherit",
+				"animation_once": false,
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_interval": 0.1,
+				"hit_sound": "custom:shot_remix",
+				"launch": "inherit",
+				"launch_sound": "inherit",
+				"phase": "start",
+				"preset": "card:DaggerSpray",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "匕首雨"
 		},
 		"card:Debilitate": {
 			"config": {
@@ -392,6 +422,24 @@
 			},
 			"name": "散射炮"
 		},
+		"card:GammaBlast": {
+			"config": {
+				"animation": "inherit",
+				"animation_once": false,
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_interval": 0.1,
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "custom:shot_remix",
+				"phase": "start",
+				"preset": "card:GammaBlast",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "伽马爆破"
+		},
 		"card:GrandFinale": {
 			"config": {
 				"animation": "inherit",
@@ -408,15 +456,39 @@
 			},
 			"name": "华丽收场"
 		},
-		"card:Whirlwind": {
+		"card:MindBlast": {
 			"config": {
 				"animation": "inherit",
+				"animation_once": false,
 				"delay": -1.0,
 				"ground": false,
 				"hit": "inherit",
+				"hit_interval": 0.1,
 				"hit_sound": "inherit",
 				"launch": "inherit",
-				"launch_sound": "inherit",
+				"launch_sound": "custom:shot_remix",
+				"phase": "start",
+				"preset": "card:MindBlast",
+				"repeat": "per_hit",
+				"volume": 1.0
+			},
+			"name": "心灵震慑"
+		},
+		"card:Whirlwind": {
+			"config": {
+				"animation": "inherit",
+				"animation_once": false,
+				"delay": -1.0,
+				"ground": false,
+				"hit": "inherit",
+				"hit_interval": 0.1,
+				"hit_sound": "inherit",
+				"launch": "inherit",
+				"launch_sound": "custom:shot_remix",
+				"offset": [
+					20.0,
+					0.0
+				],
 				"phase": "start",
 				"preset": "card:Whirlwind",
 				"repeat": "per_hit",
