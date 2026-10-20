@@ -10124,26 +10124,6 @@
       ]
     },
     {
-      "id": "custom:mag_insert",
-      "name": "换弹 · 插入弹匣",
-      "english": "mag-insert.wav",
-      "kind": "sfx",
-      "status": "adapted",
-      "adapter": "audio",
-      "resource": "res://AK_Exusiai/audio/card_effects/mag-insert.wav",
-      "origin": "custom",
-      "origins": [
-        "custom",
-        "combat"
-      ],
-      "sources": [],
-      "aliases": [
-        "自定义音效",
-        "换弹"
-      ],
-      "reason": "Mod 自定义一次性音效；音量由独立音量控制。"
-    },
-    {
       "id": "custom:reload_1911",
       "name": "换弹 · 柔和版",
       "english": "reload.wav",
@@ -10160,6 +10140,30 @@
       "aliases": [
         "自定义音效",
         "换弹"
+      ],
+      "reason": "Mod 自定义一次性音效；音量由独立音量控制。"
+    },
+    {
+      "id": "custom:shot_remix",
+      "name": "枪声 · Shot Remix（单发）",
+      "english": "shot-remix.wav",
+      "kind": "sfx",
+      "status": "adapted",
+      "adapter": "audio",
+      "resource": "res://AK_Exusiai/audio/card_effects/shot-remix.wav",
+      "origin": "custom",
+      "origins": [
+        "custom",
+        "combat"
+      ],
+      "sources": [],
+      "aliases": [
+        "自定义音效",
+        "枪声",
+        "枪械",
+        "单发",
+        "shot remix",
+        "冲锋枪"
       ],
       "reason": "Mod 自定义一次性音效；音量由独立音量控制。"
     },

@@ -62,23 +62,26 @@ internal static class ExusiaiTelemetry
             catch { Entry.Logger.Warn("Statistics act snapshot unavailable; gameplay is unaffected."); }
         }, false);
         _ended = RitsuLibFramework.SubscribeLifecycle<RunEndedEvent>(Capture, false);
+        // The shared Exusiai settings page adds this section after initialization.
+        // The framework's queue survives restarts; explicit periodic flush covers transient outages.
+        _retry = new System.Threading.Timer(_ => Retry(), null, TimeSpan.FromMinutes(2), TimeSpan.FromMinutes(15));
+        Entry.Logger.Info("Community statistics registered; RitsuLib consent is required for new local Exusiai runs.");
+    }
+
+    internal static void AddSettings(ModSettingsPageBuilder page)
+    {
+        if (_localization is null) return;
         var uploadConsent = ModSettingsBindings.Callback(Entry.ModId, "statistics.upload",
             () => RitsuLibFramework.GetTelemetryClient(Entry.ModId).IsEnabled("run_history"),
             allowed => RitsuLibFramework.SetTelemetryApplicantConsent(Entry.ModId,
                 allowed ? TelemetryConsentState.Granted : TelemetryConsentState.Denied,
                 allowed ? ["run_history"] : []), () => { });
-        RitsuLibFramework.RegisterModSettings(Entry.ModId, page =>
+        page.AddSection("statistics", section =>
         {
-            page.WithTitle(Text("title"));
-            page.AddSection("statistics", section =>
-            {
-                section.AddToggle("upload", Text("allow_upload"), uploadConsent, description: Text("consent"));
-                section.AddButton("website", Text("website"), Text("open_website"), () => OS.ShellOpen(Endpoint));
-            });
-        }, Entry.ModId);
-        // The framework's queue survives restarts; explicit periodic flush covers transient outages.
-        _retry = new System.Threading.Timer(_ => Retry(), null, TimeSpan.FromMinutes(2), TimeSpan.FromMinutes(15));
-        Entry.Logger.Info("Community statistics registered; RitsuLib consent is required for new local Exusiai runs.");
+            section.WithTitle(Text("title"));
+            section.AddToggle("upload", Text("allow_upload"), uploadConsent, description: Text("consent"));
+            section.AddButton("website", Text("website"), Text("open_website"), () => OS.ShellOpen(Endpoint));
+        });
     }
 
     internal static string Token

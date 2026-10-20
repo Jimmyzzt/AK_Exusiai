@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect;
+using MegaCrit.Sts2.addons.mega_text;
+using STS2RitsuLib.Settings;
 
 namespace AK_Exusiai.Characters;
 
@@ -36,6 +38,7 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
     private NGoldArrowButton? _nextCharacter;
     private NGoldArrowButton? _previousOutfit;
     private NGoldArrowButton? _nextOutfit;
+    private NButton _moreSettings = null!;
 
     public override void _Ready()
     {
@@ -49,12 +52,38 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
         _outfitName = GetNode<Label>("OutfitSelector/Name");
         _characterSelectScreen = FindCharacterSelectScreen();
 
+        CreateSettingsButton();
+
         CreateArrowButtons();
         ConnectCharacterSelectButtons();
         _characterName.Resized += PositionArrowButtons;
         _outfitName.Resized += PositionArrowButtons;
         CallDeferred(nameof(PositionArrowButtons));
         RefreshAppearance();
+    }
+
+    private void CreateSettingsButton()
+    {
+        // Reuse the native settings entry, including its hover, press, sounds,
+        // selection reticle and controller support, through RitsuLib's public factory.
+        MarginContainer row = ModSettingsGameSettingsEntryLine.Create(Settings.ExusiaiModSettings.Open);
+        _moreSettings = (NButton)row.FindChild("RitsuLibModSettingsButton", true, false);
+        _moreSettings.GetParent().RemoveChild(_moreSettings);
+        row.QueueFreeSafely();
+        _moreSettings.Name = "MoreSettings";
+        _moreSettings.CustomMinimumSize = new Vector2(216, 44);
+        _moreSettings.Size = new Vector2(216, 44);
+        _moreSettings.GetNode<Control>("Image").CustomMinimumSize = Vector2.Zero;
+        _moreSettings.GetNode<TextureRect>("Image").Material =
+            ModSettingsUiResources.CreateToneMaterial(ModSettingsButtonTone.Normal);
+        _characterSelector.AddChild(_moreSettings);
+        _moreSettings.SetPosition(new Vector2(12, 128));
+        MegaLabel label = _moreSettings.GetNode<MegaLabel>("Label");
+        label.MaxFontSize = 22;
+        label.AddThemeFontSizeOverride("font_size", 22);
+        label.AddThemeColorOverride("font_outline_color",
+            ModSettingsUiResources.GetToneOutlineColor(ModSettingsButtonTone.Normal));
+        label.SetTextAutoSize(Settings.ExusiaiModSettings.ButtonText);
     }
 
     private void ConnectCharacterSelectButtons()
@@ -182,8 +211,10 @@ public sealed partial class ExusiaiAppearanceSelectBackground : Control
 
         _previousCharacter.FocusNeighborRight = _nextCharacter.GetPath();
         _nextCharacter.FocusNeighborLeft = _previousCharacter.GetPath();
-        _previousCharacter.FocusNeighborBottom = _previousOutfit.GetPath();
-        _nextCharacter.FocusNeighborBottom = _nextOutfit.GetPath();
+        _previousCharacter.FocusNeighborBottom = _moreSettings.GetPath();
+        _nextCharacter.FocusNeighborBottom = _moreSettings.GetPath();
+        _moreSettings.FocusNeighborTop = _previousCharacter.GetPath();
+        _moreSettings.FocusNeighborBottom = _previousOutfit.GetPath();
         _previousOutfit.FocusNeighborTop = _previousCharacter.GetPath();
         _nextOutfit.FocusNeighborTop = _nextCharacter.GetPath();
         _previousOutfit.FocusNeighborRight = _nextOutfit.GetPath();

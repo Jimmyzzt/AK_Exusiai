@@ -302,6 +302,9 @@ func _build_ui() -> void:
 					_fields[field].add_item(entry.name); _fields[field].set_item_metadata(_fields[field].item_count - 1, id)
 	_label(right, "已有角色动作 / 重复策略", 13)
 	_fields.animation = _options(right, {"inherit": "沿用当前 / 预设动作", "Attack": "攻击", "Cast": "施法", "none": "无人物动作"}, _form_changed)
+	_fields.animation_once = CheckButton.new(); _fields.animation_once.text = "连击时角色动作仅播放一次"; right.add_child(_fields.animation_once)
+	_fields.animation_once.tooltip_text = "只限制角色动作。每发枪声与命中特效仍按下方重复策略播放，避免快速连发时动作反复重启。"
+	_fields.animation_once.toggled.connect(func(_on: bool): _form_changed())
 	_fields.repeat = _options(right, {"per_hit": "每攻击段播放出手", "once": "每次打出仅一次出手"}, _form_changed)
 	_fields.phase = _options(right, {"start": "非攻击牌：出牌开始", "end": "非攻击牌：效果完成"}, _form_changed)
 	var timing := _row(right)
@@ -309,6 +312,12 @@ func _build_ui() -> void:
 	_fields.delay = _spin(delay_column, -1, 5, 0.025, _form_changed); _fields.delay.tooltip_text = "-1 沿用预设；单位：秒"; _fields.delay.value = -1
 	var volume_column := _column(timing); _label(volume_column, "独立音量")
 	_fields.volume = _spin(volume_column, 0, 2, 0.05, _form_changed); _fields.volume.value = 1
+
+	var cadence := _row(right)
+	_fields.hit_interval_enabled = CheckButton.new(); _fields.hit_interval_enabled.text = "自定义连发间隔（秒）"; cadence.add_child(_fields.hit_interval_enabled)
+	_fields.hit_interval = _spin(cadence, 0, 5, 0.005, _form_changed); _fields.hit_interval.value = 0.075; _fields.hit_interval.editable = false
+	_fields.hit_interval.tooltip_text = "关闭时沿用原版；推荐0.05～0.09秒。随共享预设保存，可批量应用。其他玩法等待及上方特效延迟仍然保留。"
+	_fields.hit_interval_enabled.toggled.connect(func(on: bool): _fields.hit_interval.editable = on; _form_changed())
 	_label(right, "特效内置音效与震屏保留原版行为", 12)
 	_fields.ground = CheckButton.new(); _fields.ground.text = "通用命中特效放在脚底"; right.add_child(_fields.ground); _fields.ground.toggled.connect(func(_v: bool): _form_changed())
 	var copies := _row(right)
@@ -465,6 +474,11 @@ func _sync_form() -> void:
 		_select(option, value)
 	_fields.delay.value = config.get("delay", -1)
 	_fields.volume.value = config.get("volume", 1)
+	_fields.animation_once.button_pressed = config.get("animation_once", false)
+	var hit_interval: float = config.get("hit_interval", -1)
+	_fields.hit_interval_enabled.button_pressed = hit_interval >= 0
+	_fields.hit_interval.editable = hit_interval >= 0
+	_fields.hit_interval.value = hit_interval if hit_interval >= 0 else 0.075
 	_fields.ground.button_pressed = config.get("ground", false)
 	var appearance := _meta(_appearance)
 	_appearance_override.button_pressed = config.get("appearance_offsets", {}).has(appearance)
@@ -505,6 +519,8 @@ func _form_changed() -> void:
 	var config := _config()
 	for field in ["launch", "hit", "launch_sound", "hit_sound", "animation", "repeat", "phase"]: config[field] = _meta(_fields[field])
 	config.delay = _fields.delay.value; config.volume = _fields.volume.value; config.ground = _fields.ground.button_pressed
+	config.hit_interval = _fields.hit_interval.value if _fields.hit_interval_enabled.button_pressed else -1
+	config.animation_once = _fields.animation_once.button_pressed
 	_store(config)
 
 func _offset_changed() -> void:
@@ -563,12 +579,16 @@ func _valid(config: Dictionary) -> String:
 		var kind := "preset" if key == "preset" else "sfx" if key.ends_with("sound") else "vfx"
 		if _entries.get(id, {}).get("status", "") != "adapted" or _entries.get(id, {}).get("kind", "") != kind: return "无效或未适配的条目：" + id
 	if config.get("animation", "inherit") not in ["inherit", "Attack", "Cast", "none"]: return "无效人物动作"
+	if not config.get("animation_once", false) is bool: return "无效角色动作重复选项"
 	if config.get("repeat", "per_hit") not in ["once", "per_hit"]: return "无效重复策略"
 	if config.get("phase", "start") not in ["start", "end"]: return "无效播放阶段"
 	for key in ["delay", "volume"]:
 		var value = config.get(key, -1 if key == "delay" else 1)
 		if not (value is float or value is int) or not is_finite(float(value)): return "无效数值：" + key
 		if (key == "delay" and (value < -1 or value > 5)) or (key == "volume" and (value < 0 or value > 2)): return "数值超出范围：" + key
+	var hit_interval = config.get("hit_interval", -1)
+	if not (hit_interval is float or hit_interval is int) or not is_finite(float(hit_interval)): return "无效连发间隔"
+	if hit_interval != -1 and (hit_interval < 0 or hit_interval > 5): return "连发间隔应为-1（沿用原版）或0～5秒"
 	var offsets: Array = [config.get("offset", [0, 0])]
 	if not config.get("appearance_offsets", {}) is Dictionary: return "无效外观偏移"
 	offsets.append_array(config.get("appearance_offsets", {}).values())
@@ -704,7 +724,7 @@ func _send_play(asset_only: bool) -> void:
 	if not error.is_empty(): _set_status(error); return
 	if asset_only and _entries.get(_selected, {}).get("status", "") != "adapted": _set_status("请先选择已适配的素材。"); return
 	_trial_entry = _selected if asset_only else ""
-	_send({"action": "play", "entry": _selected if asset_only else "", "slot": _meta(_fields.slot), "config": config, "target": int(_target.get_selected_metadata()), "hits": int(_hits.value)})
+	_send({"action": "play", "entry": _selected if asset_only else "", "slot": _meta(_fields.slot), "config": config, "target": int(_target.get_selected_metadata()), "hits": int(_hits.value), "is_attack": _is_attack()})
 
 func _send(request: Dictionary) -> void:
 	if not _connected(): _set_status("请先在能天使单人战斗中运行 exusiai fx on。"); return
@@ -738,7 +758,12 @@ func _process(delta: float) -> void:
 			_connection.text += " · 目录版本不同，请重建目录"
 
 func _preview_request() -> Dictionary:
-	return {"action": "play", "config": _config(), "target": int(_target.get_selected_metadata()), "hits": int(_hits.value)}
+	return {"action": "play", "config": _config(), "target": int(_target.get_selected_metadata()), "hits": int(_hits.value), "is_attack": _is_attack()}
+
+func _is_attack() -> bool:
+	for card in _cards:
+		if card.id == _card: return card.type == "Attack"
+	return false
 
 func _prepare_preview() -> void:
 	if _smoke or _target == null or _hits == null: return
@@ -783,6 +808,11 @@ func _smoke_test() -> void:
 		if _entries.get(id, {}).get("status", "") != "adapted": failures.append(id)
 	if _valid({"hit": "factory:missing"}).is_empty(): failures.append("Invalid ID accepted")
 	if _valid({"offset": [1]}).is_empty(): failures.append("Invalid offset accepted")
+	for interval in [-0.01, -0.5, -2, 5.001, INF, NAN, "0.075"]:
+		if _valid({"hit_interval": interval}).is_empty(): failures.append("Invalid interval accepted: " + str(interval))
+	for interval in [-1, 0, 0.05, 0.075, 0.09, 5]:
+		if not _valid({"hit_interval": interval}).is_empty(): failures.append("Valid interval rejected: " + str(interval))
+	if _valid({"animation_once": "true"}).is_empty(): failures.append("Non-boolean animation_once accepted")
 	if not _valid({"preset": "card:GrandFinale", "offset": [20, -10]}).is_empty(): failures.append("Valid config rejected")
 	var original := _manifest.duplicate(true)
 	_selected = "card:GrandFinale"; _apply_entry()
@@ -797,20 +827,38 @@ func _smoke_test() -> void:
 	var shared_ref := _reference()
 	if shared_ref.is_empty() or shared_ref != _reference("AK_EXUSIAI_CARD_TALENT"): failures.append("Legacy matching copies not linked")
 	if _manifest.cards[_card].has("upgrade") or not _reference("different").is_empty(): failures.append("Migration lost independent config or kept upgrade")
-	var updated := _config(); updated.delay = 0.5; _store(updated)
+	var updated := _config(); updated.delay = 0.5; updated.hit_interval = 0.075; updated.animation_once = true; _store(updated)
 	_personal_name.text = "改名后的预设"; _rename_personal()
 	if _resolved("AK_EXUSIAI_CARD_TALENT").get("delay") != 0.5 or not _card_label({"id": "AK_EXUSIAI_CARD_TALENT", "name": "天赋", "type": "Power"}).contains("天赋 · 能力（改名后的预设）"): failures.append("Shared edit/rename did not propagate")
+	_sync_form()
+	if not _fields.hit_interval_enabled.button_pressed or not is_equal_approx(_fields.hit_interval.value, 0.075): failures.append("Interval form did not load shared config")
+	if not _fields.animation_once.button_pressed or not _resolved("AK_EXUSIAI_CARD_TALENT").get("animation_once", false): failures.append("Animation once option did not load/propagate")
+	_fields.animation_once.button_pressed = false
+	if _resolved("AK_EXUSIAI_CARD_TALENT").get("animation_once", true): failures.append("Animation checkbox did not update shared preset")
+	_undo_change()
+	if not _resolved("AK_EXUSIAI_CARD_TALENT").get("animation_once", false): failures.append("Animation once undo failed")
+	if not is_equal_approx(_resolved("AK_EXUSIAI_CARD_TALENT").get("hit_interval", -1), 0.075): failures.append("Shared cadence did not propagate")
+	_fields.hit_interval.value = 0.06
+	if not is_equal_approx(_resolved("AK_EXUSIAI_CARD_TALENT").get("hit_interval", -1), 0.06): failures.append("Interval form edit did not update shared preset")
+	_fields.hit_interval_enabled.button_pressed = false
+	if _resolved("AK_EXUSIAI_CARD_TALENT").get("hit_interval", 0) != -1: failures.append("Disabling cadence did not restore native timing")
+	_undo_change(); _undo_change()
+	if not is_equal_approx(_resolved("AK_EXUSIAI_CARD_TALENT").get("hit_interval", -1), 0.075): failures.append("Interval undo did not restore shared preset")
 	var export_path := "res://tmp/effect_manager_export_contract.json"
 	_write(export_path, {"schema": 1, "cards": {"AK_EXUSIAI_CARD_TALENT": {"base": {"delay": -1}, "upgrade": {}}, "external": {"base": {"hit": "none"}}}})
 	_export(false, export_path)
 	var exported := _read(export_path)
 	if exported.cards.size() != 3 or exported.cards.AK_EXUSIAI_CARD_TALENT.base.delay != 0.5 or exported.cards.AK_EXUSIAI_CARD_TALENT.has("upgrade") or exported.cards.external.base.hit != "none": failures.append("Partial export did not refresh shared cards/preserve separate exports")
+	if not is_equal_approx(exported.cards.AK_EXUSIAI_CARD_TALENT.base.get("hit_interval", -1), 0.075): failures.append("Export lost shared interval")
+	if not exported.cards.AK_EXUSIAI_CARD_TALENT.base.get("animation_once", false): failures.append("Export lost animation once option")
 	var doc := {"schema": 1, "cards": {}}
 	for id in ["AK_EXUSIAI_CARD_LASER_CANNON", "AK_EXUSIAI_CARD_TALENT"]: doc.cards[id] = {"base": _resolved(id)}
 	# The runtime must ignore this legacy upgrade even when it differs from Base.
 	doc.cards.AK_EXUSIAI_CARD_LASER_CANNON.upgrade = {"preset": "card:GrandFinale"}
 	if not _write("res://tmp/effect_manager_contract.json", doc): failures.append("JSON contract fixture failed")
+	if not _preview_request().is_attack: failures.append("Attack preview not classified as attack")
 	_card = "AK_EXUSIAI_CARD_TALENT"; _select(_target, -2); _hits.value = 2
+	if _preview_request().is_attack: failures.append("Power preview incorrectly classified as attack")
 	if not _write("res://tmp/effect_manager_preview_contract.json", _preview_request()): failures.append("Prepared preview fixture failed")
 	_detach_personal(); _card = "AK_EXUSIAI_CARD_LASER_CANNON"; updated.delay = 1; _store(updated)
 	if _resolved("AK_EXUSIAI_CARD_TALENT").get("delay") != 0.5: failures.append("Detached card still changed")

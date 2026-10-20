@@ -13,9 +13,13 @@ public sealed class CardEffectConfig
     public string LaunchSound { get; set; } = "inherit";
     public string HitSound { get; set; } = "inherit";
     public string Animation { get; set; } = "inherit";
+    public bool AnimationOnce { get; set; }
     public string Repeat { get; set; } = "per_hit";
     public string Phase { get; set; } = "start";
     public float Delay { get; set; } = -1;
+    // -1 preserves the native attack pacing. Shared editor presets export this
+    // alongside the sound/VFX choices, independently of the launch-to-hit delay.
+    public float HitInterval { get; set; } = -1;
     public float Volume { get; set; } = 1;
     public float[] Offset { get; set; } = [0, 0];
     public Dictionary<string, float[]> AppearanceOffsets { get; set; } = [];
@@ -129,6 +133,8 @@ internal static class CardEffectStore
             throw new InvalidDataException("Invalid effect playback option.");
         if (!float.IsFinite(c.Delay) || c.Delay < -1 || c.Delay > 5 || !float.IsFinite(c.Volume) || c.Volume < 0 || c.Volume > 2)
             throw new InvalidDataException("Effect delay/volume out of range.");
+        if (!float.IsFinite(c.HitInterval) || (c.HitInterval != -1 && (c.HitInterval < 0 || c.HitInterval > 5)))
+            throw new InvalidDataException("Attack interval must be -1 (native) or between 0 and 5 seconds.");
         ValidateOffset(c.Offset);
         if (c.AppearanceOffsets == null) throw new InvalidDataException("Invalid appearance offsets.");
         foreach (var offset in c.AppearanceOffsets.Values) ValidateOffset(offset);

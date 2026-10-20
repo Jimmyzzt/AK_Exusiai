@@ -2,14 +2,16 @@
   "schema": 1,
   "entries": [
     {
-      "id": "custom:mag_insert",
-      "name": "换弹 · 插入弹匣",
-      "file": "AK_Exusiai/audio/card_effects/mag-insert.wav"
-    },
-    {
       "id": "custom:reload_1911",
       "name": "换弹 · 柔和版",
-      "file": "AK_Exusiai/audio/card_effects/reload.wav"
+      "file": "AK_Exusiai/audio/card_effects/reload.wav",
+      "aliases": ["换弹"]
+    },
+    {
+      "id": "custom:shot_remix",
+      "name": "枪声 · Shot Remix（单发）",
+      "file": "AK_Exusiai/audio/card_effects/shot-remix.wav",
+      "aliases": ["枪声", "枪械", "单发", "shot remix", "冲锋枪"]
     }
   ]
 }

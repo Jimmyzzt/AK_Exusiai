@@ -1,0 +1,20 @@
+{
+  "title": "能天使",
+  "more_settings": "更多设置",
+  "audio": "音效",
+  "gunshot_volume": "枪声音量",
+  "gunshot_volume_help": "统一调整单发枪声，默认40%。与卡牌独立音量及游戏音效音量相乘，实时生效。",
+  "ancients": "先古之民额外选项",
+  "enabled": "允许自定义先古之民出现",
+  "enabled_help": "关闭后，拉特兰与企鹅物流均不会出现。默认不会干预原版的抽选。设置在新一局开始时生效，适用于普通、自定义及多人模式；多人以房主设置为准。",
+  "reset": "恢复默认",
+  "laterano": "拉特兰（第二幕）",
+  "penguin": "企鹅物流（第三幕）",
+  "mode_default": "默认（不干预）",
+  "mode_disabled": "禁止出现",
+  "mode_guaranteed": "必定出现",
+  "mode_custom": "自定义概率",
+  "percent_help": "按实际候选及权重换算，保留其他先古之间的相对权重；100%时仅保留所选先古。",
+  "laterano_percent": "拉特兰出现概率",
+  "penguin_percent": "企鹅物流出现概率"
+}

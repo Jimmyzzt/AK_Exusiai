@@ -16,8 +16,10 @@ export function loadCustomAudio(root) {
     if (typeof item.file !== 'string' || !item.file.startsWith('AK_Exusiai/audio/card_effects/') || item.file.includes('\\') || item.file.split('/').includes('..') || !/\.(wav|ogg|mp3)$/i.test(item.file))
       throw Error('Custom audio must be inside AK_Exusiai/audio/card_effects: ' + item.file);
     if (!fs.statSync(path.join(root, item.file)).isFile()) throw Error('Missing custom audio: ' + item.file);
+    if (item.aliases !== undefined && (!Array.isArray(item.aliases) || item.aliases.some(a => typeof a !== 'string' || !a.trim())))
+      throw Error('Invalid custom audio aliases: ' + item.id);
     return {id:item.id, name:item.name, english:path.basename(item.file), kind:'sfx', status:'adapted', adapter:'audio',
-      resource:'res://' + item.file, origin:'custom', origins:['custom','combat'], sources:[], aliases:['自定义音效','换弹'],
+      resource:'res://' + item.file, origin:'custom', origins:['custom','combat'], sources:[], aliases:['自定义音效',...(item.aliases ?? [])],
       reason:'Mod 自定义一次性音效；音量由独立音量控制。'};
   });
 }
