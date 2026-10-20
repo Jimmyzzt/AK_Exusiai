@@ -1,0 +1,36 @@
+{
+  "id": "enemy_1214_mtrmgc",
+  "name": "寻路者术师",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/寻路者术师",
+  "category": "enemy",
+  "stages": [
+    "MT-4"
+  ],
+  "handbook": {
+    "enemyId": "enemy_1214_mtrmgc",
+    "enemyIndex": "SK5",
+    "enemyTags": null,
+    "sortId": 420,
+    "name": "寻路者术师",
+    "enemyLevel": "NORMAL",
+    "description": "拥有特别源石技艺的术师。能够从特殊的施术单元中提取能量，造成巨大的破坏。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "携带弹药时攻击造成<$ba.dt.burning>灼燃损伤</>，弹药上限：1",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "MAGIC"
+    ],
+    "invisibleDetail": false
+  }
+}

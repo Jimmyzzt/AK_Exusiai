@@ -1,0 +1,19 @@
+{
+  "canvas": [1920, 1080],
+  "status": "visual_prototype_not_runtime_ui",
+  "boss_identity": "enemy_1567_pope",
+  "player_anchor_normalized": [0.235, 0.68],
+  "boss_anchor_normalized": [0.755, 0.68],
+  "boss_art_max_size": [560, 540],
+  "health_bar_size": [360, 29],
+  "health_bar_offset_from_ground": [0, 34],
+  "health_text": "? / ?",
+  "health_value_status": "not_designed",
+  "intent_plate_size": [130, 42],
+  "intent_plate_offset_above_visual": 62,
+  "phase_markers": "scene_reveal_states_not_assumed_health_phases",
+  "conditional_marker": "reveal_4",
+  "card_safe_region_normalized": [0, 0.76, 1, 1],
+  "runtime_preference": "reuse_NCreature_health_intents_and_state_display",
+  "airborne_art_status": "new_pose_concept_not_original_phase_animation"
+}

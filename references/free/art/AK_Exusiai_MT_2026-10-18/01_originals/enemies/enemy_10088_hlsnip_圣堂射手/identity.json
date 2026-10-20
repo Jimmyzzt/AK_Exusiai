@@ -1,0 +1,40 @@
+{
+  "id": "enemy_10088_hlsnip",
+  "name": "圣堂射手",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/圣堂射手",
+  "category": "enemy",
+  "stages": [
+    "MT-3"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10088_hlsnip",
+    "enemyIndex": "MT11",
+    "enemyTags": null,
+    "sortId": 1000,
+    "name": "圣堂射手",
+    "enemyLevel": "NORMAL",
+    "description": "为确保降生仪式顺利进行而遴选的育婴圣堂安防人员，负责重要位置的守卫工作。他们还不熟悉手中的狙击铳，经常误伤到街道上的圣徒像。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "携带弹药时进行超远距离攻击；弹药上限：1",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "未携带弹药时原地装弹",
+        "textFormat": "SILENCE"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

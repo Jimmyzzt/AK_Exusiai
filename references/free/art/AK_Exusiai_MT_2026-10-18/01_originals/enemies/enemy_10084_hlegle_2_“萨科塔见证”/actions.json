@@ -1,0 +1,101 @@
+{
+  "identity": {
+    "id": "enemy_10084_hlegle_2",
+    "name": "“萨科塔见证”",
+    "scope": "MT-S-5_supplement",
+    "page": "https://prts.wiki/w/“萨科塔见证”",
+    "category": "enemy",
+    "stages": [
+      "MT-S-5"
+    ],
+    "handbook": {
+      "enemyId": "enemy_10084_hlegle_2",
+      "enemyIndex": "MT4",
+      "enemyTags": null,
+      "sortId": 993,
+      "name": "“萨科塔见证”",
+      "enemyLevel": "NORMAL",
+      "description": "长出光环并畸变的羽兽，被“律法”判定为萨科塔，已学会祈祷。它们在圣城大街小巷的上空飞翔，它们是圣城对自身的观照。",
+      "attackType": null,
+      "ability": null,
+      "isInvalidKilled": false,
+      "overrideKillCntInfos": {},
+      "hideInHandbook": false,
+      "hideInStage": true,
+      "abilityList": [
+        {
+          "text": "飞行单位",
+          "textFormat": "NORMAL"
+        },
+        {
+          "text": "生命值首次降至一半以下时，在数秒内陷入<$ba.fear>恐惧</>",
+          "textFormat": "NORMAL"
+        },
+        {
+          "text": "攻击时尝试夺走目标1发弹药，若无法夺走弹药则造成高额物理伤害",
+          "textFormat": "NORMAL"
+        }
+      ],
+      "linkEnemies": [],
+      "damageType": [
+        "PHYSIC"
+      ],
+      "invisibleDetail": false
+    }
+  },
+  "spine_version": "3.8.99",
+  "animation_count": 5,
+  "actions": [
+    {
+      "enemy_id": "enemy_10084_hlegle_2",
+      "enemy_name": "“萨科塔见证”",
+      "animation": "Attack",
+      "duration_seconds": 1.5,
+      "approx_frames_30fps": 45,
+      "events": [
+        {
+          "time": 0.76667,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10084_hlegle_2",
+      "enemy_name": "“萨科塔见证”",
+      "animation": "Default",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10084_hlegle_2",
+      "enemy_name": "“萨科塔见证”",
+      "animation": "Die",
+      "duration_seconds": 1,
+      "approx_frames_30fps": 30,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10084_hlegle_2",
+      "enemy_name": "“萨科塔见证”",
+      "animation": "Idle",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10084_hlegle_2",
+      "enemy_name": "“萨科塔见证”",
+      "animation": "Move",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    }
+  ]
+}

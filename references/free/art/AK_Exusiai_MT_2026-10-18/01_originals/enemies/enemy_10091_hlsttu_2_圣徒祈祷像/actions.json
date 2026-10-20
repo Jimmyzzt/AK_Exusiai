@@ -1,0 +1,83 @@
+{
+  "identity": {
+    "id": "enemy_10091_hlsttu_2",
+    "name": "圣徒祈祷像",
+    "scope": "MT-S-5_supplement",
+    "page": "https://prts.wiki/w/圣徒祈祷像",
+    "category": "enemy",
+    "stages": [
+      "MT-S-5"
+    ],
+    "handbook": {
+      "enemyId": "enemy_10091_hlsttu_2",
+      "enemyIndex": "MT18",
+      "enemyTags": null,
+      "sortId": 1007,
+      "name": "圣徒祈祷像",
+      "enemyLevel": "ELITE",
+      "description": "育婴圣堂附近的圣徒像，为确保降生仪式顺利进行经过了改造。“律法同在，惩戒随行。”",
+      "attackType": null,
+      "ability": null,
+      "isInvalidKilled": false,
+      "overrideKillCntInfos": {},
+      "hideInHandbook": false,
+      "hideInStage": true,
+      "abilityList": [
+        {
+          "text": "范围内的敌人每秒获得正比于最大生命值的<$ba.barrier>屏障</>（有上限）",
+          "textFormat": "NORMAL"
+        }
+      ],
+      "linkEnemies": [],
+      "damageType": [
+        "MAGIC"
+      ],
+      "invisibleDetail": false
+    }
+  },
+  "spine_version": "3.8.99",
+  "animation_count": 4,
+  "actions": [
+    {
+      "enemy_id": "enemy_10091_hlsttu_2",
+      "enemy_name": "圣徒祈祷像",
+      "animation": "Attack",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [
+        {
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10091_hlsttu_2",
+      "enemy_name": "圣徒祈祷像",
+      "animation": "Default",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10091_hlsttu_2",
+      "enemy_name": "圣徒祈祷像",
+      "animation": "Die",
+      "duration_seconds": 1.2,
+      "approx_frames_30fps": 36,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10091_hlsttu_2",
+      "enemy_name": "圣徒祈祷像",
+      "animation": "Idle",
+      "duration_seconds": 2.67,
+      "approx_frames_30fps": 80,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    }
+  ]
+}

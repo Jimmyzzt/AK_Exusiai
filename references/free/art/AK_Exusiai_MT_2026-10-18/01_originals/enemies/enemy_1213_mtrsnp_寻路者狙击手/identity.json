@@ -1,0 +1,37 @@
+{
+  "id": "enemy_1213_mtrsnp",
+  "name": "寻路者狙击手",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/寻路者狙击手",
+  "category": "enemy",
+  "stages": [
+    "MT-1",
+    "MT-3"
+  ],
+  "handbook": {
+    "enemyId": "enemy_1213_mtrsnp",
+    "enemyIndex": "SK3",
+    "enemyTags": null,
+    "sortId": 418,
+    "name": "寻路者狙击手",
+    "enemyLevel": "NORMAL",
+    "description": "擅长使用铳械进行远距离作战的战士。他们的攻击不仅精确，在装填特殊弹药时，尤为致命。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "携带弹药时攻击力提升，弹药上限：1",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

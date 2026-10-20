@@ -1,0 +1,12 @@
+精锐圣堂射手 | enemy_10088_hlsnip_2
+原始 Spine 3.8.99
+Attack	1.73s	约52帧
+Default	0s	约0帧
+Die	1.13s	约34帧
+Idle	2.67s	约80帧
+Move	2.67s	约80帧
+Skill_End	1.1s	约33帧
+Skill_Loop	3.33s	约100帧
+Skill_Start	0.53333s	约16帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。

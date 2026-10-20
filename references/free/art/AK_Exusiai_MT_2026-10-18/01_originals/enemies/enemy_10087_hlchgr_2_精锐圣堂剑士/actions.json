@@ -1,0 +1,108 @@
+{
+  "identity": {
+    "id": "enemy_10087_hlchgr_2",
+    "name": "精锐圣堂剑士",
+    "scope": "MT-S-5_supplement",
+    "page": "https://prts.wiki/w/精锐圣堂剑士",
+    "category": "enemy",
+    "stages": [
+      "MT-S-5"
+    ],
+    "handbook": {
+      "enemyId": "enemy_10087_hlchgr_2",
+      "enemyIndex": "MT10",
+      "enemyTags": null,
+      "sortId": 999,
+      "name": "精锐圣堂剑士",
+      "enemyLevel": "NORMAL",
+      "description": "为确保降生仪式顺利进行而遴选的育婴圣堂巡卫，负责常规的地面巡逻工作。他们战斗经验丰富，有时会协助教导新长出光环的动物。",
+      "attackType": null,
+      "ability": null,
+      "isInvalidKilled": false,
+      "overrideKillCntInfos": {},
+      "hideInHandbook": false,
+      "hideInStage": true,
+      "abilityList": [
+        {
+          "text": "消耗弹药使自身的移动速度和攻击力永久提升；弹药上限：7",
+          "textFormat": "NORMAL"
+        }
+      ],
+      "linkEnemies": [],
+      "damageType": [
+        "PHYSIC"
+      ],
+      "invisibleDetail": false
+    }
+  },
+  "spine_version": "3.8.99",
+  "animation_count": 6,
+  "actions": [
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Attack",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [
+        {
+          "time": 0.43333,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Default",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Die",
+      "duration_seconds": 1,
+      "approx_frames_30fps": 30,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Idle",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Move",
+      "duration_seconds": 0.66667,
+      "approx_frames_30fps": 20,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10087_hlchgr_2",
+      "enemy_name": "精锐圣堂剑士",
+      "animation": "Skill",
+      "duration_seconds": 1,
+      "approx_frames_30fps": 30,
+      "events": [
+        {
+          "time": 0.33333,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-S-5_supplement"
+    }
+  ]
+}

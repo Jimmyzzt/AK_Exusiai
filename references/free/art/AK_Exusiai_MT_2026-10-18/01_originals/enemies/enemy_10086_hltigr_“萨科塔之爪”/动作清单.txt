@@ -1,0 +1,9 @@
+“萨科塔之爪” | enemy_10086_hltigr
+原始 Spine 3.8.99
+Attack	1.13s	约34帧
+Default	0s	约0帧
+Die	1s	约30帧
+Idle	1.5s	约45帧
+Move	1.07s	约32帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。

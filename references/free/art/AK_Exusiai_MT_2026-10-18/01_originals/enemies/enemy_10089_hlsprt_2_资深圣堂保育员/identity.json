@@ -1,0 +1,36 @@
+{
+  "id": "enemy_10089_hlsprt_2",
+  "name": "资深圣堂保育员",
+  "scope": "MT-S-5_supplement",
+  "page": "https://prts.wiki/w/资深圣堂保育员",
+  "category": "enemy",
+  "stages": [
+    "MT-S-5"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10089_hlsprt_2",
+    "enemyIndex": "MT14",
+    "enemyTags": null,
+    "sortId": 1003,
+    "name": "资深圣堂保育员",
+    "enemyLevel": "ELITE",
+    "description": "为确保降生仪式顺利进行而遴选的育婴圣堂保育人员。他们聆听怀孕母亲的心声，他们安抚新诞婴孩的情绪，他们会哀悼每一次死亡，也愿为拉特兰的新生付出一切。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "周期性为自身周围5名敌人回复一定生命值并补充1发弹药",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

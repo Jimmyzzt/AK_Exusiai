@@ -1,0 +1,48 @@
+{
+  "id": "enemy_10084_hlegle",
+  "name": "“萨科塔之眼”",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/“萨科塔之眼”",
+  "category": "enemy",
+  "stages": [
+    "MT-5",
+    "MT-6",
+    "MT-7",
+    "MT-8",
+    "MT-10"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10084_hlegle",
+    "enemyIndex": "MT3",
+    "enemyTags": null,
+    "sortId": 992,
+    "name": "“萨科塔之眼”",
+    "enemyLevel": "NORMAL",
+    "description": "长出光环并畸变的羽兽，被“律法”判定为萨科塔。它们多数时间都茫然地栖息在大教堂的屋顶，不知道自己该看向何处。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "飞行单位",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "生命值首次降至一半以下时，在数秒内陷入<$ba.fear>恐惧</>",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "攻击时尝试夺走目标1发弹药，若无法夺走弹药则造成高额物理伤害",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

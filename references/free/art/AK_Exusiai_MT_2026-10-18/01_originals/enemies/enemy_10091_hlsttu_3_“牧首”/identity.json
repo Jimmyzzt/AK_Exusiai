@@ -1,0 +1,40 @@
+{
+  "id": "enemy_10091_hlsttu_3",
+  "name": "“牧首”",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/“牧首”",
+  "category": "enemy",
+  "stages": [
+    "MT-8"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10091_hlsttu_3",
+    "enemyIndex": "MT19",
+    "enemyTags": null,
+    "sortId": 1008,
+    "name": "“牧首”",
+    "enemyLevel": "ELITE",
+    "description": "育婴圣堂的负责人，“圣徒”在梦境中的化身。她为一只心跳渐停的木攀兽幼崽赋予光环，见证了生命的奇迹在拉特兰出现。她说：“这是律法给予拉特兰应对灾异的启示”。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "同时攻击3个目标",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "范围内的敌人每秒获得正比于最大生命值的<$ba.barrier>屏障</>（有较高上限）",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "MAGIC"
+    ],
+    "invisibleDetail": false
+  }
+}

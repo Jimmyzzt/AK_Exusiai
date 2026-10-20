@@ -1,0 +1,101 @@
+{
+  "identity": {
+    "id": "enemy_10085_hllevi_2",
+    "name": "“萨科塔昂首”",
+    "scope": "MT-S-5_supplement",
+    "page": "https://prts.wiki/w/“萨科塔昂首”",
+    "category": "enemy",
+    "stages": [
+      "MT-S-5"
+    ],
+    "handbook": {
+      "enemyId": "enemy_10085_hllevi_2",
+      "enemyIndex": "MT6",
+      "enemyTags": null,
+      "sortId": 995,
+      "name": "“萨科塔昂首”",
+      "enemyLevel": "ELITE",
+      "description": "长出光环的水栖生物，被“律法”判定为萨科塔，已学会祈祷。它们会拦住每一个懒散的人，邀请对方与自己共同祈祷，如果被拒绝——它们不会允许你拒绝。",
+      "attackType": null,
+      "ability": null,
+      "isInvalidKilled": false,
+      "overrideKillCntInfos": {},
+      "hideInHandbook": false,
+      "hideInStage": true,
+      "abilityList": [
+        {
+          "text": "飞行单位",
+          "textFormat": "NORMAL"
+        },
+        {
+          "text": "生命值首次降至一半以下时，在数秒内陷入<$ba.fear>恐惧</>",
+          "textFormat": "NORMAL"
+        },
+        {
+          "text": "【祈祷邀约】降低全场我方单位的攻击速度，持续一定时间",
+          "textFormat": "SILENCE"
+        }
+      ],
+      "linkEnemies": [],
+      "damageType": [
+        "NO_DAMAGE"
+      ],
+      "invisibleDetail": false
+    }
+  },
+  "spine_version": "3.8.99",
+  "animation_count": 5,
+  "actions": [
+    {
+      "enemy_id": "enemy_10085_hllevi_2",
+      "enemy_name": "“萨科塔昂首”",
+      "animation": "Default",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10085_hllevi_2",
+      "enemy_name": "“萨科塔昂首”",
+      "animation": "Die",
+      "duration_seconds": 1,
+      "approx_frames_30fps": 30,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10085_hllevi_2",
+      "enemy_name": "“萨科塔昂首”",
+      "animation": "Idle",
+      "duration_seconds": 2,
+      "approx_frames_30fps": 60,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10085_hllevi_2",
+      "enemy_name": "“萨科塔昂首”",
+      "animation": "Move",
+      "duration_seconds": 2,
+      "approx_frames_30fps": 60,
+      "events": [],
+      "scope": "MT-S-5_supplement"
+    },
+    {
+      "enemy_id": "enemy_10085_hllevi_2",
+      "enemy_name": "“萨科塔昂首”",
+      "animation": "Skill",
+      "duration_seconds": 2.17,
+      "approx_frames_30fps": 65,
+      "events": [
+        {
+          "time": 1,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-S-5_supplement"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "enemy_10091_hlsttu",
+  "name": "圣徒像",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/圣徒像",
+  "category": "enemy",
+  "stages": [
+    "MT-10"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10091_hlsttu",
+    "enemyIndex": "MT17",
+    "enemyTags": null,
+    "sortId": 1006,
+    "name": "圣徒像",
+    "enemyLevel": "ELITE",
+    "description": "育婴圣堂附近的圣徒像，为确保降生仪式顺利进行经过了改造。它们承担起了公证所执行者的部分职能，只不过，它们不会在开火前向你宣读相关条律。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "范围内的敌人每秒获得正比于最大生命值的<$ba.barrier>屏障</>（有上限）",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "MAGIC"
+    ],
+    "invisibleDetail": false
+  }
+}

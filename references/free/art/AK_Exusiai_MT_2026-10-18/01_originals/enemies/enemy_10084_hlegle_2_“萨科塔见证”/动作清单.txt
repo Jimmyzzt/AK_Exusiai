@@ -1,0 +1,9 @@
+“萨科塔见证” | enemy_10084_hlegle_2
+原始 Spine 3.8.99
+Attack	1.5s	约45帧
+Default	0s	约0帧
+Die	1s	约30帧
+Idle	1.33s	约40帧
+Move	1.33s	约40帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。

@@ -1,0 +1,31 @@
+{
+  "id": "enemy_1140_merhd",
+  "name": "战术猎犬",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/战术猎犬",
+  "category": "enemy",
+  "stages": [
+    "MT-1"
+  ],
+  "handbook": {
+    "enemyId": "enemy_1140_merhd",
+    "enemyIndex": "PG3",
+    "enemyTags": null,
+    "sortId": 274,
+    "name": "战术猎犬",
+    "enemyLevel": "NORMAL",
+    "description": "被术师操纵的感染生物。猎犬在雇佣兵中被大规模使用，尽管有些佩洛人深感抵触。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

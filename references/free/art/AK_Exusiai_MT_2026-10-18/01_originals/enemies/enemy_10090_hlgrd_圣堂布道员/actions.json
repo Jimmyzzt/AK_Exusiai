@@ -1,0 +1,126 @@
+{
+  "identity": {
+    "id": "enemy_10090_hlgrd",
+    "name": "圣堂布道员",
+    "scope": "MT-1_to_MT-10",
+    "page": "https://prts.wiki/w/圣堂布道员",
+    "category": "enemy",
+    "stages": [
+      "MT-9"
+    ],
+    "handbook": {
+      "enemyId": "enemy_10090_hlgrd",
+      "enemyIndex": "MT15",
+      "enemyTags": null,
+      "sortId": 1004,
+      "name": "圣堂布道员",
+      "enemyLevel": "ELITE",
+      "description": "为确保降生仪式顺利进行而遴选的育婴圣堂布道人员。他们坚信一句拉特兰谚语：“对甜品的审美和对祈祷的坚持都必须从娃娃抓起！”",
+      "attackType": null,
+      "ability": null,
+      "isInvalidKilled": false,
+      "overrideKillCntInfos": {},
+      "hideInHandbook": false,
+      "hideInStage": true,
+      "abilityList": [
+        {
+          "text": "锁定我方单位持续施法造成法术伤害；锁定美梦中的单位时持续降低清醒度",
+          "textFormat": "SILENCE"
+        }
+      ],
+      "linkEnemies": [],
+      "damageType": [
+        "MAGIC"
+      ],
+      "invisibleDetail": false
+    }
+  },
+  "spine_version": "3.8.99",
+  "animation_count": 8,
+  "actions": [
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Attack",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [
+        {
+          "time": 0.43333,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Default",
+      "duration_seconds": 0,
+      "approx_frames_30fps": 0,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Die",
+      "duration_seconds": 1,
+      "approx_frames_30fps": 30,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Idle",
+      "duration_seconds": 1.33,
+      "approx_frames_30fps": 40,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Move",
+      "duration_seconds": 1.2,
+      "approx_frames_30fps": 36,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Skill_Begin",
+      "duration_seconds": 1.17,
+      "approx_frames_30fps": 35,
+      "events": [
+        {
+          "time": 0.6,
+          "name": "OnAttack",
+          "string": ""
+        }
+      ],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Skill_End",
+      "duration_seconds": 0.13333,
+      "approx_frames_30fps": 4,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    },
+    {
+      "enemy_id": "enemy_10090_hlgrd",
+      "enemy_name": "圣堂布道员",
+      "animation": "Skill_Loop",
+      "duration_seconds": 0.66667,
+      "approx_frames_30fps": 20,
+      "events": [],
+      "scope": "MT-1_to_MT-10"
+    }
+  ]
+}

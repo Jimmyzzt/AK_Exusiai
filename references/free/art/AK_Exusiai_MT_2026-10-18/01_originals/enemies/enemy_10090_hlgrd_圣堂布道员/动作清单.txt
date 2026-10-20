@@ -1,0 +1,12 @@
+圣堂布道员 | enemy_10090_hlgrd
+原始 Spine 3.8.99
+Attack	1.33s	约40帧
+Default	0s	约0帧
+Die	1s	约30帧
+Idle	1.33s	约40帧
+Move	1.2s	约36帧
+Skill_Begin	1.17s	约35帧
+Skill_End	0.13333s	约4帧
+Skill_Loop	0.66667s	约20帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。

@@ -1,0 +1,20 @@
+{
+  "id": "enemy_10092_hlslp",
+  "name": "入梦砖",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/入梦砖",
+  "category": "mechanism",
+  "stages": [
+    "MT-2",
+    "MT-3",
+    "MT-4",
+    "MT-5",
+    "MT-6",
+    "MT-7",
+    "MT-8",
+    "MT-9",
+    "MT-10",
+    "MT-S-5"
+  ],
+  "handbook": {}
+}

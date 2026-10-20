@@ -1,0 +1,45 @@
+{
+  "id": "enemy_10085_hllevi",
+  "name": "“萨科塔之鳍”",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/“萨科塔之鳍”",
+  "category": "enemy",
+  "stages": [
+    "MT-7",
+    "MT-8"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10085_hllevi",
+    "enemyIndex": "MT5",
+    "enemyTags": null,
+    "sortId": 994,
+    "name": "“萨科塔之鳍”",
+    "enemyLevel": "ELITE",
+    "description": "长出光环的水栖生物，被“律法”判定为萨科塔。它们热爱甜品，会在饱餐后闭眼拍打肚皮，那姿势像极了祈祷。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "飞行单位",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "生命值首次降至一半以下时，在数秒内陷入<$ba.fear>恐惧</>",
+        "textFormat": "NORMAL"
+      },
+      {
+        "text": "【祈祷邀约】降低全场我方单位的攻击速度，持续一定时间",
+        "textFormat": "SILENCE"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "NO_DAMAGE"
+    ],
+    "invisibleDetail": false
+  }
+}

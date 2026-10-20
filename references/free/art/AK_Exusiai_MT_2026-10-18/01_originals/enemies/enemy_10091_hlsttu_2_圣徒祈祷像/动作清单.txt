@@ -1,0 +1,8 @@
+圣徒祈祷像 | enemy_10091_hlsttu_2
+原始 Spine 3.8.99
+Attack	0s	约0帧
+Default	0s	约0帧
+Die	1.2s	约36帧
+Idle	2.67s	约80帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。

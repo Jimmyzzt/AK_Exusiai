@@ -1,0 +1,86 @@
+[
+  {
+    "id": "enemy_10092_hlslp",
+    "extension": "skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp/enemy_10092_hlslp.skel",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_1",
+    "extension": "skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_1/enemy_10092_hlslp_1.skel",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_2",
+    "extension": "skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_2/enemy_10092_hlslp_2.skel",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_3",
+    "extension": "skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_3/enemy_10092_hlslp_3.skel",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp",
+    "extension": "atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp/enemy_10092_hlslp.atlas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_1",
+    "extension": "atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_1/enemy_10092_hlslp_1.atlas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_2",
+    "extension": "atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_2/enemy_10092_hlslp_2.atlas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_3",
+    "extension": "atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_3/enemy_10092_hlslp_3.atlas",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp",
+    "extension": "png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp/enemy_10092_hlslp.png",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_1",
+    "extension": "png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_1/enemy_10092_hlslp_1.png",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_2",
+    "extension": "png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_2/enemy_10092_hlslp_2.png",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "enemy_10092_hlslp_3",
+    "extension": "png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10092_hlslp_3/enemy_10092_hlslp_3.png",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "path": "01_originals/maps/MT-10/01_awake.png",
+    "url": "https://media.prts.wiki/e/e8/MT-10_降生_地图_2.png",
+    "status": "recovered_on_retry; final file and hash verified in downloads.json",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/01_reveal_1.png",
+    "url": "https://media.prts.wiki/9/9b/MT-S-5_授律圣事_地图_1.png",
+    "status": "recovered_on_retry; final file and hash verified in downloads.json",
+    "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)>"
+  }
+]

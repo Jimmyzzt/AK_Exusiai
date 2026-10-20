@@ -1,0 +1,36 @@
+{
+  "id": "enemy_10091_hlsttu_2",
+  "name": "圣徒祈祷像",
+  "scope": "MT-S-5_supplement",
+  "page": "https://prts.wiki/w/圣徒祈祷像",
+  "category": "enemy",
+  "stages": [
+    "MT-S-5"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10091_hlsttu_2",
+    "enemyIndex": "MT18",
+    "enemyTags": null,
+    "sortId": 1007,
+    "name": "圣徒祈祷像",
+    "enemyLevel": "ELITE",
+    "description": "育婴圣堂附近的圣徒像，为确保降生仪式顺利进行经过了改造。“律法同在，惩戒随行。”",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "范围内的敌人每秒获得正比于最大生命值的<$ba.barrier>屏障</>（有上限）",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "MAGIC"
+    ],
+    "invisibleDetail": false
+  }
+}

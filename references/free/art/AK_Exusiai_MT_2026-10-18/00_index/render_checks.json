@@ -1,0 +1,167 @@
+[
+  {
+    "family": "MT-10",
+    "stage": 1,
+    "progress": 0,
+    "center_pixel": [
+      214,
+      181,
+      134,
+      255
+    ]
+  },
+  {
+    "family": "MT-10",
+    "stage": 1,
+    "progress": 0.5,
+    "center_pixel": [
+      214,
+      181,
+      134,
+      255
+    ]
+  },
+  {
+    "family": "MT-10",
+    "stage": 1,
+    "progress": 1,
+    "center_pixel": [
+      214,
+      181,
+      134,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 1,
+    "progress": 0,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 1,
+    "progress": 0.5,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 1,
+    "progress": 1,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 2,
+    "progress": 0,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 2,
+    "progress": 0.5,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 2,
+    "progress": 1,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 3,
+    "progress": 0,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 3,
+    "progress": 0.5,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 3,
+    "progress": 1,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 4,
+    "progress": 0,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 4,
+    "progress": 0.5,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  },
+  {
+    "family": "MT-S-5",
+    "stage": 4,
+    "progress": 1,
+    "center_pixel": [
+      232,
+      195,
+      143,
+      255
+    ]
+  }
+]

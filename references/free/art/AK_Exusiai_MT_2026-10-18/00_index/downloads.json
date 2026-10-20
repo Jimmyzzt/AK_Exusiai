@@ -1,0 +1,982 @@
+[
+  {
+    "path": "01_originals/maps/MT-1/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_01.json",
+    "kind": "game_level_data",
+    "bytes": 53650,
+    "sha256": "ec56b7f88dfbf3aea82dda4d42f7e783ca4d6975ed6012e7ecda571511590a65"
+  },
+  {
+    "path": "01_originals/maps/MT-1/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_01.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 856985,
+    "sha256": "f0e60cd4901ade39739860e630aee052f6e6c3b38f714b308a4e55366faa1a3c"
+  },
+  {
+    "path": "01_originals/maps/MT-2/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_02.json",
+    "kind": "game_level_data",
+    "bytes": 47462,
+    "sha256": "c509fd86a9af60b7a90effbd0065b700ccebb416564460e5c62eb760fc36c419"
+  },
+  {
+    "path": "01_originals/maps/MT-2/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_02.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 884548,
+    "sha256": "addca89db6d45b56dd148d0b5b4214c26a30c697faf5403ead5a4344d4fea374"
+  },
+  {
+    "path": "01_originals/maps/MT-3/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_03.json",
+    "kind": "game_level_data",
+    "bytes": 49148,
+    "sha256": "f7dadd6d2c9fc8e11be0c0cbd2fb3708263ce3ac3936ed5f93dfaff0c5f69e3d"
+  },
+  {
+    "path": "01_originals/maps/MT-3/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_03.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 883245,
+    "sha256": "8312f2726011245ce977eb9a5b0b5b1899170f1337991a57a2bd2b4156d54e25"
+  },
+  {
+    "path": "01_originals/maps/MT-4/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_04.json",
+    "kind": "game_level_data",
+    "bytes": 57495,
+    "sha256": "a62a3ea355c808c83510f1a6be92616a2619c7740026a76ad5d29d07ab4b6d70"
+  },
+  {
+    "path": "01_originals/maps/MT-4/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_04.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 896114,
+    "sha256": "8c2e67edb2f853ab074ef45cfc490c82fc1ed6c84677663e7a0c868576295573"
+  },
+  {
+    "path": "01_originals/maps/MT-5/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_05.json",
+    "kind": "game_level_data",
+    "bytes": 83953,
+    "sha256": "e0f99e8bf1878983bf20f0ebc86241146511983639910c046707c88230ad1439"
+  },
+  {
+    "path": "01_originals/maps/MT-5/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_05.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 1008685,
+    "sha256": "8881a2a5989a049ef626065920e0069b5c7d721f698524d2b56f88775d9bcbd6"
+  },
+  {
+    "path": "01_originals/maps/MT-6/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_06.json",
+    "kind": "game_level_data",
+    "bytes": 84445,
+    "sha256": "1407a08eb0a2ecbe578cd0790590e2c058b048e90cf25e61520794ed7d39f42b"
+  },
+  {
+    "path": "01_originals/maps/MT-6/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_06.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 1007783,
+    "sha256": "f5a3862e2a18b5c5124b4866e9945b2ffecf77b93fcf2cb79f4c2115e8e9a7b1"
+  },
+  {
+    "path": "01_originals/maps/MT-7/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_07.json",
+    "kind": "game_level_data",
+    "bytes": 98613,
+    "sha256": "2f669a7b9951c79026f433bb359ad91a32937b5e61db444a6edb8c48abe7857b"
+  },
+  {
+    "path": "01_originals/maps/MT-7/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_07.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 999772,
+    "sha256": "2237ed30327254f35689b9f78c10ebfde9642dc2714aa040d7328a3ff789f20a"
+  },
+  {
+    "path": "01_originals/maps/MT-8/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_08.json",
+    "kind": "game_level_data",
+    "bytes": 129496,
+    "sha256": "ca5f582b079e9ae81d4620097e071141c91081638065652a6d5f38b8347ca9bc"
+  },
+  {
+    "path": "01_originals/maps/MT-8/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_08.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 960853,
+    "sha256": "4bdd712ad752c6e5bca3d15e63ad433ac02cc0b7be99047ad8365f2571c5e1ce"
+  },
+  {
+    "path": "01_originals/maps/MT-9/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_09.json",
+    "kind": "game_level_data",
+    "bytes": 87432,
+    "sha256": "abbc7371d558dd80f97937fa8af745ac941a399e671bb743ab0a16faf68de4f2"
+  },
+  {
+    "path": "01_originals/maps/MT-9/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_09.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 959542,
+    "sha256": "49027609a1f950b4608701dcc8a4d5f3b3c4f9beab7810c30ee2d0b775dd6d61"
+  },
+  {
+    "path": "01_originals/maps/MT-10/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_10.json",
+    "kind": "game_level_data",
+    "bytes": 121123,
+    "sha256": "f49241a6c1ba5e116954f3a49088c2b7ba6dfba01d77c20f83bb23f99fd6eb9f"
+  },
+  {
+    "path": "01_originals/maps/MT-10/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_10.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 838027,
+    "sha256": "bc32f59646154babfb0961d90824103562fcbf592d51372c1c03f6180eaba46b"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/level.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/levels/activities/act42side/level_act42side_sub-1-5.json",
+    "kind": "game_level_data",
+    "bytes": 269652,
+    "sha256": "ad7912591c4889986c75b6ac23a996ecc0ddd88ee3d263d4dc14fd155519600c"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/map_preview.png",
+    "url": "https://torappu.prts.wiki/assets/map_preview/act42side_s05.png",
+    "kind": "PRTS_map_preview",
+    "bytes": 664732,
+    "sha256": "c76c5d80eae560c388f3ca4f4c6ae680f2674ef5fe8f82f2875922331f4763df"
+  },
+  {
+    "path": "00_index/stages.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/excel/stage_table.json",
+    "kind": "selected_stage_inventory",
+    "bytes": 268375,
+    "sha256": "fbc3415d0ab6971b422cb933bec7565253ff0f993a3a85514b1f60a24b0c8810"
+  },
+  {
+    "path": "00_index/enemies.json",
+    "url": "https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata/excel/enemy_handbook_table.json",
+    "kind": "selected_enemy_names",
+    "bytes": 20524,
+    "sha256": "52c8bfba11149f35b7486fc5ddfab4b9dfaeed25d3cfc4c08a2ddcd19cafeb96"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_2_“萨科塔展翅”/enemy_10083_hlbird_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird_2/enemy_10083_hlbird_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 13363,
+    "sha256": "8438494bd31aa02f516866f809f29b34817c67a57c4ab4d71fa78eb4f39f15d1"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_“萨科塔之翼”/enemy_10083_hlbird.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird/enemy_10083_hlbird.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 13363,
+    "sha256": "795687ec7eb810b6fd7847b9e94df8a5d9963bf01f667d00c43e19eb57574412"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_“萨科塔之鳍”/enemy_10085_hllevi.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi/enemy_10085_hllevi.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 44881,
+    "sha256": "836423d1c174c7dc4bd511047d650d6db1b64507b28d6a653c28f868f87e710d"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_2_“萨科塔见证”/enemy_10084_hlegle_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle_2/enemy_10084_hlegle_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 48200,
+    "sha256": "72eebf7792356c697236380bfb31328169fc1fe53e4075b32cf0ac8ade04365f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_“萨科塔之眼”/enemy_10084_hlegle.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle/enemy_10084_hlegle.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 47559,
+    "sha256": "b19619fdc942d1a2b882519a3e3ffd805e2d17cce80a63b98359698733290231"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_“萨科塔之翼”/enemy_10083_hlbird.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird/enemy_10083_hlbird.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1250,
+    "sha256": "9d3a9874ca9725b2545d7ecae6e136093bf488941aee3a02d8f0a7e22a017059"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_“萨科塔之鳍”/enemy_10085_hllevi.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi/enemy_10085_hllevi.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1661,
+    "sha256": "3c5255c049a61c76a69fff86c09d85df54a82acda002ed97998c99ad2dc09099"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_“萨科塔之眼”/enemy_10084_hlegle.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle/enemy_10084_hlegle.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1669,
+    "sha256": "2228a30f2483161e5ab26d9fa9bc3f94f5bc18a330948fe9fe01c7fa3f233a2f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_2_“萨科塔见证”/enemy_10084_hlegle_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle_2/enemy_10084_hlegle_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1671,
+    "sha256": "3ca855098cc37b21a58761add4c6bb6fa4efb1b611c20251e24d9952869ec376"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_2_“萨科塔展翅”/enemy_10083_hlbird_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird_2/enemy_10083_hlbird_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1252,
+    "sha256": "b221f6c59eddacd2688a0723a8ea907da3def5f667052eab1d2b79dd0efa1b8d"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_“萨科塔之翼”/enemy_10083_hlbird.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird/enemy_10083_hlbird.png",
+    "kind": "original_Spine_png",
+    "bytes": 16873,
+    "sha256": "797e1a4429c69caebe1c323f792089d3d793cf0208be1172b23cee811cc52077"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_“萨科塔之翼”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔之翼”",
+    "kind": "identity",
+    "bytes": 1148,
+    "sha256": "b84eae4c1ec7c28e26de98902fb61a147dd8add98dc1b267cecba97374475cf8"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_“萨科塔之鳍”/enemy_10085_hllevi.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi/enemy_10085_hllevi.png",
+    "kind": "original_Spine_png",
+    "bytes": 60264,
+    "sha256": "fd3599f656568e9b3b2496fac7e3da2a78d6b8d4b2fffede5d360bf8023ba933"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_“萨科塔之鳍”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔之鳍”",
+    "kind": "identity",
+    "bytes": 1233,
+    "sha256": "ca1a0c63f402d378d60e3c14c49695b4e489c0aa44f3f8ea4da5d715dea4ac19"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_“萨科塔之眼”/enemy_10084_hlegle.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle/enemy_10084_hlegle.png",
+    "kind": "original_Spine_png",
+    "bytes": 53528,
+    "sha256": "2e67582737389fe67b6e916d5eacfeea2c635d5f3e0bdd62868213b53d281da2"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_“萨科塔之眼”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔之眼”",
+    "kind": "identity",
+    "bytes": 1289,
+    "sha256": "eed03217082249ac8b06af6e0b50e4dd70929c0a7ea886b307cb0d62e164244b"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_2_“萨科塔展翅”/enemy_10083_hlbird_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10083_hlbird_2/enemy_10083_hlbird_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 17020,
+    "sha256": "24344c59ebfd420fb1642757f08a4533c45d5ced127e5638f31dcfc9c54051b4"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10083_hlbird_2_“萨科塔展翅”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔展翅”",
+    "kind": "identity",
+    "bytes": 1115,
+    "sha256": "a9d1f4b9c80cc9dc79306d34beb48aa246ab94fcc83f52b4bfa954926138129f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_2_“萨科塔见证”/enemy_10084_hlegle_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10084_hlegle_2/enemy_10084_hlegle_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 52329,
+    "sha256": "0ad4ab26374a2c918a0e2d403435da4e393ff33dc2dff31f6456cf008264c209"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10084_hlegle_2_“萨科塔见证”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔见证”",
+    "kind": "identity",
+    "bytes": 1256,
+    "sha256": "3b5a43ae8f64456e4b4f18a31a814abf2a48c6e8cb8021d6999098d1710075e9"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_2_“萨科塔昂首”/enemy_10085_hllevi_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi_2/enemy_10085_hllevi_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 46342,
+    "sha256": "175205227768b20b7679aafecd7e2ad2ee75a27c9f57bc554d795ccc989c763d"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10086_hltigr_“萨科塔之爪”/enemy_10086_hltigr.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10086_hltigr/enemy_10086_hltigr.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 43171,
+    "sha256": "82c6ca05dbd674ed6f94e9a97ffc84d2a600f403391d693b664b23a97624fd6a"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_圣堂剑士/enemy_10087_hlchgr.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr/enemy_10087_hlchgr.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 63671,
+    "sha256": "1d4a5b91e57afb8ed02a1772607a050eb311dc8854eeebf0656ecaf4a60a6330"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_2_精锐圣堂剑士/enemy_10087_hlchgr_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr_2/enemy_10087_hlchgr_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 63671,
+    "sha256": "09d984b52ea6d72bfb496a6a55d403e2d8e99444dfcaf495d32a9e567be0d7f4"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_圣堂射手/enemy_10088_hlsnip.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip/enemy_10088_hlsnip.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 82154,
+    "sha256": "1e42b2198d3444ce8198cb99248f659bd566e44598609a6ec102ed2f5db6b7c0"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_2_“萨科塔昂首”/enemy_10085_hllevi_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi_2/enemy_10085_hllevi_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1757,
+    "sha256": "52f92215c169f3057e440483e7b374b15ed0250d29e2117ebb93580e4b99fd62"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_圣堂剑士/enemy_10087_hlchgr.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr/enemy_10087_hlchgr.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2480,
+    "sha256": "5626dc5a4acc178137c9552e6ce05d3b6c50d3b5e8812f4bda70c71ffbe491ca"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10086_hltigr_“萨科塔之爪”/enemy_10086_hltigr.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10086_hltigr/enemy_10086_hltigr.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2233,
+    "sha256": "8c747dc3986ec93d270e67352507bc0991244b477de52fa2b836d3a86808e4d7"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_2_精锐圣堂剑士/enemy_10087_hlchgr_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr_2/enemy_10087_hlchgr_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2482,
+    "sha256": "40cb9c5aea5108aae6ed6475ad6951bfe62726cb3858304b5f59761ad129ac38"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_圣堂射手/enemy_10088_hlsnip.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip/enemy_10088_hlsnip.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2279,
+    "sha256": "bc645c1aadb3e92c896b5ceea0f47f7030e6f363cc8f7231637304e242c95a6e"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_2_“萨科塔昂首”/enemy_10085_hllevi_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10085_hllevi_2/enemy_10085_hllevi_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 72137,
+    "sha256": "f81bf5121cd6580dbde10333f35ae04fa53d11f0ad8b9526f8295197bcbc58a1"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10085_hllevi_2_“萨科塔昂首”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔昂首”",
+    "kind": "identity",
+    "bytes": 1291,
+    "sha256": "a8779ff06d458d2a7fb6ec14a29056d972fc20d1fa91b0e70f5ffc678363a672"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10086_hltigr_“萨科塔之爪”/enemy_10086_hltigr.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10086_hltigr/enemy_10086_hltigr.png",
+    "kind": "original_Spine_png",
+    "bytes": 48627,
+    "sha256": "d9a4c5fc249d8d66d6ee784af4d5575e7c5d86eace05c0457089cc751cfcdb5f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10086_hltigr_“萨科塔之爪”/identity.json",
+    "url": "https://prts.wiki/w/“萨科塔之爪”",
+    "kind": "identity",
+    "bytes": 1058,
+    "sha256": "8fb83b52d080115384cd3f525e3a0e5dcc290ee23f98c07d0fc54489dc98e1ad"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_圣堂剑士/enemy_10087_hlchgr.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr/enemy_10087_hlchgr.png",
+    "kind": "original_Spine_png",
+    "bytes": 60546,
+    "sha256": "ea085ec99068b7c8592ec8997077f7341f0823cd0be9adee4b9b21d695fe9921"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_圣堂剑士/identity.json",
+    "url": "https://prts.wiki/w/圣堂剑士",
+    "kind": "identity",
+    "bytes": 1053,
+    "sha256": "0677216bc83cb6e1d71b9e6a2736334cf5603ce72c8fd7eab6965a47d2a5b550"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_2_精锐圣堂剑士/enemy_10087_hlchgr_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10087_hlchgr_2/enemy_10087_hlchgr_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 62167,
+    "sha256": "1efb6a37208ad415308ed8b031e1cb10526ce51b559a607d7819b95c8a9ac391"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10087_hlchgr_2_精锐圣堂剑士/identity.json",
+    "url": "https://prts.wiki/w/精锐圣堂剑士",
+    "kind": "identity",
+    "bytes": 1024,
+    "sha256": "fa344513abc3638e3896625174e1561b926f75eb4f0130071e3913c84e0c9240"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_圣堂射手/enemy_10088_hlsnip.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip/enemy_10088_hlsnip.png",
+    "kind": "original_Spine_png",
+    "bytes": 56360,
+    "sha256": "6e5cf5de850a97d6e6a259a125e5a42b0f38d44271e554dbfc3d87c59020855a"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_圣堂射手/identity.json",
+    "url": "https://prts.wiki/w/圣堂射手",
+    "kind": "identity",
+    "bytes": 1084,
+    "sha256": "4700ae9af9baf8d1aa48228067ee656b5d951070375657a949f5d3c293db7393"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_2_精锐圣堂射手/enemy_10088_hlsnip_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip_2/enemy_10088_hlsnip_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 82318,
+    "sha256": "90ad6ed0b09f917762b7853ecb36dac8f54c3ae9385812788fac8e2486412d76"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_圣堂保育员/enemy_10089_hlsprt.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt/enemy_10089_hlsprt.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 65456,
+    "sha256": "d75a82d62c936e87a08efe3f1e2e326f7e15cce9ebf53a4a3a89488013488078"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_2_资深圣堂保育员/enemy_10089_hlsprt_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt_2/enemy_10089_hlsprt_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 65456,
+    "sha256": "a19e1c1c31eea663ec6508e6b793f45e2cc3509a7e1fd188099388cfd4d10835"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10090_hlgrd_圣堂布道员/enemy_10090_hlgrd.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10090_hlgrd/enemy_10090_hlgrd.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 69786,
+    "sha256": "d9b03e3ac1c61eae7693a2f6d340739b2dbd317e76e42857d17311b61530bf30"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_圣徒像/enemy_10091_hlsttu.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu/enemy_10091_hlsttu.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 48188,
+    "sha256": "a48bb82374b78fe2c74d506dffca3bb0cd8afc4a0b0e959f292856de7463c447"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_2_精锐圣堂射手/enemy_10088_hlsnip_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip_2/enemy_10088_hlsnip_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2281,
+    "sha256": "d6bd3b7b398600809e09a50fc995e89e974413761d85189f94e08ae879588096"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_圣堂保育员/enemy_10089_hlsprt.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt/enemy_10089_hlsprt.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3372,
+    "sha256": "811c8e770721240807e9c18456bebd9f6a4c92c5ecfb6f836a0fd3133786550b"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_2_资深圣堂保育员/enemy_10089_hlsprt_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt_2/enemy_10089_hlsprt_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3374,
+    "sha256": "16a4eab1a03b4a85e5b0998a38fd5cde1cc42f92062cf1e80f86ed7931293322"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10090_hlgrd_圣堂布道员/enemy_10090_hlgrd.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10090_hlgrd/enemy_10090_hlgrd.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 1814,
+    "sha256": "dcf3a7b9805accfbe4a8ecd21a9e1d513a5af044114b32d14ab4586bf7d40602"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_圣徒像/enemy_10091_hlsttu.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu/enemy_10091_hlsttu.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3098,
+    "sha256": "262e214f96c37286bd3dfe9feb4a5ea0adaa8c8729f30d826eb71a35b550c0bc"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_2_精锐圣堂射手/enemy_10088_hlsnip_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10088_hlsnip_2/enemy_10088_hlsnip_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 58108,
+    "sha256": "09c1f4457a9858f9a4bf0fcdf4605d81dd33235948bf6caccda4b53fa4f60634"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10088_hlsnip_2_精锐圣堂射手/identity.json",
+    "url": "https://prts.wiki/w/精锐圣堂射手",
+    "kind": "identity",
+    "bytes": 1133,
+    "sha256": "1d9f9694c492a0fb37476def71b461230fbeda30001543d230af718ca284f3f4"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10090_hlgrd_圣堂布道员/enemy_10090_hlgrd.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10090_hlgrd/enemy_10090_hlgrd.png",
+    "kind": "original_Spine_png",
+    "bytes": 61132,
+    "sha256": "26f9c92fd0dd65c1b15e1d8ac92fe06d2eea1a0952449b7ae02fdd9d7a7ee2d1"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10090_hlgrd_圣堂布道员/identity.json",
+    "url": "https://prts.wiki/w/圣堂布道员",
+    "kind": "identity",
+    "bytes": 1026,
+    "sha256": "c89ce276365f8146bd6e671dbbcdd2d7607186f78b4c53478c2d716cdacdaa34"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_2_资深圣堂保育员/enemy_10089_hlsprt_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt_2/enemy_10089_hlsprt_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 81754,
+    "sha256": "03c963e284e200ac78cb008b925d804bc1902ac6aa06f7679715f8fbe0aa2719"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_2_资深圣堂保育员/identity.json",
+    "url": "https://prts.wiki/w/资深圣堂保育员",
+    "kind": "identity",
+    "bytes": 1070,
+    "sha256": "d195df87d915793644ef7cfc8bb8228122a61e735a4f6e84357f416858ed7c30"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_圣堂保育员/enemy_10089_hlsprt.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10089_hlsprt/enemy_10089_hlsprt.png",
+    "kind": "original_Spine_png",
+    "bytes": 77739,
+    "sha256": "4973188922678bbbf2a17417000329d8928cd4f06c4cdba298e53932a61a9349"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10089_hlsprt_圣堂保育员/identity.json",
+    "url": "https://prts.wiki/w/圣堂保育员",
+    "kind": "identity",
+    "bytes": 1031,
+    "sha256": "0faa1c2194ae71cdbab57fadd538d661ad0531b92dcf8cd9b23d04241b1f4680"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_圣徒像/enemy_10091_hlsttu.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu/enemy_10091_hlsttu.png",
+    "kind": "original_Spine_png",
+    "bytes": 74106,
+    "sha256": "f5231b76b05e8f36a3f9a8344340cfac56121628bbf9e517f60bfd5c21513a4e"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_圣徒像/identity.json",
+    "url": "https://prts.wiki/w/圣徒像",
+    "kind": "identity",
+    "bytes": 1026,
+    "sha256": "9ee5709ac87944f193557e953299d5adf09d81bc1e6ea91edd51bc272202c071"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_2_圣徒祈祷像/enemy_10091_hlsttu_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_2/enemy_10091_hlsttu_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 48615,
+    "sha256": "35870efb2e8aee242409646a0ce2c9403800c4377c93965b6f80ee0eb4fa9e43"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_3_“牧首”/enemy_10091_hlsttu_3.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_3/enemy_10091_hlsttu_3.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 72158,
+    "sha256": "cf9bf889ec19a15592e0f39b96d2ab9057fdea7ef3bb5044b54b44a75557fe00"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_2_圣徒祈祷像/enemy_10091_hlsttu_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_2/enemy_10091_hlsttu_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3094,
+    "sha256": "e5a10cb1ac4890d9186d5c2bc515a5fb193c076ad354ad57ddf35ed156ded9bb"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_3_“牧首”/enemy_10091_hlsttu_3.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_3/enemy_10091_hlsttu_3.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 4477,
+    "sha256": "804cd8722a9507b71df5295730aa29528b949b1eaec35ac5d072b69ee01c1965"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_2_圣徒祈祷像/enemy_10091_hlsttu_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_2/enemy_10091_hlsttu_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 89900,
+    "sha256": "a6744ddcaf6bfb203149e52e3e1f4ccc68af2a2a7d2f536deb86d748c8813f3f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_2_圣徒祈祷像/identity.json",
+    "url": "https://prts.wiki/w/圣徒祈祷像",
+    "kind": "identity",
+    "bytes": 972,
+    "sha256": "2d87690960fb0c519f01eeb1b94bd9b39da37577317526888555caf95c778ef7"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_3_“牧首”/enemy_10091_hlsttu_3.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_10091_hlsttu_3/enemy_10091_hlsttu_3.png",
+    "kind": "original_Spine_png",
+    "bytes": 103248,
+    "sha256": "944b01669ce2481901c6522bdcadd408023d7a83d950e4b76f257c725ed5e3d2"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10091_hlsttu_3_“牧首”/identity.json",
+    "url": "https://prts.wiki/w/“牧首”",
+    "kind": "identity",
+    "bytes": 1164,
+    "sha256": "bb0d08b688dfe9e99650ad79669092acb03b0feaa7347e79b4e1f72c3e5964de"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1140_merhd_战术猎犬/enemy_1140_merhd.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1140_merhd/enemy_1140_merhd.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 39882,
+    "sha256": "6e53c79ce4b1c1a5bf7d53a1f58acb142f4d731ba9d2afb96d5514a45bb415b1"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1140_merhd_战术猎犬/enemy_1140_merhd.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1140_merhd/enemy_1140_merhd.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 2115,
+    "sha256": "5ea076f0f53926f4f55a75dd2ac4f8214b405cf05a89b9869829de14df3d1d7b"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1140_merhd_战术猎犬/enemy_1140_merhd.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1140_merhd/enemy_1140_merhd.png",
+    "kind": "original_Spine_png",
+    "bytes": 30541,
+    "sha256": "30799bdc507077a18c335ff5aab616187f0f7a27c5a56989362f8cfc35a1ed55"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1140_merhd_战术猎犬/identity.json",
+    "url": "https://prts.wiki/w/战术猎犬",
+    "kind": "identity",
+    "bytes": 774,
+    "sha256": "e656b64b0d34575bc03faa4250d494d9349851f89d9a37043c1b2cc4995f6cbd"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_寻路者战士/enemy_1212_mtrfol.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol/enemy_1212_mtrfol.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 81861,
+    "sha256": "53a6125cf19125c98d2e009928185589ef27685aabc5f95e810b0c59388304a4"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_寻路者战士/enemy_1212_mtrfol.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol/enemy_1212_mtrfol.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3518,
+    "sha256": "7157873c95da650b7a9eacad404d158eb45c3e134b5d858c69b3452d467ca91f"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_寻路者战士/enemy_1212_mtrfol.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol/enemy_1212_mtrfol.png",
+    "kind": "original_Spine_png",
+    "bytes": 48968,
+    "sha256": "35ccf82261f620bef2670ea26a2c4c02138d159d75be010e8119bcea9e25bf53"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_寻路者战士/identity.json",
+    "url": "https://prts.wiki/w/寻路者战士",
+    "kind": "identity",
+    "bytes": 843,
+    "sha256": "0aa2f20b1567c5b52e09aed7f9f495b8be7fd35e355220dcd0b52944bf4d0735"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_2_寻路者精锐战士/enemy_1212_mtrfol_2.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol_2/enemy_1212_mtrfol_2.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 81861,
+    "sha256": "ec0f85499ef684fbeb916eca48bab5c60312f7fba83bd118eae96fc6eb2e5ea7"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_2_寻路者精锐战士/enemy_1212_mtrfol_2.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol_2/enemy_1212_mtrfol_2.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3532,
+    "sha256": "9b6a4d0bf3f745de0c95e61846a9a0077e626e3b725ec1809f852c1e12d87b47"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10092_hlslp_入梦砖/identity.json",
+    "url": "https://prts.wiki/w/入梦砖",
+    "kind": "identity",
+    "bytes": 311,
+    "sha256": "25c271f201bb5b9fdca2025e968158227c4f4bf22ce6d73cd2d6c196e89cbe62"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10092_hlslp_1_入梦砖1/identity.json",
+    "url": "https://prts.wiki/w/入梦砖1",
+    "kind": "identity",
+    "bytes": 231,
+    "sha256": "1a0ab8ae17e0f45f8aa059943a1b3e4a804f28900021afcf403a73713d5a3010"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10092_hlslp_2_入梦砖2/identity.json",
+    "url": "https://prts.wiki/w/入梦砖2",
+    "kind": "identity",
+    "bytes": 228,
+    "sha256": "f27e39a413d5ab507ef683b9160bf4a8a621b5e7a55489dee0700439823812c6"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_2_寻路者精锐战士/enemy_1212_mtrfol_2.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1212_mtrfol_2/enemy_1212_mtrfol_2.png",
+    "kind": "original_Spine_png",
+    "bytes": 46984,
+    "sha256": "06d97cc7071bf60f49b5c5cc16c84213a81ba29371ff3c0675b240dc91912be9"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1212_mtrfol_2_寻路者精锐战士/identity.json",
+    "url": "https://prts.wiki/w/寻路者精锐战士",
+    "kind": "identity",
+    "bytes": 819,
+    "sha256": "5b8c0b208d07df50fbdf9b6a76fbee56489fdcb60c25cdc186460170bbd3eba5"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1213_mtrsnp_寻路者狙击手/enemy_1213_mtrsnp.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1213_mtrsnp/enemy_1213_mtrsnp.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 103034,
+    "sha256": "94e2bf7023aa48517cf2ce0ea97d22d71e7ab64d891d3574bbf2fbe5f3b1e4c4"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1214_mtrmgc_寻路者术师/enemy_1214_mtrmgc.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1214_mtrmgc/enemy_1214_mtrmgc.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 85416,
+    "sha256": "24e06c027ec94a3b0ae6d827e946e4f9fde13235d238d954c6c0e4e97e840000"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1213_mtrsnp_寻路者狙击手/enemy_1213_mtrsnp.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1213_mtrsnp/enemy_1213_mtrsnp.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 4801,
+    "sha256": "34a929eb302957dc50c672812b69f2dcbd46eb19d6a570310c0f6ffff0f88c85"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1214_mtrmgc_寻路者术师/enemy_1214_mtrmgc.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1214_mtrmgc/enemy_1214_mtrmgc.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 3585,
+    "sha256": "2b01a2d64630d6b2a7418b2a4e814a53cc0e36b314e436255e6e35e5bfc21d43"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1567_pope_“圣徒”/enemy_1567_pope.skel",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1567_pope/enemy_1567_pope.skel",
+    "kind": "original_Spine_skel",
+    "bytes": 977442,
+    "sha256": "5b6e998b2d140ad0cb8fe5cf272ef70ed6c01177fc8ad1394959ac354a2d0beb"
+  },
+  {
+    "path": "01_originals/enemies/enemy_10092_hlslp_3_入梦砖3/identity.json",
+    "url": "https://prts.wiki/w/入梦砖3",
+    "kind": "identity",
+    "bytes": 217,
+    "sha256": "21c3e36a8d42741ec6a765e3294dd7a8d364b6c5494635aa96f5132e3476a6fa"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1214_mtrmgc_寻路者术师/enemy_1214_mtrmgc.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1214_mtrmgc/enemy_1214_mtrmgc.png",
+    "kind": "original_Spine_png",
+    "bytes": 60093,
+    "sha256": "eddf348c3a4b0404024300f2c5a974e5f7b4308783479facb6a1f5a889314aaa"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1214_mtrmgc_寻路者术师/identity.json",
+    "url": "https://prts.wiki/w/寻路者术师",
+    "kind": "identity",
+    "bytes": 930,
+    "sha256": "9d497f7cf23691c6fdfa4b43142b5a278356899b66ad3e2718dc5181c0ac170b"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1213_mtrsnp_寻路者狙击手/enemy_1213_mtrsnp.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1213_mtrsnp/enemy_1213_mtrsnp.png",
+    "kind": "original_Spine_png",
+    "bytes": 65414,
+    "sha256": "43cacd492e006823ae5435862f323b2b3facd5e89181b5ede45a94ebe16d5f98"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1213_mtrsnp_寻路者狙击手/identity.json",
+    "url": "https://prts.wiki/w/寻路者狙击手",
+    "kind": "identity",
+    "bytes": 939,
+    "sha256": "302054e2ff0ae9ca570662c4e85fdc56ddd2f0a48b64afb979957ccee7d62131"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1567_pope_“圣徒”/enemy_1567_pope.atlas",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1567_pope/enemy_1567_pope.atlas",
+    "kind": "original_Spine_atlas",
+    "bytes": 17105,
+    "sha256": "031ea7323d8cc84fb797c05b20c8666533fbeea20ceea8a9b65161a32b3657f3"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1567_pope_“圣徒”/enemy_1567_pope.png",
+    "url": "https://torappu.prts.wiki/assets/enemy_spine/enemy_1567_pope/enemy_1567_pope.png",
+    "kind": "original_Spine_png",
+    "bytes": 426803,
+    "sha256": "e26cf09d6dcf2aa621732dd0a8b715719e247c7d7270b1523a87cf8c283da1bb"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1567_pope_“圣徒”/identity.json",
+    "url": "https://prts.wiki/w/“圣徒”",
+    "kind": "identity",
+    "bytes": 1705,
+    "sha256": "8f21a4b5c5db06a377bfe633acec823733270f1aa6689f23ba80526372be57c8"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/02_reveal_2.png",
+    "url": "https://media.prts.wiki/8/88/MT-S-5_授律圣事_地图_2.png",
+    "kind": "PRTS_original_image",
+    "bytes": 2085256,
+    "sha256": "ce9d7da62df9d20e4511668dda80e58d9380f9a6efa4d1d447161134a7116dd0"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/03_reveal_3.png",
+    "url": "https://media.prts.wiki/7/77/MT-S-5_授律圣事_地图_3.png",
+    "kind": "PRTS_original_image",
+    "bytes": 1890909,
+    "sha256": "a2fcfe24d7561a8b1fd42eb9aabc6c0a52a56b44feb342f9dc65b1182f014b58"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/04_reveal_4_conditional.png",
+    "url": "https://media.prts.wiki/b/b3/MT-S-5_授律圣事_地图_4.png",
+    "kind": "PRTS_original_image",
+    "bytes": 2549206,
+    "sha256": "aedcb71592093a0af1e5f14c52743399a264d7bab5326acb9bae0e24c082ac09"
+  },
+  {
+    "path": "01_originals/enemies/enemy_1567_pope_“圣徒”/portrait_original.png",
+    "url": "https://media.prts.wiki/f/f0/Avg_avg_npc_1778_1$1.png",
+    "kind": "PRTS_original_image",
+    "bytes": 651947,
+    "sha256": "906088cd26c6d252a8bfbc2ebf991a48005f924a8ad6f69e5760a2e158edc877"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i07.png",
+    "url": "repository:references/official/asset/Avg_61_i07.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1903792,
+    "sha256": "751a873f04ea54378b7359979447258043c48ca79635ce46d13c5ceef1b32e42"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i08.png",
+    "url": "repository:references/official/asset/Avg_61_i08.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1684031,
+    "sha256": "31d4b0e64090181bc461b161f2bad874b20952dc7463db6665c069559951cb44"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i09.png",
+    "url": "repository:references/official/asset/Avg_61_i09.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1772814,
+    "sha256": "4025a2286b42ba2fd55fb1dca3ababe660aff4804bcfd0f2aba15316fb1b37f4"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i09_2.png",
+    "url": "repository:references/official/asset/Avg_61_i09_2.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1772783,
+    "sha256": "5e01cdedae32f7b3b840614ceda5b2ebe5159c83431a70bebf05cb667cdd1d63"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i13.png",
+    "url": "repository:references/official/asset/Avg_61_i13.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1641340,
+    "sha256": "67693b989aed974c216a107aa179d3e893b4790b6e6b85789d6e0b93edd6b5b7"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i15.png",
+    "url": "repository:references/official/asset/Avg_61_i15.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 2165936,
+    "sha256": "5cd2f3389e6843359dff00fe47ce25964dac721fbb84cdad3fefb15f96fc987c"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i17_1.png",
+    "url": "repository:references/official/asset/Avg_61_i17_1.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 2101220,
+    "sha256": "be6cf4bc4ae656e11570dcb8e6d196ca5e11be45c6d8383fba07940b5d86f17e"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i17_2.png",
+    "url": "repository:references/official/asset/Avg_61_i17_2.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 2114872,
+    "sha256": "d51c6cb0e0e6860c95673e7c4205db98631162766054b0400ca0818684e5409d"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i19.png",
+    "url": "repository:references/official/asset/Avg_61_i19.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1904826,
+    "sha256": "89503e9a017f574d304253203a8c7eff92d18b5dd596987a0593be59f9dad9da"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i20.png",
+    "url": "repository:references/official/asset/Avg_61_i20.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 2200680,
+    "sha256": "0727ea24ce4558c830eaf12bfbf158a86f0be184ccad71fc9431a7c700bc7255"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i22_1.png",
+    "url": "repository:references/official/asset/Avg_61_i22_1.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1460364,
+    "sha256": "ad568d0a24addda69dcf9b416bea85602b09c9e04afa38553e5f1ea5cba31209"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i22_2.png",
+    "url": "repository:references/official/asset/Avg_61_i22_2.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 1453086,
+    "sha256": "5a82b318ee89d77dc279267c703bffd3515bf990b6f97879cadbcc5cdca4b361"
+  },
+  {
+    "path": "01_originals/event_cg/Avg_61_i25.png",
+    "url": "repository:references/official/asset/Avg_61_i25.png",
+    "kind": "existing_official_CG_copy",
+    "bytes": 2320502,
+    "sha256": "d74528b7f88381f5e5efd151d294cfeb74d55fe65c4fc7d8f446695169fdd6d8"
+  },
+  {
+    "path": "00_index/download_errors.json",
+    "url": "",
+    "kind": "download_audit",
+    "bytes": 3037,
+    "sha256": "7a2e2d186e47f308966f73af7a8c0db1b686bdce46567662141e95026f0ffa90"
+  },
+  {
+    "path": "01_originals/maps/MT-10/01_awake.png",
+    "url": "https://media.prts.wiki/e/e8/MT-10_降生_地图_2.png",
+    "kind": "PRTS_original_image",
+    "bytes": 1393445,
+    "sha256": "2acd69785e84378275610c9268d38e71f5d0b4eec93a2310502dfaeba8cbc893"
+  },
+  {
+    "path": "01_originals/maps/MT-S-5/01_reveal_1.png",
+    "url": "https://media.prts.wiki/9/9b/MT-S-5_授律圣事_地图_1.png",
+    "kind": "PRTS_original_image",
+    "bytes": 1745535,
+    "sha256": "a18907f8f369cae371c6d51a8684b06f0aef513fae33e7bccac3271474aaedb7"
+  }
+]

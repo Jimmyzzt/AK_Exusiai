@@ -1,0 +1,36 @@
+{
+  "id": "enemy_10090_hlgrd",
+  "name": "圣堂布道员",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/圣堂布道员",
+  "category": "enemy",
+  "stages": [
+    "MT-9"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10090_hlgrd",
+    "enemyIndex": "MT15",
+    "enemyTags": null,
+    "sortId": 1004,
+    "name": "圣堂布道员",
+    "enemyLevel": "ELITE",
+    "description": "为确保降生仪式顺利进行而遴选的育婴圣堂布道人员。他们坚信一句拉特兰谚语：“对甜品的审美和对祈祷的坚持都必须从娃娃抓起！”",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "锁定我方单位持续施法造成法术伤害；锁定美梦中的单位时持续降低清醒度",
+        "textFormat": "SILENCE"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "MAGIC"
+    ],
+    "invisibleDetail": false
+  }
+}

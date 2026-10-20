@@ -1,0 +1,40 @@
+{
+  "id": "enemy_10087_hlchgr",
+  "name": "圣堂剑士",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/圣堂剑士",
+  "category": "enemy",
+  "stages": [
+    "MT-2",
+    "MT-7",
+    "MT-8",
+    "MT-9",
+    "MT-10"
+  ],
+  "handbook": {
+    "enemyId": "enemy_10087_hlchgr",
+    "enemyIndex": "MT9",
+    "enemyTags": null,
+    "sortId": 998,
+    "name": "圣堂剑士",
+    "enemyLevel": "NORMAL",
+    "description": "为确保降生仪式顺利进行而遴选的育婴圣堂巡卫，负责常规的地面巡逻工作。他们战斗经验不算丰富，经常被保育员叫去帮忙清洁巨型奶瓶。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [
+      {
+        "text": "消耗弹药使自身的移动速度和攻击力永久提升；弹药上限：5",
+        "textFormat": "NORMAL"
+      }
+    ],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

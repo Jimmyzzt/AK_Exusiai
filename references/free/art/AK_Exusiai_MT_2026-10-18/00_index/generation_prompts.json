@@ -1,0 +1,205 @@
+[
+  {
+    "id": "MT-01_sanctuary",
+    "prompt": "Use case: stylized-concept. Asset type: production-ready 16:9 battle background for a Slay the Spire 2 mod. Reference image is Arknights MT-1 圣秩, ONLY environmental reference, NOT an edit target. Reinterpret the same Laterano nursery cathedral as a side-on 2.5D hand-painted Slay the Spire 2 battlefield: chunky graphic silhouettes, painterly brush texture, slightly crooked storybook architecture, clear foreground/midground/background, NOT photorealistic and NOT anime illustration. Preserve pale ivory cathedral columns with cool blue inset trim, rows of little white saint sculptures in wall niches, blue quilted star-shaped sleeping cushions on low plinths, a rear central stair, a few hanging wooden stars and diamonds. MT-1 signature: offset low L-shaped cushion-and-storage partitions with a central open passage. Translate the top-down map into a coherent side-on room, not an isometric tile map. Wide full-bleed landscape, approximately 1920x1080 or larger 16:9. Continuous level foreground stone fighting floor at 68% image height with generous empty areas for player at x25% and enemies at x72%; objects must stay behind these standing positions, low bottom 24% restrained enough for cards, upper area open for intents. Bright enough to inspect the architecture, cool white/cyan and a restrained red upholstery accent, warm tiny brass details. No characters, no monsters, no blood, no UI, no text, no letters, no hexes, no deployment boxes, no route lines, no toy grid, no watermark. Single polished background only.",
+    "source": "02_created/backgrounds/MT-01_sanctuary.png",
+    "raw_source": "02_created/source_renders/backgrounds/MT-01_sanctuary.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-02_prayer_lanes",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-2 祈祷 signature: three long parallel lanes of blue cushions and cyan-edged translucent glazed flooring panels converging toward the rear stair; long repetitive narrow lanes and quiet symmetry, a little brown wooden block bundle near the back right. More glass-floor rhythm than MT-1; no L-shaped storage partition.",
+    "source": "02_created/backgrounds/MT-02_prayer_lanes.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-02_prayer_lanes.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-04_seeking_aisle",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-4 求道 signature: strongly asymmetrical composition; a solitary blue cushion altar and clustered little sculptures at the left, compact multi-row blue quilted cushions and a slim crimson-upholstered bench at rear right, a clear broad central aisle. A low nursery changing platform silhouette at far left. Preserve asymmetry, no duplicate of other backgrounds.",
+    "source": "02_created/backgrounds/MT-04_seeking_aisle.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-04_seeking_aisle.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-03_worship_court",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-3 礼拜 signature: a broad rectangular enclosure made of a dense cluster of blue quilted cushions on the left, a long blue cushion strip across the back and right, with an empty polished open court framed inside. Long glazed low plinths and two small statue pillars, one near each side. Rectangular gallery rhythm and rear central stairs.",
+    "source": "02_created/backgrounds/MT-03_worship_court.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-03_worship_court.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-05_communion_gallery",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-5 共融 signature: densely arranged white saint busts along the rear and left, a long sunken pale stone partition on the left, luminous cyan glazed inset panels and square blue cushions between the statues, two dark red wood storage niches to the right, a far-right upright row of blue cushions. More crowded sanctuary gallery behind the empty fighting floor.",
+    "source": "02_created/backgrounds/MT-05_communion_gallery.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-05_communion_gallery.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-07_funeral_choir",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-7 丧礼 signature: a group of small white saint busts on stepped plinths concentrated rear-left, a curving white bolster-and-stone partition turning into the central rear, two broad simple crimson and dark green upholstered benches at rear-right. Arrangement is intentionally left-heavy with a quiet open right side. Gentle long shadows and contemplative atmosphere, no coffin, no dark cemetery: still the same luminous nursery cathedral.",
+    "source": "02_created/backgrounds/MT-07_funeral_choir.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-07_funeral_choir.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-06_confession_crossing",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-6 告解 signature: split-zone sanctuary: on the left a dense two-row cluster of blue cushions with stacked white nursery cushions behind, a prominent pale long stone divider near the middle, on the right a broader glimmering glazed-floor gallery with separated blue cushions, and three small white saint figures at far-right rear. Two distinct wings connected by a broad diagonal visual crossing, but keep foreground floor perfectly continuous and unoccupied.",
+    "source": "02_created/backgrounds/MT-06_confession_crossing.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-06_confession_crossing.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-08_pilgrimage_terraces",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-8 朝圣 signature: the broadest and most symmetrical nursery nave, two straight low stair-ramps rising in the BACKGROUND and a long transverse blue-cushion gallery across the rear, a shallow cyan-glass cross-aisle, small dense saint sculpture groups in both distant corners. Two stepped raised galleries create clear ceremonial progression, foreground still flat unoccupied. More monumental spaciousness than earlier stages.",
+    "source": "02_created/backgrounds/MT-08_pilgrimage_terraces.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-08_pilgrimage_terraces.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-09_exegesis_chancel",
+    "prompt": "Use case: stylized-concept. Create one production-ready 16:9 hand-painted side-on battle background for a Slay the Spire 2 mod, full-bleed landscape 1680x945 or larger exact 16:9. Input 1 is the exact Arknights stage map: environmental reference ONLY; input 2 is the approved MT-1 background: match its art direction, perspective, common architecture and standing line. Chunky storybook painted shapes, bold readable values and subtly crooked construction, not photorealistic. Laterano nursery cathedral: pale stone, cool blue bands on columns, white saint sculptures, blue star quilted sleeping cushions, brass suspended mobile stars. Distinct layout derived from the supplied map but translate to a side-on room, NEVER top-down/isometric. Unbroken empty foreground fighting floor at y68%; keep x25% and x72% clear for standing characters, lower 24% low-contrast for cards, sufficient headroom for intents. All partitions/cushions remain behind the fighting line. Restrained cool white/cyan, muted red seats, brass accents. No people, no creatures, no UI, no text, no route arrows, no red/blue deployment boxes, no grid overlay, no watermark. MT-9 解经 signature: a compact chancel with a U-shaped pale padded stone enclosure and two shallow side steps descending to an empty central altar court. A SINGLE small white saint statue on a central plinth at the very back, framed by a horizontal blue cushion band. Two matching crimson-and-olive padded rails high at rear-left and rear-right. Strong axial symmetry and a restrained, almost clinical nursery ceremonial space. Maintain the common cathedral architecture; keep the central statue small and in the background so it cannot be mistaken for an enemy.",
+    "source": "02_created/backgrounds/MT-09_exegesis_chancel.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/backgrounds/MT-09_exegesis_chancel.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "saint_ground",
+    "prompt": "Use case: stylized-concept. Make a clean reusable transparent-background full-body enemy sprite concept for a Slay the Spire 2 boss, based closely on the supplied original Arknights “圣徒” / The Saint portrait. Preserve identity: a gaunt black charcoal quadrupedal ancient horned beast, elongated narrow body, four long angular clawed legs, hunched back, huge flowing white mane and drooping white beard, dark narrow face, twisted black antler-like horns, small golden fissures along black stone flesh, ivory cloth strips streaming backward, and a tall straight thin brass staff planted vertically near the head with the same broad angular mitre/flower-shaped golden finial. NOT a human priest, NOT a knight, NOT a dragon, no generic angel wings. This is the heavy ground / first form, facing LEFT toward a player, full body in a strong readable silhouette, solemn unsettling elder. Reinterpret as chunky hand-painted Slay the Spire 2 monster art: simplified articulated graphic shapes, dark contour, painted flat shading and restrained highlights, not realistic, no chibi proportions. Keep staff fully within canvas and leave 8% padding. One isolated creature only on actual transparent alpha background, approximately square canvas, no floor, no drop shadow outside creature, no labels, no text, no UI, no border, no additional characters.",
+    "source": "02_created/boss/saint_ground.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/boss/saint_ground.png",
+    "normalized_size": [
+      1536,
+      1536
+    ]
+  },
+  {
+    "id": "MT-10_00_dream",
+    "prompt": "Use case: stylized-concept. Production battle background, one 16:9 wide image, same 1680x945 camera as reference 2. Input 1: Arknights MT-10 DREAM map, environmental reference. Input 2: nursery background painterly style reference only, do NOT copy its cushions or toy decorations. Design the MT-10 boss arena for Slay the Spire 2: side-on 2.5D hand-painted chunky stone silhouettes, bold graphic shapes, clear empty combat lane. A floating geometric cathedral floor of pale ivory and smoke gray inlaid square marble panels with fine antique gold maze inlays, suspended above vast cool lavender-blue cloud sea. The central platform is broad enough for a player at x24% and boss at x74% standing at y68%, but outer corner tiles and distant side galleries are missing, leaving clean visible voids through to sky. At top-left and top-right edges only, cropped imposing brown-gold gothic arch piers and stepped cornice show this is inside an impossible open cathedral. Calm cold dream lighting, subtle cyan mirror panel glints, no fiery apocalypse. Important: camera must be usable for later same-camera edits adding outer floor; keep a recognizable centered three-step geometric diamond motif on the back wall and a four-point gold floor inlay at x50%,y62%. Large quiet upper-middle area for boss intents; bottom 24% darker low-detail slate foreground for the card hand. Zero occupants. No monsters, characters, statues resembling living foes, HP bars, UI, labels, text, logos, red/blue route boxes, isometric grid, watermark. One clean background, NOT a storyboard or collage.",
+    "source": "02_created/MT-10/00_dream.png",
+    "generator": "built-in image_gen",
+    "raw_source": "02_created/source_renders/MT-10/00_dream.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-10_01_awake",
+    "prompt": "Use case: precise-object-edit. Edit target: image 1 is the exact MT-10 DREAM battle background. Image 2 is the original Arknights MT-10 AWAKENED map, environmental reference only. Create the matching AWAKENED arena state, not a new room. LOCK the camera, composition, resolution, central floor panels, central gold four-point inlay, all columns and hanging center diamond ornament, lighting direction, foreground combat lane, and the bottom 24% card-safe area. Change only the peripheral missing architecture: complete the broken outer near-left and near-right platform corners with matching rectangular marble-and-gold panels; extend a rear walkway into the existing voids left and right of the central platform; make the thin cyan edges of the newly revealed outer panels subtly luminous. The awakening is the REVEAL OF MORE WALKABLE ARCHITECTURE, not an explosion, world destruction, warm color swap, or camera zoom. Keep a visible blue-lavender cloud sea under remaining far voids. Newly added floor must have convincing load-bearing thickness and align perfectly with the original gold maze inlays. Maintain Slay the Spire 2 painterly graphic environment style. No creatures, no characters, no UI, no labels, no text, no deployment boxes, no watermark. One single exact-ratio 16:9 completed battle background.",
+    "source": "02_created/MT-10/01_awake.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-10/01_awake.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-S-5_layout_study",
+    "prompt": "Use case: stylized-concept. One 16:9 Slay the Spire 2 hand-painted boss battle background, 1680x945. Image 1 is the original MT-S-5 DREAM map: preserve its tiny central keyhole sanctuary surrounded by an impossible huge cloudy void. Image 2 is the approved MT-10 art style, architectural family and side-on battle composition reference, not the same floor plan. A floating CENTRAL marble bridge / keyhole-shaped ceremonial platform in a giant open Laterano cathedral above blue and lavender clouds, ivory and smoke-gray geometric square inlays with thin gold maze lines and faint cyan edges. The back of this platform tapers to a narrow central walkway under a huge suspended inverted diamond-shaped cathedral arch centered at x50%,y24%. Empty side voids at x0-20% and x80-100%; distant detached architecture at the top edges. The playable FRONT lip of the island is a single uninterrupted horizontal fighting strip from x17% to x85%, floor contact y68%; leave player x25% and boss x73% empty. Bottom foreground is a quiet dark-blue cloud or stone ledge suitable for cards. IMPORTANT future consistency: keep identical camera and a fixed identifiable gold four-point floor inlay at x50%, y60%; leave room to add four peripheral corner terraces, then front/lower gallery, then rear/upper gallery, finally left-right side aisles in later phases. This image has NONE of those peripheral additions; cloudy negative space conveys a tiny island at the center of a much greater cathedral. Strong readable painted silhouettes, chunky architecture, game background rather than realistic concept render. No characters, no enemies, no living-looking statues, no pillows, no toys, no text, no UI, no deployment boxes, no watermark.",
+    "source": "00_index/MT-S-5_layout_study.png",
+    "generator": "built-in image_gen"
+  },
+  {
+    "id": "MT-S-5_00_dream",
+    "prompt": "Use case: precise-object-edit. EDIT image 1, the approved SIDE-VIEW Slay the Spire 2 arena. Image 2 is merely Arknights top-down level geometry for interpretation, absolutely DO NOT copy its camera. Preserve image 1's camera and the bottom 48% of image 1 EXACTLY: the broad horizontal marble fighting platform and dark foreground must stay fixed, filling the width. Two characters must be able to stand on that floor at x25% and x73%, feet y68%. This is a stage background for a SIDE-VIEW turn-based card game. Never make an overhead map, tiny floating board, isometric island, or vertical bird's-eye view. Change ONLY the upper background beyond the near arena's back edge, at y10%-45%: open a much larger cloud-filled void behind the combat stage, leave a small distant KEYHOLE-shaped ivory altar/bridge aligned center x50% and y40% as the spatial motif from MT-S-5, with disconnected architecture in the extreme left/right upper corners. Preserve the big hanging central inverted gold diamond frame from image 1 in exactly the same position. The disconnected outer upper-background terraces are all hidden initially, only clouds visible where they will materialize. Keep full-size foreground fighting deck; it is the translation of Arknights' tiny central island into a playable Slay the Spire room. Cool lavender-blue clouds, ivory and gold stone, faint cyan sleeping panels. No toy cushions, no figures, no UI, no text, no overlays. Exactly one 16:9 side-view background. The result should look 90% like input 1, with ONLY a sparser upper background.",
+    "source": "02_created/MT-S-5/00_dream.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-S-5/00_dream.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-S-5_01_reveal_1",
+    "prompt": "Use case: precise-object-edit. Edit image 1, the exact SIDE-VIEW MT-S-5 dream battle background; image 2 is reference for the FIRST reveal, not its top-down camera. Produce reveal 1. LOCK the camera and preserve all existing image-1 architecture, clouds, large hanging diamond, and the central foreground battle floor including gold center star. Add ONLY four disconnected peripheral CORNER terraces of matching ivory and gold marble, appearing in the existing side voids behind and beside the foreground arena: two upper distant corners and two near side corners. They are not yet joined into a complete ring; leave blue cloud gaps between them. Their beveled panel edges have a thin cyan glint. The center island and main standing floor stay precisely where they were. Do not fill the lower-front missing gallery or the upper-rear axial bridge yet; those come in subsequent reveals. This should be the SAME scene with a small amount of newly revealed architecture, NOT new architecture everywhere. Side-view Slay the Spire 2 hand-painted environment, exact same 16:9 dimensions. Keep bottom 24% unchanged and visually quiet for cards. No characters, no monsters, no text, no HUD, no route boxes, no watermark.",
+    "source": "02_created/MT-S-5/01_reveal_1.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-S-5/01_reveal_1.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-S-5_02_reveal_2",
+    "prompt": "Use case: precise-object-edit. Edit ONLY image 1, the exact side-view MT-S-5 REVEAL 1 arena. Image 2 is reference for the original second reveal, not for camera. Produce REVEAL 2, the SOUTH / near-front expansion. Preserve the exact camera, the center platform, the central gold star, all already visible floating corner terraces, the central hanging diamond, and lighting. Add matching ivory-and-gold marble bridge panels in the lower/near side gaps to join the near-left and near-right corner terraces to the main fighting stage. Add a shallow SECOND foreground gallery lip / two-step beveled apron immediately behind the dark lower card-safe strip, making the platform visibly deeper toward the viewer. Do not cover the unchanged combat standing line y68%, and keep bottom 24% dark and quiet. The distant upper / rear gaps behind the center platform are STILL OPEN to blue clouds; do NOT build the rear ring yet. The reveal should be visibly additive: a deeper connected front terrace, with the same original floor/star still recognizable. No new statues, no enemies, no people, no UI, no text, no effects obscuring architecture. Exact 16:9 Slay the Spire 2 hand-painted environment.",
+    "source": "02_created/MT-S-5/02_reveal_2.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-S-5/02_reveal_2.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-S-5_03_reveal_3",
+    "prompt": "Use case: precise-object-edit. Image 1 is the EXACT side-view MT-S-5 REVEAL 2 arena to edit. Image 2 is the source original THIRD reveal for geometric interpretation only. Make REVEAL 3: the NORTH / rear gallery expansion. Preserve the camera and ALL existing central and foreground floor pixel positions including the central gold star, the added front gallery, and hanging diamond ornament. Complete a BROAD REAR BRIDGE / transverse upper arcade, joining the disconnected upper-left and upper-right corner terraces through the cloud gap directly behind the central fighting stage at y28%-40%. Add a few short matching gold-trimmed stair courses in this BACKGROUND gallery, framing a narrow central aisle to the distant keyhole altar. The architecture is now mostly connected front-to-back, but far left and far right SIDE AISLE gaps remain visibly open to clouds; these are reserved for reveal 4. Keep the same cool lavender cloud light and same antique gold inlays; do not turn into apocalypse or change the palette. The new rear gallery should make phase 3 clearly different from phase 2 while preserving every existing object. Full-bleed 16:9 Slay the Spire 2 painted stage background. Empty standing locations x25% and x73%, floor y68%. Bottom 24% remains unchanged. No characters, no HUD, no labels, no text, no deployment cubes, no watermark.",
+    "source": "02_created/MT-S-5/03_reveal_3.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-S-5/03_reveal_3.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "MT-S-5_04_reveal_4_conditional",
+    "prompt": "Use case: precise-object-edit. Edit image 1, the exact SIDE-VIEW MT-S-5 REVEAL 3 background. Image 2 is original MT-S-5 CHALLENGE REVEAL 4, geometry and dark side-buttress reference only. Create the OPTIONAL FINAL REVEAL 4 state. Preserve camera, entire central floor and golden star, all existing front and rear galleries, giant hanging diamond, blue cloud palette and lighting. Fill ONLY the remaining mid-left and mid-right side aisle cloud gaps with connected pale marble-and-gold walkways. At the far left and far right outside the character standing positions, reveal massive restrained deep moss-black / green-black gothic buttresses with ivory ribs and antique gold joins, matching the additional outer side architecture in the source. They should make the full arena feel encircled and complete, while sky remains visible beyond the outer edge. Add three SMALL EMPTY saint plinths along the distant rear gallery, no figures; source enemy units are not background scenery. Keep the player x25% and boss x73% standing regions and top intent clearance open. No palette apocalypse, no fire, no arbitrary purple magic or glowing balls. Bottom 24% unchanged dark card-safe area. Same 16:9 Slay the Spire 2 painterly environment, all additions read as stone architecture physically materialized, no characters, monsters, UI, labels, text, watermark.",
+    "source": "02_created/MT-S-5/04_reveal_4_conditional.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/MT-S-5/04_reveal_4_conditional.png",
+    "normalized_size": [
+      1920,
+      1080
+    ]
+  },
+  {
+    "id": "saint_airborne_concept",
+    "prompt": "Use case: precise-object-edit. Edit target: first image is the approved hand-painted Slay the Spire 2 reinterpretation of Arknights The Saint, second image is original identity reference. Produce a companion AIRBORNE POSE CONCEPT of this same beast for the boss UI preview, not a different character. Preserve the same non-human charcoal body, long twisted black horns, narrow face, large white mane/beard, four long angular clawed limbs, sparse gold fissures, white ragged cloth streamers and the same golden geometric staff finial. Lift and elongate the torso into a hovering nearly horizontal pose, head facing LEFT; tuck the legs slightly so feet hang freely, pull mane and cloth backward as if in a slow sacred updraft. Staff is held at a gentle diagonal and stays fully visible. Do not add angel wings, human anatomy, armor, extra limbs or a round halo. Readable articulated chunky silhouette and flat painted shading matching input 1 exactly. Transparent alpha background, one isolated creature, all parts inside frame with at least 8% padding, no floor or shadows outside figure, no text, no UI, no collage. This is a visual pose study for flight, not a sprite sheet.",
+    "source": "02_created/boss/saint_airborne_concept.png",
+    "generator": "built-in image_gen edit",
+    "raw_source": "02_created/source_renders/boss/saint_airborne_concept.png",
+    "normalized_size": [
+      1536,
+      1536
+    ]
+  }
+]

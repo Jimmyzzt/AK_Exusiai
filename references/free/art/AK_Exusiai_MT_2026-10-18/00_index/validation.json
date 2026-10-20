@@ -1,0 +1,12 @@
+{
+  "checks": 569,
+  "failures": [],
+  "regular_enemy_count": 16,
+  "all_enemy_sets": 23,
+  "actions": 150,
+  "saint_actions": 31,
+  "standard_backgrounds": 16,
+  "transition_clips": 5,
+  "cg_count": 40,
+  "note": "Local art validation only, not game or original-video playback validation"
+}

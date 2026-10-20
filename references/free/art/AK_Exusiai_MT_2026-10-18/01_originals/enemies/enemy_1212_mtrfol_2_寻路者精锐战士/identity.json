@@ -1,0 +1,31 @@
+{
+  "id": "enemy_1212_mtrfol_2",
+  "name": "寻路者精锐战士",
+  "scope": "MT-1_to_MT-10",
+  "page": "https://prts.wiki/w/寻路者精锐战士",
+  "category": "enemy",
+  "stages": [
+    "MT-2"
+  ],
+  "handbook": {
+    "enemyId": "enemy_1212_mtrfol_2",
+    "enemyIndex": "SK2",
+    "enemyTags": null,
+    "sortId": 417,
+    "name": "寻路者精锐战士",
+    "enemyLevel": "NORMAL",
+    "description": "为先导的理念所感召，聚集在他身边的战士。实力强劲，为了实现寻路者共同的目标而奋战。",
+    "attackType": null,
+    "ability": null,
+    "isInvalidKilled": false,
+    "overrideKillCntInfos": {},
+    "hideInHandbook": false,
+    "hideInStage": true,
+    "abilityList": [],
+    "linkEnemies": [],
+    "damageType": [
+      "PHYSIC"
+    ],
+    "invisibleDetail": false
+  }
+}

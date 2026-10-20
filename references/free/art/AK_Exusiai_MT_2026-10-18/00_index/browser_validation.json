@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-18",
+  "scope": "Offline asset preview served over loopback HTTP; not game integration",
+  "desktop": {
+    "all_image_assets_loaded": true,
+    "boss_ui_visually_checked": true,
+    "ordinary_background_selection": "MT-1 and MT-9 selected successfully; HUD defaults off",
+    "event_cg_selection": "Primary sanctuary CG selected successfully; HUD defaults off",
+    "animation_progress_observed": [0.102, 1.0],
+    "render_serial_advanced": [7, 28],
+    "extra_reveal_disabled_by_default": true,
+    "extra_reveal_can_be_enabled": true,
+    "disabling_extra_reveal_returns_to_state_3": true,
+    "saint_search_returns_one_enemy_with_31_actions": true,
+    "console_warning_or_error_count": 0
+  },
+  "mobile": {
+    "viewport": [390, 844],
+    "client_width": 390,
+    "page_scroll_width": 390,
+    "canvas_display_width": 366,
+    "controls_wrap_without_page_overflow": true
+  },
+  "file_url_execution": "Not verified in the automated browser: file protocol is blocked by its URL policy. No bypass attempted. The preview uses relative local scripts and images, with no fetch or module imports.",
+  "original_reference_video_playback": "Not reliably completed; transition timing is newly designed, not measured from original videos.",
+  "game_validation": "Not performed; no game files, runtime dependencies or Mod registration changed."
+}

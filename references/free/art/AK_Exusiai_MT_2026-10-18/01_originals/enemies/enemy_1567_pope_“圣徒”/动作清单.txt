@@ -1,0 +1,35 @@
+“圣徒” | enemy_1567_pope
+原始 Spine 3.8.99
+A_Attack	2.27s	约68帧
+A_Default	0s	约0帧
+A_Idle	1.47s	约44帧
+A_Move	1.67s	约50帧
+A_Revive_1	0.76667s	约23帧
+A_Revive_2	1.33s	约40帧
+A_Revive_3	3s	约90帧
+B_Attack_Begin_1	0.66667s	约20帧
+B_Attack_Begin_2	0.66667s	约20帧
+B_Attack_End_1	0.23333s	约7帧
+B_Attack_End_2	0.23333s	约7帧
+B_Attack_Loop_1	1s	约30帧
+B_Attack_Loop_2	1s	约30帧
+B_Default_1	0s	约0帧
+B_Default_2	0s	约0帧
+B_Die_1	1s	约30帧
+B_Die_2	1s	约30帧
+B_Idle_1	2.93s	约88帧
+B_Idle_2	2.93s	约88帧
+B_Leave_1	1s	约30帧
+B_Leave_2	1s	约30帧
+B_Move_1	1.67s	约50帧
+B_Move_2	1.47s	约44帧
+B_Skill_Begin_1	0.6s	约18帧
+B_Skill_Begin_2	0.6s	约18帧
+B_Skill_End_1	1.93s	约58帧
+B_Skill_End_2	1.93s	约58帧
+B_Skill_Loop_1	4s	约120帧
+B_Skill_Loop_2	4s	约120帧
+B_Start_1	1.6s	约48帧
+B_Start_2	1.67s	约50帧
+
+动作源数据完整保留在同目录的 .skel；同名 .atlas 和 .png 必须同时保留。
