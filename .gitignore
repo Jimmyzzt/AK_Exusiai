@@ -45,3 +45,9 @@ tools/card_effect_manager/*.v1.bak
 
 # Reference-only fan art without redistribution permission.
 **/企鹅物流运输车_同人构图参考.jpg
+
+# Website development is maintained on stat-public.
+/stat/*
+!/stat/mod/
+!/stat/.gdignore
+/.github/workflows/stat-*.yml
