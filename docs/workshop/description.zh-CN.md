@@ -28,7 +28,7 @@
 
 ## 兼容
 
-> **本地待发布构建适配测试版 0.113，需 RitsuLib 0.6.11；实际工坊版本以已上传文件为准。**
+> **适配测试版 0.113**
 
 需要订阅并启用 [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。
 
@@ -42,9 +42,7 @@
 
 ## 问题反馈
 
-请在BUG反馈贴、群里或 [GitHub Issues](https://github.com/Jimmyzzt/AK_Exusiai/issues) 中说明游戏与 Mod 版本、涉及卡牌及升级状态、单人/多人和复现步骤。
-
-遇到异常请附发生问题那次运行的 `godot.log`；多人不同步请一并提供对应的 `ritsulib_state_divergence_*.zip`。游戏控制台输入 `open logs` 可打开日志目录。
+请在BUG反馈贴、群里或 [GitHub Issues](https://github.com/Jimmyzzt/AK_Exusiai/issues) 中说明游戏与 Mod 版本，附发生问题时的 `godot.log`；多人不同步请一并提供对应的 `ritsulib_state_divergence_*.zip`。游戏控制台输入 `open logs` 可打开日志目录。
 
 ## 交流群
 QQ：1080295067

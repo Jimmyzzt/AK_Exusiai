@@ -26,7 +26,7 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 
 ## Compatibility
 
-> **The local, pending release build targets beta 0.113 and requires RitsuLib 0.6.11. Check the uploaded Workshop files for the currently published version.**
+> **Currently support beta 0.113**
 
 Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295).
 
