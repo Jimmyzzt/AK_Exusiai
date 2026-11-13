@@ -13,6 +13,7 @@ using AK_Exusiai.Powers;
 using AK_Exusiai.Relics;
 using STS2RitsuLib.Combat.SecondaryResources;
 using STS2RitsuLib.Interop.AutoRegistration;
+using STS2RitsuLib.Models;
 
 namespace AK_Exusiai.Mechanics;
 
@@ -21,8 +22,10 @@ namespace AK_Exusiai.Mechanics;
 /// required because events can give Exusiai cards to other characters.
 /// </summary>
 [RegisterSingleton]
-internal sealed class AmmoCombatHooks : SingletonModel, ISecondaryResourceHookListener
+internal sealed class AmmoCombatHooks : HookedSingletonModel, ISecondaryResourceHookListener
 {
+    public AmmoCombatHooks() : base(HookType.Combat) { }
+
     private static readonly ConditionalWeakTable<Player, AmmoData> AmmoDataByPlayer = new();
 
     private sealed class AmmoData
@@ -364,9 +367,9 @@ internal sealed class AmmoCombatHooks : SingletonModel, ISecondaryResourceHookLi
         }
 
         if (cardPlay.Card is IAmmoSpendAllAttack)
-            await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, ModelDb.Singleton<AmmoCombatHooks>());
+            await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, cardPlay.Player.RunState.RunModels.OfType<AmmoCombatHooks>().Single());
         else
-            await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, ModelDb.Singleton<AmmoCombatHooks>());
+            await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, cardPlay.Player.RunState.RunModels.OfType<AmmoCombatHooks>().Single());
 
         if (info.Mode == AmmoAttackMode.Overloaded && info.CurrentHitLogicalAmmoSpent > 0)
             await NotifyOverloadAmmoSpent(cardPlay.Player, info.CurrentHitLogicalAmmoSpent);

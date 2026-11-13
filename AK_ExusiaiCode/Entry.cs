@@ -62,19 +62,11 @@ public partial class Entry
             throw new InvalidOperationException("AK_Exusiai gameplay patches failed to apply.");
 
         ValidatePackagedAssets();
-        ModHelper.SubscribeForCombatStateHooks(
-            $"{ModId}.AmmoCombatHooks",
-            GetAmmoCombatHookModels);
         AmmoResource.Register();
         try { Statistics.ExusiaiTelemetry.Initialize(); }
         catch { Logger.Warn("Community statistics initialization failed; gameplay remains available."); }
         Settings.ExusiaiModSettings.Initialize();
         Logger.Info("AK_Exusiai initialized for Exusiai.");
-    }
-
-    private static IEnumerable<AbstractModel> GetAmmoCombatHookModels(CombatState combatState)
-    {
-        return [ModelDb.Singleton<AmmoCombatHooks>()];
     }
 
     private static void ValidatePackagedAssets()

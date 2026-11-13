@@ -19,12 +19,12 @@ internal sealed class ExusiaiCharacterSelectSfxPatch : IPatchMethod
         PatchTarget.Method(
             typeof(NCharacterSelectScreen),
             nameof(NCharacterSelectScreen.SelectCharacter),
-            [typeof(NCharacterSelectButton), typeof(CharacterModel)]),
+            [typeof(NCharacterSelectButton)]),
     ];
 
-    public static void Postfix(CharacterModel characterModel)
+    public static void Postfix(NCharacterSelectButton charSelectButton)
     {
-        if (characterModel is Exusiai)
+        if (charSelectButton.Character is Exusiai)
             ExusiaiAudio.Play(CharacterSelectStream, CharacterSelectVolume);
     }
 }

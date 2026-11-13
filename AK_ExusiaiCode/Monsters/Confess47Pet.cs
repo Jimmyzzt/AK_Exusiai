@@ -18,7 +18,7 @@ public sealed class Confess47Pet : ModMonsterTemplate
     public override MonsterAssetProfile AssetProfile => new(ScenePath);
     public override int MinInitialHp => 9999;
     public override int MaxInitialHp => 9999;
-    public override bool IsHealthBarVisible => false;
+    public override bool IsInteractable => false;
 
     protected override NCreatureVisuals? TryCreateCreatureVisuals() =>
         RitsuGodotNodeFactories.CreateFromScenePath<NCreatureVisuals>(ScenePath);

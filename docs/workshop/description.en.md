@@ -13,8 +13,8 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 
 - 1 new character!
 - 2 appearance sets with 6 outfits in total: 4 for Exusiai and 2 for Exusiai the New Covenant, all using official assets from Arknights.
-- 104 cards: 91 character cards, including 5 multiplayer cards, starter cards, and Ancient cards; 11 token cards, comprising 8 Penguin Logistics cards and 3 Angel cards; and 2 Curses.
-- 9 character relics and 3 potions.
+- 105 cards: 91 character cards, 12 generated cards, and 2 Curses.
+- 9 character relics and 6 potions, including 3 Ancient potions.
 - 2 new Ancients and their 20 Ancient relics.
 
 ## Core mechanics
@@ -26,7 +26,7 @@ Penguin Logistics veteran and owner-founder of Apple Pie Logistics, Exusiai is h
 
 ## Compatibility
 
-> **Currently supports beta version 0.111 only.**
+> **The local, pending release build targets beta 0.113 and requires RitsuLib 0.6.11. Check the uploaded Workshop files for the currently published version.**
 
 Subscribe to and enable [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295).
 

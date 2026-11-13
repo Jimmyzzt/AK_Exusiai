@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Patching.Models;
@@ -21,8 +22,8 @@ internal sealed class CardAttackIntervalPatch : IPatchMethod
     public static ModPatchTarget[] GetTargets() =>
     [
         PatchTarget.AsyncMethod(typeof(CreatureCmd), nameof(CreatureCmd.Damage),
-            typeof(PlayerChoiceContext), typeof(IEnumerable<Creature>), typeof(decimal), typeof(ValueProp),
-            typeof(Creature), typeof(CardModel), typeof(CardPlay))
+            typeof(PlayerChoiceContext), typeof(IEnumerable<DamageTargetData>), typeof(decimal), typeof(ValueProp),
+            typeof(Creature), typeof(CardModel), typeof(CardPlay), typeof(ModifyDamageHookType))
     ];
 
     private static readonly MethodInfo OriginalWait = AccessTools.DeclaredMethod(typeof(Cmd), nameof(Cmd.CustomScaledWait),

@@ -13,7 +13,7 @@
 - **企鹅物流**：通过快递暂时寄出遗物换取收益，再用中转调度临时遗物；八位企鹅物流成员会以物流卡登场。
 - **干扰与沉默**：降低敌人的攻击，并使其被动能力暂时失效。
 
-当前包含 104 张卡牌：91 张角色卡（含 5 张多人卡、初始牌和先古牌）、11 张衍生牌和 2 张诅咒；另有 9 件角色遗物、3 瓶药水，以及能天使与新约能天使两组角色骨骼、共 6 套时装。
+当前本地构建注册 105 张卡牌（91 张角色卡、12 张衍生牌、2 张诅咒）；另有 9 件角色遗物、6 瓶药水、拉特兰与企鹅物流两位先古之民及其 20 件遗物，以及能天使与新约能天使两组角色骨骼、共 6 套时装。
 
 | 角色与外观 | 战斗与卡牌 |
 | --- | --- |
@@ -21,9 +21,9 @@
 
 ## 安装与兼容
 
-本 Mod 目前面向游戏测试分支，发布时支持的具体版本以工坊页面为准。前置依赖为 [RitsuLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。多人游戏请保持游戏、Mod、依赖版本以及内容 Mod 加载顺序一致。
+本地源码目前面向游戏测试分支 v0.113.0，前置依赖 [RitsuLib 0.6.11](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。[工坊页面](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321)中的实际上传版本可能较旧；多人游戏请保持游戏、Mod、依赖版本以及内容 Mod 加载顺序一致。
 
-工坊页面上线后将在这里补充订阅链接。GitHub 的 **Download ZIP 是源码，不是可直接安装的 Mod 包**。若使用维护者提供的手动安装包，请将 `AK_Exusiai.dll`、`AK_Exusiai.pck` 和 `AK_Exusiai.json` 放入游戏的 `mods/AK_Exusiai/`，并安装匹配版本的 RitsuLib。
+GitHub 的 **Download ZIP 是源码，不是可直接安装的 Mod 包**。若使用维护者提供的手动安装包，请将 `AK_Exusiai.dll`、`AK_Exusiai.pck` 和 `AK_Exusiai.json` 放入游戏的 `mods/AK_Exusiai/`，并安装匹配版本的 RitsuLib。
 
 ## 反馈
 
@@ -51,6 +51,6 @@ dotnet build .\AK_Exusiai.csproj
 
 ## English
 
-Exusiai of Penguin Logistics is bringing Ammo, Overload, angelic blessings, and a whole logistics crew to the Spire. The mod includes 104 cards, 9 character relics, 3 potions, six appearances across Exusiai and Exusiai the New Covenant, and both Simplified Chinese and English localization.
+Exusiai of Penguin Logistics is bringing Ammo, Overload, angelic blessings, and a whole logistics crew to the Spire. The current local build registers 105 cards, 9 character relics, 6 potions, two Ancients with 20 relics, six appearances across Exusiai and Exusiai the New Covenant, and both Simplified Chinese and English localization.
 
-RitsuLib is required. The mod currently targets the game's beta branch; consult the future Workshop page for the exact supported version. See the [English Workshop description](docs/workshop/description.en.md) for the full feature list and feedback instructions.
+RitsuLib 0.6.11 is required for the local beta v0.113.0 build. Check the [Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321) for the version actually uploaded. See the [English Workshop description](docs/workshop/description.en.md) for the full feature list and feedback instructions.

@@ -89,12 +89,12 @@ public sealed class StudyTourCertificate : ExusiaiAncientRelic
 
     public override bool TryModifyRestSiteOptions(Player player, ICollection<RestSiteOption> options)
     {
-        if (player != Owner)
+        if (player != Owner || options is not IList<RestSiteOption> list)
             return false;
-        SmithRestSiteOption? smith = options.OfType<SmithRestSiteOption>().FirstOrDefault();
-        if (smith is null)
+        int index = list.ToList().FindIndex(option => option is SmithRestSiteOption);
+        if (index < 0)
             return false;
-        smith.SmithCount++;
+        list[index] = new StudyTourSmithRestSiteOption(player);
         return true;
     }
 
@@ -585,7 +585,7 @@ public sealed class CompanyVan : ExusiaiAncientRelic
         }
     }
 
-    public override bool IsAllowed(MegaCrit.Sts2.Core.Runs.IRunState runState) => runState.Players.Count == 1;
+    protected override bool IsAllowedInternal(MegaCrit.Sts2.Core.Runs.IRunState runState) => runState.Players.Count == 1;
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {

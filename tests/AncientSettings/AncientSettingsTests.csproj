@@ -10,9 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <CompilerVisibleProperty Include="GodotProjectDir" />
+    <PackageReference Include="STS2.RitsuLib" Version="$(RitsuLibVersion)" GeneratePathProperty="true" />
     <ProjectReference Include="../../AK_Exusiai.csproj" />
     <Reference Include="sts2" HintPath="$(Sts2Dir)/data_sts2_windows_x86_64/sts2.dll" />
     <Reference Include="GodotSharp" HintPath="$(Sts2Dir)/data_sts2_windows_x86_64/GodotSharp.dll" />
     <Reference Include="0Harmony" HintPath="$(Sts2Dir)/data_sts2_windows_x86_64/0Harmony.dll" />
+    <!-- This console test runs outside the game, so copy framework assemblies only into its own output. -->
+    <Content Include="$(PkgSTS2_RitsuLib)/lib/net9.0/STS2-RitsuLib*.dll" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

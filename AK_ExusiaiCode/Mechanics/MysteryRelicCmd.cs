@@ -41,7 +41,12 @@ public static class MysteryRelicCmd
         // All players shuffle the same ordered pool, then take their own slot.
         // With matching unlock pools this guarantees distinct results until the
         // pool is exhausted, while remaining deterministic across peers/load.
-        new Rng(player.RunState.Rng.Seed, RngName).Shuffle(candidates);
+        Rng rng = new(player.RunState.Rng.Seed, RngName);
+        for (int i = candidates.Count - 1; i > 0; i--)
+        {
+            int j = rng.NextInt(i + 1);
+            (candidates[i], candidates[j]) = (candidates[j], candidates[i]);
+        }
         int playerSlot = Math.Max(0, player.RunState.GetPlayerSlotIndex(player));
         RelicModel selected = candidates[playerSlot % candidates.Count];
         PersistReveal(player, selected.Id);

@@ -8,7 +8,7 @@
 
 若目标概率为 `p`，其他候选权重之和为 `S`，则本 Mod 目标权重为 `p*S/(1-p)`；0%排除目标，100%仅保留目标。另一模组若把本 Mod 的两位先古放在同一池，则同时处理两位的设置：可满足的概率共用剩余权重；请求合计达到100%时按请求比例分配；多个“必定出现”之间等分。这只处理数学上不能同时满足的冲突，常规第二/三幕彼此独立。
 
-补丁仅包装 `ActModel.GenerateRooms` 内一个可识别的 `Rng.NextItem<AncientEventModel>` 或 `WeightedNextItem<AncientEventModel>` 调用，并尽量在其他 transpiler 之后运行。另一个模组若完全替换这段抽选、出现多个抽选调用或绕过此方法，本 Mod 保留其实现并记录提示；这时额外选项可能无法作用于它，不阻断该模组加载。不能据此承诺任意第三方补丁组合都兼容。
+补丁仅包装 v0.113.0 的 `ActModel.GenerateRooms(Rng, UnlockState, bool, bool)` 内一个可识别的 `Rng.NextItem<AncientEventModel>` 或 `WeightedNextItem<AncientEventModel>` 调用，并尽量在其他 transpiler 之后运行。另一个模组若完全替换这段抽选、出现多个抽选调用或绕过此方法，本 Mod 保留其实现并记录提示；这时额外选项可能无法作用于它，不阻断该模组加载。不能据此承诺任意第三方补丁组合都兼容。
 
 本地选项存于 `user://AK_Exusiai/ancients.json`。开局通过 RitsuLib `RunSavedData` 的共享槽 `ancientAppearance` 捕获房主配置，随开局消息传给客机并进入存档；客机贡献不能覆盖共享槽，客机本地偏好不参与本局抽选。缺少快照的额外生成入口沿用原有抽选，不回退到客机本地设置。
 

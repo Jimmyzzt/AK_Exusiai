@@ -38,7 +38,7 @@ public sealed class CoveringFire : ExusiaiCardTemplate
         {
             for (int i = 0; i < ammoSpent; i++)
             {
-                await PowerCmd.Apply<CoveringFirePower>(choiceContext, enemy,
+                await PowerCmd.Apply<AK_Exusiai.Powers.CoveringFirePower>(choiceContext, enemy,
                     DynamicVars["StrengthLoss"].BaseValue, Owner.Creature, this);
             }
         }

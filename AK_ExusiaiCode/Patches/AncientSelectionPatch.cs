@@ -6,6 +6,7 @@ using HarmonyLib;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Unlocks;
 using STS2RitsuLib.Patching.Models;
 
 namespace AK_Exusiai.Patches;
@@ -14,7 +15,11 @@ internal sealed class AncientSelectionPatch : IPatchMethod
 {
     public static string PatchId => "configured-ancient-selection";
     public static string Description => "Apply explicit host Ancient preferences while preserving default selection";
-    public static ModPatchTarget[] GetTargets() => [PatchTarget.Method<ActModel>(nameof(ActModel.GenerateRooms))];
+    public static ModPatchTarget[] GetTargets() =>
+    [
+        PatchTarget.Method(typeof(ActModel), nameof(ActModel.GenerateRooms),
+            [typeof(Rng), typeof(UnlockState), typeof(bool), typeof(bool)])
+    ];
 
     [HarmonyPriority(Priority.Last)]
     public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
