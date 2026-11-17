@@ -8,17 +8,17 @@
 - 角色：能天使 / Exusiai；初始最大生命 77，初始金币 99。
 - 当前卡牌设计：`docs/AK_Exusiai-Card_V1.3.csv`；V1.3 更新说明见 `docs/workshop/CHANGELOG_V1.3.md`，V1.2 卡表与旧记录也位于 `docs/archive/`。
 - 遗物与药水设计：`docs/AK_Exusiai-Relic_Potion_V1.2.csv`。
-- 当前状态：Mod 已发布；本地源码已适配游戏 v0.113.0，仍需实机逐项回归并由维护者发布。正式卡图、六套外观、能量 UI、转场与卡牌音效已接入。内容统计、构建证据和待验项目只维护在进度页，不把源码实现写成已在线发布。
+- 当前状态：Mod 已发布；同一份本地源码可分别编译游戏正式版 v0.111.1 与测试版 v0.113.1，仍需实机逐项回归并由维护者上传。正式卡图、六套外观、能量 UI、转场与卡牌音效已接入。内容统计、构建证据和待验项目只维护在进度页，不把源码实现写成已在线发布。
 - 当前进度和待测项只维护在 `docs/PROGRESS.md`，不要在本页追加流水账。
 
 设计 CSV 由双方在线定稿后导出。实现任务应只做必要的名称/稀有度一致性修正，不机械重排或覆盖设计内容。新卡英文名用于确定默认类名；已发布公开 ID、类名和存档字段必须保持稳定，改展示名不等于改 ID。确需破坏兼容的迁移先与维护者确认。
 
 ## 2. 工具链与构建
 
-- 游戏基线：Slay the Spire 2 public beta `v0.113.0`（2026-11-13 本机验证）。
+- 游戏基线：Slay the Spire 2 正式版 `v0.111.1` 与 public beta `v0.113.1`（2026-11-17 本机验证）。
 - Godot：4.5.1 Mono。
 - .NET SDK：9.x；目标框架 `net9.0`。
-- RitsuLib：编译依赖和清单最低运行时依赖均为 `STS2.RitsuLib` 0.6.11。编译版本集中在 `Directory.Build.props`，主工程与控制台测试共用。本机 2026-11-13 核对的工坊运行时为 0.6.11，包含游戏 API 0.113.0 的兼容程序集。后续每次构建或发布前核对 NuGet 最新稳定版，升级编译版本与清单最低版本，并回归；保留明确版本号以便复现构建。
+- RitsuLib：编译和清单最低运行时版本均为 0.6.14。`Directory.Build.props` 按 `GameApiTarget` 选择 beta 的 `STS2.RitsuLib` 或正式版的 `STS2.RitsuLib.Compat.0.111.0`；本机工坊运行时 0.6.14 同时包含两套兼容程序集。后续每次构建或发布前核对 NuGet 最新稳定版，升级编译版本与清单最低版本，并回归；保留明确版本号以便复现构建。
 - 各自通过未跟踪的 `local.props` 配置游戏和 Godot 路径；模板见 `local.props.template`。共享文件不得包含绝对路径。
 
 游戏、NuGet 编译包和工坊 RitsuLib 运行时必须在所用 API 上兼容；版本号相同也不能代替兼容性验证。以最新稳定版为开发基线；更新时先核对游戏 API、NuGet 包和工坊运行时，再编译并回归。历史审计记录见 `docs/archive/FRAMEWORK_AUDIT.md`。
@@ -28,6 +28,8 @@
 ```powershell
 dotnet build .\AK_Exusiai.csproj
 ```
+
+默认命令以 0.113 API 开发和部署。正式发布的两套包分别执行 `tools/build-workshop-variant.ps1 -Branch public` 和 `-Branch public-beta`；当前游戏安装须与分支匹配，或用 `-GameDataDir` 提供对应 DLL 与 `release_info.json` 快照。脚本把 DLL、PCK、JSON 分别写到 `dist/workshop/public/` 与 `dist/workshop/public-beta/`，不改游戏 `mods/`。正式版清单的最低游戏版本为 0.111.1，测试版为 0.113.0。上传时使用同一工坊条目，并将每次内容上传的最早、最新支持分支均设为对应的 `public` 或 `public-beta`；两项都不要留作 `Any`。
 
 需要无界面验证运行时加载时，先按本机 `local.props` 设置 `$sts2GameDir`，并将 `$smokeLogPath` 设为可写日志路径；再在游戏安装目录设置 Steam App ID 后启动。已在 2026-09-28 验证能正常初始化 Steamworks、Mod 注册和补丁。`SlayTheSpire2.exe` 是启动器，命令返回后游戏进程可能仍在运行，要等进程退出并检查指定日志，再进行下一次构建。
 
@@ -135,7 +137,7 @@ dotnet build .\AK_Exusiai.csproj /p:RunPckExport=false /p:CopyModOnBuild=false
 - `ModelDb` 构造阶段得到规范模型。构造函数和默认能力附加阶段不得调用要求可变模型的 `AddKeyword`、`RemoveKeyword` 等 API；固定关键词放入 `CanonicalKeywords`，动态修改前检查 `card.IsMutable`。
 - 加载失败先查依赖版本、Mod ID、本地化键、资源路径、规范模型异常和 patch 报告。
 - 战斗开始时向手牌生成卡牌应参考原版 `BigHat`，在玩家首个 `AfterSideTurnStart` 结算；`BeforeCombatStart` 更适合资源和能力初始化，不保证手牌已可安全写入。
-- v0.113.0：原版 `SingletonModel` 已移除；全局战斗 Hook 模型改用 RitsuLib `HookedSingletonModel(HookType.Combat)`，由 RunModel 注册并从当前 `RunState.RunModels` 获取，不再手动订阅旧 CombatState Hook。`CreatureCmd.Damage` 的核心异步重载现使用 `IEnumerable<DamageTargetData>` 和 `ModifyDamageHookType`；相关异步补丁必须重新确认签名及调用点。`ActModel.GenerateRooms` 有两个重载，先古抽选在 `Rng, UnlockState, bool, bool` 重载中。原版 `SmithRestSiteOption` 已封闭，需通过 `TryModifyRestSiteOptions` 换用自己的选项。
+- v0.113.0：原版 `SingletonModel` 已移除；全局战斗 Hook 模型改用 RitsuLib `HookedSingletonModel(HookType.Combat)`，由 RunModel 注册并从当前 `RunState.RunModels` 获取。`CreatureCmd.Damage` 的核心异步重载使用 `IEnumerable<DamageTargetData>` 和 `ModifyDamageHookType`；`ActModel.GenerateRooms` 的先古抽选位于 `Rng, UnlockState, bool, bool` 重载。v0.111 构建仍使用同一 Hook 模型，但从 `ModelDb.Singleton` 获取实例，攻击命令和先古抽选分别使用旧签名。异步补丁必须校验目标调用点；原版 `SmithRestSiteOption` 在 v0.113 已封闭，当前通过 `TryModifyRestSiteOptions` 换用自己的选项。
 
 ### 数值、费用与本地化
 

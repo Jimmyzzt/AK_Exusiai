@@ -1,5 +1,13 @@
 <Project>
   <PropertyGroup>
-    <RitsuLibVersion>0.6.11</RitsuLibVersion>
+    <GameApiTarget Condition="'$(GameApiTarget)' == ''">0.113.0</GameApiTarget>
+    <RitsuLibVersion>0.6.14</RitsuLibVersion>
+    <RitsuLibPackageId Condition="'$(GameApiTarget)' == '0.111.0'">STS2.RitsuLib.Compat.0.111.0</RitsuLibPackageId>
+    <RitsuLibPackageId Condition="'$(GameApiTarget)' == '0.113.0'">STS2.RitsuLib</RitsuLibPackageId>
+    <DefineConstants Condition="'$(GameApiTarget)' == '0.111.0'">$(DefineConstants);STS2_0111</DefineConstants>
+    <DefineConstants Condition="'$(GameApiTarget)' == '0.113.0'">$(DefineConstants);STS2_0113</DefineConstants>
+    <BaseIntermediateOutputPath Condition="'$(VariantBuild)' == 'true'">obj\variants\$(GameApiTarget)\</BaseIntermediateOutputPath>
+    <BaseOutputPath Condition="'$(VariantBuild)' == 'true'">bin\variants\$(GameApiTarget)\</BaseOutputPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj/**;bin/**;.godot/**;**/.godot/**</DefaultItemExcludes>
   </PropertyGroup>
 </Project>

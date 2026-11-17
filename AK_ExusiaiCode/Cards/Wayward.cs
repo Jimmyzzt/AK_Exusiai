@@ -31,7 +31,11 @@ public sealed class Wayward : ExusiaiCardTemplate
             await ApplyPenalty(choiceContext);
     }
 
+#if STS2_0111
+    public override void AfterTransformedTo()
+#else
     protected override void AfterThisWasTransformedIntoInternal(CardModel card)
+#endif
     {
         if (Owner.Creature.CombatState != null)
             TaskHelper.RunSafely(ApplyPenalty(new BlockingPlayerChoiceContext()));

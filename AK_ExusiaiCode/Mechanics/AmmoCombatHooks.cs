@@ -366,10 +366,15 @@ internal sealed class AmmoCombatHooks : HookedSingletonModel, ISecondaryResource
             return;
         }
 
+#if STS2_0111
+        AmmoCombatHooks source = ModelDb.Singleton<AmmoCombatHooks>();
+#else
+        AmmoCombatHooks source = cardPlay.Player.RunState.RunModels.OfType<AmmoCombatHooks>().Single();
+#endif
         if (cardPlay.Card is IAmmoSpendAllAttack)
-            await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, cardPlay.Player.RunState.RunModels.OfType<AmmoCombatHooks>().Single());
+            await info.TrySpendAllForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, source);
         else
-            await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, cardPlay.Player.RunState.RunModels.OfType<AmmoCombatHooks>().Single());
+            await info.TrySpendForHit(cardPlay.Player, AmmoResource.Id, cardPlay.Card, source);
 
         if (info.Mode == AmmoAttackMode.Overloaded && info.CurrentHitLogicalAmmoSpent > 0)
             await NotifyOverloadAmmoSpent(cardPlay.Player, info.CurrentHitLogicalAmmoSpent);

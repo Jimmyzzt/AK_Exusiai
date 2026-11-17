@@ -17,8 +17,13 @@ internal sealed class AncientSelectionPatch : IPatchMethod
     public static string Description => "Apply explicit host Ancient preferences while preserving default selection";
     public static ModPatchTarget[] GetTargets() =>
     [
+#if STS2_0111
+        PatchTarget.Method(typeof(ActModel), nameof(ActModel.GenerateRooms),
+            [typeof(Rng), typeof(UnlockState), typeof(bool)])
+#else
         PatchTarget.Method(typeof(ActModel), nameof(ActModel.GenerateRooms),
             [typeof(Rng), typeof(UnlockState), typeof(bool), typeof(bool)])
+#endif
     ];
 
     [HarmonyPriority(Priority.Last)]

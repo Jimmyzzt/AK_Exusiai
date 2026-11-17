@@ -19,7 +19,11 @@ internal sealed class ExusiaiCharacterSelectSfxPatch : IPatchMethod
         PatchTarget.Method(
             typeof(NCharacterSelectScreen),
             nameof(NCharacterSelectScreen.SelectCharacter),
+#if STS2_0111
+            [typeof(NCharacterSelectButton), typeof(CharacterModel)]),
+#else
             [typeof(NCharacterSelectButton)]),
+#endif
     ];
 
     public static void Postfix(NCharacterSelectButton charSelectButton)

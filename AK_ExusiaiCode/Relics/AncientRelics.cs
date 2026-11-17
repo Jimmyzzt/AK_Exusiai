@@ -585,7 +585,11 @@ public sealed class CompanyVan : ExusiaiAncientRelic
         }
     }
 
+#if STS2_0111
+    public override bool IsAllowed(MegaCrit.Sts2.Core.Runs.IRunState runState) => runState.Players.Count == 1;
+#else
     protected override bool IsAllowedInternal(MegaCrit.Sts2.Core.Runs.IRunState runState) => runState.Players.Count == 1;
+#endif
 
     public override Task AfterRoomEntered(AbstractRoom room)
     {

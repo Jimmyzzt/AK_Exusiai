@@ -21,9 +21,15 @@ internal sealed class CardAttackIntervalPatch : IPatchMethod
 
     public static ModPatchTarget[] GetTargets() =>
     [
+#if STS2_0111
+        PatchTarget.AsyncMethod(typeof(CreatureCmd), nameof(CreatureCmd.Damage),
+            typeof(PlayerChoiceContext), typeof(IEnumerable<Creature>), typeof(decimal), typeof(ValueProp),
+            typeof(Creature), typeof(CardModel), typeof(CardPlay))
+#else
         PatchTarget.AsyncMethod(typeof(CreatureCmd), nameof(CreatureCmd.Damage),
             typeof(PlayerChoiceContext), typeof(IEnumerable<DamageTargetData>), typeof(decimal), typeof(ValueProp),
             typeof(Creature), typeof(CardModel), typeof(CardPlay), typeof(ModifyDamageHookType))
+#endif
     ];
 
     private static readonly MethodInfo OriginalWait = AccessTools.DeclaredMethod(typeof(Cmd), nameof(Cmd.CustomScaledWait),

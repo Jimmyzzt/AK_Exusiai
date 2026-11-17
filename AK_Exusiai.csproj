@@ -7,9 +7,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublicizerRuntimeStrategies>Unsafe</PublicizerRuntimeStrategies>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>AK_Exusiai</RootNamespace>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+    <IntermediateOutputPath Condition="'$(VariantBuild)' == 'true'">$(MSBuildProjectDirectory)\obj\variants\$(GameApiTarget)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath Condition="'$(VariantBuild)' == 'true'">$(MSBuildProjectDirectory)\bin\variants\$(GameApiTarget)\$(Configuration)\</OutputPath>
     <PathMap>$(AppOutputBase)=.\</PathMap>
     <NoWarn>$(NoWarn);MSB3270;CS0436</NoWarn>
 
@@ -26,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Krafs.Publicizer" Version="2.3.2" PrivateAssets="all" />
-    <PackageReference Include="STS2.RitsuLib" Version="$(RitsuLibVersion)" GeneratePathProperty="true" />
+    <PackageReference Include="$(RitsuLibPackageId)" Version="$(RitsuLibVersion)" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>

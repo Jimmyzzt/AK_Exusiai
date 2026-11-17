@@ -21,7 +21,7 @@
 
 ## 安装与兼容
 
-本地源码目前面向游戏测试分支 v0.113.0，前置依赖 [RitsuLib 0.6.11](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。[工坊页面](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321)中的实际上传版本可能较旧；多人游戏请保持游戏、Mod、依赖版本以及内容 Mod 加载顺序一致。
+本地源码现可分别构建游戏正式版 v0.111.1 和测试版 v0.113.1，前置依赖 [RitsuLib 0.6.14](https://steamcommunity.com/sharedfiles/filedetails/?id=3747602295)。[工坊页面](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321)中的实际上传版本可能较旧；多人游戏请保持游戏、Mod、依赖版本以及内容 Mod 加载顺序一致。
 
 GitHub 的 **Download ZIP 是源码，不是可直接安装的 Mod 包**。若使用维护者提供的手动安装包，请将 `AK_Exusiai.dll`、`AK_Exusiai.pck` 和 `AK_Exusiai.json` 放入游戏的 `mods/AK_Exusiai/`，并安装匹配版本的 RitsuLib。
 
@@ -39,7 +39,7 @@ GitHub 的 **Download ZIP 是源码，不是可直接安装的 Mod 包**。若�
 dotnet build .\AK_Exusiai.csproj
 ```
 
-完整构建前请退出游戏。仓库目前没有统一代码许可证；源码公开不代表项目内全部代码和素材获得任意用途的授权。
+上面的命令默认使用 0.113 API。双分支发布包使用 `tools/build-workshop-variant.ps1 -Branch public` 或 `-Branch public-beta`，两者分别输出到 `dist/workshop/` 下的独立目录，构建时不会部署到游戏。当前游戏安装必须与目标分支匹配；也可用 `-GameDataDir` 指向包含目标游戏 DLL 和 `release_info.json` 的快照。完整构建前请退出游戏。仓库目前没有统一代码许可证；源码公开不代表项目内全部代码和素材获得任意用途的授权。
 
 ## 致谢
 
@@ -53,4 +53,4 @@ dotnet build .\AK_Exusiai.csproj
 
 Exusiai of Penguin Logistics is bringing Ammo, Overload, angelic blessings, and a whole logistics crew to the Spire. The current local build registers 105 cards, 9 character relics, 6 potions, two Ancients with 20 relics, six appearances across Exusiai and Exusiai the New Covenant, and both Simplified Chinese and English localization.
 
-RitsuLib 0.6.11 is required for the local beta v0.113.0 build. Check the [Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321) for the version actually uploaded. See the [English Workshop description](docs/workshop/description.en.md) for the full feature list and feedback instructions.
+The local source now builds separately for stable v0.111.1 and beta v0.113.1, both requiring RitsuLib 0.6.14. Check the [Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3801483321) for the version actually uploaded. See the [English Workshop description](docs/workshop/description.en.md) for the feature list and feedback instructions.
